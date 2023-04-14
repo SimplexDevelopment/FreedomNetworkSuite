@@ -1,3 +1,14 @@
+[acf]: https://github.com/aikar/commands "Annotation Command Framework"
+[react]: https://github.com/reactor/reactor-core "ProjectReactor"
+[gson]: https://github.com/google/gson "Google GSON"
+[annot]: https://github.com/JetBrains/JetBrains.Annotations "JetBrains Annotations"
+[lombok]: https://github.com/projectlombok/lombok "Lombok"
+[apache]: https://github.com/apache/commons-lang "Apache Commons"
+[log]: https://github.com/qos-ch/slf4j "SLF4J"
+[paper]: https://github.com/PaperMC/Paper "Paper"
+[adv]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
+[reflex]: https://github.com/ronmamo/reflections "Reflections API"
+
 # FreedomNetworkSuite
 
 This is a proof of concept for a new suite of non-plugin driven modules supported by a common library.
@@ -10,13 +21,13 @@ Modules are defined by a module.yml in the resources folder, which contains the 
 and a list of dependencies if it requires any other modules to run. 
 
 This proof-of-concept also uses the following libraries:
- - Aikar's Annotation Command Framework for command handling
- - ProjectReactor for subscribing to SQL database streams
- - Google GSON for Json interpretation
- - Jetbrains Annotations for additional compiler annotations
- - Lombok for boilerplate generation
- - Apache Commons for various utilities
- - SLF4J for logging
- - Paper for the server implementation
- - Kyori Adventure for chat formatting
- - Reflections API for reflections
+ - Aikar's [acf] for command handling
+ - [react] for subscribing to SQL database streams
+ - [gson] for Json interpretation
+ - [annot] for additional compiler annotations
+ - [lombok] for boilerplate generation
+ - [apache] for various utilities
+ - [log] for logging
+ - [paper] for the server implementation
+ - [adv] for chat formatting
+ - [reflex] for reflections
