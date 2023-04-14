@@ -21,7 +21,7 @@ Modules are defined by a module.yml in the resources folder, which contains the 
 and a list of dependencies if it requires any other modules to run. 
 
 This proof-of-concept also uses the following libraries:
- - Aikar's [Annotated Command Framework] for command handling
+ - Aikar's [Annotation Command Framework] for command handling
  - [ProjectReactor] for subscribing to SQL database streams
  - [Google GSON] for Json interpretation
  - [Jetbrains Annotations] for additional compiler annotations
