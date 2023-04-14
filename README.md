@@ -1,13 +1,13 @@
-[acf]: https://github.com/aikar/commands "Annotation Command Framework"
-[react]: https://github.com/reactor/reactor-core "ProjectReactor"
-[gson]: https://github.com/google/gson "Google GSON"
-[annot]: https://github.com/JetBrains/JetBrains.Annotations "JetBrains Annotations"
-[lombok]: https://github.com/projectlombok/lombok "Lombok"
-[apache]: https://github.com/apache/commons-lang "Apache Commons"
-[log]: https://github.com/qos-ch/slf4j "SLF4J"
-[paper]: https://github.com/PaperMC/Paper "Paper"
-[adv]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
-[reflex]: https://github.com/ronmamo/reflections "Reflections API"
+[Annotation Command Framework]: https://github.com/aikar/commands "Annotation Command Framework"
+[ProjectReactor]: https://github.com/reactor/reactor-core "ProjectReactor"
+[Google GSON]: https://github.com/google/gson "Google GSON"
+[Jetbrains Annotations]: https://github.com/JetBrains/JetBrains.Annotations "JetBrains Annotations"
+[Lombok]: https://github.com/projectlombok/lombok "Lombok"
+[Apache Commons]: https://github.com/apache/commons-lang "Apache Commons"
+[SLF4J]: https://github.com/qos-ch/slf4j "SLF4J"
+[Paper]: https://github.com/PaperMC/Paper "Paper"
+[Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
+[Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
 
 # FreedomNetworkSuite
 
@@ -21,13 +21,13 @@ Modules are defined by a module.yml in the resources folder, which contains the 
 and a list of dependencies if it requires any other modules to run. 
 
 This proof-of-concept also uses the following libraries:
- - Aikar's [acf] for command handling
- - [react] for subscribing to SQL database streams
- - [gson] for Json interpretation
- - [annot] for additional compiler annotations
- - [lombok] for boilerplate generation
- - [apache] for various utilities
- - [log] for logging
- - [paper] for the server implementation
- - [adv] for chat formatting
- - [reflex] for reflections
+ - Aikar's [Annotated Command Framework] for command handling
+ - [ProjectReactor] for subscribing to SQL database streams
+ - [Google GSON] for Json interpretation
+ - [Jetbrains Annotations] for additional compiler annotations
+ - [Lombok] for boilerplate generation
+ - [Apache Commons] for various utilities
+ - [SLF4J] for logging
+ - [Paper] for the server implementation
+ - [Kyori Adventure] for chat formatting
+ - [Reflections API] for reflections
