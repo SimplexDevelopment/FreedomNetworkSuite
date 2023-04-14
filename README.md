@@ -1,4 +1,4 @@
-[Annotation Command Framework]: https://github.com/aikar/commands "Annotation Command Framework"
+[Aikar's ACF]: https://github.com/aikar/commands "Annotation Command Framework"
 [ProjectReactor]: https://github.com/reactor/reactor-core "ProjectReactor"
 [Google GSON]: https://github.com/google/gson "Google GSON"
 [Jetbrains Annotations]: https://github.com/JetBrains/JetBrains.Annotations "JetBrains Annotations"
@@ -21,7 +21,7 @@ Modules are defined by a module.yml in the resources folder, which contains the 
 and a list of dependencies if it requires any other modules to run. 
 
 This proof-of-concept also uses the following libraries:
- - Aikar's [Annotation Command Framework] for command handling
+ - [Aikar's ACF] for command handling
  - [ProjectReactor] for subscribing to SQL database streams
  - [Google GSON] for Json interpretation
  - [Jetbrains Annotations] for additional compiler annotations
