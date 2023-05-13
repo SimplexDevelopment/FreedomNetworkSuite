@@ -1,9 +1,6 @@
 package me.totalfreedom.base;
 
-import me.totalfreedom.data.CommandRegistry;
-import me.totalfreedom.data.EventRegistry;
-import me.totalfreedom.data.ServiceRegistry;
-import me.totalfreedom.data.UserRegistry;
+import me.totalfreedom.data.*;
 
 public class Registration
 {
@@ -11,6 +8,7 @@ public class Registration
     private final EventRegistry eventRegistry;
     private final UserRegistry userRegistry;
     private final ServiceRegistry serviceRegistry;
+    private final ModuleRegistry moduleRegistry;
 
     public Registration()
     {
@@ -18,6 +16,12 @@ public class Registration
         this.eventRegistry = new EventRegistry();
         this.userRegistry = new UserRegistry();
         this.serviceRegistry = new ServiceRegistry();
+        this.moduleRegistry = new ModuleRegistry();
+    }
+
+    public ModuleRegistry getModuleRegistry()
+    {
+        return moduleRegistry;
     }
 
     public CommandRegistry getCommandRegistry()

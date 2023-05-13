@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommonsBase extends JavaPlugin
 {
     private final EventBus eventBus = new EventBus(this);
+    private final Registration registration = new Registration();
 
     public static CommonsBase getInstance()
     {
@@ -33,5 +34,9 @@ public class CommonsBase extends JavaPlugin
     public RegisteredServiceProvider<EventBus> getEventBus()
     {
         return Bukkit.getServicesManager().getRegistration(EventBus.class);
+    }
+
+    public Registration getRegistrations() {
+        return registration;
     }
 }

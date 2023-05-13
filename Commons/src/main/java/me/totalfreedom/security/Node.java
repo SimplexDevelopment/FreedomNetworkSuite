@@ -7,17 +7,17 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public interface Node
 {
-    String getKey();
+    String key();
 
-    boolean getValue();
+    boolean value();
 
     Permission bukkit();
 
-    NodeType getType();
+    NodeType type();
 
     boolean compare(Node node);
 
-    long getExpiry();
+    long expiry();
 
     boolean isExpired();
 
@@ -25,7 +25,7 @@ public interface Node
 
     boolean isTemporary();
 
-    boolean isWildcard();
+    boolean wildcard();
 
-    boolean isNegated();
+    boolean negated();
 }
