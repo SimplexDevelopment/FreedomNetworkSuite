@@ -1,8 +1,7 @@
 package me.totalfreedom.data;
 
 import co.aikar.commands.*;
-import me.totalfreedom.base.CommonsJavaPlugin;
-import org.bukkit.plugin.java.JavaPlugin;
+import me.totalfreedom.base.CommonsBase;
 
 public class CommandRegistry
 {
@@ -16,7 +15,7 @@ public class CommandRegistry
 
     public CommandRegistry()
     {
-        this.manager = new PaperCommandManager(JavaPlugin.getPlugin(CommonsJavaPlugin.class));
+        this.manager = new PaperCommandManager(CommonsBase.getInstance());
         this.contexts = new PaperCommandContexts(manager);
         this.completions = new PaperCommandCompletions(manager);
         this.replacements = manager.getCommandReplacements();
@@ -50,11 +49,13 @@ public class CommandRegistry
         return conditions;
     }
 
-    public void register(BaseCommand cmd) {
+    public void register(BaseCommand cmd)
+    {
         manager.registerCommand(cmd);
     }
 
-    public void unregister(BaseCommand cmd) {
+    public void unregister(BaseCommand cmd)
+    {
         manager.unregisterCommand(cmd);
     }
 }

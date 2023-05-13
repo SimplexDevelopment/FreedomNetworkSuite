@@ -1,32 +1,23 @@
 package me.totalfreedom.base;
 
-import me.totalfreedom.data.*;
+import me.totalfreedom.data.CommandRegistry;
+import me.totalfreedom.data.EventRegistry;
+import me.totalfreedom.data.ServiceRegistry;
+import me.totalfreedom.data.UserRegistry;
 
 public class Registration
 {
-    private static final Registration INSTANCE = new Registration();
-    private final ModuleRegistry moduleRegistry;
     private final CommandRegistry commandRegistry;
     private final EventRegistry eventRegistry;
     private final UserRegistry userRegistry;
     private final ServiceRegistry serviceRegistry;
 
-    private Registration() {
+    public Registration()
+    {
         this.commandRegistry = new CommandRegistry();
         this.eventRegistry = new EventRegistry();
         this.userRegistry = new UserRegistry();
         this.serviceRegistry = new ServiceRegistry();
-        this.moduleRegistry = new ModuleRegistry();
-    }
-
-    public static Registration getInstance()
-    {
-        return INSTANCE;
-    }
-
-    public ModuleRegistry getModuleRegistry()
-    {
-        return moduleRegistry;
     }
 
     public CommandRegistry getCommandRegistry()
@@ -47,9 +38,5 @@ public class Registration
     public ServiceRegistry getServiceRegistry()
     {
         return serviceRegistry;
-    }
-
-    public CommonsBase getCommonsBase() {
-        return getModuleRegistry().getModule(CommonsBase.class);
     }
 }

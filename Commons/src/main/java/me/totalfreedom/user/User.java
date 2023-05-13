@@ -1,9 +1,7 @@
 package me.totalfreedom.user;
 
-import me.totalfreedom.permission.PermissionHolder;
+import me.totalfreedom.security.PermissionHolder;
 import net.kyori.adventure.text.Component;
-
-import java.util.UUID;
 
 public interface User extends PermissionHolder
 {

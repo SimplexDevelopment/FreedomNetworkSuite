@@ -1,7 +1,6 @@
-package me.totalfreedom.permission;
+package me.totalfreedom.security;
 
 import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionAttachment;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -12,7 +11,7 @@ public interface Node
 
     boolean getValue();
 
-    Permission spigot();
+    Permission bukkit();
 
     NodeType getType();
 
@@ -29,6 +28,4 @@ public interface Node
     boolean isWildcard();
 
     boolean isNegated();
-
-    NodeBuilder builder();
 }

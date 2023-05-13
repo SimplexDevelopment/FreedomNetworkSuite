@@ -1,11 +1,14 @@
 package me.totalfreedom.event;
 
 import me.totalfreedom.api.Context;
-import org.bukkit.event.Cancellable;
 
-public interface FEvent
+public abstract class FEvent
 {
-    void call(Context<?>... contexts);
+    protected FEvent()
+    {
+    }
 
-    void cancel();
+    public abstract void call(Context<?>... contexts);
+
+    public abstract void cancel();
 }

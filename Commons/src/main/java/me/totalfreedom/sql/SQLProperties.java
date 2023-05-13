@@ -7,7 +7,8 @@ public interface SQLProperties
 {
     Properties getProperties(File propertiesFile);
 
-    default Properties getDefaultProperties() {
+    default Properties getDefaultProperties()
+    {
         Properties properties = new Properties();
         properties.setProperty("driver", "sqlite");
         properties.setProperty("host", "localhost");
@@ -30,7 +31,8 @@ public interface SQLProperties
 
     String getPassword();
 
-    default String toURLPlain() {
+    default String toURLPlain()
+    {
         return String.format("jdbc:%s://%s:%s/%s",
                 this.getDriver(),
                 this.getHost(),
@@ -38,7 +40,8 @@ public interface SQLProperties
                 this.getDatabase());
     }
 
-    default String toURLWithLogin() {
+    default String toURLWithLogin()
+    {
         return String.format("jdbc:%s://%s:%s/%s?user=%s&password=%s",
                 this.getDriver(),
                 this.getHost(),

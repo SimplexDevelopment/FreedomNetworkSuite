@@ -1,16 +1,13 @@
-package me.totalfreedom.permission;
+package me.totalfreedom.security;
 
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
-import org.bukkit.permissions.Permission;
 
 import java.util.Set;
 import java.util.UUID;
 
 public interface PermissionHolder extends Permissible
 {
-    PermissionHolder fromPlayer(Player player);
-
     UUID getUniqueId();
 
     Set<Node> permissions();

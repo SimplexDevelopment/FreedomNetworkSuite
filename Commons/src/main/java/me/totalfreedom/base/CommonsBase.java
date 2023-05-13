@@ -1,52 +1,37 @@
 package me.totalfreedom.base;
 
 import me.totalfreedom.event.EventBus;
-import me.totalfreedom.module.Module;
-import me.totalfreedom.utils.Identity;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CommonsBase implements Module<CommonsBase>
+public class CommonsBase extends JavaPlugin
 {
     private final EventBus eventBus = new EventBus(this);
 
+    public static CommonsBase getInstance()
+    {
+        return JavaPlugin.getPlugin(CommonsBase.class);
+    }
 
     @Override
-    public void enable()
+    public void onEnable()
     {
         Bukkit.getServicesManager().register(EventBus.class,
                 eventBus,
-                JavaPlugin.getPlugin(CommonsJavaPlugin.class),
+                this,
                 ServicePriority.High);
     }
 
     @Override
-    public void disable()
+    public void onDisable()
     {
 
     }
 
-    @Override
-    public Identity getIdentity()
+    public RegisteredServiceProvider<EventBus> getEventBus()
     {
-        return null;
-    }
-
-    @Override
-    public Class<CommonsBase> getRuntimeClass()
-    {
-        return CommonsBase.class;
-    }
-
-    @Override
-    public CommonsBase getRuntimeInstance()
-    {
-        return this;
-    }
-
-    public RegisteredServiceProvider<EventBus> getEventBus() {
         return Bukkit.getServicesManager().getRegistration(EventBus.class);
     }
 }

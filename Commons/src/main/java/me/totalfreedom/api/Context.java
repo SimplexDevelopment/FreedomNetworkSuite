@@ -16,78 +16,106 @@ public interface Context<T>
 {
     T get();
 
-    default @Nullable Player asPlayer() {
-        if (get() instanceof Player player) {
+    default @Nullable Player asPlayer()
+    {
+        if (get() instanceof Player player)
+        {
             return player;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable CommandSender asCommandSender() {
-        if (get() instanceof CommandSender commandSender) {
+    default @Nullable CommandSender asCommandSender()
+    {
+        if (get() instanceof CommandSender commandSender)
+        {
             return commandSender;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @NotNull String asLiteral() {
+    default @NotNull String asLiteral()
+    {
         return get().toString();
     }
 
-    default @Nullable World asWorld() {
-        if (get() instanceof World world) {
+    default @Nullable World asWorld()
+    {
+        if (get() instanceof World world)
+        {
             return world;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable Location asLocation() {
-        if (get() instanceof Location location) {
+    default @Nullable Location asLocation()
+    {
+        if (get() instanceof Location location)
+        {
             return location;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable LivingEntity asLivingEntity() {
-        if (get() instanceof LivingEntity livingEntity) {
+    default @Nullable LivingEntity asLivingEntity()
+    {
+        if (get() instanceof LivingEntity livingEntity)
+        {
             return livingEntity;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable Component asComponent() {
-        if (get() instanceof Component component) {
+    default @Nullable Component asComponent()
+    {
+        if (get() instanceof Component component)
+        {
             return component;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable Projectile asProjectile() {
-        if (get() instanceof Projectile projectile) {
+    default @Nullable Projectile asProjectile()
+    {
+        if (get() instanceof Projectile projectile)
+        {
             return projectile;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable Action asAction() {
-        if (get() instanceof Action action) {
+    default @Nullable Action asAction()
+    {
+        if (get() instanceof Action action)
+        {
             return action;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default <U> @Nullable U asCustom(Class<U> clazz) {
-        if (clazz.isInstance(get())) {
+    default <U> @Nullable U asCustom(Class<U> clazz)
+    {
+        if (clazz.isInstance(get()))
+        {
             return clazz.cast(get());
-        } else {
+        } else
+        {
             return null;
         }
     }

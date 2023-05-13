@@ -1,14 +1,9 @@
 package me.totalfreedom.event;
 
 import me.totalfreedom.base.CommonsBase;
-import me.totalfreedom.base.CommonsJavaPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Executable;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,11 +13,13 @@ public class EventBus
     private final Map<Listener, Set<FEvent>> listenerEventMap = new HashMap<>();
     private final CommonsBase plugin;
 
-    public EventBus(CommonsBase plugin) {
+    public EventBus(CommonsBase plugin)
+    {
         this.plugin = plugin;
     }
 
-    void registerListener(Listener listener) {
+    void registerListener(Listener listener)
+    {
         Set<FEvent> eventSet = Arrays.stream(listener.getClass().getDeclaredMethods())
                 .filter(m -> m.isAnnotationPresent(Handler.class))
                 .map(Executable::getParameters)
@@ -33,7 +30,8 @@ public class EventBus
                     try
                     {
                         return (FEvent) p[0].getType().getDeclaredConstructor().newInstance();
-                    } catch (Exception exception) {
+                    } catch (Exception exception)
+                    {
                         exception.printStackTrace();
                         return null;
                     }
@@ -44,19 +42,33 @@ public class EventBus
         listenerEventMap.put(listener, eventSet);
     }
 
-    void unregisterListener(Listener listener) {
+    void unregisterListener(Listener listener)
+    {
         listenerEventMap.remove(listener);
     }
 
-    public void startListening() {
+    public void startListening()
+    {
         listenerSet().forEach(this::registerListener);
     }
 
-    public void stopListening() {
+    public void stopListening()
+    {
         listenerSet().forEach(this::unregisterListener);
     }
 
-    public Set<Listener> listenerSet() {
+    public Set<Listener> listenerSet()
+    {
         return listenerSet;
+    }
+
+    public Map<Listener, Set<FEvent>> listenerEventMap()
+    {
+        return listenerEventMap;
+    }
+
+    public CommonsBase getCommonsBase()
+    {
+        return plugin;
     }
 }

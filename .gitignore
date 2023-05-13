@@ -43,3 +43,13 @@ bin/
 
 .idea
 /gradle
+.idea/codeStyles/codeStyleConfig.xml
+.idea/codeStyles/Project.xml
+.idea/dbnavigator.xml
+.idea/gradle.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/sonarlint/issuestore/index.pb
+.idea/sonarlint/securityhotspotstore/index.pb
+.idea/uiDesigner.xml
+.idea/vcs.xml

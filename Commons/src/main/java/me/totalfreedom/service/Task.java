@@ -1,6 +1,6 @@
 package me.totalfreedom.service;
 
-public interface FreedomService
+public interface Task extends Runnable
 {
     void start();
 

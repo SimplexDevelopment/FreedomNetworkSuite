@@ -1,89 +1,40 @@
 package me.totalfreedom.data;
 
-import me.totalfreedom.module.Module;
-import org.yaml.snakeyaml.Yaml;
+import me.totalfreedom.provider.ModuleProvider;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.file.InvalidPathException;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModuleRegistry
 {
-    private final Set<Module<?>> moduleSet;
+    private final List<JavaPlugin> plugins;
 
     public ModuleRegistry()
     {
-        this.moduleSet = new HashSet<>();
+        this.plugins = new ArrayList<>();
     }
 
-    public Set<? extends Module<?>> getModuleSet()
+    public void addModule(final JavaPlugin plugin)
     {
-        return moduleSet;
-    }
-
-    public void addModule(Module<?> module)
-    {
-        moduleSet.add(module);
-    }
-
-    public void removeModule(Module<?> module)
-    {
-        moduleSet.remove(module);
+        if (this.plugins.contains(plugin))
+        {
+            return;
+        }
+        this.plugins.add(plugin);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T getModule(Class<T> clazz)
+    public <T extends JavaPlugin> ModuleProvider<T> getModule(Class<T> clazz)
     {
-        for (Module<?> module : moduleSet)
+        for (JavaPlugin plugin : plugins)
         {
-            if (module.getRuntimeClass().equals(clazz))
+            if (clazz.isInstance(plugin))
             {
-                // We know that because the runtime class matches,
-                // we can safely infer the type.
-                return (T) module.getRuntimeInstance();
+                return () -> (T) plugin;
             }
         }
-        return null;
-    }
 
-    public void enableModules()
-    {
-        for (Module<?> module : moduleSet)
-        {
-            module.enable();
-        }
-    }
-
-    public void disableModules()
-    {
-        for (Module<?> module : moduleSet)
-        {
-            module.disable();
-        }
-    }
-
-    public boolean isLoaded(Class<Module<?>> module)
-    {
-        return moduleSet.stream()
-                .anyMatch(m ->
-                        m.getRuntimeClass().equals(module));
-    }
-
-    public void unloadModules(File dataFolder)
-    {
-        if (dataFolder.mkdirs()) return;
-        for (Module<?> module : moduleSet)
-        {
-            module.disable();
-            moduleSet.remove(module);
-        }
+        return () -> null;
     }
 }
