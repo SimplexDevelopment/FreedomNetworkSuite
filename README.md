@@ -9,7 +9,7 @@
 [Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
 
 #
-![Header Image](https://media.discordapp.net/attachments/1006003266657730580/1107168973004484628/Paldiu__Dead_Strange_minimalist_modern_abstract_shape_logo_46d44597-b43b-47e3-9192-2e60774a23da.png)
+![Header Image](https://media.discordapp.net/attachments/436759124953399296/1107175759941996544/20230514_002037_0000.png)
 
 ###
 ![GitHub labels](https://img.shields.io/github/labels/SimplexDevelopment/FreedomNetworkSuite/Help%20Wanted?style=for-the-badge)
