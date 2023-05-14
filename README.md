@@ -8,7 +8,7 @@
 [Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
 [Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
 
-#
+##
 ![GitHub labels](https://img.shields.io/github/labels/SimplexDevelopment/FreedomNetworkSuite/Help%20Wanted?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
@@ -16,7 +16,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 
-#
+##
 ![GitHub](https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge)
