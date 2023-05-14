@@ -1,5 +1,4 @@
 [Aikar's ACF]: https://github.com/aikar/commands "Annotation Command Framework"
-[ProjectReactor]: https://github.com/reactor/reactor-core "ProjectReactor"
 [Google GSON]: https://github.com/google/gson "Google GSON"
 [Jetbrains Annotations]: https://github.com/JetBrains/JetBrains.Annotations "JetBrains Annotations"
 [Lombok]: https://github.com/projectlombok/lombok "Lombok"
@@ -8,6 +7,22 @@
 [Paper]: https://github.com/PaperMC/Paper "Paper"
 [Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
 [Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
+
+#
+![GitHub labels](https://img.shields.io/github/labels/SimplexDevelopment/FreedomNetworkSuite/Help%20Wanted?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+
+#
+![GitHub](https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![TFM Used](https://img.shields.io/badge/TFM%20Code%20Used-0%25-red?style=for-the-badge)
 
 # FreedomNetworkSuite
 
@@ -22,7 +37,6 @@ and a list of dependencies if it requires any other modules to run.
 
 This proof-of-concept also uses the following libraries:
  - [Aikar's ACF] for command handling
- - [ProjectReactor] for subscribing to SQL database streams
  - [Google GSON] for Json interpretation
  - [Jetbrains Annotations] for additional compiler annotations
  - [Lombok] for boilerplate generation
