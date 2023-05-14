@@ -7,6 +7,7 @@
 [Paper]: https://github.com/PaperMC/Paper "Paper"
 [Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
 [Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
+[TotalFreedomMod]: https://github.com/AtlasMediaGroup/TotalFreedomMod "TotalFreedomMod"
 
 #####
 ![Header Image](https://media.discordapp.net/attachments/436759124953399296/1107175759941996544/20230514_002037_0000.png)
@@ -29,11 +30,9 @@
 
 # FreedomNetworkSuite
 
-This is a proof of concept for a new suite of non-plugin driven modules supported by a common library.
+This is a proof of concept for a new suite of modules supported by a common library.
 This is designed to encompass the ideologies of a Freedom server, while maintaining full customization through modules.
-The modules are non-plugin driven, meaning that in no way are any modules an extension of the Bukkit plugin interface.
-This is because the commons library is designed to be a JavaPlugin extension which utilizes each loaded module as a resource.
-Any modules are by default an extension of the commons library. 
+This is a ground up rewrite of [TotalFreedomMod].
 
 This proof-of-concept also uses the following libraries:
  - [Aikar's ACF] for command handling
