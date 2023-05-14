@@ -1,8 +1,11 @@
 package me.totalfreedom.service;
 
+import me.totalfreedom.base.CommonsBase;
+
 public abstract class Service
 {
     private final String name;
+    private boolean isActive = false;
 
     protected Service(String name)
     {
@@ -10,7 +13,35 @@ public abstract class Service
 
     }
 
-    public abstract void start();
+    public void start()
+    {
+        isActive = true;
+        CommonsBase.getInstance()
+                .getExecutor()
+                .getSync()
+                .execute(() ->
+                {
+                    while (isActive)
+                    {
+                        tick();
+                    }
+                });
+    }
 
-    public abstract void stop();
+    public void stop()
+    {
+        isActive = false;
+    }
+
+    public abstract void tick();
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public boolean isActive()
+    {
+        return isActive;
+    }
 }

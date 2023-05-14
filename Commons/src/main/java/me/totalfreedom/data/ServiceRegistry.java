@@ -61,4 +61,10 @@ public class ServiceRegistry
     {
         return Bukkit.getServicesManager().getRegistration(clazz);
     }
+
+    public void unregister(Class<? extends Service> clazz, Service service)
+    {
+        this.services.remove(service);
+        Bukkit.getServicesManager().unregister(clazz, service);
+    }
 }

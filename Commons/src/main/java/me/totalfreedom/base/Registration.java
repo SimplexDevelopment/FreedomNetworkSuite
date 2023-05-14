@@ -9,6 +9,7 @@ public class Registration
     private final UserRegistry userRegistry;
     private final ServiceRegistry serviceRegistry;
     private final ModuleRegistry moduleRegistry;
+    private final GroupRegistry groupRegistry;
 
     public Registration()
     {
@@ -17,6 +18,7 @@ public class Registration
         this.userRegistry = new UserRegistry();
         this.serviceRegistry = new ServiceRegistry();
         this.moduleRegistry = new ModuleRegistry();
+        this.groupRegistry = new GroupRegistry();
     }
 
     public ModuleRegistry getModuleRegistry()
@@ -42,5 +44,10 @@ public class Registration
     public ServiceRegistry getServiceRegistry()
     {
         return serviceRegistry;
+    }
+
+    public GroupRegistry getGroupRegistry()
+    {
+        return groupRegistry;
     }
 }

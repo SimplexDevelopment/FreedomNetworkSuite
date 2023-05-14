@@ -1,74 +1,58 @@
 package me.totalfreedom.event;
 
+import me.totalfreedom.api.Context;
 import me.totalfreedom.base.CommonsBase;
-import org.bukkit.event.Listener;
+import me.totalfreedom.service.Service;
 
-import java.lang.reflect.Executable;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
-public class EventBus
+public class EventBus extends Service
 {
-    private final Set<Listener> listenerSet = new HashSet<>();
-    private final Map<Listener, Set<FEvent>> listenerEventMap = new HashMap<>();
     private final CommonsBase plugin;
+    private final Set<FEvent> eventSet = new HashSet<>();
+    private final SubscriptionBox<?> runningSubscriptions = new SubscriptionBox<>();
 
     public EventBus(CommonsBase plugin)
     {
+        super("event_bus");
         this.plugin = plugin;
     }
 
-    void registerListener(Listener listener)
+    public void addEvent(FEvent event)
     {
-        Set<FEvent> eventSet = Arrays.stream(listener.getClass().getDeclaredMethods())
-                .filter(m -> m.isAnnotationPresent(Handler.class))
-                .map(Executable::getParameters)
-                .filter(p -> p.length == 1)
-                .filter(p -> FEvent.class.isAssignableFrom(p[0].getType()))
-                .map(p ->
-                {
-                    try
-                    {
-                        return (FEvent) p[0].getType().getDeclaredConstructor().newInstance();
-                    } catch (Exception exception)
-                    {
-                        exception.printStackTrace();
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
-
-        listenerEventMap.put(listener, eventSet);
+        eventSet.add(event);
     }
 
-    void unregisterListener(Listener listener)
+    public <T extends FEvent> EventSubscription<T> subscribe(Class<T> eventClass, Callback<T> callback)
     {
-        listenerEventMap.remove(listener);
+        Context<T> eventContext = () -> eventSet.stream()
+                .filter(event -> event.getEventClass().equals(eventClass))
+                .findFirst()
+                .map(eventClass::cast)
+                .orElse(null);
+
+        if (eventContext.get() == null)
+        {
+            throw new IllegalArgumentException("Event class " + eventClass.getName() + " is not registered.");
+        }
+
+        return new EventSubscription<>(eventContext.get(), callback);
     }
 
-    public void startListening()
+    public void unsubscribe(EventSubscription<?> subscription)
     {
-        listenerSet().forEach(this::registerListener);
-    }
-
-    public void stopListening()
-    {
-        listenerSet().forEach(this::unregisterListener);
-    }
-
-    public Set<Listener> listenerSet()
-    {
-        return listenerSet;
-    }
-
-    public Map<Listener, Set<FEvent>> listenerEventMap()
-    {
-        return listenerEventMap;
+        runningSubscriptions.removeSubscription(subscription);
     }
 
     public CommonsBase getCommonsBase()
     {
         return plugin;
+    }
+
+    @Override
+    public void tick()
+    {
+        runningSubscriptions.tick();
     }
 }

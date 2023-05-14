@@ -37,7 +37,6 @@ subprojects {
         compileOnly 'org.apache.commons:commons-collections4:4.2'
         compileOnly 'com.google.guava:guava:31.1-jre'
         compileOnly 'com.google.code.gson:gson:2.8.8'
-        compileOnly 'io.projectreactor:reactor-core:3.5.4'
         compileOnly 'org.reflections:reflections:0.10.2'
         compileOnly 'org.slf4j:slf4j-api:1.7.36'
         compileOnly 'co.aikar:acf-paper:0.5.1-SNAPSHOT'

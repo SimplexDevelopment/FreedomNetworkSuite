@@ -1,8 +1,11 @@
 package me.totalfreedom.datura.perms;
 
 import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.datura.Datura;
+import me.totalfreedom.datura.user.SimpleUserData;
 import me.totalfreedom.security.Node;
 import me.totalfreedom.user.User;
+import me.totalfreedom.user.UserData;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -27,6 +30,7 @@ public class FreedomUser implements User
     private final Map<Node, PermissionAttachment> bukkitAttachments = new HashMap<>();
     private final Component displayName;
     private final String NOT_ONLINE = "Player is not online";
+    private final UserData userData;
 
     public FreedomUser(Player player)
     {
@@ -34,6 +38,30 @@ public class FreedomUser implements User
         this.permissions = new HashSet<>();
         this.displayName = player.displayName();
 
+        Datura datura = CommonsBase.getInstance()
+                .getRegistrations()
+                .getModuleRegistry()
+                .getModule(Datura.class)
+                .getModule();
+
+        UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString());
+
+        if (data == null)
+        {
+            data = new SimpleUserData(player);
+        }
+
+        this.userData = data;
+
+        CommonsBase.getInstance()
+                .getRegistrations()
+                .getUserRegistry()
+                .registerUserData(this, userData);
+    }
+
+    @Override
+    public UserData getUserData() {
+        return userData;
     }
 
     @Override
@@ -197,9 +225,11 @@ public class FreedomUser implements User
     @Override
     public void setOp(boolean value)
     {
-        if (value) {
+        if (value)
+        {
             permissions().add(DefaultNodes.OP);
-        } else {
+        } else
+        {
             permissions().remove(DefaultNodes.OP);
         }
     }
