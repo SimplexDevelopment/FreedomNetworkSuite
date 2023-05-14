@@ -8,7 +8,7 @@
 [Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
 [Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
 
-#
+#####
 ![Header Image](https://media.discordapp.net/attachments/436759124953399296/1107175759941996544/20230514_002037_0000.png)
 
 ###
@@ -34,9 +34,6 @@ This is designed to encompass the ideologies of a Freedom server, while maintain
 The modules are non-plugin driven, meaning that in no way are any modules an extension of the Bukkit plugin interface.
 This is because the commons library is designed to be a JavaPlugin extension which utilizes each loaded module as a resource.
 Any modules are by default an extension of the commons library. 
-
-Modules are defined by a module.yml in the resources folder, which contains the path to the main class file, 
-and a list of dependencies if it requires any other modules to run. 
 
 This proof-of-concept also uses the following libraries:
  - [Aikar's ACF] for command handling
