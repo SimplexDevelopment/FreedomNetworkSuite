@@ -8,6 +8,9 @@
 [Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
 [Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
 
+#
+![Header Image](https://media.discordapp.net/attachments/1006003266657730580/1107168973004484628/Paldiu__Dead_Strange_minimalist_modern_abstract_shape_logo_46d44597-b43b-47e3-9192-2e60774a23da.png)
+
 ###
 ![GitHub labels](https://img.shields.io/github/labels/SimplexDevelopment/FreedomNetworkSuite/Help%20Wanted?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
