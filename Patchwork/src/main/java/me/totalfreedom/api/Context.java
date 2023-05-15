@@ -16,6 +16,63 @@ public interface Context<T>
 {
     T get();
 
+    default @Nullable String asString()
+    {
+        if (get() instanceof String string)
+        {
+            return string;
+        } else
+        {
+            return null;
+        }
+    }
+
+    default @Nullable Boolean asBoolean()
+    {
+        if (get() instanceof Boolean bool)
+        {
+            return bool;
+        } else
+        {
+            return null;
+        }
+    }
+
+    default @Nullable Double asDouble()
+    {
+        if (get() instanceof Double doub)
+        {
+            return doub;
+        } else
+        {
+            return null;
+        }
+    }
+
+    default @Nullable Integer asInt() {
+        if (get() instanceof Integer integer) {
+            return integer;
+        } else {
+            return null;
+        }
+    }
+
+    default @Nullable Long asLong() {
+        if (get() instanceof Long longg) {
+            return longg;
+        } else {
+            return null;
+        }
+    }
+
+    default @Nullable Float asFloat() {
+        if (get() instanceof Float floatt) {
+            return floatt;
+        } else {
+            return null;
+        }
+    }
+
     default @Nullable Player asPlayer()
     {
         if (get() instanceof Player player)
@@ -38,7 +95,7 @@ public interface Context<T>
         }
     }
 
-    default @NotNull String asLiteral()
+    default @NotNull String literal()
     {
         return get().toString();
     }

@@ -1,4 +1,6 @@
 rootProject.name = 'FreedomNetworkSuite'
-include 'Commons'
+include 'Patchwork'
 include 'Datura'
+include 'Fossil'
+include 'Corvo'
 

@@ -39,10 +39,10 @@ subprojects {
         compileOnly 'com.google.code.gson:gson:2.8.8'
         compileOnly 'org.reflections:reflections:0.10.2'
         compileOnly 'org.slf4j:slf4j-api:1.7.36'
-        compileOnly 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
     }
 
-    sourceCompatibility = 1.17
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
@@ -52,9 +52,7 @@ subprojects {
         useJUnitPlatform()
     }
 
-    ext {
-        weight = -1
-    }
+    var weight = -1;
 
     afterEvaluate {
         if (weight == -1) {

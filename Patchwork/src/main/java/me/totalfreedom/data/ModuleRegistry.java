@@ -24,6 +24,10 @@ public class ModuleRegistry
         this.plugins.add(plugin);
     }
 
+    public void removeModule(final JavaPlugin plugin) {
+        this.plugins.remove(plugin);
+    }
+
     @SuppressWarnings("unchecked")
     public <T extends JavaPlugin> ModuleProvider<T> getModule(Class<T> clazz)
     {

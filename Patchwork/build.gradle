@@ -9,13 +9,12 @@ dependencies {
     api 'io.projectreactor:reactor-core:3.5.4'
     api 'org.reflections:reflections:0.10.2'
     api 'org.slf4j:slf4j-api:1.7.36'
-    api 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-ext.weight = 1
+var weight = 1
 
 test {
     useJUnitPlatform()
