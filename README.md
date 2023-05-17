@@ -1,4 +1,3 @@
-[Aikar's ACF]: https://github.com/aikar/commands "Annotation Command Framework"
 [Google GSON]: https://github.com/google/gson "Google GSON"
 [Jetbrains Annotations]: https://github.com/JetBrains/JetBrains.Annotations "JetBrains Annotations"
 [Lombok]: https://github.com/projectlombok/lombok "Lombok"
@@ -35,7 +34,6 @@ This is designed to encompass the ideologies of a Freedom server, while maintain
 This is a ground up rewrite of [TotalFreedomMod].
 
 This proof-of-concept also uses the following libraries:
- - [Aikar's ACF] for command handling
  - [Google GSON] for Json interpretation
  - [Jetbrains Annotations] for additional compiler annotations
  - [Lombok] for boilerplate generation
