@@ -15,12 +15,12 @@
 ![GitHub labels](https://img.shields.io/github/labels/SimplexDevelopment/FreedomNetworkSuite/Help%20Wanted?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+[<img src="https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/issues)
+[<img src="https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/pulls)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 
 ###
-[<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/LICENSE.md)
+[<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/blob/kitchen-sink/LICENSE.md)
 ![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
@@ -42,3 +42,10 @@ This proof-of-concept also uses the following libraries:
  - [Paper] for the server implementation
  - [Kyori Adventure] for chat formatting
  - [Reflections API] for reflections
+
+# Developers
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Patches&color=blueviolet&style=flat-square&logo=intellijidea">](https://github.com/Paldiu)
+<br />
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Video&color=blueviolet&style=flat-square&logo=intellijidea">](https://github.com/VideoGameSmash12)
+<br />
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Allink&color=blueviolet&style=flat-square&logo=intellijidea">](https://github.com/allinkdev)
