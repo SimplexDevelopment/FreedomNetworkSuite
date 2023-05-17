@@ -44,8 +44,8 @@ This proof-of-concept also uses the following libraries:
  - [Reflections API] for reflections
 
 # Developers
-[<img src="https://img.shields.io/static/v1?label=Developer&message=Patches&color=blueviolet&style=flat-square&logo=intellijidea">](https://github.com/Paldiu)
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Patches&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/Paldiu)
 <br />
-[<img src="https://img.shields.io/static/v1?label=Developer&message=Video&color=blueviolet&style=flat-square&logo=intellijidea">](https://github.com/VideoGameSmash12)
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Video&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/VideoGameSmash12)
 <br />
-[<img src="https://img.shields.io/static/v1?label=Developer&message=Allink&color=blueviolet&style=flat-square&logo=intellijidea">](https://github.com/allinkdev)
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Allink&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/allinkdev)
