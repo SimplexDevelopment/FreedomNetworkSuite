@@ -12,7 +12,7 @@
 ![Header Image](https://media.discordapp.net/attachments/436759124953399296/1107175759941996544/20230514_002037_0000.png)
 
 ###
-[<img src="https://img.shields.io/static/v1?label=Help%20Wanted&message="Contact%20Us"&color=red&style=for-the-badge&logo=discord">](https://discord.gg/4PdtmrVNRx)
+[<img src="https://img.shields.io/static/v1?label=Help%20Wanted&message=Contact%20Us&color=red&style=for-the-badge&logo=discord">](https://discord.gg/4PdtmrVNRx)
 ![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 [<img src="https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/issues)
