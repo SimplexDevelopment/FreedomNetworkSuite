@@ -18,6 +18,7 @@
 [<img src="https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/issues)
 [<img src="https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/pulls)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7a0fa4694878444dabc6cc2804fbf125)](https://app.codacy.com/gh/SimplexDevelopment/FreedomNetworkSuite/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ###
 [<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/blob/kitchen-sink/LICENSE.md)
