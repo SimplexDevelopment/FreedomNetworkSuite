@@ -20,7 +20,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 
 ###
-![GitHub](https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+[<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/LICENSE.md)
 ![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
