@@ -21,6 +21,7 @@
 ![Codacy grade](https://img.shields.io/codacy/grade/7a0fa4694878444dabc6cc2804fbf125?style=for-the-badge)
 
 ###
+[<img src="https://img.shields.io/static/v1?label=Roadmap&message=Google%20Docs&color=4285F4&style=for-the-badge&logo=googledrive">](https://docs.google.com/document/d/197fwNo076RsCiPW6e6QWaGEzTGnDcRuf5FBA6lNeiPE)
 [<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/blob/kitchen-sink/LICENSE.md)
 ![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge)
