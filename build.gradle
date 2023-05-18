@@ -15,8 +15,8 @@ subprojects {
         mavenCentral()
 
         maven {
-            name = 'Paper'
-            url = 'https://repo.papermc.io/repository/maven-public/'
+            name = 'Scissors'
+            url = 'https://repo.scissors.gg/repository/scissors-snapshot/'
         }
 
         maven {
@@ -31,7 +31,7 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT'
+        compileOnly 'me.totalfreedom.scissors:Scissors-API:1.19.4-R0.1-SNAPSHOT'
         compileOnly 'org.javassist:javassist:3.29.1-GA'
         compileOnly 'org.apache.commons:commons-lang3:3.12.0'
         compileOnly 'org.apache.commons:commons-collections4:4.2'
