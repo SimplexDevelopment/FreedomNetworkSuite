@@ -1,8 +1,8 @@
 package me.totalfreedom.datura.perms;
 
-import me.totalfreedom.security.Node;
-import me.totalfreedom.security.NodeBuilder;
-import me.totalfreedom.security.NodeType;
+import me.totalfreedom.security.perm.Node;
+import me.totalfreedom.security.perm.NodeBuilder;
+import me.totalfreedom.security.perm.NodeType;
 
 public class PermissionNodeBuilder implements NodeBuilder
 {

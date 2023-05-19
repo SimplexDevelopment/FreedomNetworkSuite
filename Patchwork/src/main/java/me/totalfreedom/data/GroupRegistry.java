@@ -1,6 +1,6 @@
 package me.totalfreedom.data;
 
-import me.totalfreedom.security.Group;
+import me.totalfreedom.security.perm.Group;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.ArrayList;

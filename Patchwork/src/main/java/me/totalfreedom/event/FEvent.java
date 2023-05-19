@@ -1,17 +1,29 @@
 package me.totalfreedom.event;
 
-import me.totalfreedom.api.Context;
-
 public abstract class FEvent
 {
     private boolean isCancelled;
+    private boolean triggered;
 
     protected FEvent()
     {
         this.isCancelled = false;
     }
 
-    public abstract void call(Callback<FEvent> callback);
+    public void ping()
+    {
+        this.triggered = true;
+    }
+
+    public void reset()
+    {
+        this.triggered = false;
+    }
+
+    boolean shouldCall()
+    {
+        return triggered;
+    }
 
     public boolean cancel()
     {

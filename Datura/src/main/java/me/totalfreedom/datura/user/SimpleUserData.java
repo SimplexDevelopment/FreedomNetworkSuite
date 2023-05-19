@@ -1,8 +1,9 @@
 package me.totalfreedom.datura.user;
 
 import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.datura.event.UserDataUpdateEvent;
 import me.totalfreedom.datura.perms.FreedomUser;
-import me.totalfreedom.security.Group;
+import me.totalfreedom.security.perm.Group;
 import me.totalfreedom.sql.SQL;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
@@ -21,6 +22,7 @@ public class SimpleUserData implements UserData
     private final UUID uuid;
     private final String username;
     private final User user;
+    private final UserDataUpdateEvent event = new UserDataUpdateEvent(this);
     private Group group;
     private long playtime;
     private boolean frozen;
@@ -32,6 +34,8 @@ public class SimpleUserData implements UserData
         this.uuid = player.getUniqueId();
         this.username = player.getName();
         this.user = new FreedomUser(player);
+
+        CommonsBase.getInstance().getEventBus().addEvent(event);
     }
 
     private SimpleUserData(
@@ -86,17 +90,16 @@ public class SimpleUserData implements UserData
                         }
                     } catch (SQLException ex)
                     {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("An error occurred while trying to retrieve user data for UUID ")
-                                .append(uuid)
-                                .append(" from the database.")
-                                .append("\nCaused by: ")
-                                .append(ExceptionUtils.getRootCauseMessage(ex))
-                                .append("\nStack trace: ")
-                                .append(ExceptionUtils.getStackTrace(ex));
+                        String sb = "An error occurred while trying to retrieve user data for UUID " +
+                                uuid +
+                                " from the database." +
+                                "\nCaused by: " +
+                                ExceptionUtils.getRootCauseMessage(ex) +
+                                "\nStack trace: " +
+                                ExceptionUtils.getStackTrace(ex);
 
                         FreedomLogger.getLogger("Datura")
-                                .error(sb.toString());
+                                .error(sb);
                     }
 
                     Player player = Bukkit.getPlayer(UUID.fromString(uuid));
@@ -135,6 +138,7 @@ public class SimpleUserData implements UserData
     @Override
     public void setGroup(@Nullable Group group)
     {
+        event.ping();
         this.group = group;
     }
 
@@ -147,18 +151,21 @@ public class SimpleUserData implements UserData
     @Override
     public void setPlaytime(long playtime)
     {
+        event.ping();
         this.playtime = playtime;
     }
 
     @Override
     public void addPlaytime(long playtime)
     {
+        event.ping();
         this.playtime += playtime;
     }
 
     @Override
     public void resetPlaytime()
     {
+        event.ping();
         this.playtime = 0L;
     }
 
@@ -171,6 +178,7 @@ public class SimpleUserData implements UserData
     @Override
     public void setFrozen(boolean frozen)
     {
+        event.ping();
         this.frozen = true;
     }
 
@@ -183,6 +191,7 @@ public class SimpleUserData implements UserData
     @Override
     public void setInteractionState(boolean canInteract)
     {
+        event.ping();
         this.canInteract = canInteract;
     }
 
@@ -195,6 +204,7 @@ public class SimpleUserData implements UserData
     @Override
     public void setCaged(boolean caged)
     {
+        event.ping();
         this.caged = caged;
     }
 }

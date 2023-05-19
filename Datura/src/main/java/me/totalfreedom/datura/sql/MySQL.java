@@ -1,5 +1,6 @@
 package me.totalfreedom.datura.sql;
 
+import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.sql.SQL;
 
 import java.sql.*;
@@ -39,7 +40,7 @@ public class MySQL implements SQL
                 throw new CompletionException("Failed to connect to the database: "
                         + url + "\n", ex);
             }
-        });
+        }, CommonsBase.getInstance().getExecutor().getAsync());
     }
 
     @Override
@@ -57,7 +58,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to prepare statement: "
                                 + query + "\n", ex);
                     }
-                });
+                }, CommonsBase.getInstance().getExecutor().getAsync());
     }
 
     @Override
@@ -71,7 +72,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to retrieve a result set from query: "
                                 + query + "\n", ex);
                     }
-                });
+                }, CommonsBase.getInstance().getExecutor().getAsync());
     }
 
     @Override
@@ -85,7 +86,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to execute update: "
                                 + query + "\n", ex);
                     }
-                });
+                }, CommonsBase.getInstance().getExecutor().getAsync());
     }
 
     @Override
@@ -99,7 +100,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to execute statement: "
                                 + query + "\n", ex);
                     }
-                });
+                }, CommonsBase.getInstance().getExecutor().getAsync());
     }
 
     @Override

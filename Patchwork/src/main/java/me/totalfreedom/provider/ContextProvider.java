@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -113,7 +114,7 @@ public class ContextProvider
         return new Location(toWorld(split[0]), toDouble(split[1]), toDouble(split[2]), toDouble(split[3]));
     }
 
-    private @Nullable Component toComponent(String string)
+    private @NotNull Component toComponent(String string)
     {
         return Component.text(string);
     }

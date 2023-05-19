@@ -2,10 +2,25 @@ package me.totalfreedom.data;
 
 import me.totalfreedom.config.Configuration;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigRegistry
 {
-    Set<Configuration> configurationSet = new HashSet<>();
+    private final Map<String, Configuration> configurationList = new HashMap<>();
+
+    public void register(String name, Configuration configuration)
+    {
+        configurationList.put(name, configuration);
+    }
+
+    public void unregister(String name)
+    {
+        configurationList.remove(name);
+    }
+
+    public Configuration getConfiguration(String name)
+    {
+        return configurationList.get(name);
+    }
 }

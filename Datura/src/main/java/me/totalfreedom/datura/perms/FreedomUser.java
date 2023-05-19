@@ -3,7 +3,7 @@ package me.totalfreedom.datura.perms;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.Datura;
 import me.totalfreedom.datura.user.SimpleUserData;
-import me.totalfreedom.security.Node;
+import me.totalfreedom.security.perm.Node;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
 import net.kyori.adventure.text.Component;

@@ -1,6 +1,6 @@
 package me.totalfreedom.user;
 
-import me.totalfreedom.security.Group;
+import me.totalfreedom.security.perm.Group;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

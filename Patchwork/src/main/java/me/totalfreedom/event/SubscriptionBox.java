@@ -1,5 +1,7 @@
 package me.totalfreedom.event;
 
+import com.sun.source.tree.ContinueTree;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,11 @@ class SubscriptionBox<T extends FEvent>
     }
 
     public void tick() {
-        subscriptions.forEach(s -> s.getCallback().call(s.getEvent()));
+        subscriptions.forEach(s -> {
+            if (!s.event().shouldCall()) return;
+
+            s.callback().call(s.event());
+            s.event().reset();
+        });
     }
 }

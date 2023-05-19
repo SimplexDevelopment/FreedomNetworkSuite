@@ -24,6 +24,16 @@ public class EventBus extends Service
         eventSet.add(event);
     }
 
+    public <T extends FEvent> T getEvent(Class<T> eventClass)
+    {
+        FEvent e = eventSet.stream()
+                .filter(event -> event.getEventClass().equals(eventClass))
+                .findFirst()
+                .orElse(null);
+
+        return eventClass.cast(e);
+    }
+
     public <T extends FEvent> EventSubscription<T> subscribe(Class<T> eventClass, Callback<T> callback)
     {
         Context<T> eventContext = () -> eventSet.stream()
