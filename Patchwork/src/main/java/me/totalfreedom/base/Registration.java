@@ -4,7 +4,6 @@ import me.totalfreedom.data.*;
 
 public class Registration
 {
-    private final CommandRegistry commandRegistry;
     private final EventRegistry eventRegistry;
     private final UserRegistry userRegistry;
     private final ServiceRegistry serviceRegistry;
@@ -13,7 +12,6 @@ public class Registration
 
     public Registration()
     {
-        this.commandRegistry = new CommandRegistry();
         this.eventRegistry = new EventRegistry();
         this.userRegistry = new UserRegistry();
         this.serviceRegistry = new ServiceRegistry();
@@ -24,11 +22,6 @@ public class Registration
     public ModuleRegistry getModuleRegistry()
     {
         return moduleRegistry;
-    }
-
-    public CommandRegistry getCommandRegistry()
-    {
-        return commandRegistry;
     }
 
     public EventRegistry getEventRegistry()
