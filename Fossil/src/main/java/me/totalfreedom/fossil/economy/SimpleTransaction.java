@@ -27,25 +27,25 @@ public class SimpleTransaction implements Transaction
     @Override
     public EconomicEntity getSource()
     {
-        return this.source;
+        return source;
     }
 
     @Override
     public EconomicEntity getDestination()
     {
-        return this.destination;
+        return destination;
     }
 
     @Override
     public long getTransferAmount()
     {
-        return this.transferAmount.get();
+        return transferAmount.get();
     }
 
     @Override
     public long addBalance(long amount)
     {
-        return this.transferAmount.addAndGet(amount);
+        return transferAmount.addAndGet(amount);
     }
 
     @Override

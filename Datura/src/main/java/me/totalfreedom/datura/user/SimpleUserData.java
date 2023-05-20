@@ -210,7 +210,7 @@ public class SimpleUserData implements UserData
     @Override
     public boolean areTransactionsFrozen()
     {
-        return this.transactionsFrozen;
+        return transactionsFrozen;
     }
 
     @Override
@@ -222,18 +222,18 @@ public class SimpleUserData implements UserData
     @Override
     public void addToBalance(long amount)
     {
-        this.balance.addAndGet(amount);
+        balance.addAndGet(amount);
     }
 
     @Override
     public void removeFromBalance(long amount)
     {
-        this.balance.addAndGet(-amount);
+        balance.addAndGet(-amount);
     }
 
     @Override
     public void setBalance(long newBalance)
     {
-        this.balance.set(newBalance);
+        balance.set(newBalance);
     }
 }
