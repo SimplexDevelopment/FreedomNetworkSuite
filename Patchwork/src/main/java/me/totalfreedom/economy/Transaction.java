@@ -10,9 +10,9 @@ public interface Transaction
 
     long getBalance();
 
-    long addBalance(final long amount);
+    long addToBalance(final long amount);
 
-    long removeBalance(final long amount);
+    long removeFromBalance(final long amount);
 
     void setBalance(final long newBalance);
 }

@@ -43,15 +43,15 @@ public class SimpleTransaction implements Transaction
     }
 
     @Override
-    public long addBalance(long amount)
+    public long addToBalance(long amount)
     {
         return balance.addAndGet(amount);
     }
 
     @Override
-    public long removeBalance(long amount)
+    public long removeFromBalance(long amount)
     {
-        return this.addBalance(-amount);
+        return this.addToBalance(-amount);
     }
 
     @Override
