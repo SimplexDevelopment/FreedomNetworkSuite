@@ -2,5 +2,5 @@ package me.totalfreedom.economy;
 
 public interface Transactor
 {
-    CompletedTransaction handleTransaction(Transaction transaction);
+    CompletedTransaction handleTransaction(MutableTransaction transaction);
 }

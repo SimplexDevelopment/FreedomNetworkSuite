@@ -1,7 +1,7 @@
 package me.totalfreedom.fossil.economy;
 
 import me.totalfreedom.economy.CompletedTransaction;
-import me.totalfreedom.economy.Transaction;
+import me.totalfreedom.economy.MutableTransaction;
 import me.totalfreedom.economy.TransactionLogger;
 import me.totalfreedom.economy.Transactor;
 
@@ -22,7 +22,7 @@ public class SimpleLoggedTransactor implements Transactor
     }
 
     @Override
-    public CompletedTransaction handleTransaction(Transaction transaction)
+    public CompletedTransaction handleTransaction(MutableTransaction transaction)
     {
         CompletedTransaction completedTransaction = transactor.handleTransaction(transaction);
 

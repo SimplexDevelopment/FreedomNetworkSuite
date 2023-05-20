@@ -1,8 +1,7 @@
 package me.totalfreedom.economy;
 
-public interface CompletedTransaction
+public interface CompletedTransaction extends Transaction
 {
-    Transaction getTransaction();
 
     TransactionResult getResult();
 }

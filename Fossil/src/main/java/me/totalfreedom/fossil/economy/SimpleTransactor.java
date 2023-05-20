@@ -5,9 +5,8 @@ import me.totalfreedom.economy.*;
 public class SimpleTransactor implements Transactor
 {
     @Override
-    public CompletedTransaction handleTransaction(Transaction transaction)
+    public CompletedTransaction handleTransaction(MutableTransaction transaction)
     {
-        Transaction transactionCopy = transaction.copy();
         EconomicEntity source = transaction.getSource();
         EconomicEntityData sourceData = source.getEconomicData();
 
@@ -28,7 +27,7 @@ public class SimpleTransactor implements Transactor
 
         if (diff > 0)
         {
-            return new SimpleCompletedTransaction(transactionCopy, SimpleTransactionResult.INSUFFICIENT_FUNDS);
+            return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.INSUFFICIENT_FUNDS);
         }
 
         EconomicEntity destination = transaction.getDestination();
@@ -42,6 +41,6 @@ public class SimpleTransactor implements Transactor
         sourceData.removeFromBalance(transactionAmount);
         destinationData.addToBalance(transactionAmount);
 
-        return new SimpleCompletedTransaction(transactionCopy, SimpleTransactionResult.SUCCESSFUL);
+        return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.SUCCESSFUL);
     }
 }
