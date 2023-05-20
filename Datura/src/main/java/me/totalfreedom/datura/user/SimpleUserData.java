@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SimpleUserData implements UserData
 {
@@ -26,7 +27,7 @@ public class SimpleUserData implements UserData
     private boolean frozen;
     private boolean canInteract;
     private boolean caged;
-    private long balance;
+    private AtomicLong balance;
     private boolean transactionsFrozen;
 
     public SimpleUserData(final Player player)
@@ -56,7 +57,7 @@ public class SimpleUserData implements UserData
         this.frozen = frozen;
         this.canInteract = canInteract;
         this.caged = caged;
-        this.balance = balance;
+        this.balance = new AtomicLong(balance);
         this.transactionsFrozen = transactionsFrozen;
     }
 
@@ -215,24 +216,24 @@ public class SimpleUserData implements UserData
     @Override
     public long getBalance()
     {
-        return balance;
+        return balance.get();
     }
 
     @Override
     public void addToBalance(long amount)
     {
-        this.balance += amount;
+        this.balance.addAndGet(amount);
     }
 
     @Override
     public void removeFromBalance(long amount)
     {
-        this.balance -= amount;
+        this.balance.addAndGet(-amount);
     }
 
     @Override
     public void setBalance(long newBalance)
     {
-        this.balance = newBalance;
+        this.balance.set(newBalance);
     }
 }
