@@ -53,4 +53,10 @@ public class SimpleTransaction implements Transaction
     {
         return this.addBalance(-amount);
     }
+
+    @Override
+    public void setBalance(long newBalance)
+    {
+        balance.set(newBalance);
+    }
 }

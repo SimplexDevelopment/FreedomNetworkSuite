@@ -13,4 +13,6 @@ public interface Transaction
     long addBalance(final long amount);
 
     long removeBalance(final long amount);
+
+    void setBalance(final long newBalance);
 }
