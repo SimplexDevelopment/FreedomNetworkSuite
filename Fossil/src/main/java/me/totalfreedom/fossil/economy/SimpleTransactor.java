@@ -16,7 +16,7 @@ public class SimpleTransactor implements Transactor
             return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.UNAUTHORIZED);
         }
 
-        long transactionAmount = transaction.getTransferAmount();
+        long transactionAmount = transaction.getBalance();
 
         if (transactionAmount >= 0)
         {

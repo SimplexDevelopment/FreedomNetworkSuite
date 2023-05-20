@@ -9,19 +9,19 @@ public class SimpleTransaction implements Transaction
 {
     private final EconomicEntity source;
     private final EconomicEntity destination;
-    private final AtomicLong transferAmount;
+    private final AtomicLong balance;
 
-    public SimpleTransaction(EconomicEntity source, EconomicEntity destination, long transferAmount)
+    public SimpleTransaction(EconomicEntity source, EconomicEntity destination, long balance)
     {
         this.source = source;
         this.destination = destination;
-        this.transferAmount = new AtomicLong(transferAmount);
+        this.balance = new AtomicLong(balance);
     }
 
     @Override
     public Transaction copy()
     {
-        return new SimpleTransaction(source, destination, transferAmount.get());
+        return new SimpleTransaction(source, destination, balance.get());
     }
 
     @Override
@@ -37,15 +37,15 @@ public class SimpleTransaction implements Transaction
     }
 
     @Override
-    public long getTransferAmount()
+    public long getBalance()
     {
-        return transferAmount.get();
+        return balance.get();
     }
 
     @Override
     public long addBalance(long amount)
     {
-        return transferAmount.addAndGet(amount);
+        return balance.addAndGet(amount);
     }
 
     @Override

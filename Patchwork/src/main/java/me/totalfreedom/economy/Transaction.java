@@ -8,7 +8,7 @@ public interface Transaction
 
     EconomicEntity getDestination();
 
-    long getTransferAmount();
+    long getBalance();
 
     long addBalance(final long amount);
 

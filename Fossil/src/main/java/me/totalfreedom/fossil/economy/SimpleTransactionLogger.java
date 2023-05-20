@@ -21,7 +21,7 @@ public class SimpleTransactionLogger implements TransactionLogger
         Transaction transaction = completedTransaction.getTransaction();
         EconomicEntity source = transaction.getSource();
         EconomicEntity destination = transaction.getDestination();
-        long transactionAmount = transaction.getTransferAmount();
+        long transactionAmount = transaction.getBalance();
 
         transactionLoggingStatementBuilder.append(resultSuccess ? "Successful" : "Unsuccessful")
                 .append(" (")
