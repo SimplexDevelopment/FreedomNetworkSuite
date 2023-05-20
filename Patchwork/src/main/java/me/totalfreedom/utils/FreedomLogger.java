@@ -1,12 +1,17 @@
 package me.totalfreedom.utils;
 
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.chat.ChatType;
+import net.kyori.adventure.chat.SignedMessage;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.function.Supplier;
 
-public class FreedomLogger
+public class FreedomLogger implements Audience
 {
     private final Logger logger;
     private boolean debug = false;
@@ -226,4 +231,42 @@ public class FreedomLogger
         return "";
     }
 
+
+    @Override
+    public void sendMessage(@NotNull ComponentLike message)
+    {
+        Component component = ComponentLike.unbox(message);
+
+        if (component == null)
+        {
+            this.info("**null component-like**");
+            return;
+        }
+
+        this.infoComponent(component);
+    }
+
+    @Override
+    public void sendMessage(@NotNull Component message)
+    {
+        this.infoComponent(message);
+    }
+
+    @Override
+    public void sendMessage(@NotNull Component message, ChatType.@NotNull Bound boundChatType)
+    {
+        this.infoComponent(message);
+    }
+
+    @Override
+    public void sendMessage(@NotNull ComponentLike message, ChatType.@NotNull Bound boundChatType)
+    {
+        this.sendMessage(message);
+    }
+
+    @Override
+    public void sendMessage(@NotNull SignedMessage signedMessage, ChatType.@NotNull Bound boundChatType)
+    {
+        this.info(signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message, including unsigned & signed content, or only the signed part. This method was written in the assumption that it provided all content.
+    }
 }
