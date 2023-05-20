@@ -17,10 +17,9 @@ public class SimpleTransactionLogger implements TransactionLogger
         boolean resultSuccess = result.isSuccessful();
         String resultMessage = result.getMessage();
 
-        Transaction transaction = completedTransaction.getTransaction();
-        EconomicEntity source = transaction.getSource();
-        EconomicEntity destination = transaction.getDestination();
-        long transactionAmount = transaction.getBalance();
+        EconomicEntity source = completedTransaction.getSource();
+        EconomicEntity destination = completedTransaction.getDestination();
+        long transactionAmount = completedTransaction.getBalance();
 
         transactionLoggingStatementBuilder.append(resultSuccess ? "Successful" : "Unsuccessful")
                 .append(" (")
@@ -30,8 +29,7 @@ public class SimpleTransactionLogger implements TransactionLogger
                 .append(source.getName())
                 .append(" ")
                 .append(destination.getName())
-                .append(" where the volume of currency transferred was ")
-                .append("$")
+                .append(" where the volume of currency transferred was $")
                 .append(transactionAmount)
                 .append(".");
 
