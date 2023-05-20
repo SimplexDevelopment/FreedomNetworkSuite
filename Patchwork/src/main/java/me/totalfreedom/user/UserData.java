@@ -1,12 +1,13 @@
 package me.totalfreedom.user;
 
+import me.totalfreedom.economy.EconomicEntityData;
 import me.totalfreedom.security.Group;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public interface UserData
+public interface UserData extends EconomicEntityData
 {
     @NotNull UUID getUniqueId();
 

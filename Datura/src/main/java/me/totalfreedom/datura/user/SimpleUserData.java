@@ -26,6 +26,7 @@ public class SimpleUserData implements UserData
     private boolean frozen;
     private boolean canInteract;
     private boolean caged;
+    private long balance;
 
     public SimpleUserData(final Player player)
     {
@@ -42,7 +43,8 @@ public class SimpleUserData implements UserData
             final long playtime,
             final boolean frozen,
             final boolean canInteract,
-            final boolean caged)
+            final boolean caged,
+            final long balance)
     {
         this.uuid = uuid;
         this.username = username;
@@ -52,6 +54,7 @@ public class SimpleUserData implements UserData
         this.frozen = frozen;
         this.canInteract = canInteract;
         this.caged = caged;
+        this.balance = balance;
     }
 
     public static SimpleUserData fromSQL(SQL sql, String uuid)
@@ -82,7 +85,8 @@ public class SimpleUserData implements UserData
                             boolean frozen = result.getBoolean("frozen");
                             boolean canInteract = result.getBoolean("canInteract");
                             boolean caged = result.getBoolean("caged");
-                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged);
+                            long balance = result.getLong("balance");
+                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance);
                         }
                     } catch (SQLException ex)
                     {
@@ -196,5 +200,29 @@ public class SimpleUserData implements UserData
     public void setCaged(boolean caged)
     {
         this.caged = caged;
+    }
+
+    @Override
+    public long getBalance()
+    {
+        return balance;
+    }
+
+    @Override
+    public void addToBalance(long amount)
+    {
+        this.balance += amount;
+    }
+
+    @Override
+    public void removeFromBalance(long amount)
+    {
+        this.balance -= amount;
+    }
+
+    @Override
+    public void setBalance(long newBalance)
+    {
+        this.balance = newBalance;
     }
 }
