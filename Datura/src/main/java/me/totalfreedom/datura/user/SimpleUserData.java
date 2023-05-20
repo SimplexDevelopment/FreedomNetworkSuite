@@ -220,15 +220,15 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public void addToBalance(long amount)
+    public long addToBalance(long amount)
     {
-        balance.addAndGet(amount);
+        return balance.addAndGet(amount);
     }
 
     @Override
-    public void removeFromBalance(long amount)
+    public long removeFromBalance(long amount)
     {
-        balance.addAndGet(-amount);
+        return balance.addAndGet(-amount);
     }
 
     @Override

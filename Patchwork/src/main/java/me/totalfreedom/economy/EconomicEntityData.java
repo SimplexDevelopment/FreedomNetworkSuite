@@ -6,9 +6,9 @@ public interface EconomicEntityData
 
     long getBalance();
 
-    void addToBalance(final long amount);
+    long addToBalance(final long amount);
 
-    void removeFromBalance(final long amount);
+    long removeFromBalance(final long amount);
 
     void setBalance(final long newBalance);
 }
