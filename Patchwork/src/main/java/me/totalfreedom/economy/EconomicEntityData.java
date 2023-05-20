@@ -2,6 +2,8 @@ package me.totalfreedom.economy;
 
 public interface EconomicEntityData
 {
+    boolean areTransactionsFrozen();
+
     long getBalance();
 
     void addToBalance(final long amount);

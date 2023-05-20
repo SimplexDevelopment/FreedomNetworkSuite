@@ -27,6 +27,7 @@ public class SimpleUserData implements UserData
     private boolean canInteract;
     private boolean caged;
     private long balance;
+    private boolean transactionsFrozen;
 
     public SimpleUserData(final Player player)
     {
@@ -44,7 +45,8 @@ public class SimpleUserData implements UserData
             final boolean frozen,
             final boolean canInteract,
             final boolean caged,
-            final long balance)
+            final long balance,
+            final boolean transactionsFrozen)
     {
         this.uuid = uuid;
         this.username = username;
@@ -55,6 +57,7 @@ public class SimpleUserData implements UserData
         this.canInteract = canInteract;
         this.caged = caged;
         this.balance = balance;
+        this.transactionsFrozen = transactionsFrozen;
     }
 
     public static SimpleUserData fromSQL(SQL sql, String uuid)
@@ -86,7 +89,8 @@ public class SimpleUserData implements UserData
                             boolean canInteract = result.getBoolean("canInteract");
                             boolean caged = result.getBoolean("caged");
                             long balance = result.getLong("balance");
-                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance);
+                            boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
+                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance, transactionsFrozen);
                         }
                     } catch (SQLException ex)
                     {
@@ -200,6 +204,12 @@ public class SimpleUserData implements UserData
     public void setCaged(boolean caged)
     {
         this.caged = caged;
+    }
+
+    @Override
+    public boolean areTransactionsFrozen()
+    {
+        return this.transactionsFrozen;
     }
 
     @Override
