@@ -4,7 +4,6 @@ import me.totalfreedom.audience.MutableAudienceForwarder;
 import me.totalfreedom.economy.*;
 import me.totalfreedom.utils.FreedomLogger;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 
 public class SimpleTransactionLogger implements TransactionLogger
 {
@@ -39,5 +38,10 @@ public class SimpleTransactionLogger implements TransactionLogger
         Component message = Component.text(transactionLoggingStatementBuilder.toString());
 
         audience.sendMessage(message);
+    }
+
+    public MutableAudienceForwarder getAudienceForwarder()
+    {
+        return audience;
     }
 }
