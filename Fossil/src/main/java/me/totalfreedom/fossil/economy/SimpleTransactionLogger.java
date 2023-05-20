@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 
 public class SimpleTransactionLogger implements TransactionLogger
 {
-    private MutableAudienceForwarder audience = MutableAudienceForwarder.from(FreedomLogger.getLogger("Fossil"));
+    private final MutableAudienceForwarder audience = MutableAudienceForwarder.from(FreedomLogger.getLogger("Fossil"));
 
     @Override
     public void logTransaction(CompletedTransaction completedTransaction)
