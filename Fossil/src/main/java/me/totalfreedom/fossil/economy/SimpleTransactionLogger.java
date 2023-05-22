@@ -1,0 +1,45 @@
+package me.totalfreedom.fossil.economy;
+
+import me.totalfreedom.audience.MutableAudienceForwarder;
+import me.totalfreedom.economy.*;
+import me.totalfreedom.utils.FreedomLogger;
+import net.kyori.adventure.text.Component;
+
+public class SimpleTransactionLogger implements TransactionLogger
+{
+    private final MutableAudienceForwarder audience = MutableAudienceForwarder.from(FreedomLogger.getLogger("Fossil"));
+
+    @Override
+    public void logTransaction(CompletedTransaction completedTransaction)
+    {
+        StringBuilder transactionLoggingStatementBuilder = new StringBuilder();
+        TransactionResult result = completedTransaction.getResult();
+        boolean resultSuccess = result.isSuccessful();
+        String resultMessage = result.getMessage();
+
+        EconomicEntity source = completedTransaction.getSource();
+        EconomicEntity destination = completedTransaction.getDestination();
+        long transactionAmount = completedTransaction.getBalance();
+
+        transactionLoggingStatementBuilder.append(resultSuccess ? "Successful" : "Unsuccessful")
+                .append(" (")
+                .append(resultMessage)
+                .append(") ")
+                .append(" transaction between ")
+                .append(source.getName())
+                .append(" ")
+                .append(destination.getName())
+                .append(" where the volume of currency transferred was $")
+                .append(transactionAmount)
+                .append(".");
+
+        Component message = Component.text(transactionLoggingStatementBuilder.toString());
+
+        audience.sendMessage(message);
+    }
+
+    public MutableAudienceForwarder getAudienceForwarder()
+    {
+        return audience;
+    }
+}
