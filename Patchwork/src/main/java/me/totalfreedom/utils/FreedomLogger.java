@@ -47,9 +47,9 @@ public class FreedomLogger implements Audience
      * @param component The component to send.
      * @return A plain text representation of the message
      */
-    public String infoComponent(Component component)
+    public String infoComponent(final Component component)
     {
-        String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = FreedomAdventure.toPlainText(component);
 
         logger.info(plainText);
         return plainText;
@@ -77,7 +77,7 @@ public class FreedomLogger implements Audience
      * @param component The component to send.
      * @return A string representation of the message.
      */
-    public String infoComponent(Supplier<Component> component)
+    public String infoComponent(final Supplier<Component> component)
     {
         return this.infoComponent(component.get());
     }
@@ -97,9 +97,9 @@ public class FreedomLogger implements Audience
      *
      * @param component The component to send.
      */
-    public void warnComponent(Component component)
+    public void warnComponent(final Component component)
     {
-        String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = FreedomAdventure.toPlainText(component);
 
         logger.warn(plainText);
     }
@@ -121,9 +121,9 @@ public class FreedomLogger implements Audience
      *
      * @param component The message to send.
      */
-    public String errorComponent(Component component)
+    public String errorComponent(final Component component)
     {
-        String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = FreedomAdventure.toPlainText(component);
 
         logger.error(plainText);
 
@@ -164,7 +164,7 @@ public class FreedomLogger implements Audience
      * @param component The component to send.
      * @return A String representation of the component.
      */
-    public String errorComponent(Supplier<Component> component)
+    public String errorComponent(final Supplier<Component> component)
     {
         return this.errorComponent(component.get());
     }
@@ -187,9 +187,9 @@ public class FreedomLogger implements Audience
      *
      * @param component The component to send.
      */
-    public String debugComponent(Component component)
+    public String debugComponent(final Component component)
     {
-        String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = FreedomAdventure.toPlainText(component);
 
         this.debug(plainText);
 
@@ -222,7 +222,7 @@ public class FreedomLogger implements Audience
      * @param component The component to send.
      * @return A String representation of the message.
      */
-    public String debugComponent(Supplier<Component> component)
+    public String debugComponent(final Supplier<Component> component)
     {
         if (debug)
         {
@@ -233,9 +233,9 @@ public class FreedomLogger implements Audience
 
 
     @Override
-    public void sendMessage(@NotNull ComponentLike message)
+    public void sendMessage(@NotNull final ComponentLike message)
     {
-        Component component = ComponentLike.unbox(message);
+        final Component component = ComponentLike.unbox(message);
 
         if (component == null)
         {
@@ -247,25 +247,25 @@ public class FreedomLogger implements Audience
     }
 
     @Override
-    public void sendMessage(@NotNull Component message)
+    public void sendMessage(@NotNull final Component message)
     {
         this.infoComponent(message);
     }
 
     @Override
-    public void sendMessage(@NotNull Component message, ChatType.@NotNull Bound boundChatType)
+    public void sendMessage(@NotNull final Component message, final ChatType.@NotNull Bound boundChatType)
     {
         this.infoComponent(message);
     }
 
     @Override
-    public void sendMessage(@NotNull ComponentLike message, ChatType.@NotNull Bound boundChatType)
+    public void sendMessage(@NotNull final ComponentLike message, final ChatType.@NotNull Bound boundChatType)
     {
         this.sendMessage(message);
     }
 
     @Override
-    public void sendMessage(@NotNull SignedMessage signedMessage, ChatType.@NotNull Bound boundChatType)
+    public void sendMessage(@NotNull final SignedMessage signedMessage, final ChatType.@NotNull Bound boundChatType)
     {
         this.info(signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message, including unsigned & signed content, or only the signed part. This method was written in the assumption that it provided all content.
     }

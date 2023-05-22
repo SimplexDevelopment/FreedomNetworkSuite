@@ -102,7 +102,7 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
         {
             try
             {
-                command.getBaseMethodPair().getValue().invoke(command, sender);
+                command.getBaseMethodPair().value().invoke(command, sender);
             } catch (Exception ex)
             {
                 FreedomLogger.getLogger("Patchwork")

@@ -90,12 +90,12 @@ public class SimpleUserData implements UserData
                                     .getGroupRegistry()
                                     .getGroup(g);
 
-                            long playtime = result.getLong("playtime");
-                            boolean frozen = result.getBoolean("frozen");
-                            boolean canInteract = result.getBoolean("canInteract");
-                            boolean caged = result.getBoolean("caged");
-                            long balance = result.getLong("balance");
-                            boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
+                            final long playtime = result.getLong("playtime");
+                            final boolean frozen = result.getBoolean("frozen");
+                            final boolean canInteract = result.getBoolean("canInteract");
+                            final boolean caged = result.getBoolean("caged");
+                            final long balance = result.getLong("balance");
+                            final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
                             return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance, transactionsFrozen);
                         }
                     } catch (SQLException ex)
@@ -231,19 +231,19 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public long addToBalance(long amount)
+    public long addToBalance(final long amount)
     {
         return balance.addAndGet(amount);
     }
 
     @Override
-    public long removeFromBalance(long amount)
+    public long removeFromBalance(final long amount)
     {
         return balance.addAndGet(-amount);
     }
 
     @Override
-    public void setBalance(long newBalance)
+    public void setBalance(final long newBalance)
     {
         balance.set(newBalance);
     }

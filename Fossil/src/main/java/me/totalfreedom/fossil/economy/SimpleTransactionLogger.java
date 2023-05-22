@@ -1,7 +1,10 @@
 package me.totalfreedom.fossil.economy;
 
 import me.totalfreedom.audience.MutableAudienceForwarder;
-import me.totalfreedom.economy.*;
+import me.totalfreedom.economy.TransactionResult;
+import me.totalfreedom.economy.CompletedTransaction;
+import me.totalfreedom.economy.TransactionLogger;
+import me.totalfreedom.economy.EconomicEntity;
 import me.totalfreedom.utils.FreedomLogger;
 import net.kyori.adventure.text.Component;
 
@@ -10,16 +13,16 @@ public class SimpleTransactionLogger implements TransactionLogger
     private final MutableAudienceForwarder audience = MutableAudienceForwarder.from(FreedomLogger.getLogger("Fossil"));
 
     @Override
-    public void logTransaction(CompletedTransaction completedTransaction)
+    public void logTransaction(final CompletedTransaction completedTransaction)
     {
-        StringBuilder transactionLoggingStatementBuilder = new StringBuilder();
-        TransactionResult result = completedTransaction.getResult();
-        boolean resultSuccess = result.isSuccessful();
-        String resultMessage = result.getMessage();
+        final StringBuilder transactionLoggingStatementBuilder = new StringBuilder();
+        final TransactionResult result = completedTransaction.getResult();
+        final boolean resultSuccess = result.isSuccessful();
+        final String resultMessage = result.getMessage();
 
-        EconomicEntity source = completedTransaction.getSource();
-        EconomicEntity destination = completedTransaction.getDestination();
-        long transactionAmount = completedTransaction.getBalance();
+        final EconomicEntity source = completedTransaction.getSource();
+        final EconomicEntity destination = completedTransaction.getDestination();
+        final long transactionAmount = completedTransaction.getBalance();
 
         transactionLoggingStatementBuilder.append(resultSuccess ? "Successful" : "Unsuccessful")
                 .append(" (")
@@ -33,7 +36,7 @@ public class SimpleTransactionLogger implements TransactionLogger
                 .append(transactionAmount)
                 .append(".");
 
-        Component message = Component.text(transactionLoggingStatementBuilder.toString());
+        final Component message = Component.text(transactionLoggingStatementBuilder.toString());
 
         audience.sendMessage(message);
     }

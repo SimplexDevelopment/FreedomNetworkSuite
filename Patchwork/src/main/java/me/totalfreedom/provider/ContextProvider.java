@@ -98,20 +98,33 @@ public class ContextProvider
         return toPlayer(string);
     }
 
-    private @Nullable World toWorld(String string)
+    private @Nullable World toWorld(final String string)
     {
         return Bukkit.getWorld(string);
     }
 
+    // If we decide to, we can "modify" this to use spaces
+    // and adjust our inputs accordingly.
+    /**
+     * When using this method, the input string must be formatted as
+     * <br>
+     * <code>worldName,x,y,z</code>
+     * <br>
+     *
+     * @param string The string to parse
+     * @return A location object if xyz is valid
+     */
     private @Nullable Location toLocation(final String string)
     {
         final String[] split = string.split(",");
-        if (split.length != 4 || toWorld(split[0]) == null) return null;
-        if (toDouble(split[1]) == null
-                || toDouble(split[2]) == null
-                || toDouble(split[3]) == null) return null;
 
-        return new Location(toWorld(split[0]), toDouble(split[1]), toDouble(split[2]), toDouble(split[3]));
+        if (split.length != 4 || toWorld(split[0]) == null) return null;
+
+        final double x = Double.parseDouble(split[1]);
+        final double y = Double.parseDouble(split[2]);
+        final double z = Double.parseDouble(split[3]);
+
+        return new Location(toWorld(split[0]), x, y, z);
     }
 
     private @NotNull Component toComponent(final String string)
