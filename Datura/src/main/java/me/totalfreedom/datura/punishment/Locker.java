@@ -22,7 +22,7 @@ public class Locker extends Service
         super("locker-service");
     }
 
-    public void lock(UUID uuid)
+    public void lock(final UUID uuid)
     {
         lockedPlayers.add(uuid);
     }
@@ -32,19 +32,19 @@ public class Locker extends Service
     {
         lockedPlayers.removeIf(uuid -> !CommonsBase.getInstance().getServer().getOfflinePlayer(uuid).isOnline());
 
-        for (UUID uuid : lockedPlayers)
+        for (final UUID uuid : lockedPlayers)
         {
-            Player player = Bukkit.getPlayer(uuid);
+            final Player player = Bukkit.getPlayer(uuid);
             if (player == null) continue;
 
             lockingMethod(player);
         }
     }
 
-    private void lockingMethod(@NotNull Player player)
+    private void lockingMethod(@NotNull final Player player)
     {
-        double x = player.getLocation().getX();
-        double z = player.getLocation().getZ();
+        final double x = player.getLocation().getX();
+        final double z = player.getLocation().getZ();
 
         if ((x / z % 0.001) < 1)
         {

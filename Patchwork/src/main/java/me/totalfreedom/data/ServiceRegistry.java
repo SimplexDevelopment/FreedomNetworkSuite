@@ -20,7 +20,7 @@ public class ServiceRegistry
 
     public void startAll()
     {
-        for (Service service : this.services)
+        for (final Service service : this.services)
         {
             service.start();
         }
@@ -28,7 +28,7 @@ public class ServiceRegistry
 
     public void stopAll()
     {
-        for (Service service : this.services)
+        for (final Service service : this.services)
         {
             service.stop();
         }
@@ -39,7 +39,7 @@ public class ServiceRegistry
     // and calling getClass() on this object would effectively be Class<T>, though we may lose
     // the identity of the code signature in the process.
     // In this case, that is fine.
-    public <T extends Service> void register(Plugin plugin, final T service)
+    public <T extends Service> void register(final Plugin plugin, final T service)
     {
         this.services.add(service);
         if (!service.getClass().isInstance(service))
@@ -57,12 +57,12 @@ public class ServiceRegistry
                 ServicePriority.Normal);
     }
 
-    public <T extends Service> RegisteredServiceProvider<T> getService(Class<T> clazz)
+    public <T extends Service> RegisteredServiceProvider<T> getService(final Class<T> clazz)
     {
         return Bukkit.getServicesManager().getRegistration(clazz);
     }
 
-    public void unregister(Class<? extends Service> clazz, Service service)
+    public void unregister(final Class<? extends Service> clazz, final Service service)
     {
         this.services.remove(service);
         Bukkit.getServicesManager().unregister(clazz, service);

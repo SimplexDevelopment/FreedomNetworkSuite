@@ -29,9 +29,9 @@ public class ModuleRegistry
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends JavaPlugin> ModuleProvider<T> getModule(Class<T> clazz)
+    public <T extends JavaPlugin> ModuleProvider<T> getModule(final Class<T> clazz)
     {
-        for (JavaPlugin plugin : plugins)
+        for (final JavaPlugin plugin : plugins)
         {
             if (clazz.isInstance(plugin))
             {

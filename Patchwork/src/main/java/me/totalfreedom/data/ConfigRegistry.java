@@ -9,17 +9,17 @@ public class ConfigRegistry
 {
     private final Map<String, Configuration> configurationList = new HashMap<>();
 
-    public void register(String name, Configuration configuration)
+    public void register(final String name, final Configuration configuration)
     {
         configurationList.put(name, configuration);
     }
 
-    public void unregister(String name)
+    public void unregister(final String name)
     {
         configurationList.remove(name);
     }
 
-    public Configuration getConfiguration(String name)
+    public Configuration getConfiguration(final String name)
     {
         return configurationList.get(name);
     }

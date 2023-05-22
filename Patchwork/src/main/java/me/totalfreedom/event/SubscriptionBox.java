@@ -1,7 +1,5 @@
 package me.totalfreedom.event;
 
-import com.sun.source.tree.ContinueTree;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +11,11 @@ class SubscriptionBox<T extends FEvent>
         this.subscriptions = new ArrayList<>();
     }
 
-    public void addSubscription(EventSubscription<T> subscription) {
+    public void addSubscription(final EventSubscription<T> subscription) {
         subscriptions.add(subscription);
     }
 
-    public void removeSubscription(EventSubscription<?> subscription) {
+    public void removeSubscription(final EventSubscription<?> subscription) {
         subscriptions.remove(subscription);
     }
 

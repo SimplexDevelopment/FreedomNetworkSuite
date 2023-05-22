@@ -22,7 +22,7 @@ public final class BanUID implements BanID
 
         final Instant instant = Instant.now();
 
-        String stringBuilder = String.valueOf(instant.get(ChronoField.DAY_OF_YEAR)) + // The first three numbers between 001 -> 365
+        final String stringBuilder = String.valueOf(instant.get(ChronoField.DAY_OF_YEAR)) + // The first three numbers between 001 -> 365
                 instant.get(ChronoField.HOUR_OF_DAY) + // next two numbers between 00 -> 23
                 instant.get(ChronoField.MINUTE_OF_HOUR) + // next two numbers between 00 -> 59
                 instant.get(ChronoField.MILLI_OF_SECOND); // last three numbers between 000 -> 999

@@ -16,12 +16,12 @@ public class DBBan
 {
     private final SQL sql;
 
-    public DBBan(SQL sql)
+    public DBBan(final SQL sql)
     {
         this.sql = sql;
     }
 
-    public CompletableFuture<Ban> fromSQL(BanID id)
+    public CompletableFuture<Ban> fromSQL(final BanID id)
     {
         return sql.executeQuery("SELECT * FROM bans WHERE id = ?", id.getID())
                 .thenApplyAsync(result ->
@@ -30,11 +30,11 @@ public class DBBan
                     {
                         if (result.next())
                         {
-                            UUID uuid = UUID.fromString(result.getString("uuid"));
-                            Instant timestamp = Instant.parse(result.getString("timestamp"));
+                            final UUID uuid = UUID.fromString(result.getString("uuid"));
+                            final Instant timestamp = Instant.parse(result.getString("timestamp"));
 
                             final Instant expiry;
-                            String ex = result.getString("expiry");
+                            final String ex = result.getString("expiry");
                             if (ex.equals("-1"))
                             {
                                 expiry = null;
@@ -58,7 +58,7 @@ public class DBBan
                 }, CommonsBase.getInstance().getExecutor().getAsync());
     }
 
-    public void addBan(Ban ban)
+    public void addBan(final Ban ban)
     {
         sql.executeUpdate("INSERT INTO bans (id, uuid, reason, issuer, timestamp, expiry) VALUES (?, ?, ?, ?, ?, ?)",
                 ban.getBanID().getID(),
@@ -70,7 +70,7 @@ public class DBBan
         );
     }
 
-    public boolean hasEntry(UUID uuid) {
+    public boolean hasEntry(final UUID uuid) {
         return sql.executeQuery("SELECT * FROM bans WHERE uuid = ?", uuid.toString())
                 .thenApplyAsync(result ->
                 {

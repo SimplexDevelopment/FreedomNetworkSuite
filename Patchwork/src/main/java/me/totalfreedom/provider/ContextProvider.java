@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class ContextProvider
 {
-    public Object fromString(String string)
+    public Object fromString(final String string)
     {
         return Stream.of(toBoolean(string),
                         toDouble(string),
@@ -31,7 +31,7 @@ public class ContextProvider
                 .orElse(string);
     }
 
-    private @Nullable Boolean toBoolean(String string)
+    private @Nullable Boolean toBoolean(final String string)
     {
         try
         {
@@ -42,7 +42,7 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Double toDouble(String string)
+    private @Nullable Double toDouble(final String string)
     {
         try
         {
@@ -53,7 +53,7 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Integer toInt(String string)
+    private @Nullable Integer toInt(final String string)
     {
         try
         {
@@ -64,7 +64,7 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Long toLong(String string)
+    private @Nullable Long toLong(final String string)
     {
         try
         {
@@ -75,7 +75,7 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Float toFloat(String string)
+    private @Nullable Float toFloat(final String string)
     {
         try
         {
@@ -86,12 +86,12 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Player toPlayer(String string)
+    private @Nullable Player toPlayer(final String string)
     {
         return Bukkit.getPlayer(string);
     }
 
-    private @Nullable CommandSender toCommandSender(String string)
+    private @Nullable CommandSender toCommandSender(final String string)
     {
         if (toPlayer(string) == null) return null;
 
@@ -103,9 +103,9 @@ public class ContextProvider
         return Bukkit.getWorld(string);
     }
 
-    private @Nullable Location toLocation(String string)
+    private @Nullable Location toLocation(final String string)
     {
-        String[] split = string.split(",");
+        final String[] split = string.split(",");
         if (split.length != 4 || toWorld(split[0]) == null) return null;
         if (toDouble(split[1]) == null
                 || toDouble(split[2]) == null
@@ -114,7 +114,7 @@ public class ContextProvider
         return new Location(toWorld(split[0]), toDouble(split[1]), toDouble(split[2]), toDouble(split[3]));
     }
 
-    private @NotNull Component toComponent(String string)
+    private @NotNull Component toComponent(final String string)
     {
         return Component.text(string);
     }

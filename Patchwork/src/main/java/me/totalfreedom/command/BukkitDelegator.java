@@ -1,6 +1,5 @@
 package me.totalfreedom.command;
 
-import jdk.jshell.MethodSnippet;
 import me.totalfreedom.api.Context;
 import me.totalfreedom.command.annotation.Subcommand;
 import me.totalfreedom.provider.ContextProvider;
@@ -14,11 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 public class BukkitDelegator extends Command implements PluginIdentifiableCommand
@@ -41,7 +36,9 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
     }
 
     @Override
-    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args)
+    public boolean execute(@NotNull final CommandSender sender,
+                           @NotNull final String commandLabel,
+                           @NotNull final String[] args)
     {
         if (commandLabel.isEmpty() || !commandLabel.equalsIgnoreCase(getName()))
             return false;
@@ -63,23 +60,26 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
 
         if (args.length > 0)
         {
-            ContextProvider provider = new ContextProvider();
-            Set<Subcommand> nodes = command.getSubcommands().keySet();
-            for (Subcommand node : nodes) {
-                Class<?>[] argTypes = node.args();
+            final ContextProvider provider = new ContextProvider();
+            final Set<Subcommand> nodes = command.getSubcommands().keySet();
+            for (final Subcommand node : nodes)
+            {
+                final Class<?>[] argTypes = node.args();
                 if (argTypes.length != args.length)
                     continue;
 
                 Object[] objects = new Object[0];
 
-                for (int i = 0; i < argTypes.length; i++) {
-                    Class<?> argType = argTypes[i];
-                    String arg = args[i];
+                for (int i = 0; i < argTypes.length; i++)
+                {
+                    final Class<?> argType = argTypes[i];
+                    final String arg = args[i];
                     if (argType == String.class)
                         continue;
 
-                    Context<?> context = () -> provider.fromString(arg);
-                    if (!argType.isInstance(context.get())) {
+                    final Context<?> context = () -> provider.fromString(arg);
+                    if (!argType.isInstance(context.get()))
+                    {
                         throw new IllegalStateException();
                     }
                     objects = Arrays.copyOf(objects, objects.length + 1);
@@ -98,7 +98,8 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
             return false;
         }
 
-        if (command.getBaseMethodPair() != null) {
+        if (command.getBaseMethodPair() != null)
+        {
             try
             {
                 command.getBaseMethodPair().getValue().invoke(command, sender);

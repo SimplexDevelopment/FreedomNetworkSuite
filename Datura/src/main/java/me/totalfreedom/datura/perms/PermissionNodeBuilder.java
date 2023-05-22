@@ -14,42 +14,42 @@ public class PermissionNodeBuilder implements NodeBuilder
     private boolean negated = false;
 
     @Override
-    public NodeBuilder key(String key)
+    public NodeBuilder key(final String key)
     {
         this.key = key;
         return this;
     }
 
     @Override
-    public NodeBuilder value(boolean value)
+    public NodeBuilder value(final boolean value)
     {
         this.value = value;
         return this;
     }
 
     @Override
-    public NodeBuilder expiry(long expiry)
+    public NodeBuilder expiry(final long expiry)
     {
         this.expiry = expiry;
         return this;
     }
 
     @Override
-    public NodeBuilder type(NodeType type)
+    public NodeBuilder type(final NodeType type)
     {
         this.type = type;
         return this;
     }
 
     @Override
-    public NodeBuilder wildcard(boolean wildcard)
+    public NodeBuilder wildcard(final boolean wildcard)
     {
         this.wildcard = wildcard;
         return this;
     }
 
     @Override
-    public NodeBuilder negated(boolean negated)
+    public NodeBuilder negated(final boolean negated)
     {
         this.negated = negated;
         return this;

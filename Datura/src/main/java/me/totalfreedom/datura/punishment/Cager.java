@@ -12,7 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.DoubleUnaryOperator;
 
 public class Cager extends Service
@@ -34,18 +38,18 @@ public class Cager extends Service
      *
      * @param uuid The UUID of the player to cage.
      */
-    public void cagePlayer(UUID uuid)
+    public void cagePlayer(final UUID uuid)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
 
         cagedPlayers.add(uuid);
         cageLocations.put(uuid, createCage(player.getLocation(), Material.GLASS));
     }
 
-    public void cagePlayer(UUID uuid, Material material)
+    public void cagePlayer(final UUID uuid, final Material material)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
 
         cagedPlayers.add(uuid);
@@ -57,10 +61,10 @@ public class Cager extends Service
      *
      * @param uuid The UUID of the player to uncage.
      */
-    public void uncagePlayer(UUID uuid)
+    public void uncagePlayer(final UUID uuid)
     {
         cagedPlayers.remove(uuid);
-        Location location = cageLocations.get(uuid);
+        final Location location = cageLocations.get(uuid);
 
         createCage(location, Material.AIR); // Remove the cage (set all blocks to air).
 
@@ -78,12 +82,12 @@ public class Cager extends Service
     @Override
     public void tick()
     {
-        for (UUID uuid : cagedPlayers)
+        for (final UUID uuid : cagedPlayers)
         {
-            Player player = Bukkit.getPlayer(uuid);
+            final Player player = Bukkit.getPlayer(uuid);
             if (player == null) continue;
 
-            Location cageLocation = getCageLocation(player);
+            final Location cageLocation = getCageLocation(player);
 
             final boolean inside;
             if (!player.getWorld().equals(cageLocation.getWorld()))
@@ -108,7 +112,7 @@ public class Cager extends Service
      * @param player The player to check.
      * @return Whether the player is caged.
      */
-    public Location getCageLocation(Player player)
+    public Location getCageLocation(final Player player)
     {
         return cageLocations.get(player.getUniqueId());
     }
@@ -119,16 +123,16 @@ public class Cager extends Service
      * We use the {@link Shaper} class to generate the cube, which allows us to define
      * custom shapes using {@link DoubleUnaryOperator}s.
      *
-     * @param location   The location to center the cube around.
+     * @param location The location to center the cube around.
      * @param material The material to use for the cube.
      * @return The center location of the cube (the passed location).
      * @see Shaper
      * @see DoubleUnaryOperator
      */
-    public Location createCage(Location location, Material material)
+    public Location createCage(final Location location, final Material material)
     {
-        Shaper shaper = new Shaper(location.getWorld(), 0.0, 4.0);
-        List<Location> cubed = new LinkedList<>();
+        final Shaper shaper = new Shaper(location.getWorld(), 0.0, 4.0);
+        final List<Location> cubed = new LinkedList<>();
         cubed.addAll(shaper.generate(5, t -> t, t -> 4.0, t -> t));
         cubed.addAll(shaper.generate(5, t -> t, t -> 0.0, t -> t));
         cubed.addAll(shaper.generate(5, t -> 0.0, t -> t, t -> t));
@@ -136,7 +140,7 @@ public class Cager extends Service
         cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 0.0));
         cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 4.0));
 
-        for (Location l : cubed)
+        for (final Location l : cubed)
         {
             location.getWorld().getBlockAt(l).setType(material);
         }
@@ -147,7 +151,7 @@ public class Cager extends Service
     private final class CageListener implements Listener
     {
         @EventHandler
-        public void blockBreakEvent(BlockBreakEvent event)
+        public void blockBreakEvent(final BlockBreakEvent event)
         {
             if (cagedPlayers.contains(event.getPlayer().getUniqueId()))
             {
@@ -156,7 +160,8 @@ public class Cager extends Service
         }
 
         @EventHandler
-        public void playerLeaveEvent(PlayerQuitEvent event) {
+        public void playerLeaveEvent(final PlayerQuitEvent event)
+        {
             if (cagedPlayers.contains(event.getPlayer().getUniqueId()))
             {
                 uncagePlayer(event.getPlayer().getUniqueId());

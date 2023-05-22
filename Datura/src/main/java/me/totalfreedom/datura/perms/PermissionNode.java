@@ -21,7 +21,7 @@ record PermissionNode(String key,
     }
 
     @Override
-    public boolean compare(Node node)
+    public boolean compare(final Node node)
     {
         return node.key().equalsIgnoreCase(key())
                 && node.value() == value()

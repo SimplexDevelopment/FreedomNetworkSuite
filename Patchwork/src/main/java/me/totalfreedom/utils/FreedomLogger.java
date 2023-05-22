@@ -11,17 +11,17 @@ public class FreedomLogger
     private final Logger logger;
     private boolean debug = false;
 
-    private FreedomLogger(String moduleName)
+    private FreedomLogger(final String moduleName)
     {
         this.logger = LoggerFactory.getLogger("FreedomNetworkSuite::" + moduleName);
     }
 
-    public static FreedomLogger getLogger(String moduleName)
+    public static FreedomLogger getLogger(final String moduleName)
     {
         return new FreedomLogger(moduleName);
     }
 
-    public void setDebugMode(boolean debug)
+    public void setDebugMode(final boolean debug)
     {
         this.debug = debug;
     }
@@ -31,7 +31,7 @@ public class FreedomLogger
      *
      * @param message The message to send.
      */
-    public void info(String message)
+    public void info(final String message)
     {
         logger.info(message);
     }
@@ -44,7 +44,7 @@ public class FreedomLogger
      * @param message The message to send.
      * @return A component representation of the message.
      */
-    public Component info(Supplier<String> message)
+    public Component info(final Supplier<String> message)
     {
         logger.info(message.get());
         return Component.text(message.get());
@@ -55,7 +55,7 @@ public class FreedomLogger
      *
      * @param message The message to send.
      */
-    public void warn(String message)
+    public void warn(final String message)
     {
         logger.warn(message);
     }
@@ -67,7 +67,7 @@ public class FreedomLogger
      *
      * @param message The message to send.
      */
-    public void error(String message)
+    public void error(final String message)
     {
         logger.error(message);
     }
@@ -77,7 +77,7 @@ public class FreedomLogger
      *
      * @param th The exception to log.
      */
-    public void error(Throwable th)
+    public void error(final Throwable th)
     {
         logger.error("An error occurred:\n", th);
     }
@@ -92,7 +92,7 @@ public class FreedomLogger
      * @param message The message to send.
      * @return A component representation of the message.
      */
-    public Component error(Supplier<String> message)
+    public Component error(final Supplier<String> message)
     {
         logger.error(message.get());
         return Component.text(message.get());
@@ -104,7 +104,7 @@ public class FreedomLogger
      *
      * @param message The message to send.
      */
-    public void debug(String message)
+    public void debug(final String message)
     {
         if (debug)
             logger.debug(message);
@@ -119,7 +119,7 @@ public class FreedomLogger
      * @param message The message to send.
      * @return A component representation of the message.
      */
-    public Component debug(Supplier<String> message)
+    public Component debug(final Supplier<String> message)
     {
         if (debug)
         {

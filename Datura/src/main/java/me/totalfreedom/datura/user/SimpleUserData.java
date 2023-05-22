@@ -58,7 +58,7 @@ public class SimpleUserData implements UserData
         this.caged = caged;
     }
 
-    public static SimpleUserData fromSQL(SQL sql, String uuid)
+    public static SimpleUserData fromSQL(final SQL sql, final String uuid)
     {
         return sql.executeQuery("SELECT * FROM users WHERE UUID = ?", uuid)
                 .thenApplyAsync(result ->
@@ -67,30 +67,30 @@ public class SimpleUserData implements UserData
                     {
                         if (result.next())
                         {
-                            String g = result.getString("group");
+                            final String g = result.getString("group");
 
-                            UUID u = UUID.fromString(uuid);
-                            String username = result.getString("username");
+                            final UUID u = UUID.fromString(uuid);
+                            final String username = result.getString("username");
 
-                            Player player = Bukkit.getPlayer(u);
+                            final Player player = Bukkit.getPlayer(u);
 
                             if (player == null)
                                 throw new IllegalStateException("Player should be online but they are not!");
 
-                            User user = new FreedomUser(player);
-                            Group group = CommonsBase.getInstance()
+                            final User user = new FreedomUser(player);
+                            final Group group = CommonsBase.getInstance()
                                     .getRegistrations()
                                     .getGroupRegistry()
                                     .getGroup(g);
-                            long playtime = result.getLong("playtime");
-                            boolean frozen = result.getBoolean("frozen");
-                            boolean canInteract = result.getBoolean("canInteract");
-                            boolean caged = result.getBoolean("caged");
+                            final long playtime = result.getLong("playtime");
+                            final boolean frozen = result.getBoolean("frozen");
+                            final boolean canInteract = result.getBoolean("canInteract");
+                            final boolean caged = result.getBoolean("caged");
                             return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged);
                         }
                     } catch (SQLException ex)
                     {
-                        String sb = "An error occurred while trying to retrieve user data for UUID " +
+                        final String sb = "An error occurred while trying to retrieve user data for UUID " +
                                 uuid +
                                 " from the database." +
                                 "\nCaused by: " +
@@ -102,7 +102,7 @@ public class SimpleUserData implements UserData
                                 .error(sb);
                     }
 
-                    Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+                    final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
                     if (player == null) throw new IllegalStateException("Player should be online but they are not!");
                     return new SimpleUserData(player);
                 }, CommonsBase.getInstance()
@@ -136,7 +136,7 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public void setGroup(@Nullable Group group)
+    public void setGroup(@Nullable final Group group)
     {
         event.ping();
         this.group = group;
@@ -149,14 +149,14 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public void setPlaytime(long playtime)
+    public void setPlaytime(final long playtime)
     {
         event.ping();
         this.playtime = playtime;
     }
 
     @Override
-    public void addPlaytime(long playtime)
+    public void addPlaytime(final long playtime)
     {
         event.ping();
         this.playtime += playtime;
@@ -176,7 +176,7 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public void setFrozen(boolean frozen)
+    public void setFrozen(final boolean frozen)
     {
         event.ping();
         this.frozen = true;
@@ -189,7 +189,7 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public void setInteractionState(boolean canInteract)
+    public void setInteractionState(final boolean canInteract)
     {
         event.ping();
         this.canInteract = canInteract;
@@ -202,7 +202,7 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public void setCaged(boolean caged)
+    public void setCaged(final boolean caged)
     {
         event.ping();
         this.caged = caged;

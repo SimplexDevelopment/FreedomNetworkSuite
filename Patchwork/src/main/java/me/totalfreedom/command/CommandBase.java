@@ -29,7 +29,7 @@ public abstract class CommandBase
 
         if (this.getClass().isAnnotationPresent(Base.class))
         {
-            Method method = Stream.of(this.getClass().getDeclaredMethods())
+            final Method method = Stream.of(this.getClass().getDeclaredMethods())
                     .filter(m -> m.isAnnotationPresent(Base.class))
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("Base annotation present but no method found."));

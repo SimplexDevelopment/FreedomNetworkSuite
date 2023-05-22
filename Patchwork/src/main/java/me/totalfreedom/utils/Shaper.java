@@ -13,24 +13,24 @@ public class Shaper
     private final double end;
     private final World world;
 
-    public Shaper(World world, double start, double end)
+    public Shaper(final World world, final double start, final double end)
     {
         this.start = start;
         this.end = end;
         this.world = world;
     }
 
-    public List<Location> generate(int count, DoubleUnaryOperator x, DoubleUnaryOperator y, DoubleUnaryOperator z)
+    public List<Location> generate(final int count, final DoubleUnaryOperator x, final DoubleUnaryOperator y, final DoubleUnaryOperator z)
     {
-        double step = (start - end) / (count - 1);
-        LinkedList<Location> lset = new LinkedList<>();
+        final double step = (start - end) / (count - 1);
+        final LinkedList<Location> lset = new LinkedList<>();
 
         for (int i = 0; i < count; i++)
         {
-            double t = start + i * step;
-            double xp = x.applyAsDouble(t);
-            double yp = y.applyAsDouble(t);
-            double zp = z.applyAsDouble(t);
+            final double t = start + i * step;
+            final double xp = x.applyAsDouble(t);
+            final double yp = y.applyAsDouble(t);
+            final double zp = z.applyAsDouble(t);
 
             lset.add(new Location(world, xp, yp, zp));
         }

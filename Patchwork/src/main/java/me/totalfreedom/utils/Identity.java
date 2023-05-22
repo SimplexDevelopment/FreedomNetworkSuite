@@ -8,7 +8,7 @@ public class Identity
 
     private final UUID id;
 
-    public Identity(String key)
+    public Identity(final String key)
     {
         this.key = key;
         this.id = UUID.nameUUIDFromBytes(key.getBytes());

@@ -15,17 +15,17 @@ public class UserRegistry
         this.userDataMap = new HashMap<>();
     }
 
-    public UserData getUserData(User user)
+    public UserData getUserData(final User user)
     {
         return userDataMap.get(user);
     }
 
-    public void registerUserData(User user, UserData userData)
+    public void registerUserData(final User user, final UserData userData)
     {
         userDataMap.put(user, userData);
     }
 
-    public void unregisterUserData(User user)
+    public void unregisterUserData(final User user)
     {
         userDataMap.remove(user);
     }

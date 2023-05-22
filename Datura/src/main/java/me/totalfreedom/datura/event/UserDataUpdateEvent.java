@@ -7,7 +7,7 @@ public class UserDataUpdateEvent extends FEvent
 {
     private final UserData data;
 
-    public UserDataUpdateEvent(UserData data)
+    public UserDataUpdateEvent(final UserData data)
     {
         this.data = data;
     }

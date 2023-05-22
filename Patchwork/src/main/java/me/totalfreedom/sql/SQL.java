@@ -7,15 +7,15 @@ import java.util.concurrent.CompletableFuture;
 
 public interface SQL
 {
-    CompletableFuture<Connection> getConnection(String url);
+    CompletableFuture<Connection> getConnection(final String url);
 
-    CompletableFuture<PreparedStatement> prepareStatement(String query, Object... args);
+    CompletableFuture<PreparedStatement> prepareStatement(final String query, final Object... args);
 
-    CompletableFuture<ResultSet> executeQuery(String query, Object... args);
+    CompletableFuture<ResultSet> executeQuery(final String query, final Object... args);
 
-    CompletableFuture<Integer> executeUpdate(String query, Object... args);
+    CompletableFuture<Integer> executeUpdate(final String query, final Object... args);
 
-    CompletableFuture<Boolean> execute(String query, Object... args);
+    CompletableFuture<Boolean> execute(final String query, final Object... args);
 
-    CompletableFuture<Boolean> createTable(String table, String... columns);
+    CompletableFuture<Boolean> createTable(final String table, final String... columns);
 }
