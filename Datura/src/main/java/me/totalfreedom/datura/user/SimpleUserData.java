@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SimpleUserData implements UserData
 {
@@ -28,6 +29,8 @@ public class SimpleUserData implements UserData
     private boolean frozen;
     private boolean canInteract;
     private boolean caged;
+    private AtomicLong balance;
+    private boolean transactionsFrozen;
 
     public SimpleUserData(final Player player)
     {
@@ -46,7 +49,9 @@ public class SimpleUserData implements UserData
             final long playtime,
             final boolean frozen,
             final boolean canInteract,
-            final boolean caged)
+            final boolean caged,
+            final long balance,
+            final boolean transactionsFrozen)
     {
         this.uuid = uuid;
         this.username = username;
@@ -56,6 +61,8 @@ public class SimpleUserData implements UserData
         this.frozen = frozen;
         this.canInteract = canInteract;
         this.caged = caged;
+        this.balance = new AtomicLong(balance);
+        this.transactionsFrozen = transactionsFrozen;
     }
 
     public static SimpleUserData fromSQL(SQL sql, String uuid)
@@ -86,7 +93,9 @@ public class SimpleUserData implements UserData
                             boolean frozen = result.getBoolean("frozen");
                             boolean canInteract = result.getBoolean("canInteract");
                             boolean caged = result.getBoolean("caged");
-                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged);
+                            long balance = result.getLong("balance");
+                            boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
+                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance, transactionsFrozen);
                         }
                     } catch (SQLException ex)
                     {
@@ -206,5 +215,35 @@ public class SimpleUserData implements UserData
     {
         event.ping();
         this.caged = caged;
+    }
+
+    @Override
+    public boolean areTransactionsFrozen()
+    {
+        return transactionsFrozen;
+    }
+
+    @Override
+    public long getBalance()
+    {
+        return balance.get();
+    }
+
+    @Override
+    public long addToBalance(long amount)
+    {
+        return balance.addAndGet(amount);
+    }
+
+    @Override
+    public long removeFromBalance(long amount)
+    {
+        return balance.addAndGet(-amount);
+    }
+
+    @Override
+    public void setBalance(long newBalance)
+    {
+        balance.set(newBalance);
     }
 }

@@ -1,12 +1,17 @@
 package me.totalfreedom.utils;
 
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.chat.ChatType;
+import net.kyori.adventure.chat.SignedMessage;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.function.Supplier;
 
-public class FreedomLogger
+public class FreedomLogger implements Audience
 {
     private final Logger logger;
     private boolean debug = false;
@@ -37,6 +42,20 @@ public class FreedomLogger
     }
 
     /**
+     * This method allows you to log a component to the console.
+     *
+     * @param component The component to send.
+     * @return A plain text representation of the message
+     */
+    public String infoComponent(Component component)
+    {
+        String plainText = FreedomAdventure.toPlainText(component);
+
+        logger.info(plainText);
+        return plainText;
+    }
+
+    /**
      * This method allows you to log a message to the console,
      * while also returning a Component that could be used to
      * message a player.
@@ -51,6 +70,19 @@ public class FreedomLogger
     }
 
     /**
+     * This method allows you to log a component to the console,
+     * while also returning a String representation of the
+     * component
+     *
+     * @param component The component to send.
+     * @return A string representation of the message.
+     */
+    public String infoComponent(Supplier<Component> component)
+    {
+        return this.infoComponent(component.get());
+    }
+
+    /**
      * This method allows you to log a warning to the console.
      *
      * @param message The message to send.
@@ -58,6 +90,18 @@ public class FreedomLogger
     public void warn(String message)
     {
         logger.warn(message);
+    }
+
+    /**
+     * This method allows you to log a warning to the console.
+     *
+     * @param component The component to send.
+     */
+    public void warnComponent(Component component)
+    {
+        String plainText = FreedomAdventure.toPlainText(component);
+
+        logger.warn(plainText);
     }
 
     /**
@@ -70,6 +114,20 @@ public class FreedomLogger
     public void error(String message)
     {
         logger.error(message);
+    }
+
+    /**
+     * This method logs an error component to the console.
+     *
+     * @param component The message to send.
+     */
+    public String errorComponent(Component component)
+    {
+        String plainText = FreedomAdventure.toPlainText(component);
+
+        logger.error(plainText);
+
+        return plainText;
     }
 
     /**
@@ -99,6 +157,19 @@ public class FreedomLogger
     }
 
     /**
+     * This method allows you to log an error component to the console,
+     * while also returning a String representation of the error
+     * component.
+     *
+     * @param component The component to send.
+     * @return A String representation of the component.
+     */
+    public String errorComponent(Supplier<Component> component)
+    {
+        return this.errorComponent(component.get());
+    }
+
+    /**
      * This method allows you to log a debug message to the console.
      * This method will only log if debug mode is enabled.
      *
@@ -108,6 +179,21 @@ public class FreedomLogger
     {
         if (debug)
             logger.debug(message);
+    }
+
+    /**
+     * This method allows you to log a debug component to the console.
+     * This method will only log if debug mode is enabled.
+     *
+     * @param component The component to send.
+     */
+    public String debugComponent(Component component)
+    {
+        String plainText = FreedomAdventure.toPlainText(component);
+
+        this.debug(plainText);
+
+        return plainText;
     }
 
     /**
@@ -127,5 +213,60 @@ public class FreedomLogger
             return Component.text(message.get());
         }
         return Component.empty();
+    }
+
+    /**
+     * This method allows you to log a debug component to the console,
+     * while also returning a String representation of the debug component.
+     *
+     * @param component The component to send.
+     * @return A String representation of the message.
+     */
+    public String debugComponent(Supplier<Component> component)
+    {
+        if (debug)
+        {
+            return this.debugComponent(component.get());
+        }
+        return "";
+    }
+
+
+    @Override
+    public void sendMessage(@NotNull ComponentLike message)
+    {
+        Component component = ComponentLike.unbox(message);
+
+        if (component == null)
+        {
+            this.info("**null component-like**");
+            return;
+        }
+
+        this.infoComponent(component);
+    }
+
+    @Override
+    public void sendMessage(@NotNull Component message)
+    {
+        this.infoComponent(message);
+    }
+
+    @Override
+    public void sendMessage(@NotNull Component message, ChatType.@NotNull Bound boundChatType)
+    {
+        this.infoComponent(message);
+    }
+
+    @Override
+    public void sendMessage(@NotNull ComponentLike message, ChatType.@NotNull Bound boundChatType)
+    {
+        this.sendMessage(message);
+    }
+
+    @Override
+    public void sendMessage(@NotNull SignedMessage signedMessage, ChatType.@NotNull Bound boundChatType)
+    {
+        this.info(signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message, including unsigned & signed content, or only the signed part. This method was written in the assumption that it provided all content.
     }
 }

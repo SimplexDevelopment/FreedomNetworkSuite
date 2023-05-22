@@ -55,3 +55,43 @@ This proof-of-concept also uses the following libraries:
 [<img src="https://img.shields.io/static/v1?label=Developer&message=Video&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/VideoGameSmash12)
 <br />
 [<img src="https://img.shields.io/static/v1?label=Developer&message=Allink&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/allinkdev)
+
+# To Do List
+Patchwork:
+- [x] Logging System
+- [x] SQL API
+- [x] Economy API
+- [ ] Command API
+- [ ] Particle API
+- [x] User API
+- [ ] Ban API
+- [x] Service API
+- [x] Task API
+- [x] Permissions API
+- [ ] Configuration API
+- [ ] Event API
+
+Datura:
+- [ ] Permission Handling
+- [ ] Permission Registration & Assignment
+- [ ] SQL Data Handling
+- [ ] Configuration Implementations
+- [ ] User Data Implementations
+- [ ] Banning Implementation
+- [ ] Punishment Systems (e.x. Locker, Halter, Muter, Cager)
+
+Fossil:
+- [x] Economy Implementation
+- [ ] Particle Implementation / Trails
+- [ ] Command Implementations
+- [ ] Implement a shop for the economy
+- [ ] Chat reaction / game system
+- [ ] Jumppads
+
+Corvo:
+- [ ] Service Implementation
+- [ ] Service Handling
+- [ ] Task Implementation
+- [ ] Task Management
+- [ ] Event (Project) Implementations
+- [ ] Listener (Bukkit) Implementations
