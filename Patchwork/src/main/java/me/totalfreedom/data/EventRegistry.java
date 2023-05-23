@@ -31,7 +31,7 @@ public class EventRegistry
         {
             if (clazz.isInstance(event))
             {
-                return () -> (T) event;
+                return () -> clazz.cast(event);
             }
         }
         return null;

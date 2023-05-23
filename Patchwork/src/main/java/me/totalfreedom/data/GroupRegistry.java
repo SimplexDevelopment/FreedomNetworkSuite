@@ -1,6 +1,6 @@
 package me.totalfreedom.data;
 
-import me.totalfreedom.security.Group;
+import me.totalfreedom.security.perm.Group;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.ArrayList;
@@ -15,18 +15,18 @@ public class GroupRegistry
         this.groups = new ArrayList<>();
     }
 
-    public boolean registerGroup(Group group) {
+    public boolean registerGroup(final Group group) {
         return groups.add(group);
     }
 
-    public boolean unregisterGroup(Group group) {
+    public boolean unregisterGroup(final Group group) {
         return groups.remove(group);
     }
 
-    public Group getGroup(String name) {
-        PlainTextComponentSerializer s = PlainTextComponentSerializer.plainText();
-        for (Group group : groups) {
-            String n = s.serialize(group.getName());
+    public Group getGroup(final String name) {
+        final PlainTextComponentSerializer s = PlainTextComponentSerializer.plainText();
+        for (final Group group : groups) {
+            final String n = s.serialize(group.getName());
             if (n.equalsIgnoreCase(name)) {
                 return group;
             }

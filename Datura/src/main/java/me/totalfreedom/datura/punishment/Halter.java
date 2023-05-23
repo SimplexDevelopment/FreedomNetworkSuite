@@ -23,7 +23,7 @@ public class Halter implements Listener
     }
 
     @EventHandler
-    public void playerMove(PlayerMoveEvent event)
+    public void playerMove(final PlayerMoveEvent event)
     {
         if (haltedPlayers.contains(event.getPlayer().getUniqueId()))
         {

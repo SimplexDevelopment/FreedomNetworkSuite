@@ -14,12 +14,12 @@ public class SimpleTransactionResult implements TransactionResult
     private final Component component;
     private final boolean successful;
 
-    public SimpleTransactionResult(String message, boolean successful)
+    public SimpleTransactionResult(final String message, final boolean successful)
     {
         this(message, Component.text(message, successful ? NamedTextColor.GREEN : NamedTextColor.RED), successful);
     }
 
-    public SimpleTransactionResult(String message, Component component, boolean successful)
+    public SimpleTransactionResult(final String message, final Component component, final boolean successful)
     {
         this.message = message;
         this.component = component;

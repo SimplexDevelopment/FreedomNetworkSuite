@@ -11,7 +11,7 @@ public class SimpleTransaction implements Transaction
     private final EconomicEntity destination;
     protected final AtomicLong balance;
 
-    public SimpleTransaction(EconomicEntity source, EconomicEntity destination, long balance)
+    public SimpleTransaction(final EconomicEntity source, final EconomicEntity destination, final long balance)
     {
         this.source = source;
         this.destination = destination;

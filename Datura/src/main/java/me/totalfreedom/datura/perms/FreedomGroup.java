@@ -1,8 +1,8 @@
 package me.totalfreedom.datura.perms;
 
 import me.totalfreedom.base.CommonsBase;
-import me.totalfreedom.security.Group;
-import me.totalfreedom.security.Node;
+import me.totalfreedom.security.perm.Group;
+import me.totalfreedom.security.perm.Node;
 import net.kyori.adventure.text.Component;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
@@ -27,12 +27,12 @@ public class FreedomGroup implements Group
     private final Set<Node> permissions;
     private final PermissionAttachment attachment;
 
-    public FreedomGroup(Component name,
-                        Component prefix,
-                        Component abbreviation,
-                        int weight,
-                        boolean isDefault,
-                        boolean isHidden)
+    public FreedomGroup(final Component name,
+                        final Component prefix,
+                        final Component abbreviation,
+                        final int weight,
+                        final boolean isDefault,
+                        final boolean isHidden)
     {
         this.name = name;
         this.prefix = prefix;
@@ -94,21 +94,21 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public boolean addPermission(Node node)
+    public boolean addPermission(final Node node)
     {
         return permissions().add(node);
     }
 
     @Override
-    public boolean removePermission(Node node)
+    public boolean removePermission(final Node node)
     {
         return permissions().remove(node);
     }
 
     @Override
-    public boolean isPermissionSet(@NotNull String name)
+    public boolean isPermissionSet(@NotNull final String name)
     {
-        Node node = permissions().stream()
+        final Node node = permissions().stream()
                 .filter(n -> n.key().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
@@ -117,9 +117,9 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public boolean isPermissionSet(@NotNull Permission perm)
+    public boolean isPermissionSet(@NotNull final Permission perm)
     {
-        Node node = permissions()
+        final Node node = permissions()
                 .stream()
                 .filter(n -> n.bukkit().equals(perm))
                 .findFirst()
@@ -129,9 +129,9 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public boolean hasPermission(@NotNull String name)
+    public boolean hasPermission(@NotNull final String name)
     {
-        Node node = permissions().stream()
+        final Node node = permissions().stream()
                 .filter(n -> n.key().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
@@ -140,9 +140,9 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public boolean hasPermission(@NotNull Permission perm)
+    public boolean hasPermission(@NotNull final Permission perm)
     {
-        Node node = permissions()
+        final Node node = permissions()
                 .stream()
                 .filter(n -> n.bukkit().equals(perm))
                 .findFirst()
@@ -164,33 +164,33 @@ public class FreedomGroup implements Group
      * @return This group's PermissionAttachment.
      */
     @Override
-    public @NotNull PermissionAttachment addAttachment(@NotNull Plugin plugin, @NotNull String name, boolean value)
+    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value)
     {
         attachment.setPermission(name, value);
         return attachment;
     }
 
     @Override
-    public @NotNull PermissionAttachment addAttachment(@NotNull Plugin plugin)
+    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin)
     {
         return new PermissionAttachment(plugin, this);
     }
 
     @Override
-    public @Nullable PermissionAttachment addAttachment(@NotNull Plugin plugin, @NotNull String name, boolean value, int ticks)
+    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value, final int ticks)
     {
         attachment.setPermission(name, value);
         return attachment;
     }
 
     @Override
-    public @Nullable PermissionAttachment addAttachment(@NotNull Plugin plugin, int ticks)
+    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, final int ticks)
     {
         return new PermissionAttachment(plugin, this);
     }
 
     @Override
-    public void removeAttachment(@NotNull PermissionAttachment attachment)
+    public void removeAttachment(@NotNull final PermissionAttachment attachment)
     {
         // This method shouldn't do anything, because we don't want to remove our attachment.
     }
@@ -217,7 +217,7 @@ public class FreedomGroup implements Group
     @Override
     public boolean isOp()
     {
-        Node node = permissions()
+        final Node node = permissions()
                 .stream()
                 .filter(n -> n.equals(DefaultNodes.OP))
                 .findFirst()
@@ -227,7 +227,7 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public void setOp(boolean value)
+    public void setOp(final boolean value)
     {
         if (value)
         {

@@ -1,4 +1,4 @@
-package me.totalfreedom.security;
+package me.totalfreedom.security.perm;
 
 public enum NodeType
 {

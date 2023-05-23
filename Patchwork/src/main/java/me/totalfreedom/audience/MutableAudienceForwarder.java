@@ -28,11 +28,11 @@ public class MutableAudienceForwarder implements Audience
 {
     private final Set<Audience> audiences = new HashSet<>();
 
-    public static MutableAudienceForwarder from(Audience... audiences)
+    public static MutableAudienceForwarder from(final Audience... audiences)
     {
-        MutableAudienceForwarder audienceForwarder = new MutableAudienceForwarder();
+        final MutableAudienceForwarder audienceForwarder = new MutableAudienceForwarder();
 
-        for (Audience audience : audiences)
+        for (final Audience audience : audiences)
         {
             audienceForwarder.addAudience(audience);
         }
@@ -40,7 +40,7 @@ public class MutableAudienceForwarder implements Audience
         return audienceForwarder;
     }
 
-    public void addAudience(Audience audience)
+    public void addAudience(final Audience audience)
     {
         if (audiences.contains(audience) || audience == this /* Protect against honest self-referential calls */)
         {
@@ -50,14 +50,14 @@ public class MutableAudienceForwarder implements Audience
         audiences.add(audience);
     }
 
-    public boolean removeAudience(Audience audience)
+    public boolean removeAudience(final Audience audience)
     {
         return audiences.remove(audience);
     }
 
 
     @Override
-    public @NotNull Audience filterAudience(@NotNull Predicate<? super Audience> filter)
+    public @NotNull Audience filterAudience(@NotNull final Predicate<? super Audience> filter)
     {
         return audiences.stream()
                 .filter(filter)
@@ -66,49 +66,49 @@ public class MutableAudienceForwarder implements Audience
     }
 
     @Override
-    public void forEachAudience(@NotNull Consumer<? super Audience> action)
+    public void forEachAudience(@NotNull final Consumer<? super Audience> action)
     {
         audiences.forEach(action);
     }
 
     @Override
-    public void sendMessage(@NotNull ComponentLike message)
+    public void sendMessage(@NotNull final ComponentLike message)
     {
         audiences.forEach(a -> a.sendMessage(message));
     }
 
     @Override
-    public void sendMessage(@NotNull Component message)
+    public void sendMessage(@NotNull final Component message)
     {
         audiences.forEach(a -> a.sendMessage(message));
     }
 
     @Override
-    public void sendMessage(@NotNull Component message, ChatType.@NotNull Bound boundChatType)
+    public void sendMessage(@NotNull final Component message, final ChatType.@NotNull Bound boundChatType)
     {
         audiences.forEach(a -> a.sendMessage(message, boundChatType));
     }
 
     @Override
-    public void sendMessage(@NotNull ComponentLike message, ChatType.@NotNull Bound boundChatType)
+    public void sendMessage(@NotNull final ComponentLike message, final ChatType.@NotNull Bound boundChatType)
     {
         audiences.forEach(a -> a.sendMessage(message, boundChatType));
     }
 
     @Override
-    public void sendMessage(@NotNull SignedMessage signedMessage, ChatType.@NotNull Bound boundChatType)
+    public void sendMessage(@NotNull final SignedMessage signedMessage, final ChatType.@NotNull Bound boundChatType)
     {
         audiences.forEach(a -> a.sendMessage(signedMessage, boundChatType));
     }
 
     @Override
-    public void deleteMessage(@NotNull SignedMessage signedMessage)
+    public void deleteMessage(@NotNull final SignedMessage signedMessage)
     {
         audiences.forEach(a -> a.deleteMessage(signedMessage));
     }
 
     @Override
-    public void deleteMessage(SignedMessage.@NotNull Signature signature)
+    public void deleteMessage(final SignedMessage.@NotNull Signature signature)
     {
         audiences.forEach(a -> a.deleteMessage(signature));
     }
@@ -116,61 +116,61 @@ public class MutableAudienceForwarder implements Audience
     // The methods below here will (probably) never be used, however it's good to keep them for completeness' sake.
 
     @Override
-    public void sendActionBar(@NotNull ComponentLike message)
+    public void sendActionBar(@NotNull final ComponentLike message)
     {
         audiences.forEach(a -> a.sendActionBar(message));
     }
 
     @Override
-    public void sendActionBar(@NotNull Component message)
+    public void sendActionBar(@NotNull final Component message)
     {
         audiences.forEach(a -> a.sendActionBar(message));
     }
 
     @Override
-    public void sendPlayerListHeader(@NotNull ComponentLike header)
+    public void sendPlayerListHeader(@NotNull final ComponentLike header)
     {
         audiences.forEach(a -> a.sendPlayerListHeader(header));
     }
 
     @Override
-    public void sendPlayerListHeader(@NotNull Component header)
+    public void sendPlayerListHeader(@NotNull final Component header)
     {
         audiences.forEach(a -> a.sendPlayerListHeader(header));
     }
 
     @Override
-    public void sendPlayerListFooter(@NotNull ComponentLike footer)
+    public void sendPlayerListFooter(@NotNull final ComponentLike footer)
     {
         audiences.forEach(a -> a.sendPlayerListFooter(footer));
     }
 
     @Override
-    public void sendPlayerListFooter(@NotNull Component footer)
+    public void sendPlayerListFooter(@NotNull final Component footer)
     {
         audiences.forEach(a -> a.sendPlayerListFooter(footer));
     }
 
     @Override
-    public void sendPlayerListHeaderAndFooter(@NotNull ComponentLike header, @NotNull ComponentLike footer)
+    public void sendPlayerListHeaderAndFooter(@NotNull final ComponentLike header, @NotNull final ComponentLike footer)
     {
         audiences.forEach(a -> a.sendPlayerListHeaderAndFooter(header, footer));
     }
 
     @Override
-    public void sendPlayerListHeaderAndFooter(@NotNull Component header, @NotNull Component footer)
+    public void sendPlayerListHeaderAndFooter(@NotNull final Component header, @NotNull final Component footer)
     {
         audiences.forEach(a -> a.sendPlayerListHeaderAndFooter(header, footer));
     }
 
     @Override
-    public void showTitle(@NotNull Title title)
+    public void showTitle(@NotNull final Title title)
     {
         audiences.forEach(a -> a.showTitle(title));
     }
 
     @Override
-    public <T> void sendTitlePart(@NotNull TitlePart<T> part, @NotNull T value)
+    public <T> void sendTitlePart(@NotNull final TitlePart<T> part, @NotNull final T value)
     {
         audiences.forEach(a -> a.sendTitlePart(part, value));
     }
@@ -188,56 +188,56 @@ public class MutableAudienceForwarder implements Audience
     }
 
     @Override
-    public void showBossBar(@NotNull BossBar bar)
+    public void showBossBar(@NotNull final BossBar bar)
     {
         audiences.forEach(a -> a.showBossBar(bar));
     }
 
     @Override
-    public void hideBossBar(@NotNull BossBar bar)
+    public void hideBossBar(@NotNull final BossBar bar)
     {
         audiences.forEach(a -> a.hideBossBar(bar));
     }
 
     @Override
-    public void playSound(@NotNull Sound sound)
+    public void playSound(@NotNull final Sound sound)
     {
         audiences.forEach(a -> a.playSound(sound));
     }
 
     @Override
-    public void playSound(@NotNull Sound sound, double x, double y, double z)
+    public void playSound(@NotNull final Sound sound, final double x, final double y, final double z)
     {
 
         audiences.forEach(a -> a.playSound(sound, x, y, z));
     }
 
     @Override
-    public void playSound(@NotNull Sound sound, Sound.@NotNull Emitter emitter)
+    public void playSound(@NotNull final Sound sound, final Sound.@NotNull Emitter emitter)
     {
         audiences.forEach(a -> a.playSound(sound, emitter));
     }
 
     @Override
-    public void stopSound(@NotNull Sound sound)
+    public void stopSound(@NotNull final Sound sound)
     {
         audiences.forEach(a -> a.stopSound(sound));
     }
 
     @Override
-    public void stopSound(@NotNull SoundStop stop)
+    public void stopSound(@NotNull final SoundStop stop)
     {
         audiences.forEach(a -> a.stopSound(stop));
     }
 
     @Override
-    public void openBook(Book.@NotNull Builder book)
+    public void openBook(final Book.@NotNull Builder book)
     {
         audiences.forEach(a -> a.openBook(book));
     }
 
     @Override
-    public void openBook(@NotNull Book book)
+    public void openBook(@NotNull final Book book)
     {
         audiences.forEach(a -> a.openBook(book));
     }

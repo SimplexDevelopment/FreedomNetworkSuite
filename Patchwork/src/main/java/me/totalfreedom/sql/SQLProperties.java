@@ -9,7 +9,7 @@ public interface SQLProperties
 
     default Properties getDefaultProperties()
     {
-        Properties properties = new Properties();
+        final Properties properties = new Properties();
         properties.setProperty("driver", "sqlite");
         properties.setProperty("host", "localhost");
         properties.setProperty("port", "3306");

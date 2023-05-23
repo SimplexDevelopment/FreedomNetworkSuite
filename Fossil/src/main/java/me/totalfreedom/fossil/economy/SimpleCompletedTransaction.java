@@ -12,7 +12,7 @@ public class SimpleCompletedTransaction implements CompletedTransaction
     private final EconomicEntity destination;
     private final long balance;
 
-    public SimpleCompletedTransaction(Transaction transaction, TransactionResult transactionResult)
+    public SimpleCompletedTransaction(final Transaction transaction, final TransactionResult transactionResult)
     {
 
         this.source = transaction.getSource();

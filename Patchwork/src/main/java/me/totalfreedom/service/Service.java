@@ -7,7 +7,7 @@ public abstract class Service
     private final String name;
     private boolean isActive = false;
 
-    protected Service(String name)
+    protected Service(final String name)
     {
         this.name = name;
 

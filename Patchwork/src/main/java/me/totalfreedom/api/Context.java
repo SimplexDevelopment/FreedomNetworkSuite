@@ -11,10 +11,17 @@ import org.bukkit.event.block.Action;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Function;
+
 @FunctionalInterface
 public interface Context<T>
 {
     T get();
+
+    default <S> Context<S> map(@NotNull final Function<T, S> mapper)
+    {
+        return () -> mapper.apply(get());
+    }
 
     default @Nullable String asString()
     {

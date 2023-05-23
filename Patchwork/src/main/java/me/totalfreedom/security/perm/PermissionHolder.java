@@ -1,6 +1,5 @@
-package me.totalfreedom.security;
+package me.totalfreedom.security.perm;
 
-import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 
 import java.util.Set;

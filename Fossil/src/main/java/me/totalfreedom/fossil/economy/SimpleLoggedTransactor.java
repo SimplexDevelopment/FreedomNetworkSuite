@@ -15,16 +15,16 @@ public class SimpleLoggedTransactor implements Transactor
         this(new SimpleTransactor(), new SimpleTransactionLogger());
     }
 
-    public SimpleLoggedTransactor(Transactor transactor, TransactionLogger transactionLogger)
+    public SimpleLoggedTransactor(final Transactor transactor, final TransactionLogger transactionLogger)
     {
         this.transactor = transactor;
         this.transactionLogger = transactionLogger;
     }
 
     @Override
-    public CompletedTransaction handleTransaction(MutableTransaction transaction)
+    public CompletedTransaction handleTransaction(final MutableTransaction transaction)
     {
-        CompletedTransaction completedTransaction = transactor.handleTransaction(transaction);
+        final CompletedTransaction completedTransaction = transactor.handleTransaction(transaction);
 
         transactionLogger.logTransaction(completedTransaction);
         return completedTransaction;

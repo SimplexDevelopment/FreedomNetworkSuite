@@ -1,0 +1,8 @@
+name: Fossil
+version: 1.0
+main: me.totalfreedom.fossil.Fossil
+author: TotalFreedom
+description: The Fun Module for the Freedom Network.
+depend:
+  - Datura
+  - Patchwork

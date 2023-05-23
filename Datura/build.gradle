@@ -11,8 +11,6 @@ repositories {
 
 dependencies {
     compileOnly project(":Patchwork")
-    compileOnly "com.discord4j:discord4j-core:3.2.3"
-    compileOnly "com.discord4j:discord4j-commons:3.2.3"
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
