@@ -1,15 +1,14 @@
 package me.totalfreedom.command;
 
-import me.totalfreedom.command.annotation.Base;
-import me.totalfreedom.command.annotation.Info;
-import me.totalfreedom.command.annotation.Permissive;
-import me.totalfreedom.command.annotation.Subcommand;
+import me.totalfreedom.command.annotation.*;
 import me.totalfreedom.utils.Pair;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public abstract class CommandBase
@@ -18,6 +17,7 @@ public abstract class CommandBase
     private final Info info;
     private final Permissive perms;
     private final Map<Subcommand, Method> subcommands;
+    private final Set<Completion> completions;
     private final Pair<Base, Method> baseMethodPair;
 
     protected CommandBase(final JavaPlugin plugin)
@@ -26,6 +26,7 @@ public abstract class CommandBase
         this.perms = this.getClass().getDeclaredAnnotation(Permissive.class);
         this.plugin = plugin;
         this.subcommands = new HashMap<>();
+        this.completions = new HashSet<>();
 
         if (this.getClass().isAnnotationPresent(Base.class))
         {
@@ -40,9 +41,20 @@ public abstract class CommandBase
             this.baseMethodPair = null;
         }
 
+        registerAnnotations();
+    }
+
+    private void registerAnnotations()
+    {
         Stream.of(this.getClass().getDeclaredMethods())
                 .filter(method -> method.isAnnotationPresent(Subcommand.class))
-                .forEach(method -> this.subcommands.put(method.getDeclaredAnnotation(Subcommand.class), method));
+                .forEach(method -> this.subcommands.put(
+                        method.getDeclaredAnnotation(Subcommand.class),
+                        method));
+
+        List.of(this.getClass().getDeclaredAnnotationsByType(Completion.class))
+                .stream()
+                .forEach(completions::add);
     }
 
     public Pair<Base, Method> getBaseMethodPair()
@@ -68,5 +80,10 @@ public abstract class CommandBase
     Map<Subcommand, Method> getSubcommands()
     {
         return this.subcommands;
+    }
+
+    Set<Completion> getCompletions()
+    {
+        return this.completions;
     }
 }

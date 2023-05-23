@@ -1,19 +1,25 @@
 package me.totalfreedom.command;
 
 import me.totalfreedom.api.Context;
+import me.totalfreedom.command.annotation.Completion;
 import me.totalfreedom.command.annotation.Subcommand;
 import me.totalfreedom.provider.ContextProvider;
 import me.totalfreedom.utils.FreedomLogger;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginIdentifiableCommand;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 public class BukkitDelegator extends Command implements PluginIdentifiableCommand
@@ -25,8 +31,8 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
     BukkitDelegator(final JavaPlugin plugin, final CommandBase command)
     {
         super(command.getInfo().name());
-        this.plugin = plugin;
         this.command = command;
+        this.plugin = command.getPlugin();
         this.setDescription(command.getInfo().description());
         this.setUsage(command.getInfo().usage());
         this.setPermission(command.getPerms().perm());
@@ -80,7 +86,7 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
                     final Context<?> context = () -> provider.fromString(arg);
                     if (!argType.isInstance(context.get()))
                     {
-                        throw new IllegalStateException();
+                        throw new IllegalStateException(); // TODO: Change this.
                     }
                     objects = Arrays.copyOf(objects, objects.length + 1);
                     objects[objects.length - 1] = context.get();
@@ -111,6 +117,50 @@ public class BukkitDelegator extends Command implements PluginIdentifiableComman
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(final CommandSender sender, final String alias, final String[] args)
+    {
+        final Set<Completion> completions = command.getCompletions();
+        final List<String> results = new ArrayList<>();
+        for (final Completion completion : completions)
+        {
+            if (completion.index() != args.length)
+            {
+                continue;
+            }
+
+            for (final String p : completion.args())
+            {
+                switch (p)
+                {
+                    case "%player%" -> results.addAll(Bukkit.getOnlinePlayers()
+                            .stream()
+                            .map(Player::getName)
+                            .toList());
+                    case "%world%" -> results.addAll(Bukkit.getWorlds()
+                            .stream()
+                            .map(World::getName)
+                            .toList());
+                    case "%number%" -> results.addAll(List.of(
+                                "0",
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5",
+                                "6",
+                                "7",
+                                "8",
+                                "9"));
+                    case "%location%" -> results.add("world,x,y,z");
+                    default -> results.add(p);
+                }
+            }
+        }
+
+        return results.stream().filter(s -> s.startsWith(args[args.length - 1])).toList();
     }
 
     @Override
