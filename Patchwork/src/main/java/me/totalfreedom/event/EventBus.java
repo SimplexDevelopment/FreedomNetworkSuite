@@ -13,20 +13,30 @@ public class EventBus extends Service
     private final Set<FEvent> eventSet = new HashSet<>();
     private final SubscriptionBox<?> runningSubscriptions = new SubscriptionBox<>();
 
-    public EventBus(CommonsBase plugin)
+    public EventBus(final CommonsBase plugin)
     {
         super("event_bus");
         this.plugin = plugin;
     }
 
-    public void addEvent(FEvent event)
+    public void addEvent(final FEvent event)
     {
         eventSet.add(event);
     }
 
-    public <T extends FEvent> EventSubscription<T> subscribe(Class<T> eventClass, Callback<T> callback)
+    public <T extends FEvent> T getEvent(final Class<T> eventClass)
     {
-        Context<T> eventContext = () -> eventSet.stream()
+        final FEvent e = eventSet.stream()
+                .filter(event -> event.getEventClass().equals(eventClass))
+                .findFirst()
+                .orElse(null);
+
+        return eventClass.cast(e);
+    }
+
+    public <T extends FEvent> EventSubscription<T> subscribe(final Class<T> eventClass, final Callback<T> callback)
+    {
+        final Context<T> eventContext = () -> eventSet.stream()
                 .filter(event -> event.getEventClass().equals(eventClass))
                 .findFirst()
                 .map(eventClass::cast)
@@ -40,7 +50,7 @@ public class EventBus extends Service
         return new EventSubscription<>(eventContext.get(), callback);
     }
 
-    public void unsubscribe(EventSubscription<?> subscription)
+    public void unsubscribe(final EventSubscription<?> subscription)
     {
         runningSubscriptions.removeSubscription(subscription);
     }

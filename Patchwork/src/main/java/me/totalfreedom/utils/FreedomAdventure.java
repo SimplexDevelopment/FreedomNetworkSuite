@@ -17,22 +17,22 @@ public class FreedomAdventure
 
     private static final PlainTextComponentSerializer PLAIN_TEXT_COMPONENT_SERIALIZER = PlainTextComponentSerializer.plainText();
 
-    public static String toPlainText(Component component)
+    public static String toPlainText(final Component component)
     {
         return PLAIN_TEXT_COMPONENT_SERIALIZER.serialize(component);
     }
 
-    public static String toPlainText(Supplier<Component> supplier)
+    public static String toPlainText(final Supplier<Component> supplier)
     {
         return toPlainText(supplier.get());
     }
 
-    public static Supplier<String> supplyPlainText(Supplier<Component> supplier)
+    public static Supplier<String> supplyPlainText(final Supplier<Component> supplier)
     {
         return new StringRepresentationSupplier(supplier.get());
     }
 
-    public static Supplier<String> supplyPlainText(Component component)
+    public static Supplier<String> supplyPlainText(final Component component)
     {
         return new StringRepresentationSupplier(component);
     }

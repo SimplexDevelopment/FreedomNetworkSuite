@@ -11,15 +11,20 @@ class SubscriptionBox<T extends FEvent>
         this.subscriptions = new ArrayList<>();
     }
 
-    public void addSubscription(EventSubscription<T> subscription) {
+    public void addSubscription(final EventSubscription<T> subscription) {
         subscriptions.add(subscription);
     }
 
-    public void removeSubscription(EventSubscription<?> subscription) {
+    public void removeSubscription(final EventSubscription<?> subscription) {
         subscriptions.remove(subscription);
     }
 
     public void tick() {
-        subscriptions.forEach(s -> s.getCallback().call(s.getEvent()));
+        subscriptions.forEach(s -> {
+            if (!s.event().shouldCall()) return;
+
+            s.callback().call(s.event());
+            s.event().reset();
+        });
     }
 }

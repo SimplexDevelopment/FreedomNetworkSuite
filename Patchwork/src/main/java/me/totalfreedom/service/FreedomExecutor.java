@@ -2,6 +2,7 @@ package me.totalfreedom.service;
 
 import me.totalfreedom.base.CommonsBase;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executor;
 
@@ -26,7 +27,7 @@ public class FreedomExecutor
         return asyncExecutor;
     }
 
-    public Executor scheduled(long delay, long period)
+    public Executor scheduled(final long delay, final long period)
     {
         return r -> Bukkit.getScheduler()
                 .runTaskTimer(
@@ -36,7 +37,7 @@ public class FreedomExecutor
                         period);
     }
 
-    public Executor scheduledAsync(long delay, long period)
+    public Executor scheduledAsync(final long delay, final long period)
     {
         return r -> Bukkit.getScheduler()
                 .runTaskTimerAsynchronously(
@@ -46,12 +47,12 @@ public class FreedomExecutor
                         period);
     }
 
-    public void runSync(Task task)
+    public void runSync(@NotNull final Task task)
     {
         getSync().execute(task);
     }
 
-    public void runAsync(Task task)
+    public void runAsync(@NotNull final Task task)
     {
         getAsync().execute(task);
     }

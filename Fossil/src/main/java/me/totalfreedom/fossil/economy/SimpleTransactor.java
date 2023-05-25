@@ -1,37 +1,41 @@
 package me.totalfreedom.fossil.economy;
 
-import me.totalfreedom.economy.*;
+import me.totalfreedom.economy.CompletedTransaction;
+import me.totalfreedom.economy.EconomicEntity;
+import me.totalfreedom.economy.EconomicEntityData;
+import me.totalfreedom.economy.MutableTransaction;
+import me.totalfreedom.economy.Transactor;
 
 public class SimpleTransactor implements Transactor
 {
     @Override
-    public CompletedTransaction handleTransaction(MutableTransaction transaction)
+    public CompletedTransaction handleTransaction(final MutableTransaction transaction)
     {
-        EconomicEntity source = transaction.getSource();
-        EconomicEntityData sourceData = source.getEconomicData();
+        final EconomicEntity source = transaction.getSource();
+        final EconomicEntityData sourceData = source.getEconomicData();
 
         if (sourceData.areTransactionsFrozen())
         {
             return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.UNAUTHORIZED);
         }
 
-        long transactionAmount = transaction.getBalance();
+        final long transactionAmount = transaction.getBalance();
 
         if (transactionAmount >= 0)
         {
             return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.AMOUNT_TOO_SMALL);
         }
 
-        long sourceBalance = sourceData.getBalance();
-        long diff = sourceBalance - transactionAmount;
+        final long sourceBalance = sourceData.getBalance();
+        final long diff = sourceBalance - transactionAmount;
 
         if (diff > 0)
         {
             return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.INSUFFICIENT_FUNDS);
         }
 
-        EconomicEntity destination = transaction.getDestination();
-        EconomicEntityData destinationData = destination.getEconomicData();
+        final EconomicEntity destination = transaction.getDestination();
+        final EconomicEntityData destinationData = destination.getEconomicData();
 
         if (destinationData.areTransactionsFrozen())
         {

@@ -41,4 +41,9 @@ public class CommonsBase extends JavaPlugin
     {
         return executor;
     }
+
+    public EventBus getEventBus()
+    {
+        return eventBus;
+    }
 }

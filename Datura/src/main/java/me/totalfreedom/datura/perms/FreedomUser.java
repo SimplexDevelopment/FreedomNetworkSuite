@@ -3,7 +3,7 @@ package me.totalfreedom.datura.perms;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.Datura;
 import me.totalfreedom.datura.user.SimpleUserData;
-import me.totalfreedom.security.Node;
+import me.totalfreedom.security.perm.Node;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
 import net.kyori.adventure.text.Component;
@@ -16,7 +16,11 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * The superinterface User extends PermissionHolder,
@@ -32,13 +36,13 @@ public class FreedomUser implements User
     private final String NOT_ONLINE = "Player is not online";
     private final UserData userData;
 
-    public FreedomUser(Player player)
+    public FreedomUser(final Player player)
     {
         this.uuid = player.getUniqueId();
         this.permissions = new HashSet<>();
         this.displayName = player.displayName();
 
-        Datura datura = CommonsBase.getInstance()
+        final Datura datura = CommonsBase.getInstance()
                 .getRegistrations()
                 .getModuleRegistry()
                 .getModule(Datura.class)
@@ -77,15 +81,15 @@ public class FreedomUser implements User
     }
 
     @Override
-    public boolean addPermission(Node node)
+    public boolean addPermission(final Node node)
     {
-        PermissionAttachment attachment = addAttachment(CommonsBase.getInstance(), node.key(), node.value());
+        final PermissionAttachment attachment = addAttachment(CommonsBase.getInstance(), node.key(), node.value());
         bukkitAttachments.put(node, attachment);
         return permissions().add(node);
     }
 
     @Override
-    public boolean removePermission(Node node)
+    public boolean removePermission(final Node node)
     {
         removeAttachment(bukkitAttachments.get(node));
         bukkitAttachments.remove(node);
@@ -105,37 +109,37 @@ public class FreedomUser implements User
     }
 
     @Override
-    public boolean isPermissionSet(@NotNull String name)
+    public boolean isPermissionSet(@NotNull final String name)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         return player != null && player.isPermissionSet(name);
     }
 
     @Override
-    public boolean isPermissionSet(@NotNull Permission perm)
+    public boolean isPermissionSet(@NotNull final Permission perm)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         return player != null && player.isPermissionSet(perm);
     }
 
     @Override
-    public boolean hasPermission(@NotNull String name)
+    public boolean hasPermission(@NotNull final String name)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         return player != null && player.hasPermission(name);
     }
 
     @Override
-    public boolean hasPermission(@NotNull Permission perm)
+    public boolean hasPermission(@NotNull final Permission perm)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         return player != null && player.hasPermission(perm);
     }
 
     @Override
-    public @NotNull PermissionAttachment addAttachment(@NotNull Plugin plugin, @NotNull String name, boolean value)
+    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             return player.addAttachment(plugin, name, value);
@@ -145,9 +149,9 @@ public class FreedomUser implements User
     }
 
     @Override
-    public @NotNull PermissionAttachment addAttachment(@NotNull Plugin plugin)
+    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             return player.addAttachment(plugin);
@@ -157,9 +161,9 @@ public class FreedomUser implements User
     }
 
     @Override
-    public @Nullable PermissionAttachment addAttachment(@NotNull Plugin plugin, @NotNull String name, boolean value, int ticks)
+    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value, final int ticks)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             return player.addAttachment(plugin, name, value, ticks);
@@ -169,9 +173,9 @@ public class FreedomUser implements User
     }
 
     @Override
-    public @Nullable PermissionAttachment addAttachment(@NotNull Plugin plugin, int ticks)
+    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, final int ticks)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             return player.addAttachment(plugin, ticks);
@@ -181,9 +185,9 @@ public class FreedomUser implements User
     }
 
     @Override
-    public void removeAttachment(@NotNull PermissionAttachment attachment)
+    public void removeAttachment(@NotNull final PermissionAttachment attachment)
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             player.removeAttachment(attachment);
@@ -195,7 +199,7 @@ public class FreedomUser implements User
     @Override
     public void recalculatePermissions()
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             player.recalculatePermissions();
@@ -207,7 +211,7 @@ public class FreedomUser implements User
     @Override
     public @NotNull Set<PermissionAttachmentInfo> getEffectivePermissions()
     {
-        Player player = Bukkit.getPlayer(uuid);
+        final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
         {
             return player.getEffectivePermissions();
@@ -223,7 +227,7 @@ public class FreedomUser implements User
     }
 
     @Override
-    public void setOp(boolean value)
+    public void setOp(final boolean value)
     {
         if (value)
         {
