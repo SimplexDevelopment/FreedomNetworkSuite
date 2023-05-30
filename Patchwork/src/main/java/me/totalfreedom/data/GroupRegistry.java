@@ -15,26 +15,32 @@ public class GroupRegistry
         this.groups = new ArrayList<>();
     }
 
-    public boolean registerGroup(final Group group) {
+    public boolean registerGroup(final Group group)
+    {
         return groups.add(group);
     }
 
-    public boolean unregisterGroup(final Group group) {
+    public boolean unregisterGroup(final Group group)
+    {
         return groups.remove(group);
     }
 
-    public Group getGroup(final String name) {
+    public Group getGroup(final String name)
+    {
         final PlainTextComponentSerializer s = PlainTextComponentSerializer.plainText();
-        for (final Group group : groups) {
+        for (final Group group : groups)
+        {
             final String n = s.serialize(group.getName());
-            if (n.equalsIgnoreCase(name)) {
+            if (n.equalsIgnoreCase(name))
+            {
                 return group;
             }
         }
         return null;
     }
 
-    public List<Group> getGroups() {
+    public List<Group> getGroups()
+    {
         return groups;
     }
 }

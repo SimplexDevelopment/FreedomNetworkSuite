@@ -20,7 +20,8 @@ public class Shaper
         this.world = world;
     }
 
-    public List<Location> generate(final int count, final DoubleUnaryOperator x, final DoubleUnaryOperator y, final DoubleUnaryOperator z)
+    public List<Location> generate(final int count, final DoubleUnaryOperator x, final DoubleUnaryOperator y,
+        final DoubleUnaryOperator z)
     {
         final double step = (start - end) / (count - 1);
         final LinkedList<Location> lset = new LinkedList<>();

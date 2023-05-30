@@ -19,7 +19,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * A replacement for {@link net.kyori.adventure.audience.ForwardingAudience} that allows for audiences to be removed & added at will. Not thread safe.
+ * A replacement for {@link net.kyori.adventure.audience.ForwardingAudience} that allows for audiences to be removed
+ * & added at will. Not thread safe.
  * <p>
  * This is intended for use in toggleable logging systems, for example, potion spy.
  */
@@ -60,9 +61,9 @@ public class MutableAudienceForwarder implements Audience
     public @NotNull Audience filterAudience(@NotNull final Predicate<? super Audience> filter)
     {
         return audiences.stream()
-                .filter(filter)
-                .findFirst()
-                .orElseThrow();
+                        .filter(filter)
+                        .findFirst()
+                        .orElseThrow();
     }
 
     @Override

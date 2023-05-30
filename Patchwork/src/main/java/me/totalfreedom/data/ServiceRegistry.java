@@ -42,29 +42,34 @@ public class ServiceRegistry
     public <T extends Service> void register(final Plugin plugin, final T service)
     {
         this.services.add(service);
-        if (!service.getClass().isInstance(service))
+        if (!service.getClass()
+                    .isInstance(service))
         {
             throw new UnknownError("""
-                    A critical issue has been encountered:
-                    The service %s is not an instance of itself.
-                    This is a critical issue and should be reported immediately.
-                    """.formatted(service.getClass().getName()));
+                                       A critical issue has been encountered:
+                                       The service %s is not an instance of itself.
+                                       This is a critical issue and should be reported immediately.
+                                       """.formatted(service.getClass()
+                                                            .getName()));
         }
-        Bukkit.getServicesManager().register(
-                (Class<T>) service.getClass(),
-                service,
-                plugin,
-                ServicePriority.Normal);
+        Bukkit.getServicesManager()
+              .register(
+                  (Class<T>) service.getClass(),
+                  service,
+                  plugin,
+                  ServicePriority.Normal);
     }
 
     public <T extends Service> RegisteredServiceProvider<T> getService(final Class<T> clazz)
     {
-        return Bukkit.getServicesManager().getRegistration(clazz);
+        return Bukkit.getServicesManager()
+                     .getRegistration(clazz);
     }
 
     public void unregister(final Class<? extends Service> clazz, final Service service)
     {
         this.services.remove(service);
-        Bukkit.getServicesManager().unregister(clazz, service);
+        Bukkit.getServicesManager()
+              .unregister(clazz, service);
     }
 }

@@ -16,30 +16,33 @@ public class CommonsBase extends JavaPlugin
     }
 
     @Override
-    public void onEnable()
+    public void onDisable()
     {
-        getRegistrations().getServiceRegistry().register(this, eventBus);
-        getExecutor().getSync()
-                .execute(() -> getRegistrations()
-                        .getServiceRegistry()
-                        .startAll());
+        getRegistrations().getServiceRegistry()
+                          .stopAll();
+        getRegistrations().getServiceRegistry()
+                          .unregister(EventBus.class, eventBus);
     }
 
     @Override
-    public void onDisable()
+    public void onEnable()
     {
-        getRegistrations().getServiceRegistry().stopAll();
-        getRegistrations().getServiceRegistry().unregister(EventBus.class, eventBus);
-    }
-
-    public Registration getRegistrations()
-    {
-        return registration;
+        getRegistrations().getServiceRegistry()
+                          .register(this, eventBus);
+        getExecutor().getSync()
+                     .execute(() -> getRegistrations()
+                                        .getServiceRegistry()
+                                        .startAll());
     }
 
     public FreedomExecutor getExecutor()
     {
         return executor;
+    }
+
+    public Registration getRegistrations()
+    {
+        return registration;
     }
 
     public EventBus getEventBus()

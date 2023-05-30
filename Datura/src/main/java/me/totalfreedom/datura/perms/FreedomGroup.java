@@ -28,11 +28,11 @@ public class FreedomGroup implements Group
     private final PermissionAttachment attachment;
 
     public FreedomGroup(final Component name,
-                        final Component prefix,
-                        final Component abbreviation,
-                        final int weight,
-                        final boolean isDefault,
-                        final boolean isHidden)
+        final Component prefix,
+        final Component abbreviation,
+        final int weight,
+        final boolean isDefault,
+        final boolean isHidden)
     {
         this.name = name;
         this.prefix = prefix;
@@ -44,6 +44,12 @@ public class FreedomGroup implements Group
         this.attachment = new PermissionAttachment(CommonsBase.getInstance(), this);
     }
 
+    @Override
+    public UUID getUniqueId()
+    {
+        return UUID.nameUUIDFromBytes(getName().toString()
+                                               .getBytes());
+    }
 
     @Override
     public Component getName()
@@ -82,12 +88,6 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public UUID getUniqueId()
-    {
-        return UUID.nameUUIDFromBytes(getName().toString().getBytes());
-    }
-
-    @Override
     public Set<Node> permissions()
     {
         return permissions;
@@ -109,9 +109,10 @@ public class FreedomGroup implements Group
     public boolean isPermissionSet(@NotNull final String name)
     {
         final Node node = permissions().stream()
-                .filter(n -> n.key().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+                                       .filter(n -> n.key()
+                                                     .equalsIgnoreCase(name))
+                                       .findFirst()
+                                       .orElse(null);
 
         return node != null && node.value();
     }
@@ -120,10 +121,11 @@ public class FreedomGroup implements Group
     public boolean isPermissionSet(@NotNull final Permission perm)
     {
         final Node node = permissions()
-                .stream()
-                .filter(n -> n.bukkit().equals(perm))
-                .findFirst()
-                .orElse(null);
+                              .stream()
+                              .filter(n -> n.bukkit()
+                                            .equals(perm))
+                              .findFirst()
+                              .orElse(null);
 
         return node != null && node.value();
     }
@@ -132,9 +134,10 @@ public class FreedomGroup implements Group
     public boolean hasPermission(@NotNull final String name)
     {
         final Node node = permissions().stream()
-                .filter(n -> n.key().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+                                       .filter(n -> n.key()
+                                                     .equalsIgnoreCase(name))
+                                       .findFirst()
+                                       .orElse(null);
 
         return node != null && node.value();
     }
@@ -143,10 +146,11 @@ public class FreedomGroup implements Group
     public boolean hasPermission(@NotNull final Permission perm)
     {
         final Node node = permissions()
-                .stream()
-                .filter(n -> n.bukkit().equals(perm))
-                .findFirst()
-                .orElse(null);
+                              .stream()
+                              .filter(n -> n.bukkit()
+                                            .equals(perm))
+                              .findFirst()
+                              .orElse(null);
 
         return node != null && node.value();
     }
@@ -164,7 +168,8 @@ public class FreedomGroup implements Group
      * @return This group's PermissionAttachment.
      */
     @Override
-    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value)
+    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
+        final boolean value)
     {
         attachment.setPermission(name, value);
         return attachment;
@@ -177,7 +182,8 @@ public class FreedomGroup implements Group
     }
 
     @Override
-    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value, final int ticks)
+    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
+        final boolean value, final int ticks)
     {
         attachment.setPermission(name, value);
         return attachment;
@@ -205,23 +211,23 @@ public class FreedomGroup implements Group
     public @NotNull Set<PermissionAttachmentInfo> getEffectivePermissions()
     {
         return permissions()
-                .stream()
-                .map(n -> new PermissionAttachmentInfo(
-                        this,
-                        n.key(),
-                        attachment,
-                        n.value()))
-                .collect(Collectors.toSet());
+                   .stream()
+                   .map(n -> new PermissionAttachmentInfo(
+                       this,
+                       n.key(),
+                       attachment,
+                       n.value()))
+                   .collect(Collectors.toSet());
     }
 
     @Override
     public boolean isOp()
     {
         final Node node = permissions()
-                .stream()
-                .filter(n -> n.equals(DefaultNodes.OP))
-                .findFirst()
-                .orElse(null);
+                              .stream()
+                              .filter(n -> n.equals(DefaultNodes.OP))
+                              .findFirst()
+                              .orElse(null);
 
         return node != null && node.value();
     }

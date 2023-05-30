@@ -9,8 +9,8 @@ public class Fossil extends JavaPlugin
     public void onEnable()
     {
         CommonsBase.getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .addModule(this);
+                   .getRegistrations()
+                   .getModuleRegistry()
+                   .addModule(this);
     }
 }

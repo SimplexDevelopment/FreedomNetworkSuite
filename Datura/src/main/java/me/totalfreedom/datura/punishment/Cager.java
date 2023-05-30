@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -31,7 +31,8 @@ public class Cager extends Service
         super("cage_service");
         this.cagedPlayers = new HashSet<>();
         this.cageLocations = new HashMap<>();
-        Bukkit.getPluginManager().registerEvents(new CageListener(), CommonsBase.getInstance());
+        Bukkit.getPluginManager()
+              .registerEvents(new CageListener(), CommonsBase.getInstance());
     }
 
     /**
@@ -47,6 +48,39 @@ public class Cager extends Service
 
         cagedPlayers.add(uuid);
         cageLocations.put(uuid, createCage(player.getLocation(), Material.GLASS));
+    }
+
+    /**
+     * This method generates a cube centered around the passed location,
+     * made of the provided material. This method returns the passed location object.
+     * We use the {@link Shaper} class to generate the cube, which allows us to define
+     * custom shapes using {@link DoubleUnaryOperator}s.
+     *
+     * @param location The location to center the cube around.
+     * @param material The material to use for the cube.
+     * @return The center location of the cube (the passed location).
+     * @see Shaper
+     * @see DoubleUnaryOperator
+     */
+    public Location createCage(final Location location, final Material material)
+    {
+        final Shaper shaper = new Shaper(location.getWorld(), 0.0, 4.0);
+        final List<Location> cubed = new LinkedList<>();
+        cubed.addAll(shaper.generate(5, t -> t, t -> 4.0, t -> t));
+        cubed.addAll(shaper.generate(5, t -> t, t -> 0.0, t -> t));
+        cubed.addAll(shaper.generate(5, t -> 0.0, t -> t, t -> t));
+        cubed.addAll(shaper.generate(5, t -> 4.0, t -> t, t -> t));
+        cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 0.0));
+        cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 4.0));
+
+        for (final Location l : cubed)
+        {
+            location.getWorld()
+                    .getBlockAt(l)
+                    .setType(material);
+        }
+
+        return location.clone(); // Return the passed location as that is the center of the cube.
     }
 
     public void cagePlayer(final UUID uuid, final Material material)
@@ -92,12 +126,14 @@ public class Cager extends Service
             final Location cageLocation = getCageLocation(player);
 
             final boolean inside;
-            if (!player.getWorld().equals(cageLocation.getWorld()))
+            if (!player.getWorld()
+                       .equals(cageLocation.getWorld()))
             {
                 inside = false;
             } else
             {
-                inside = player.getLocation().distanceSquared(cageLocation) > (Math.pow(2.5, 2.0));
+                inside = player.getLocation()
+                               .distanceSquared(cageLocation) > (Math.pow(2.5, 2.0));
             }
 
             if (!inside)
@@ -119,43 +155,13 @@ public class Cager extends Service
         return cageLocations.get(player.getUniqueId());
     }
 
-    /**
-     * This method generates a cube centered around the passed location,
-     * made of the provided material. This method returns the passed location object.
-     * We use the {@link Shaper} class to generate the cube, which allows us to define
-     * custom shapes using {@link DoubleUnaryOperator}s.
-     *
-     * @param location The location to center the cube around.
-     * @param material The material to use for the cube.
-     * @return The center location of the cube (the passed location).
-     * @see Shaper
-     * @see DoubleUnaryOperator
-     */
-    public Location createCage(final Location location, final Material material)
-    {
-        final Shaper shaper = new Shaper(location.getWorld(), 0.0, 4.0);
-        final List<Location> cubed = new LinkedList<>();
-        cubed.addAll(shaper.generate(5, t -> t, t -> 4.0, t -> t));
-        cubed.addAll(shaper.generate(5, t -> t, t -> 0.0, t -> t));
-        cubed.addAll(shaper.generate(5, t -> 0.0, t -> t, t -> t));
-        cubed.addAll(shaper.generate(5, t -> 4.0, t -> t, t -> t));
-        cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 0.0));
-        cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 4.0));
-
-        for (final Location l : cubed)
-        {
-            location.getWorld().getBlockAt(l).setType(material);
-        }
-
-        return location.clone(); // Return the passed location as that is the center of the cube.
-    }
-
     private final class CageListener implements Listener
     {
         @EventHandler
         public void blockBreakEvent(final BlockBreakEvent event)
         {
-            if (cagedPlayers.contains(event.getPlayer().getUniqueId()))
+            if (cagedPlayers.contains(event.getPlayer()
+                                           .getUniqueId()))
             {
                 event.setCancelled(true);
             }
@@ -164,9 +170,11 @@ public class Cager extends Service
         @EventHandler
         public void playerLeaveEvent(final PlayerQuitEvent event)
         {
-            if (cagedPlayers.contains(event.getPlayer().getUniqueId()))
+            if (cagedPlayers.contains(event.getPlayer()
+                                           .getUniqueId()))
             {
-                uncagePlayer(event.getPlayer().getUniqueId());
+                uncagePlayer(event.getPlayer()
+                                  .getUniqueId());
             }
         }
     }

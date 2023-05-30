@@ -1,12 +1,11 @@
 package me.totalfreedom.base;
 
-import me.totalfreedom.data.GroupRegistry;
-import me.totalfreedom.data.BanRegistry;
 import me.totalfreedom.data.ConfigRegistry;
+import me.totalfreedom.data.EventRegistry;
+import me.totalfreedom.data.GroupRegistry;
 import me.totalfreedom.data.ModuleRegistry;
 import me.totalfreedom.data.ServiceRegistry;
 import me.totalfreedom.data.UserRegistry;
-import me.totalfreedom.data.EventRegistry;
 
 public class Registration
 {
@@ -15,7 +14,6 @@ public class Registration
     private final ServiceRegistry serviceRegistry;
     private final ModuleRegistry moduleRegistry;
     private final GroupRegistry groupRegistry;
-    private final BanRegistry banRegistry;
     private final ConfigRegistry configRegistry;
 
     public Registration()
@@ -25,8 +23,7 @@ public class Registration
         this.serviceRegistry = new ServiceRegistry();
         this.moduleRegistry = new ModuleRegistry();
         this.groupRegistry = new GroupRegistry();
-        this.banRegistry = new BanRegistry();
-        this.configRegistry =  new ConfigRegistry();
+        this.configRegistry = new ConfigRegistry();
     }
 
     public ModuleRegistry getModuleRegistry()
@@ -52,11 +49,6 @@ public class Registration
     public GroupRegistry getGroupRegistry()
     {
         return groupRegistry;
-    }
-
-    public BanRegistry getBanRegistry()
-    {
-        return banRegistry;
     }
 
     public ConfigRegistry getConfigRegistry()

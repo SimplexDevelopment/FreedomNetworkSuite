@@ -13,38 +13,30 @@ public class FreedomExecutor
 
     public FreedomExecutor()
     {
-        syncExecutor = r -> Bukkit.getScheduler().runTask(CommonsBase.getInstance(), r);
-        asyncExecutor = r -> Bukkit.getScheduler().runTaskAsynchronously(CommonsBase.getInstance(), r);
-    }
-
-    public Executor getSync()
-    {
-        return syncExecutor;
-    }
-
-    public Executor getAsync()
-    {
-        return asyncExecutor;
+        syncExecutor = r -> Bukkit.getScheduler()
+                                  .runTask(CommonsBase.getInstance(), r);
+        asyncExecutor = r -> Bukkit.getScheduler()
+                                   .runTaskAsynchronously(CommonsBase.getInstance(), r);
     }
 
     public Executor scheduled(final long delay, final long period)
     {
         return r -> Bukkit.getScheduler()
-                .runTaskTimer(
-                        CommonsBase.getInstance(),
-                        r,
-                        delay,
-                        period);
+                          .runTaskTimer(
+                              CommonsBase.getInstance(),
+                              r,
+                              delay,
+                              period);
     }
 
     public Executor scheduledAsync(final long delay, final long period)
     {
         return r -> Bukkit.getScheduler()
-                .runTaskTimerAsynchronously(
-                        CommonsBase.getInstance(),
-                        r,
-                        delay,
-                        period);
+                          .runTaskTimerAsynchronously(
+                              CommonsBase.getInstance(),
+                              r,
+                              delay,
+                              period);
     }
 
     public void runSync(@NotNull final Task task)
@@ -52,8 +44,18 @@ public class FreedomExecutor
         getSync().execute(task);
     }
 
+    public Executor getSync()
+    {
+        return syncExecutor;
+    }
+
     public void runAsync(@NotNull final Task task)
     {
         getAsync().execute(task);
+    }
+
+    public Executor getAsync()
+    {
+        return asyncExecutor;
     }
 }

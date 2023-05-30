@@ -24,7 +24,8 @@ public class ModuleRegistry
         this.plugins.add(plugin);
     }
 
-    public void removeModule(final JavaPlugin plugin) {
+    public void removeModule(final JavaPlugin plugin)
+    {
         this.plugins.remove(plugin);
     }
 

@@ -16,12 +16,12 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface Context<T>
 {
-    T get();
-
     default <S> Context<S> map(@NotNull final Function<T, S> mapper)
     {
         return () -> mapper.apply(get());
     }
+
+    T get();
 
     default @Nullable String asString()
     {
@@ -56,26 +56,35 @@ public interface Context<T>
         }
     }
 
-    default @Nullable Integer asInt() {
-        if (get() instanceof Integer integer) {
+    default @Nullable Integer asInt()
+    {
+        if (get() instanceof Integer integer)
+        {
             return integer;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable Long asLong() {
-        if (get() instanceof Long longg) {
+    default @Nullable Long asLong()
+    {
+        if (get() instanceof Long longg)
+        {
             return longg;
-        } else {
+        } else
+        {
             return null;
         }
     }
 
-    default @Nullable Float asFloat() {
-        if (get() instanceof Float floatt) {
+    default @Nullable Float asFloat()
+    {
+        if (get() instanceof Float floatt)
+        {
             return floatt;
-        } else {
+        } else
+        {
             return null;
         }
     }

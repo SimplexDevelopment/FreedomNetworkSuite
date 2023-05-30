@@ -9,29 +9,31 @@ record PermissionNode(String key,
                       boolean value,
                       long expiry,
                       NodeType type,
-                      boolean wildcard,
-                      boolean negated) implements Node
+                      boolean wildcard) implements Node
 {
 
     @Override
     public Permission bukkit()
     {
         return new Permission(key(),
-                value() ? PermissionDefault.TRUE : PermissionDefault.FALSE);
+                              value()
+                              ? PermissionDefault.TRUE
+                              : PermissionDefault.FALSE);
     }
 
     @Override
     public boolean compare(final Node node)
     {
-        return node.key().equalsIgnoreCase(key())
-                && node.value() == value()
-                && node.type() == type();
+        return node.key()
+                   .equalsIgnoreCase(key())
+                   && node.value() == value()
+                   && node.type() == type();
     }
 
     @Override
     public boolean isExpired()
     {
-        if (isPermanent())
+        if (!isTemporary())
         {
             return false;
         }
@@ -40,14 +42,8 @@ record PermissionNode(String key,
     }
 
     @Override
-    public boolean isPermanent()
-    {
-        return expiry() == -1;
-    }
-
-    @Override
     public boolean isTemporary()
     {
-        return !isPermanent();
+        return expiry() > -1;
     }
 }

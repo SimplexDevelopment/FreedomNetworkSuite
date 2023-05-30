@@ -6,18 +6,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Corvo extends JavaPlugin
 {
     @Override
-    public void onEnable() {
+    public void onDisable()
+    {
         CommonsBase.getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .addModule(this);
+                   .getRegistrations()
+                   .getModuleRegistry()
+                   .removeModule(this);
     }
 
     @Override
-    public void onDisable() {
+    public void onEnable()
+    {
         CommonsBase.getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .removeModule(this);
+                   .getRegistrations()
+                   .getModuleRegistry()
+                   .addModule(this);
     }
 }

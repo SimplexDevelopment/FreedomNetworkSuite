@@ -12,14 +12,11 @@ public class CommandHandler
         this.plugin = plugin;
     }
 
-    // TODO: Figure out how to use CommandExecutor and TabCompleter.
-    //       We need to find a way to resolve PluginCommands so we can
-    //       set the executor and tab completer as necessary.
-    //       OR we need to find an alternative way to process tab completions.
-    public <T extends CommandBase> void registerCommand(final T command)
+    public <T extends Commander> void registerCommand(final T command)
     {
-        final BukkitDelegator delegate = new BukkitDelegator(plugin, command);
+        final BukkitDelegate delegate = new BukkitDelegate(command);
 
-        Bukkit.getCommandMap().register(plugin.getName(), delegate);
+        Bukkit.getCommandMap()
+              .register(plugin.getName(), delegate);
     }
 }

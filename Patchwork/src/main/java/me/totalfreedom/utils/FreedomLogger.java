@@ -32,30 +32,6 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a message to the console.
-     *
-     * @param message The message to send.
-     */
-    public void info(final String message)
-    {
-        logger.info(message);
-    }
-
-    /**
-     * This method allows you to log a component to the console.
-     *
-     * @param component The component to send.
-     * @return A plain text representation of the message
-     */
-    public String infoComponent(final Component component)
-    {
-        final String plainText = FreedomAdventure.toPlainText(component);
-
-        logger.info(plainText);
-        return plainText;
-    }
-
-    /**
      * This method allows you to log a message to the console,
      * while also returning a Component that could be used to
      * message a player.
@@ -80,6 +56,28 @@ public class FreedomLogger implements Audience
     public String infoComponent(final Supplier<Component> component)
     {
         return this.infoComponent(component.get());
+    }    /**
+     * This method allows you to log a message to the console.
+     *
+     * @param message The message to send.
+     */
+    public void info(final String message)
+    {
+        logger.info(message);
+    }
+
+    /**
+     * This method allows you to log a component to the console.
+     *
+     * @param component The component to send.
+     * @return A plain text representation of the message
+     */
+    public String infoComponent(final Component component)
+    {
+        final String plainText = FreedomAdventure.toPlainText(component);
+
+        logger.info(plainText);
+        return plainText;
     }
 
     /**
@@ -114,20 +112,6 @@ public class FreedomLogger implements Audience
     public void error(final String message)
     {
         logger.error(message);
-    }
-
-    /**
-     * This method logs an error component to the console.
-     *
-     * @param component The message to send.
-     */
-    public String errorComponent(final Component component)
-    {
-        final String plainText = FreedomAdventure.toPlainText(component);
-
-        logger.error(plainText);
-
-        return plainText;
     }
 
     /**
@@ -170,28 +154,15 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a debug message to the console.
-     * This method will only log if debug mode is enabled.
+     * This method logs an error component to the console.
      *
-     * @param message The message to send.
+     * @param component The message to send.
      */
-    public void debug(final String message)
-    {
-        if (debug)
-            logger.debug(message);
-    }
-
-    /**
-     * This method allows you to log a debug component to the console.
-     * This method will only log if debug mode is enabled.
-     *
-     * @param component The component to send.
-     */
-    public String debugComponent(final Component component)
+    public String errorComponent(final Component component)
     {
         final String plainText = FreedomAdventure.toPlainText(component);
 
-        this.debug(plainText);
+        logger.error(plainText);
 
         return plainText;
     }
@@ -231,6 +202,35 @@ public class FreedomLogger implements Audience
         return "";
     }
 
+    /**
+     * This method allows you to log a debug component to the console.
+     * This method will only log if debug mode is enabled.
+     *
+     * @param component The component to send.
+     */
+    public String debugComponent(final Component component)
+    {
+        final String plainText = FreedomAdventure.toPlainText(component);
+
+        this.debug(plainText);
+
+        return plainText;
+    }
+
+    /**
+     * This method allows you to log a debug message to the console.
+     * This method will only log if debug mode is enabled.
+     *
+     * @param message The message to send.
+     */
+    public void debug(final String message)
+    {
+        if (debug)
+            logger.debug(message);
+    }
+
+
+
 
     @Override
     public void sendMessage(@NotNull final ComponentLike message)
@@ -267,6 +267,9 @@ public class FreedomLogger implements Audience
     @Override
     public void sendMessage(@NotNull final SignedMessage signedMessage, final ChatType.@NotNull Bound boundChatType)
     {
-        this.info(signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message, including unsigned & signed content, or only the signed part. This method was written in the assumption that it provided all content.
+        this.info(
+            signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message,
+        // including unsigned & signed content, or only the signed part. This method was written in the assumption
+        // that it provided all content.
     }
 }

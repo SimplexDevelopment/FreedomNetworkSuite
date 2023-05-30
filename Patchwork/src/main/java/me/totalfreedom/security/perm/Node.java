@@ -21,11 +21,7 @@ public interface Node
 
     boolean isExpired();
 
-    boolean isPermanent();
-
     boolean isTemporary();
 
     boolean wildcard();
-
-    boolean negated();
 }

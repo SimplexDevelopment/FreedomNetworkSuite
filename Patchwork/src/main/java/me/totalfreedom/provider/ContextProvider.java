@@ -14,21 +14,22 @@ import java.util.stream.Stream;
 
 public class ContextProvider
 {
-    public Object fromString(final String string)
+    public <T> T fromString(final String string, final Class<T> clazz)
     {
         return Stream.of(toBoolean(string),
-                        toDouble(string),
-                        toInt(string),
-                        toLong(string),
-                        toFloat(string),
-                        toPlayer(string),
-                        toWorld(string),
-                        toLocation(string),
-                        toCommandSender(string),
-                        toComponent(string))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(string);
+                         toDouble(string),
+                         toInt(string),
+                         toLong(string),
+                         toFloat(string),
+                         toPlayer(string),
+                         toWorld(string),
+                         toLocation(string),
+                         toCommandSender(string),
+                         toComponent(string))
+                     .filter(Objects::nonNull)
+                     .findFirst()
+                     .map(clazz::cast)
+                     .orElse(null);
     }
 
     private @Nullable Boolean toBoolean(final String string)
@@ -36,7 +37,8 @@ public class ContextProvider
         try
         {
             return Boolean.parseBoolean(string);
-        } catch (Exception e)
+        }
+        catch (Exception ignored)
         {
             return null;
         }
@@ -47,7 +49,8 @@ public class ContextProvider
         try
         {
             return Double.parseDouble(string);
-        } catch (Exception e)
+        }
+        catch (Exception ignored)
         {
             return null;
         }
@@ -58,7 +61,8 @@ public class ContextProvider
         try
         {
             return Integer.parseInt(string);
-        } catch (Exception e)
+        }
+        catch (Exception ignored)
         {
             return null;
         }
@@ -69,7 +73,8 @@ public class ContextProvider
         try
         {
             return Long.parseLong(string);
-        } catch (Exception e)
+        }
+        catch (Exception ignored)
         {
             return null;
         }
@@ -80,7 +85,8 @@ public class ContextProvider
         try
         {
             return Float.parseFloat(string);
-        } catch (Exception e)
+        }
+        catch (Exception ignored)
         {
             return null;
         }
@@ -91,20 +97,11 @@ public class ContextProvider
         return Bukkit.getPlayer(string);
     }
 
-    private @Nullable CommandSender toCommandSender(final String string)
-    {
-        if (toPlayer(string) == null) return null;
-
-        return toPlayer(string);
-    }
-
     private @Nullable World toWorld(final String string)
     {
         return Bukkit.getWorld(string);
     }
 
-    // If we decide to, we can "modify" this to use spaces
-    // and adjust our inputs accordingly.
     /**
      * When using this method, the input string must be formatted as
      * <br>
@@ -125,6 +122,13 @@ public class ContextProvider
         final double z = Double.parseDouble(split[3]);
 
         return new Location(toWorld(split[0]), x, y, z);
+    }
+
+    private @Nullable CommandSender toCommandSender(final String string)
+    {
+        if (toPlayer(string) == null) return null;
+
+        return toPlayer(string);
     }
 
     private @NotNull Component toComponent(final String string)

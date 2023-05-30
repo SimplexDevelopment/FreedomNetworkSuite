@@ -17,23 +17,23 @@ public abstract class Service
     {
         isActive = true;
         CommonsBase.getInstance()
-                .getExecutor()
-                .getSync()
-                .execute(() ->
-                {
-                    while (isActive)
-                    {
-                        tick();
-                    }
-                });
+                   .getExecutor()
+                   .getSync()
+                   .execute(() ->
+                            {
+                                while (isActive)
+                                {
+                                    tick();
+                                }
+                            });
     }
+
+    public abstract void tick();
 
     public void stop()
     {
         isActive = false;
     }
-
-    public abstract void tick();
 
     public String getName()
     {

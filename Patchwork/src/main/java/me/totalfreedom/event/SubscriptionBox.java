@@ -7,24 +7,32 @@ class SubscriptionBox<T extends FEvent>
 {
     private final List<EventSubscription<T>> subscriptions;
 
-    public SubscriptionBox() {
+    public SubscriptionBox()
+    {
         this.subscriptions = new ArrayList<>();
     }
 
-    public void addSubscription(final EventSubscription<T> subscription) {
+    public void addSubscription(final EventSubscription<T> subscription)
+    {
         subscriptions.add(subscription);
     }
 
-    public void removeSubscription(final EventSubscription<?> subscription) {
+    public void removeSubscription(final EventSubscription<?> subscription)
+    {
         subscriptions.remove(subscription);
     }
 
-    public void tick() {
-        subscriptions.forEach(s -> {
-            if (!s.event().shouldCall()) return;
+    public void tick()
+    {
+        subscriptions.forEach(s ->
+                              {
+                                  if (!s.event()
+                                        .shouldCall()) return;
 
-            s.callback().call(s.event());
-            s.event().reset();
-        });
+                                  s.callback()
+                                   .call(s.event());
+                                  s.event()
+                                   .reset();
+                              });
     }
 }

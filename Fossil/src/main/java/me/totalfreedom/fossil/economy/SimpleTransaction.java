@@ -7,9 +7,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class SimpleTransaction implements Transaction
 {
+    protected final AtomicLong balance;
     private final EconomicEntity source;
     private final EconomicEntity destination;
-    protected final AtomicLong balance;
 
     public SimpleTransaction(final EconomicEntity source, final EconomicEntity destination, final long balance)
     {

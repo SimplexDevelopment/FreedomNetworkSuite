@@ -9,7 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * This class contains different methods to provide {@link ChatType.Bound} instances for sending messages to players in game.
+ * This class contains different methods to provide {@link ChatType.Bound} instances for sending messages to players
+ * in game.
  * This is now a requirement for all message requests to players due to the new chat signature system.
  * <br>
  * Even though Scissors has this feature disabled, upstream (Paper) and Kyori Adventure
@@ -30,13 +31,6 @@ public final class KyoriConstants
     {
     }
 
-    public static ChatType.Bound fromPlugin(final JavaPlugin plugin)
-    {
-        final String name = plugin.getName();
-        final Component component = Component.text(name, NamedTextColor.GOLD);
-        return type.bind(component);
-    }
-
     /**
      * Represents a Chat Bound for a plugin.
      * <br>
@@ -51,6 +45,13 @@ public final class KyoriConstants
     {
         final JavaPlugin plugin = JavaPlugin.getPlugin(pluginClass);
         return fromPlugin(plugin);
+    }
+
+    public static ChatType.Bound fromPlugin(final JavaPlugin plugin)
+    {
+        final String name = plugin.getName();
+        final Component component = Component.text(name, NamedTextColor.GOLD);
+        return type.bind(component);
     }
 
     /**
@@ -73,6 +74,7 @@ public final class KyoriConstants
      * <br>
      * The chat bound is a representation of a validated chat signature,
      * which is tied directly to the user's account name. In our case, this is the player's name.
+     *
      * @param sender The console to get the bound for.
      * @return A ChatType.Bound instance for the console.
      */

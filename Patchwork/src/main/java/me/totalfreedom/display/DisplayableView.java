@@ -16,7 +16,8 @@ public class DisplayableView extends InventoryView
     private final InventoryType type;
     private String title;
 
-    public DisplayableView(final Player player, final Displayable top, final Displayable bottom) {
+    public DisplayableView(final Player player, final Displayable top, final Displayable bottom)
+    {
         this.player = player;
         this.top = top;
         this.bottom = bottom;

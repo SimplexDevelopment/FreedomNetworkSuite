@@ -25,7 +25,8 @@ public class Halter implements Listener
     @EventHandler
     public void playerMove(final PlayerMoveEvent event)
     {
-        if (haltedPlayers.contains(event.getPlayer().getUniqueId()))
+        if (haltedPlayers.contains(event.getPlayer()
+                                        .getUniqueId()))
         {
             event.setCancelled(true);
         }

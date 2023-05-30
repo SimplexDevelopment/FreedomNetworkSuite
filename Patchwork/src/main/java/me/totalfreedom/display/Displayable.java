@@ -1,5 +1,6 @@
 package me.totalfreedom.display;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryType;
@@ -14,11 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
-public abstract class Displayable implements Inventory, InventoryHolder
+public final class Displayable implements Inventory, InventoryHolder
 {
 
     private final int size;
-    private final ItemStack[] contents;
+    private ItemStack[] contents;
 
     protected Displayable(final int size)
     {
@@ -27,9 +28,9 @@ public abstract class Displayable implements Inventory, InventoryHolder
             throw new IllegalArgumentException("Invalid size for Displayable inventory");
         }
 
-        this.size = (size % 9 == 0)
-                ? size
-                : size + (9 - size % 9);
+        // If the size is not a multiple of nine, find the difference to the next highest multiple of 9 and make up
+        // the difference.
+        this.size = (size % 9 == 0) ? size : size + (9 - size % 9);
 
         this.contents = new ItemStack[size];
     }
@@ -78,7 +79,8 @@ public abstract class Displayable implements Inventory, InventoryHolder
     }
 
     @Override
-    public @NotNull HashMap<Integer, ItemStack> addItem(final @NotNull ItemStack... items) throws IllegalArgumentException
+    public @NotNull HashMap<Integer, ItemStack> addItem(final @NotNull ItemStack... items)
+        throws IllegalArgumentException
     {
         final HashMap<Integer, ItemStack> remainingItems = new HashMap<>();
 
@@ -116,7 +118,8 @@ public abstract class Displayable implements Inventory, InventoryHolder
     }
 
     @Override
-    public @NotNull HashMap<Integer, ItemStack> removeItem(final @NotNull ItemStack... items) throws IllegalArgumentException
+    public @NotNull HashMap<Integer, ItemStack> removeItem(final @NotNull ItemStack... items)
+        throws IllegalArgumentException
     {
         final HashMap<Integer, ItemStack> removedItems = new HashMap<>();
 
@@ -148,11 +151,19 @@ public abstract class Displayable implements Inventory, InventoryHolder
 
             if (remainingAmount < item.getAmount())
             {
-                removedItems.put(removedItems.size(), new ItemStack(item.getType(), item.getAmount() - remainingAmount));
+                removedItems.put(removedItems.size(),
+                                 new ItemStack(item.getType(), item.getAmount() - remainingAmount));
             }
         }
 
         return removedItems;
+    }
+
+    @Override
+    public @NotNull HashMap<Integer, ItemStack> removeItemAnySlot(final @NotNull ItemStack... items)
+        throws IllegalArgumentException
+    {
+        return removeItem(items);
     }
 
     @Override
@@ -176,39 +187,15 @@ public abstract class Displayable implements Inventory, InventoryHolder
     }
 
     @Override
-    public @NotNull ListIterator<ItemStack> iterator()
+    public @Nullable ItemStack @NotNull [] getStorageContents()
     {
-        return iterator(0);
+        return contents;
     }
 
     @Override
-    public @NotNull ListIterator<ItemStack> iterator(final int index)
+    public void setStorageContents(final @Nullable ItemStack @NotNull [] items) throws IllegalArgumentException
     {
-        return List.of(contents).listIterator(index);
-    }
-
-    @Override
-    public @NotNull InventoryType getType()
-    {
-        return InventoryType.CHEST;
-    }
-
-    @Override
-    public @Nullable InventoryHolder getHolder()
-    {
-        return this;
-    }
-
-    @Override
-    public @Nullable InventoryHolder getHolder(final boolean useSnapshot)
-    {
-        return this;
-    }
-
-    @Override
-    public @NotNull List<HumanEntity> getViewers()
-    {
-        return new ArrayList<>();
+        this.contents = items;
     }
 
     @Override
@@ -272,7 +259,7 @@ public abstract class Displayable implements Inventory, InventoryHolder
             if (content != null && content.isSimilar(item))
             {
                 totalAmount += content.getAmount();
-                if (totalAmount >= amount)
+                if (totalAmount == amount)
                 {
                     return true;
                 }
@@ -304,7 +291,8 @@ public abstract class Displayable implements Inventory, InventoryHolder
     }
 
     @Override
-    public @NotNull HashMap<Integer, ? extends ItemStack> all(final @NotNull Material material) throws IllegalArgumentException
+    public @NotNull HashMap<Integer, ? extends ItemStack> all(final @NotNull Material material)
+        throws IllegalArgumentException
     {
         final HashMap<Integer, ItemStack> matchingItems = new HashMap<>();
         for (int i = 0; i < size; i++)
@@ -438,5 +426,54 @@ public abstract class Displayable implements Inventory, InventoryHolder
     public int close()
     {
         return 0;
+    }
+
+    @Override
+    public @NotNull List<HumanEntity> getViewers()
+    {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public @NotNull InventoryType getType()
+    {
+        return InventoryType.CHEST;
+    }
+
+    @Override
+    public @Nullable InventoryHolder getHolder()
+    {
+        return this;
+    }
+
+    @Override
+    public @Nullable InventoryHolder getHolder(final boolean useSnapshot)
+    {
+        return this;
+    }
+
+    @Override
+    public @NotNull ListIterator<ItemStack> iterator()
+    {
+        return iterator(0);
+    }
+
+    @Override
+    public @NotNull ListIterator<ItemStack> iterator(final int index)
+    {
+        return List.of(contents)
+                   .listIterator(index);
+    }
+
+    @Override
+    public @Nullable Location getLocation()
+    {
+        return null;
+    }
+
+    @Override
+    public @NotNull Inventory getInventory()
+    {
+        return this;
     }
 }

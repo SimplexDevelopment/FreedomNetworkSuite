@@ -20,18 +20,40 @@ public class Datura extends JavaPlugin
     public void onEnable()
     {
         CommonsBase.getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .addModule(this);
+                   .getRegistrations()
+                   .getModuleRegistry()
+                   .addModule(this);
 
-        CommonsBase.getInstance().getRegistrations().getServiceRegistry().register(this, locker);
-        CommonsBase.getInstance().getRegistrations().getServiceRegistry().register(this, cager);
+        CommonsBase.getInstance()
+                   .getRegistrations()
+                   .getServiceRegistry()
+                   .register(this, locker);
+        CommonsBase.getInstance()
+                   .getRegistrations()
+                   .getServiceRegistry()
+                   .register(this, cager);
 
-        Bukkit.getPluginManager().registerEvents(halter, this);
+        Bukkit.getPluginManager()
+              .registerEvents(halter, this);
     }
 
     public MySQL getSQL()
     {
         return sql;
+    }
+
+    public Halter getHalter()
+    {
+        return halter;
+    }
+
+    public Locker getLocker()
+    {
+        return locker;
+    }
+
+    public Cager getCager()
+    {
+        return cager;
     }
 }
