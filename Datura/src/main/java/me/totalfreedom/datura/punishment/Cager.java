@@ -28,7 +28,7 @@ public class Cager extends Service
 
     public Cager()
     {
-        super("cage_service");
+        super("cager-service");
         this.cagedPlayers = new HashSet<>();
         this.cageLocations = new HashMap<>();
         Bukkit.getPluginManager()
