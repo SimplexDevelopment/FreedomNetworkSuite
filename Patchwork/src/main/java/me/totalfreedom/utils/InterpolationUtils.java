@@ -8,8 +8,13 @@ import org.bukkit.Color;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class InterpolationUtils
+public final class InterpolationUtils
 {
+    private InterpolationUtils()
+    {
+        throw new AssertionError();
+    }
+
     public static Set<Color> rainbow(final int length)
     {
         final LinkedHashSet<Color> base = new LinkedHashSet<>();
@@ -60,7 +65,54 @@ public class InterpolationUtils
         return res;
     }
 
-    public static Set<Color> rgbGradient(final int length, final Color from, final Color to,
+    public static Set<TextColor> rainbowComponent(final int length)
+    {
+        final LinkedHashSet<TextColor> base = new LinkedHashSet<>();
+        final Set<TextColor> redToOrange = componentRGBGradient(length, NamedTextColor.RED,
+                                                                NamedTextColor.GOLD, InterpolationUtils::linear);
+        final Set<TextColor> orangeToYellow = componentRGBGradient(length, NamedTextColor.GOLD,
+                                                                   NamedTextColor.YELLOW, InterpolationUtils::linear);
+        final Set<TextColor> yellowToGreen = componentRGBGradient(length, NamedTextColor.YELLOW,
+                                                                  NamedTextColor.GREEN, InterpolationUtils::linear);
+        final Set<TextColor> greenToBlue = componentRGBGradient(length, NamedTextColor.GREEN,
+                                                                NamedTextColor.BLUE, InterpolationUtils::linear);
+        final Set<TextColor> blueToPurple = componentRGBGradient(length, NamedTextColor.BLUE,
+                                                                 NamedTextColor.LIGHT_PURPLE,
+                                                                 InterpolationUtils::linear);
+        final Set<TextColor> purpleToRed = componentRGBGradient(length, TextColor.color(75, 0, 130),
+                                                                TextColor.color(255, 0, 0), InterpolationUtils::linear);
+        base.addAll(redToOrange);
+        base.addAll(orangeToYellow);
+        base.addAll(yellowToGreen);
+        base.addAll(greenToBlue);
+        base.addAll(blueToPurple);
+        base.addAll(purpleToRed);
+        return base;
+    }
+
+    private static Set<TextColor> componentRGBGradient(final int length, final TextColor from, final TextColor to,
+        final Interpolator interpolator)
+    {
+        final double[] r = interpolator.interpolate(from.red(), to.red(), length);
+        final double[] g = interpolator.interpolate(from.green(), to.green(), length);
+        final double[] b = interpolator.interpolate(from.blue(), to.blue(), length);
+
+        final LinkedHashSet<TextColor> gradient = new LinkedHashSet<>();
+
+        for (int i = 0; i < length; i++)
+        {
+            final TextColor color = TextColor.color((int) r[i], (int) g[i], (int) b[i]);
+            gradient.add(color);
+        }
+        return gradient;
+    }
+
+    public static Set<Color> standardGradient(final int length, final Color from, final Color to)
+    {
+        return rgbGradient(length, from, to, InterpolationUtils::linear);
+    }
+
+    private static Set<Color> rgbGradient(final int length, final Color from, final Color to,
         final Interpolator interpolator)
     {
         final double[] r = interpolator.interpolate(from.getRed(), to.getRed(), length);
@@ -77,44 +129,8 @@ public class InterpolationUtils
         return gradient;
     }
 
-    public static Set<TextColor> rainbowComponent(final int length)
+    public static Set<TextColor> standardComponentGradient(final int length, final TextColor from, final TextColor to)
     {
-        final LinkedHashSet<TextColor> base = new LinkedHashSet<>();
-        final Set<TextColor> redToOrange = componentRGBGradient(length, NamedTextColor.RED,
-                                                                NamedTextColor.GOLD, InterpolationUtils::linear);
-        final Set<TextColor> orangeToYellow = componentRGBGradient(length, NamedTextColor.GOLD,
-                                                                   NamedTextColor.YELLOW, InterpolationUtils::linear);
-        final Set<TextColor> yellowToGreen = componentRGBGradient(length, NamedTextColor.YELLOW,
-                                                                  NamedTextColor.GREEN, InterpolationUtils::linear);
-        final Set<TextColor> greenToBlue = componentRGBGradient(length, NamedTextColor.GREEN,
-                                                                NamedTextColor.BLUE, InterpolationUtils::linear);
-        final Set<TextColor> blueToPurple = componentRGBGradient(length, NamedTextColor.BLUE,
-                                                                 NamedTextColor.LIGHT_PURPLE, InterpolationUtils::linear);
-        final Set<TextColor> purpleToRed = componentRGBGradient(length, TextColor.color(75, 0, 130),
-                                                                TextColor.color(255, 0, 0), InterpolationUtils::linear);
-        base.addAll(redToOrange);
-        base.addAll(orangeToYellow);
-        base.addAll(yellowToGreen);
-        base.addAll(greenToBlue);
-        base.addAll(blueToPurple);
-        base.addAll(purpleToRed);
-        return base;
-    }
-
-    public static Set<TextColor> componentRGBGradient(final int length, final TextColor from, final TextColor to,
-        final Interpolator interpolator)
-    {
-        final double[] r = interpolator.interpolate(from.red(), to.red(), length);
-        final double[] g = interpolator.interpolate(from.green(), to.green(), length);
-        final double[] b = interpolator.interpolate(from.blue(), to.blue(), length);
-
-        final LinkedHashSet<TextColor> gradient = new LinkedHashSet<>();
-
-        for (int i = 0; i < length; i++)
-        {
-            final TextColor color = TextColor.color((int) r[i], (int) g[i], (int) b[i]);
-            gradient.add(color);
-        }
-        return gradient;
+        return componentRGBGradient(length, from, to, InterpolationUtils::linear);
     }
 }

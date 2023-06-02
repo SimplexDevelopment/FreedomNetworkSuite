@@ -8,5 +8,4 @@ public final class TrailProvider
         return new BasicTrail(player);
     }
 
-
 }

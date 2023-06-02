@@ -2,7 +2,7 @@ package me.totalfreedom.service;
 
 import me.totalfreedom.base.CommonsBase;
 import org.bukkit.Bukkit;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.Executor;
 
@@ -19,39 +19,45 @@ public class FreedomExecutor
                                    .runTaskAsynchronously(CommonsBase.getInstance(), r);
     }
 
-    public Executor scheduled(final long delay, final long period)
+    public Executor singleExecutor(final JavaPlugin plugin)
     {
         return r -> Bukkit.getScheduler()
-                          .runTaskTimer(
-                              CommonsBase.getInstance(),
-                              r,
-                              delay,
-                              period);
+                          .runTask(plugin, r);
     }
 
-    public Executor scheduledAsync(final long delay, final long period)
+    public Executor delayedExecutor(final JavaPlugin plugin, final long delay)
     {
         return r -> Bukkit.getScheduler()
-                          .runTaskTimerAsynchronously(
-                              CommonsBase.getInstance(),
-                              r,
-                              delay,
-                              period);
+                          .runTaskLater(plugin, r, delay);
     }
 
-    public void runSync(@NotNull final Task task)
+    public Executor periodicExecutor(final JavaPlugin plugin, final long delay, final long period)
     {
-        getSync().execute(task);
+        return r -> Bukkit.getScheduler()
+                          .runTaskTimer(plugin, r, delay, period);
+    }
+
+    public Executor asynchronousSingleExecutor(final JavaPlugin plugin)
+    {
+        return r -> Bukkit.getScheduler()
+                          .runTaskAsynchronously(plugin, r);
+    }
+
+    public Executor asynchronousDelayedExecutor(final JavaPlugin plugin, final long delay)
+    {
+        return r -> Bukkit.getScheduler()
+                          .runTaskLaterAsynchronously(plugin, r, delay);
+    }
+
+    public Executor asynchronousPeriodicExecutor(final JavaPlugin plugin, final long delay, final long period)
+    {
+        return r -> Bukkit.getScheduler()
+                          .runTaskTimerAsynchronously(plugin, r, delay, period);
     }
 
     public Executor getSync()
     {
         return syncExecutor;
-    }
-
-    public void runAsync(@NotNull final Task task)
-    {
-        getAsync().execute(task);
     }
 
     public Executor getAsync()

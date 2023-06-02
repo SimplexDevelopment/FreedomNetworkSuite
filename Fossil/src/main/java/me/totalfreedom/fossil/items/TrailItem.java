@@ -8,9 +8,9 @@ import org.jetbrains.annotations.Nullable;
 
 public final class TrailItem extends ShopItem
 {
-    public TrailItem(final Material material)
+    public TrailItem()
     {
-        super(material);
+        super(Material.LINGERING_POTION);
     }
 
     @Override

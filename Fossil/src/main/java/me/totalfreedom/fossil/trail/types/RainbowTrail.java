@@ -35,7 +35,7 @@ public final class RainbowTrail extends SimpleTrail
         final Color color = currentColor.next();
         final Player player = (Player) getAssociatedPlayer();
         final Particle particle = getTrailType().getType();
-        final Particle.DustOptions options = new Particle.DustOptions(color, 3);
+        final Particle.DustOptions options = new Particle.DustOptions(color, 3F);
         final Location location = player.getLocation()
                                         .clone()
                                         .subtract(0, 1, 0);

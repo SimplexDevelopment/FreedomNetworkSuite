@@ -4,14 +4,14 @@ import me.totalfreedom.data.ConfigRegistry;
 import me.totalfreedom.data.EventRegistry;
 import me.totalfreedom.data.GroupRegistry;
 import me.totalfreedom.data.ModuleRegistry;
-import me.totalfreedom.data.ServiceRegistry;
+import me.totalfreedom.data.ServiceTaskRegistry;
 import me.totalfreedom.data.UserRegistry;
 
 public class Registration
 {
     private final EventRegistry eventRegistry;
     private final UserRegistry userRegistry;
-    private final ServiceRegistry serviceRegistry;
+    private final ServiceTaskRegistry serviceTaskRegistry;
     private final ModuleRegistry moduleRegistry;
     private final GroupRegistry groupRegistry;
     private final ConfigRegistry configRegistry;
@@ -20,7 +20,7 @@ public class Registration
     {
         this.eventRegistry = new EventRegistry();
         this.userRegistry = new UserRegistry();
-        this.serviceRegistry = new ServiceRegistry();
+        this.serviceTaskRegistry = new ServiceTaskRegistry();
         this.moduleRegistry = new ModuleRegistry();
         this.groupRegistry = new GroupRegistry();
         this.configRegistry = new ConfigRegistry();
@@ -41,9 +41,9 @@ public class Registration
         return userRegistry;
     }
 
-    public ServiceRegistry getServiceRegistry()
+    public ServiceTaskRegistry getServiceRegistry()
     {
-        return serviceRegistry;
+        return serviceTaskRegistry;
     }
 
     public GroupRegistry getGroupRegistry()

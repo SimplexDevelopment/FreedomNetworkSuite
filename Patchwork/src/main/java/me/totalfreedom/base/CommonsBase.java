@@ -2,6 +2,8 @@ package me.totalfreedom.base;
 
 import me.totalfreedom.event.EventBus;
 import me.totalfreedom.service.FreedomExecutor;
+import me.totalfreedom.service.SubscriptionProvider;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommonsBase extends JavaPlugin
@@ -18,21 +20,23 @@ public class CommonsBase extends JavaPlugin
     @Override
     public void onDisable()
     {
+        Bukkit.getScheduler().runTaskLater(this, () -> getRegistrations()
+                .getServiceRegistry()
+                .stopAllServices(), 1L);
+
         getRegistrations().getServiceRegistry()
-                          .stopAll();
-        getRegistrations().getServiceRegistry()
-                          .unregister(EventBus.class, eventBus);
+                          .unregisterService(EventBus.class);
     }
 
     @Override
     public void onEnable()
     {
         getRegistrations().getServiceRegistry()
-                          .register(this, eventBus);
+                          .registerService(SubscriptionProvider.asyncService(this, eventBus));
         getExecutor().getSync()
                      .execute(() -> getRegistrations()
                                         .getServiceRegistry()
-                                        .startAll());
+                                        .startAllServices());
     }
 
     public FreedomExecutor getExecutor()
