@@ -3,6 +3,7 @@ package me.totalfreedom.provider;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,6 +22,7 @@ public class ContextProvider
                          toInt(string),
                          toLong(string),
                          toFloat(string),
+                         toMaterial(string),
                          toPlayer(string),
                          toWorld(string),
                          toLocation(string),
@@ -90,6 +92,11 @@ public class ContextProvider
         {
             return null;
         }
+    }
+
+    private @Nullable Material toMaterial(final String string)
+    {
+        return Material.matchMaterial(string);
     }
 
     private @Nullable Player toPlayer(final String string)

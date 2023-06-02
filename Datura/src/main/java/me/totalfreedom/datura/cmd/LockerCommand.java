@@ -31,8 +31,7 @@ public final class LockerCommand extends Commander
                                   .lock(player);
 
             sender.sendPlainMessage("Locked " + player.getName() + ".");
-        }
-        else if (string.equalsIgnoreCase("off"))
+        } else if (string.equalsIgnoreCase("off"))
         {
             ((Datura) getPlugin()).getLocker()
                                   .unlock(player);

@@ -20,8 +20,10 @@ public final class ClownfishItem extends ShopItem
     {
         if (target == null) return;
 
-        final Location location = user.getEyeLocation().clone();
-        final Vector vector = location.getDirection().multiply(2);
+        final Location location = user.getEyeLocation()
+                                      .clone();
+        final Vector vector = location.getDirection()
+                                      .multiply(2);
 
         target.setVelocity(vector);
     }

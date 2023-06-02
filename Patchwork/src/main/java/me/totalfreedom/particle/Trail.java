@@ -3,10 +3,8 @@ package me.totalfreedom.particle;
 import me.totalfreedom.api.Interpolator;
 import me.totalfreedom.utils.InterpolationUtils;
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
-import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -1,15 +1,11 @@
 package me.totalfreedom.config;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public interface Configuration
 {
-    YamlConfiguration asYaml();
-
     void save() throws IOException;
 
     void load() throws IOException;

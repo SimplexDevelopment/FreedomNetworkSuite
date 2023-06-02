@@ -32,46 +32,54 @@ import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
  */
 public class FreedomMiniMessage
 {
+    private static final MiniMessage unsafe = MiniMessage.miniMessage();
+    private static final MiniMessage safe = MiniMessage.builder()
+                                                       .tags(TagResolver.resolver(
+                                                           StandardTags.color(),
+                                                           StandardTags.rainbow(),
+                                                           StandardTags.gradient(),
+                                                           StandardTags.newline(),
+                                                           StandardTags.decorations(TextDecoration.ITALIC),
+                                                           StandardTags.decorations(TextDecoration.BOLD),
+                                                           StandardTags.decorations(TextDecoration.STRIKETHROUGH),
+                                                           StandardTags.decorations(TextDecoration.UNDERLINED)
+                                                       ))
+                                                       .build();
+
     private FreedomMiniMessage()
     {
         throw new UnsupportedOperationException("Instantiation of a static utility class is not supported.");
     }
 
-    private static final MiniMessage unsafe = MiniMessage.miniMessage();
-
-    private static final MiniMessage safe = MiniMessage.builder().tags(TagResolver.resolver(
-            StandardTags.color(),
-            StandardTags.rainbow(),
-            StandardTags.gradient(),
-            StandardTags.newline(),
-            StandardTags.decorations(TextDecoration.ITALIC),
-            StandardTags.decorations(TextDecoration.BOLD),
-            StandardTags.decorations(TextDecoration.STRIKETHROUGH),
-            StandardTags.decorations(TextDecoration.UNDERLINED)
-    )).build();
-
     /**
-     * Deserializes an input string using an instance of MiniMessage that is either safe (resolves only a specific set of tags)
-     *  or unsafe (resolves all tags).
-     * @param safe          Whether to use a safe instance of MiniMessage
-     * @param input         An input string formatted with MiniMessage's input
-     * @param placeholders  Custom placeholders to use when processing the input
-     * @return              A processed Component
+     * Deserializes an input string using an instance of MiniMessage that is either safe (resolves only a specific
+     * set of tags)
+     * or unsafe (resolves all tags).
+     *
+     * @param safe         Whether to use a safe instance of MiniMessage
+     * @param input        An input string formatted with MiniMessage's input
+     * @param placeholders Custom placeholders to use when processing the input
+     * @return A processed Component
      */
     public static Component deserialize(boolean safe, String input, TagResolver... placeholders)
     {
-        return (safe ? FreedomMiniMessage.safe : unsafe).deserialize(input, placeholders);
+        return (safe
+                ? FreedomMiniMessage.safe
+                : unsafe).deserialize(input, placeholders);
     }
 
     /**
      * Serializes an input component using an instance of MiniMessage that is either safe (resolves only a specific set
-     *  of tags) or unsafe (resolves all tags).
-     * @param safe          Whether to use a safe instance of MiniMessage
-     * @param input         An already processed component
-     * @return              A processed Component
+     * of tags) or unsafe (resolves all tags).
+     *
+     * @param safe  Whether to use a safe instance of MiniMessage
+     * @param input An already processed component
+     * @return A processed Component
      */
     public static String serialize(boolean safe, Component input)
     {
-        return (safe ? FreedomMiniMessage.safe : unsafe).serialize(input);
+        return (safe
+                ? FreedomMiniMessage.safe
+                : unsafe).serialize(input);
     }
 }

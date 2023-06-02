@@ -3,6 +3,7 @@ package me.totalfreedom.service;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executor;
 
@@ -15,7 +16,7 @@ public final class ServiceSubscription<T extends Service>
 
     private boolean isActive = false;
 
-    ServiceSubscription(final JavaPlugin plugin, final T service, final boolean async)
+    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final boolean async)
     {
         this.service = service;
         this.async = async;
@@ -52,17 +53,19 @@ public final class ServiceSubscription<T extends Service>
     public void stop()
     {
         this.isActive = false;
-        Bukkit.getScheduler().cancelTask(this.getServiceId());
-    }
-
-    public T getService()
-    {
-        return service;
+        Bukkit.getScheduler()
+              .cancelTask(this.getServiceId());
     }
 
     public int getServiceId()
     {
         return serviceId;
+    }
+
+    @NotNull
+    public T getService()
+    {
+        return service;
     }
 
     public boolean isAsync()

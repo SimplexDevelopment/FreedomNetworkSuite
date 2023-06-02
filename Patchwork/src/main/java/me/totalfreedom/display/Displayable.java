@@ -30,7 +30,9 @@ public final class Displayable implements Inventory, InventoryHolder
 
         // If the size is not a multiple of nine, find the difference to the next highest multiple of 9 and make up
         // the difference.
-        this.size = (size % 9 == 0) ? size : size + (9 - size % 9);
+        this.size = (size % 9 == 0)
+                    ? size
+                    : size + (9 - size % 9);
 
         this.contents = new ItemStack[size];
     }
@@ -152,7 +154,7 @@ public final class Displayable implements Inventory, InventoryHolder
             if (remainingAmount < item.getAmount())
             {
                 removedItems.put(removedItems.size(),
-                                 new ItemStack(item.getType(), item.getAmount() - remainingAmount));
+                    new ItemStack(item.getType(), item.getAmount() - remainingAmount));
             }
         }
 
