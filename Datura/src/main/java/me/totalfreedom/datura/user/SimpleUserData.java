@@ -51,7 +51,6 @@ public class SimpleUserData implements UserData
         final long playtime,
         final boolean frozen,
         final boolean canInteract,
-        final boolean caged,
         final long balance,
         final boolean transactionsFrozen)
     {
@@ -62,7 +61,6 @@ public class SimpleUserData implements UserData
         this.playtime = playtime;
         this.frozen = frozen;
         this.canInteract = canInteract;
-        this.caged = caged;
         this.balance = new AtomicLong(balance);
         this.transactionsFrozen = transactionsFrozen;
     }
@@ -101,8 +99,7 @@ public class SimpleUserData implements UserData
                                               final boolean transactionsFrozen = result.getBoolean(
                                                   "transactionsFrozen");
                                               return new SimpleUserData(u, username, user, group, playtime, frozen,
-                                                                        canInteract, caged, balance,
-                                                                        transactionsFrozen);
+                                                                        canInteract, balance, transactionsFrozen);
                                           }
                                       }
                                       catch (SQLException ex)
@@ -212,19 +209,6 @@ public class SimpleUserData implements UserData
     {
         event.ping();
         this.canInteract = canInteract;
-    }
-
-    @Override
-    public boolean isCaged()
-    {
-        return caged;
-    }
-
-    @Override
-    public void setCaged(final boolean caged)
-    {
-        event.ping();
-        this.caged = caged;
     }
 
     @Override
