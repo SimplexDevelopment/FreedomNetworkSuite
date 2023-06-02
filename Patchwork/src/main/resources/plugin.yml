@@ -1,0 +1,5 @@
+name: Patchwork
+main: me.totalfreedom.base.CommonsBase
+version: 1.0.0
+author: TotalFreedom
+description: The Core of Freedom Network Suite
