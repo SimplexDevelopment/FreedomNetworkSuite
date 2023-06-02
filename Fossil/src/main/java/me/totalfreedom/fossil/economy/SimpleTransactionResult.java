@@ -8,7 +8,7 @@ public class SimpleTransactionResult implements TransactionResult
 {
     public static final TransactionResult SUCCESSFUL = new SimpleTransactionResult("Successful transaction.", true);
     public static final TransactionResult UNAUTHORIZED = new SimpleTransactionResult("Unauthorized transaction.",
-                                                                                     false);
+        false);
     public static final TransactionResult AMOUNT_TOO_SMALL = new SimpleTransactionResult(
         "Transaction balance too small.", false);
     public static final TransactionResult INSUFFICIENT_FUNDS = new SimpleTransactionResult(

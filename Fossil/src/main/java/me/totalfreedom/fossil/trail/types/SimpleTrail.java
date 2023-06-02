@@ -21,7 +21,8 @@ public abstract class SimpleTrail implements Trail
     private Set<Color> gradientColor = null;
     private boolean active = false;
 
-    protected SimpleTrail(final Player player, final TrailType trailType) {
+    protected SimpleTrail(final Player player, final TrailType trailType)
+    {
         this.associatedPlayerUUID = player.getUniqueId();
         this.trailType = trailType;
     }

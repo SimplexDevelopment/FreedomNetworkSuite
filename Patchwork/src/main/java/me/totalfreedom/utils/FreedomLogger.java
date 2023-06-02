@@ -56,14 +56,6 @@ public class FreedomLogger implements Audience
     public String infoComponent(final Supplier<Component> component)
     {
         return this.infoComponent(component.get());
-    }    /**
-     * This method allows you to log a message to the console.
-     *
-     * @param message The message to send.
-     */
-    public void info(final String message)
-    {
-        logger.info(message);
     }
 
     /**
@@ -78,6 +70,14 @@ public class FreedomLogger implements Audience
 
         logger.info(plainText);
         return plainText;
+    }    /**
+     * This method allows you to log a message to the console.
+     *
+     * @param message The message to send.
+     */
+    public void info(final String message)
+    {
+        logger.info(message);
     }
 
     /**

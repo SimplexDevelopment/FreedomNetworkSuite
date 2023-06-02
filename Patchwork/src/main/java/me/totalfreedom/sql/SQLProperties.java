@@ -22,10 +22,10 @@ public interface SQLProperties
     default String toURLPlain()
     {
         return String.format("jdbc:%s://%s:%s/%s",
-                             this.getDriver(),
-                             this.getHost(),
-                             this.getPort(),
-                             this.getDatabase());
+            this.getDriver(),
+            this.getHost(),
+            this.getPort(),
+            this.getDatabase());
     }
 
     String getDriver();
@@ -39,12 +39,12 @@ public interface SQLProperties
     default String toURLWithLogin()
     {
         return String.format("jdbc:%s://%s:%s/%s?user=%s&password=%s",
-                             this.getDriver(),
-                             this.getHost(),
-                             this.getPort(),
-                             this.getDatabase(),
-                             this.getUsername(),
-                             this.getPassword());
+            this.getDriver(),
+            this.getHost(),
+            this.getPort(),
+            this.getDatabase(),
+            this.getUsername(),
+            this.getPassword());
     }
 
     String getUsername();

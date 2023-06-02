@@ -62,42 +62,42 @@ public class MySQL implements SQL
     {
         return getConnection()
                    .thenApplyAsync(connection ->
-                                   {
-                                       try
-                                       {
-                                           final PreparedStatement statement = connection.prepareStatement(query);
-                                           for (int i = 0; i < args.length; i++)
-                                           {
-                                               statement.setObject(i + 1, args[i]);
-                                           }
-                                           return statement;
-                                       }
-                                       catch (SQLException ex)
-                                       {
-                                           throw new CompletionException("Failed to prepare statement: "
-                                                                             + query + "\n", ex);
-                                       }
-                                   }, CommonsBase.getInstance()
-                                                 .getExecutor()
-                                                 .getAsync());
+                   {
+                       try
+                       {
+                           final PreparedStatement statement = connection.prepareStatement(query);
+                           for (int i = 0; i < args.length; i++)
+                           {
+                               statement.setObject(i + 1, args[i]);
+                           }
+                           return statement;
+                       }
+                       catch (SQLException ex)
+                       {
+                           throw new CompletionException("Failed to prepare statement: "
+                                                             + query + "\n", ex);
+                       }
+                   }, CommonsBase.getInstance()
+                                 .getExecutor()
+                                 .getAsync());
     }
 
     private CompletableFuture<Connection> getConnection()
     {
         return CompletableFuture.supplyAsync(() ->
-                                             {
-                                                 try
-                                                 {
-                                                     return DriverManager.getConnection(url.toString());
-                                                 }
-                                                 catch (SQLException ex)
-                                                 {
-                                                     throw new CompletionException("Failed to connect to the database: "
-                                                                                       + url.toString() + "\n", ex);
-                                                 }
-                                             }, CommonsBase.getInstance()
-                                                           .getExecutor()
-                                                           .getAsync());
+        {
+            try
+            {
+                return DriverManager.getConnection(url.toString());
+            }
+            catch (SQLException ex)
+            {
+                throw new CompletionException("Failed to connect to the database: "
+                                                  + url.toString() + "\n", ex);
+            }
+        }, CommonsBase.getInstance()
+                      .getExecutor()
+                      .getAsync());
     }
 
     @Override
@@ -105,20 +105,20 @@ public class MySQL implements SQL
     {
         return prepareStatement(query, args)
                    .thenApplyAsync(statement ->
-                                   {
-                                       try
-                                       {
-                                           return statement.executeQuery();
-                                       }
-                                       catch (SQLException ex)
-                                       {
-                                           throw new CompletionException(
-                                               "Failed to retrieve a result set from query: "
-                                                   + query + "\n", ex);
-                                       }
-                                   }, CommonsBase.getInstance()
-                                                 .getExecutor()
-                                                 .getAsync());
+                   {
+                       try
+                       {
+                           return statement.executeQuery();
+                       }
+                       catch (SQLException ex)
+                       {
+                           throw new CompletionException(
+                               "Failed to retrieve a result set from query: "
+                                   + query + "\n", ex);
+                       }
+                   }, CommonsBase.getInstance()
+                                 .getExecutor()
+                                 .getAsync());
     }
 
     @Override
@@ -126,19 +126,19 @@ public class MySQL implements SQL
     {
         return prepareStatement(query, args)
                    .thenApplyAsync(statement ->
-                                   {
-                                       try
-                                       {
-                                           return statement.executeUpdate();
-                                       }
-                                       catch (SQLException ex)
-                                       {
-                                           throw new CompletionException("Failed to execute update: "
-                                                                             + query + "\n", ex);
-                                       }
-                                   }, CommonsBase.getInstance()
-                                                 .getExecutor()
-                                                 .getAsync());
+                   {
+                       try
+                       {
+                           return statement.executeUpdate();
+                       }
+                       catch (SQLException ex)
+                       {
+                           throw new CompletionException("Failed to execute update: "
+                                                             + query + "\n", ex);
+                       }
+                   }, CommonsBase.getInstance()
+                                 .getExecutor()
+                                 .getAsync());
     }
 
     @Override
@@ -146,19 +146,19 @@ public class MySQL implements SQL
     {
         return prepareStatement(query, args)
                    .thenApplyAsync(statement ->
-                                   {
-                                       try
-                                       {
-                                           return statement.execute();
-                                       }
-                                       catch (SQLException ex)
-                                       {
-                                           throw new CompletionException("Failed to execute statement: "
-                                                                             + query + "\n", ex);
-                                       }
-                                   }, CommonsBase.getInstance()
-                                                 .getExecutor()
-                                                 .getAsync());
+                   {
+                       try
+                       {
+                           return statement.execute();
+                       }
+                       catch (SQLException ex)
+                       {
+                           throw new CompletionException("Failed to execute statement: "
+                                                             + query + "\n", ex);
+                       }
+                   }, CommonsBase.getInstance()
+                                 .getExecutor()
+                                 .getAsync());
     }
 
     @Override
@@ -185,25 +185,25 @@ public class MySQL implements SQL
     {
         return executeQuery("SELECT ? FROM ? WHERE ? = ?", column, table, key, identity.getId())
                    .thenApplyAsync(resultSet ->
-                                   {
-                                       try
-                                       {
-                                           if (resultSet.next())
-                                           {
-                                               return resultSet.getObject(column, type);
-                                           }
-                                       }
-                                       catch (SQLException ex)
-                                       {
-                                           throw new CompletionException(
-                                               "Failed to retrieve column: " + column + " from table: " + table + " " +
-                                                   "where primary key: " + key + " is equal to: " + identity.getId() + "\n",
-                                               ex);
-                                       }
-                                       return null;
-                                   }, CommonsBase.getInstance()
-                                                 .getExecutor()
-                                                 .getAsync());
+                   {
+                       try
+                       {
+                           if (resultSet.next())
+                           {
+                               return resultSet.getObject(column, type);
+                           }
+                       }
+                       catch (SQLException ex)
+                       {
+                           throw new CompletionException(
+                               "Failed to retrieve column: " + column + " from table: " + table + " " +
+                                   "where primary key: " + key + " is equal to: " + identity.getId() + "\n",
+                               ex);
+                       }
+                       return null;
+                   }, CommonsBase.getInstance()
+                                 .getExecutor()
+                                 .getAsync());
     }
 
     public CompletableFuture<Boolean> updateColumn(final String table, final String column, final Object value,

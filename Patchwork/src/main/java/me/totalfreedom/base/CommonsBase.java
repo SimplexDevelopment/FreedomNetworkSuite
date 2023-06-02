@@ -20,9 +20,10 @@ public class CommonsBase extends JavaPlugin
     @Override
     public void onDisable()
     {
-        Bukkit.getScheduler().runTaskLater(this, () -> getRegistrations()
-                .getServiceRegistry()
-                .stopAllServices(), 1L);
+        Bukkit.getScheduler()
+              .runTaskLater(this, () -> getRegistrations()
+                                            .getServiceRegistry()
+                                            .stopAllServices(), 1L);
 
         getRegistrations().getServiceRegistry()
                           .unregisterService(EventBus.class);

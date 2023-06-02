@@ -76,13 +76,13 @@ public abstract class AbstractMenu
     {
         Bukkit.getOnlinePlayers()
               .forEach(player ->
-                       {
-                           if (openInvs.get(player.getUniqueId())
-                                       .equals(getDisplayableUUID()))
-                           {
-                               close(player);
-                           }
-                       });
+              {
+                  if (openInvs.get(player.getUniqueId())
+                              .equals(getDisplayableUUID()))
+                  {
+                      close(player);
+                  }
+              });
 
         invByUUID.remove(getDisplayableUUID());
     }

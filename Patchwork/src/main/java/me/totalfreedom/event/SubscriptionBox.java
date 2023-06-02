@@ -25,14 +25,14 @@ class SubscriptionBox<T extends FEvent>
     public void tick()
     {
         subscriptions.forEach(s ->
-                              {
-                                  if (!s.event()
-                                        .shouldCall()) return;
+        {
+            if (!s.event()
+                  .shouldCall()) return;
 
-                                  s.callback()
-                                   .call(s.event());
-                                  s.event()
-                                   .reset();
-                              });
+            s.callback()
+             .call(s.event());
+            s.event()
+             .reset();
+        });
     }
 }

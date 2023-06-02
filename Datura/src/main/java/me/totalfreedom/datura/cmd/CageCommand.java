@@ -34,7 +34,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 @Info(name = "cage", description = "Cage a player.",
-        usage = "/cage <player> <on|off> [material]")
+    usage = "/cage <player> <on|off> [material]")
 @Permissive(perm = "datura.cage")
 public class CageCommand extends Commander
 {
@@ -52,12 +52,14 @@ public class CageCommand extends Commander
         {
             case "on" ->
             {
-                ((Datura) getPlugin()).getCager().cagePlayer(player.getUniqueId());
+                ((Datura) getPlugin()).getCager()
+                                      .cagePlayer(player.getUniqueId());
                 sender.sendPlainMessage("Caged " + player.getName() + ".");
             }
             case "off" ->
             {
-                ((Datura) getPlugin()).getCager().uncagePlayer(player.getUniqueId());
+                ((Datura) getPlugin()).getCager()
+                                      .uncagePlayer(player.getUniqueId());
                 sender.sendPlainMessage("Liberated " + player.getName() + ".");
             }
         }
@@ -65,18 +67,21 @@ public class CageCommand extends Commander
 
     @Completion(args = {"[material]"}, index = 2)
     @Subcommand(permission = "datura.cage.custom", args = {Player.class, String.class, Material.class})
-    public void cagePlayer(final CommandSender sender, final Player player, final String string, final Material material)
+    public void cagePlayer(final CommandSender sender, final Player player, final String string,
+        final Material material)
     {
         switch (string.toLowerCase())
         {
             case "on" ->
             {
-                ((Datura) getPlugin()).getCager().cagePlayer(player.getUniqueId(), material);
+                ((Datura) getPlugin()).getCager()
+                                      .cagePlayer(player.getUniqueId(), material);
                 sender.sendPlainMessage("Caged " + player.getName() + ".");
             }
             case "off" ->
             {
-                ((Datura) getPlugin()).getCager().uncagePlayer(player.getUniqueId());
+                ((Datura) getPlugin()).getCager()
+                                      .uncagePlayer(player.getUniqueId());
                 sender.sendPlainMessage("Liberated " + player.getName() + ".");
             }
         }

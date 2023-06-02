@@ -25,6 +25,7 @@ public final class StrobeTrail extends SimpleTrail
         final Location location = player.getLocation()
                                         .clone()
                                         .subtract(0, 1, 0);
-        location.getWorld().spawnParticle(getTrailType().getType(), location, 1, 0.0, 0.5, 0.0, dustTransition);
+        location.getWorld()
+                .spawnParticle(getTrailType().getType(), location, 1, 0.0, 0.5, 0.0, dustTransition);
     }
 }

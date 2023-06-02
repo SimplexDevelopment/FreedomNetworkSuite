@@ -46,13 +46,17 @@ public class CakeCommand extends Commander
     @Base
     public void broadcastCake(final CommandSender sender)
     {
-        Bukkit.broadcast(FreedomMiniMessage.deserialize(true, "<rainbow>But there's no sense crying over every mistake. You just keep on trying till you run out of cake.</rainbow>"));
+        Bukkit.broadcast(FreedomMiniMessage.deserialize(true,
+            "<rainbow>But there's no sense crying over every mistake. You just keep on trying till you run out of " +
+                "cake.</rainbow>"));
 
         final ItemStack stack = new ItemStack(Material.CAKE, 1);
         final ItemMeta meta = stack.getItemMeta();
         meta.displayName(FreedomMiniMessage.deserialize(true, "<dark_gray>The <white>Lie"));
         stack.setItemMeta(meta);
 
-        Bukkit.getOnlinePlayers().forEach(player -> player.getInventory().addItem(stack));
+        Bukkit.getOnlinePlayers()
+              .forEach(player -> player.getInventory()
+                                       .addItem(stack));
     }
 }
