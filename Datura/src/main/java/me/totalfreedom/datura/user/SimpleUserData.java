@@ -26,9 +26,7 @@ public class SimpleUserData implements UserData
     private final UserDataUpdateEvent event = new UserDataUpdateEvent(this);
     private Group group;
     private long playtime;
-    private boolean frozen;
     private boolean canInteract;
-    private boolean caged;
     private AtomicLong balance;
     private boolean transactionsFrozen;
 
@@ -49,9 +47,7 @@ public class SimpleUserData implements UserData
         final User user,
         final Group group,
         final long playtime,
-        final boolean frozen,
         final boolean canInteract,
-        final boolean caged,
         final long balance,
         final boolean transactionsFrozen)
     {
@@ -60,9 +56,7 @@ public class SimpleUserData implements UserData
         this.user = user;
         this.group = group;
         this.playtime = playtime;
-        this.frozen = frozen;
         this.canInteract = canInteract;
-        this.caged = caged;
         this.balance = new AtomicLong(balance);
         this.transactionsFrozen = transactionsFrozen;
     }
@@ -72,61 +66,57 @@ public class SimpleUserData implements UserData
         return sql.executeQuery("SELECT * FROM users WHERE UUID = ?", uuid)
                   .thenApplyAsync(result ->
                   {
-                      try
-                      {
-                          if (result.next())
-                          {
-                              final String g = result.getString("group");
+                       try
+                       {
+                           if (result.next())
+                           {
+                               final String g = result.getString("group");
 
-                              final UUID u = UUID.fromString(uuid);
-                              final String username = result.getString("username");
+                               final UUID u = UUID.fromString(uuid);
+                               final String username = result.getString("username");
 
-                              final Player player = Bukkit.getPlayer(u);
+                               final Player player = Bukkit.getPlayer(u);
 
-                              if (player == null)
-                                  throw new IllegalStateException(
-                                      "Player should be online but they are not!");
+                               if (player == null)
+                                   throw new IllegalStateException("Player should be online but they are not!");
 
-                              final User user = new FreedomUser(player);
-                              final Group group = CommonsBase.getInstance()
-                                                             .getRegistrations()
-                                                             .getGroupRegistry()
-                                                             .getGroup(g);
+                               final User user = new FreedomUser(player);
+                               final Group group = CommonsBase.getInstance()
+                                                              .getRegistrations()
+                                                              .getGroupRegistry()
+                                                              .getGroup(g);
 
-                              final long playtime = result.getLong("playtime");
-                              final boolean frozen = result.getBoolean("frozen");
-                              final boolean canInteract = result.getBoolean("canInteract");
-                              final boolean caged = result.getBoolean("caged");
-                              final long balance = result.getLong("balance");
-                              final boolean transactionsFrozen = result.getBoolean(
-                                  "transactionsFrozen");
-                              return new SimpleUserData(u, username, user, group, playtime, frozen,
-                                  canInteract, caged, balance,
-                                  transactionsFrozen);
-                          }
-                      }
-                      catch (SQLException ex)
-                      {
-                          final String sb = "An error occurred while trying to retrieve user data for" +
-                                                " UUID " +
-                                                uuid +
-                                                " from the database." +
-                                                "\nCaused by: " +
-                                                ExceptionUtils.getRootCauseMessage(ex) +
-                                                "\nStack trace: " +
-                                                ExceptionUtils.getStackTrace(ex);
+                               final long playtime = result.getLong("playtime");
+                               final boolean canInteract = result.getBoolean("canInteract");
+                               final long balance = result.getLong("balance");
+                               final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
+                               
+                               return new SimpleUserData(u, username, user, group, playtime,
+                                                         canInteract, balance, transactionsFrozen);
+                           }
+                       }
+                       catch (SQLException ex)
+                       {
+                           final String sb = "An error occurred while trying to retrieve user data for" +
+                                             " UUID " +
+                                             uuid +
+                                             " from the database." +
+                                             "\nCaused by: " +
+                                             ExceptionUtils.getRootCauseMessage(ex) +
+                                             "\nStack trace: " +
+                                             ExceptionUtils.getStackTrace(ex);
 
-                          FreedomLogger.getLogger("Datura")
-                                       .error(sb);
-                      }
+                           FreedomLogger.getLogger("Datura")
+                                        .error(sb);
+                       }
 
-                      final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
-                      if (player == null) throw new IllegalStateException(
-                          "Player should be online but they are not!");
-                      return new SimpleUserData(player);
-                  }, CommonsBase.getInstance()
-                                .getExecutor()
-                                .getAsync())
+                       final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+                       if (player == null) throw new IllegalStateException("Player should be online but they are not!");
+                                      
+                       return new SimpleUserData(player);
+                   }, CommonsBase.getInstance()
+                                 .getExecutor()
+                                 .getAsync())
                   .join();
     }
 
@@ -189,19 +179,6 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public boolean isFrozen()
-    {
-        return frozen;
-    }
-
-    @Override
-    public void setFrozen(final boolean frozen)
-    {
-        event.ping();
-        this.frozen = true;
-    }
-
-    @Override
     public boolean canInteract()
     {
         return canInteract;
@@ -212,19 +189,6 @@ public class SimpleUserData implements UserData
     {
         event.ping();
         this.canInteract = canInteract;
-    }
-
-    @Override
-    public boolean isCaged()
-    {
-        return caged;
-    }
-
-    @Override
-    public void setCaged(final boolean caged)
-    {
-        event.ping();
-        this.caged = caged;
     }
 
     @Override

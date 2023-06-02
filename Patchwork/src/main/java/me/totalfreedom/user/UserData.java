@@ -34,8 +34,4 @@ public interface UserData extends EconomicEntityData
     boolean canInteract();
 
     void setInteractionState(boolean canInteract);
-
-    boolean isCaged();
-
-    void setCaged(boolean caged);
 }
