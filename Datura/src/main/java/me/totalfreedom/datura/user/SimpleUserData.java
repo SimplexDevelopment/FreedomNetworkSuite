@@ -1,5 +1,6 @@
 package me.totalfreedom.datura.user;
 
+import me.totalfreedom.api.backup.Backupper;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.event.UserDataUpdateEvent;
 import me.totalfreedom.datura.perms.FreedomUser;
@@ -31,12 +32,23 @@ public class SimpleUserData implements UserData
     private boolean caged;
     private AtomicLong balance;
     private boolean transactionsFrozen;
+    private final Backupper<SimpleUserData> backupper;
 
-    public SimpleUserData(final Player player)
+    private SimpleUserData()
+    {
+        this.backupper = null;
+        this.user = null;
+        this.username = null;
+        this.uuid = null;
+        this.balance = new AtomicLong();
+    }
+
+    public SimpleUserData(final Player player, final Backupper<SimpleUserData> backupper)
     {
         this.uuid = player.getUniqueId();
         this.username = player.getName();
-        this.user = new FreedomUser(player);
+        this.user = new FreedomUser(player, backupper);
+        this.backupper = backupper;
 
         CommonsBase.getInstance().getEventBus().addEvent(event);
     }
@@ -51,7 +63,8 @@ public class SimpleUserData implements UserData
             final boolean canInteract,
             final boolean caged,
             final long balance,
-            final boolean transactionsFrozen)
+            final boolean transactionsFrozen,
+            final Backupper<SimpleUserData> backupper)
     {
         this.uuid = uuid;
         this.username = username;
@@ -63,9 +76,10 @@ public class SimpleUserData implements UserData
         this.caged = caged;
         this.balance = new AtomicLong(balance);
         this.transactionsFrozen = transactionsFrozen;
+        this.backupper = backupper;
     }
 
-    public static SimpleUserData fromSQL(final SQL sql, final String uuid)
+    public static SimpleUserData fromSQL(final SQL sql, final String uuid, final Backupper<SimpleUserData> dataBackupper)
     {
         return sql.executeQuery("SELECT * FROM users WHERE UUID = ?", uuid)
                 .thenApplyAsync(result ->
@@ -84,7 +98,7 @@ public class SimpleUserData implements UserData
                             if (player == null)
                                 throw new IllegalStateException("Player should be online but they are not!");
 
-                            final User user = new FreedomUser(player);
+                            final User user = new FreedomUser(player, dataBackupper);
                             final Group group = CommonsBase.getInstance()
                                     .getRegistrations()
                                     .getGroupRegistry()
@@ -96,7 +110,7 @@ public class SimpleUserData implements UserData
                             final boolean caged = result.getBoolean("caged");
                             final long balance = result.getLong("balance");
                             final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
-                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance, transactionsFrozen);
+                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance, transactionsFrozen, dataBackupper);
                         }
                     } catch (SQLException ex)
                     {
@@ -114,7 +128,7 @@ public class SimpleUserData implements UserData
 
                     final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
                     if (player == null) throw new IllegalStateException("Player should be online but they are not!");
-                    return new SimpleUserData(player);
+                    return new SimpleUserData(player, dataBackupper);
                 }, CommonsBase.getInstance()
                         .getExecutor()
                         .getAsync())
@@ -246,5 +260,11 @@ public class SimpleUserData implements UserData
     public void setBalance(final long newBalance)
     {
         balance.set(newBalance);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "uuid=" + this.getUniqueId() + ",username=" + this.getUsername() + ",user=" + this.getUser() + ",group=" + this.getGroup() + ",playtime=" + this.getPlaytime() + ",frozen=" + this.frozen + ",canInteract=" + this.canInteract + ",caged=" + this.caged + ",balance=" + this.getBalance() + ",transactionsFrozen=" + this.transactionsFrozen;
     }
 }

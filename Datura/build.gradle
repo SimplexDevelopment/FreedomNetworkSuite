@@ -12,6 +12,8 @@ repositories {
 dependencies {
     compileOnly project(":Patchwork")
     testCompileOnly project(":Patchwork")
+
+    testImplementation("org.yaml:snakeyaml:1.33")
 }
 
 var weight = 2

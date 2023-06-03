@@ -1,5 +1,6 @@
 package me.totalfreedom.datura.perms;
 
+import me.totalfreedom.api.backup.Backupper;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.Datura;
 import me.totalfreedom.datura.user.SimpleUserData;
@@ -16,11 +17,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The superinterface User extends PermissionHolder,
@@ -36,7 +33,7 @@ public class FreedomUser implements User
     private final String NOT_ONLINE = "Player is not online";
     private final UserData userData;
 
-    public FreedomUser(final Player player)
+    public FreedomUser(final Player player, final Backupper<SimpleUserData> dataBackupper)
     {
         this.uuid = player.getUniqueId();
         this.permissions = new HashSet<>();
@@ -48,11 +45,11 @@ public class FreedomUser implements User
                 .getModule(Datura.class)
                 .getModule();
 
-        UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString());
+        UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString(), dataBackupper);
 
         if (data == null)
         {
-            data = new SimpleUserData(player);
+            data = new SimpleUserData(player, dataBackupper);
         }
 
         this.userData = data;
