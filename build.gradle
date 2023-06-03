@@ -32,6 +32,8 @@ subprojects {
 
     dependencies {
         compileOnly 'me.totalfreedom.scissors:Scissors-API:1.19.4-R0.1-SNAPSHOT'
+        testImplementation 'me.totalfreedom.scissors:Scissors-API:1.19.4-R0.1-SNAPSHOT'
+
         compileOnly 'org.javassist:javassist:3.29.1-GA'
         compileOnly 'org.apache.commons:commons-lang3:3.12.0'
         compileOnly 'org.apache.commons:commons-collections4:4.2'
@@ -39,6 +41,8 @@ subprojects {
         compileOnly 'com.google.code.gson:gson:2.8.8'
         compileOnly 'org.reflections:reflections:0.10.2'
         compileOnly 'org.slf4j:slf4j-api:1.7.36'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
     }
 
     sourceCompatibility = JavaVersion.VERSION_17
