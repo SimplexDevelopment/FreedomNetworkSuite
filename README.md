@@ -13,20 +13,20 @@
 
 ###
 [<img src="https://img.shields.io/static/v1?label=%20&message=Help%20Wanted&color=red&style=for-the-badge">](https://discord.gg/4PdtmrVNRx)
-![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
-[<img src="https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/issues)
-[<img src="https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/pulls)
-![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
+[<img src="https://img.shields.io/github/issues/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/issues)
+[<img src="https://img.shields.io/github/issues-pr/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/pulls)
+![GitHub last commit](https://img.shields.io/github/last-commit/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
 ![Codacy grade](https://img.shields.io/codacy/grade/7a0fa4694878444dabc6cc2804fbf125?style=for-the-badge)
 
 ###
 [<img src="https://img.shields.io/static/v1?label=Roadmap&message=Google%20Docs&color=4285F4&style=for-the-badge&logo=googledrive">](https://docs.google.com/document/d/197fwNo076RsCiPW6e6QWaGEzTGnDcRuf5FBA6lNeiPE)
-[<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/blob/kitchen-sink/LICENSE.md)
-![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge&logo=github)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge&logo=github)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+[<img src="https://img.shields.io/github/license/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/blob/kitchen-sink/LICENSE.md)
+![GitHub top language](https://img.shields.io/github/languages/top/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge&logo=github)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/AtlasMediaGroup/Freedom-Network-Suite?include_prereleases&style=for-the-badge&logo=github)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
 ![TFM Used](https://img.shields.io/static/v1?label=TFM%20Code%20Used&message=0%25&color=red&style=for-the-badge&logo=tensorflow)
 
 # FreedomNetworkSuite
@@ -34,6 +34,7 @@
 This is a proof of concept for a new suite of modules supported by a common library.
 This is designed to encompass the ideologies of a Freedom server, while maintaining full customization through modules.
 This is a ground up rewrite of [TotalFreedomMod].
+<br>
 <br>
 Honorable mention:
 <br>
@@ -61,31 +62,29 @@ Patchwork:
 - [x] Logging System
 - [x] SQL API
 - [x] Economy API
-- [ ] Command API
-- [ ] Particle API
+- [x] Command API
+- [x] Particle API
 - [x] User API
-- [ ] Ban API
 - [x] Service API
 - [x] Task API
 - [x] Permissions API
-- [ ] Configuration API
-- [ ] Event API
+- [ ] Configuration API *(In Progress...)*
+- [ ] Event API *(In Progress...)*
 
 Datura:
-- [ ] Permission Handling
-- [ ] Permission Registration & Assignment
-- [ ] SQL Data Handling
-- [ ] Configuration Implementations
-- [ ] User Data Implementations
-- [ ] Banning Implementation
-- [ ] Punishment Systems (e.x. Locker, Halter, Muter, Cager)
+- [ ] Permission Handling *(In Progress...)*
+- [ ] Permission Registration & Assignment *(In Progress...)*
+- [ ] SQL Data Handling *(In Progress...)*
+- [ ] Configuration Implementations 
+- [ ] User Data Implementations *(In Progress...)*
+- [x] Punishment Systems (e.x. Locker, Halter, Cager)
 
 Fossil:
 - [x] Economy Implementation
-- [ ] Particle Implementation / Trails
-- [ ] Command Implementations
-- [ ] Implement a shop for the economy
-- [ ] Chat reaction / game system
+- [ ] Particle Implementation / Trails *(In Progress...)*
+- [ ] Command Implementations *(In Progress...)*
+- [ ] Implement a shop for the economy *(In Progress...)*
+- [ ] Chat reaction / game system 
 - [ ] Jumppads
 
 Corvo:
