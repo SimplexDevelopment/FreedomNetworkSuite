@@ -18,7 +18,7 @@
 [<img src="https://img.shields.io/github/issues/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/issues)
 [<img src="https://img.shields.io/github/issues-pr/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/pulls)
 ![GitHub last commit](https://img.shields.io/github/last-commit/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
-![Codacy grade](https://img.shields.io/codacy/grade/7a0fa4694878444dabc6cc2804fbf125?style=for-the-badge)
+![Codacy grade](https://img.shields.io/codacy/grade/176b8003312c4602afb9be7706aef146?style=for-the-badge)
 
 ###
 [<img src="https://img.shields.io/static/v1?label=Roadmap&message=Google%20Docs&color=4285F4&style=for-the-badge&logo=googledrive">](https://docs.google.com/document/d/197fwNo076RsCiPW6e6QWaGEzTGnDcRuf5FBA6lNeiPE)
