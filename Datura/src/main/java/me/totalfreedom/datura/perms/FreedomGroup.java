@@ -1,8 +1,8 @@
 package me.totalfreedom.datura.perms;
 
 import me.totalfreedom.base.CommonsBase;
-import me.totalfreedom.security.perm.Group;
-import me.totalfreedom.security.perm.Node;
+import me.totalfreedom.security.Group;
+import me.totalfreedom.security.Node;
 import net.kyori.adventure.text.Component;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;

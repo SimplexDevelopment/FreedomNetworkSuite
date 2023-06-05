@@ -1,7 +1,7 @@
 package me.totalfreedom.datura.perms;
 
-import me.totalfreedom.security.perm.Node;
-import me.totalfreedom.security.perm.NodeType;
+import me.totalfreedom.security.Node;
+import me.totalfreedom.security.NodeType;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 

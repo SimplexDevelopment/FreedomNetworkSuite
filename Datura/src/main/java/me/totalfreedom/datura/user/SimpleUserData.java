@@ -3,7 +3,7 @@ package me.totalfreedom.datura.user;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.event.UserDataUpdateEvent;
 import me.totalfreedom.datura.perms.FreedomUser;
-import me.totalfreedom.security.perm.Group;
+import me.totalfreedom.security.Group;
 import me.totalfreedom.sql.SQL;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;

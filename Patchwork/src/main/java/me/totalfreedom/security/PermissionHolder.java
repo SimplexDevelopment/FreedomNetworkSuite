@@ -1,4 +1,4 @@
-package me.totalfreedom.security.perm;
+package me.totalfreedom.security;
 
 import org.bukkit.permissions.Permissible;
 

@@ -1,7 +1,7 @@
 package me.totalfreedom.user;
 
 import me.totalfreedom.economy.EconomicEntityData;
-import me.totalfreedom.security.perm.Group;
+import me.totalfreedom.security.Group;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,10 +26,6 @@ public interface UserData extends EconomicEntityData
     void addPlaytime(long playtime);
 
     void resetPlaytime();
-
-    boolean isFrozen();
-
-    void setFrozen(boolean frozen);
 
     boolean canInteract();
 

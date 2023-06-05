@@ -2,7 +2,7 @@ package me.totalfreedom.user;
 
 import me.totalfreedom.economy.EconomicEntity;
 import me.totalfreedom.economy.EconomicEntityData;
-import me.totalfreedom.security.perm.PermissionHolder;
+import me.totalfreedom.security.PermissionHolder;
 import net.kyori.adventure.text.Component;
 
 public interface User extends PermissionHolder, EconomicEntity

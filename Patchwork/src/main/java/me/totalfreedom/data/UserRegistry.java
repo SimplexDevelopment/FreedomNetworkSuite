@@ -2,6 +2,7 @@ package me.totalfreedom.data;
 
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,15 @@ public class UserRegistry
     public UserData getUserData(final User user)
     {
         return userDataMap.get(user);
+    }
+
+    public UserData fromPlayer(final Player player) {
+        return userDataMap.entrySet()
+                          .stream()
+                          .filter(entry -> entry.getKey().getUniqueId().equals(player.getUniqueId()))
+                          .findFirst()
+                          .map(Map.Entry::getValue)
+                          .orElse(null);
     }
 
     public void registerUserData(final User user, final UserData userData)
