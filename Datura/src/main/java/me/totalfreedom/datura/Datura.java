@@ -27,11 +27,11 @@ public class Datura extends JavaPlugin
 
         CommonsBase.getInstance()
                    .getRegistrations()
-                   .getServiceRegistry()
+                   .getServiceTaskRegistry()
                    .registerService(SubscriptionProvider.syncService(this, locker));
         CommonsBase.getInstance()
                    .getRegistrations()
-                   .getServiceRegistry()
+                   .getServiceTaskRegistry()
                    .registerService(SubscriptionProvider.syncService(this, cager));
 
         Bukkit.getPluginManager()

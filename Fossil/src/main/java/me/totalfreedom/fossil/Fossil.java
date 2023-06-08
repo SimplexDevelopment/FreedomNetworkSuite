@@ -18,7 +18,7 @@ public class Fossil extends JavaPlugin
         registration.getModuleRegistry()
                     .addModule(this);
 
-        registration.getServiceRegistry()
+        registration.getServiceTaskRegistry()
                     .registerService(
                         SubscriptionProvider.syncService(this, trailer));
     }

@@ -15,12 +15,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * A class that represents an inventory that can be displayed to players. This class also represents the inventory
+ * holder which contains the inventory.
+ */
 public final class Displayable implements Inventory, InventoryHolder
 {
 
+    /**
+     * The size of the inventory. This is always a multiple of 9.
+     */
     private final int size;
+    /**
+     * The contents of the inventory.
+     */
     private ItemStack[] contents;
 
+    /**
+     * Creates a new Displayable inventory with the given size. You are free to supply any size you want, but it will
+     * always be rounded up to the next multiple of 9. The maximum size allowed is 54. Any number higher than that will
+     * be rounded down to 54.
+     *
+     * @param size The size of the inventory.
+     */
     protected Displayable(final int size)
     {
         if (size < 1 || size > 54)
@@ -31,8 +48,8 @@ public final class Displayable implements Inventory, InventoryHolder
         // If the size is not a multiple of nine, find the difference to the next highest multiple of 9 and make up
         // the difference.
         this.size = (size % 9 == 0)
-                    ? size
-                    : size + (9 - size % 9);
+                ? size
+                : size + (9 - size % 9);
 
         this.contents = new ItemStack[size];
     }
@@ -82,7 +99,7 @@ public final class Displayable implements Inventory, InventoryHolder
 
     @Override
     public @NotNull HashMap<Integer, ItemStack> addItem(final @NotNull ItemStack... items)
-        throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         final HashMap<Integer, ItemStack> remainingItems = new HashMap<>();
 
@@ -121,7 +138,7 @@ public final class Displayable implements Inventory, InventoryHolder
 
     @Override
     public @NotNull HashMap<Integer, ItemStack> removeItem(final @NotNull ItemStack... items)
-        throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         final HashMap<Integer, ItemStack> removedItems = new HashMap<>();
 
@@ -154,7 +171,7 @@ public final class Displayable implements Inventory, InventoryHolder
             if (remainingAmount < item.getAmount())
             {
                 removedItems.put(removedItems.size(),
-                    new ItemStack(item.getType(), item.getAmount() - remainingAmount));
+                        new ItemStack(item.getType(), item.getAmount() - remainingAmount));
             }
         }
 
@@ -163,7 +180,7 @@ public final class Displayable implements Inventory, InventoryHolder
 
     @Override
     public @NotNull HashMap<Integer, ItemStack> removeItemAnySlot(final @NotNull ItemStack... items)
-        throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         return removeItem(items);
     }
@@ -294,7 +311,7 @@ public final class Displayable implements Inventory, InventoryHolder
 
     @Override
     public @NotNull HashMap<Integer, ? extends ItemStack> all(final @NotNull Material material)
-        throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         final HashMap<Integer, ItemStack> matchingItems = new HashMap<>();
         for (int i = 0; i < size; i++)

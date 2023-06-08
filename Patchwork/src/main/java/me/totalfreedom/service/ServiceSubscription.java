@@ -16,7 +16,23 @@ public final class ServiceSubscription<T extends Service>
 
     private boolean isActive = false;
 
+    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service)
+    {
+        this(plugin, service, 1L, false);
+    }
+
     ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final boolean async)
+    {
+        this(plugin, service, 1L, async);
+    }
+
+    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final long interval)
+    {
+        this(plugin, service, interval, false);
+    }
+
+    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service,
+        final long interval, final boolean async)
     {
         this.service = service;
         this.async = async;
@@ -28,7 +44,7 @@ public final class ServiceSubscription<T extends Service>
             this.executor = r ->
             {
                 final BukkitTask task = Bukkit.getScheduler()
-                                              .runTaskTimerAsynchronously(plugin, r, 0, 1);
+                                              .runTaskTimerAsynchronously(plugin, r, 0, interval);
                 tempId[0] = task.getTaskId();
             };
         } else
@@ -36,7 +52,7 @@ public final class ServiceSubscription<T extends Service>
             this.executor = r ->
             {
                 final BukkitTask task = Bukkit.getScheduler()
-                                              .runTaskTimer(plugin, r, 0, 1);
+                                              .runTaskTimer(plugin, r, 0, interval);
                 tempId[0] = task.getTaskId();
             };
         }

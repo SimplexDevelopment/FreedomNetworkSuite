@@ -22,7 +22,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class BukkitDelegate extends Command implements PluginIdentifiableCommand
+/**
+ * This class is acts as a delegate between our custom command implementation and the Bukkit API.
+ * <br>
+ * This class is not meant to be used directly, and is only public to allow for the Bukkit API to access it.
+ * As a result, this file will remain undocumented.
+ * <span color=#ff0000>
+ * <br>
+ * This class is not thread-safe.
+ * <br>
+ * This class is not meant to be extended.
+ * <br>
+ * This class is not meant to be instantiated.
+ * <br>
+ * This class is not meant to be used outside Patchwork.
+ * </span>
+ */
+public final class BukkitDelegate extends Command implements PluginIdentifiableCommand
 {
     private final JavaPlugin plugin;
     private final Commander command;
@@ -50,8 +66,8 @@ public class BukkitDelegate extends Command implements PluginIdentifiableCommand
 
     @Override
     public boolean execute(@NotNull final CommandSender sender,
-        @NotNull final String commandLabel,
-        @NotNull final String[] args)
+                           @NotNull final String commandLabel,
+                           @NotNull final String[] args)
     {
         if (sender instanceof ConsoleCommandSender && noConsole)
         {
@@ -87,8 +103,7 @@ public class BukkitDelegate extends Command implements PluginIdentifiableCommand
             {
                 command.getBaseMethod()
                        .invoke(command, sender);
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 FreedomLogger.getLogger("Patchwork")
                              .error(ex);
@@ -101,8 +116,8 @@ public class BukkitDelegate extends Command implements PluginIdentifiableCommand
     }
 
     private void processSubCommands(final @NotNull String @NotNull [] args,
-        final CommandSender sender, final ContextProvider provider,
-        final Subcommand node)
+                                    final CommandSender sender, final ContextProvider provider,
+                                    final Subcommand node)
     {
         final Class<?>[] argTypes = node.args();
         if (argTypes.length != args.length)
@@ -126,8 +141,7 @@ public class BukkitDelegate extends Command implements PluginIdentifiableCommand
             command.getSubcommands()
                    .get(node)
                    .invoke(command, sender, objects);
-        }
-        catch (Exception ex)
+        } catch (Exception ex)
         {
             FreedomLogger.getLogger("Patchwork")
                          .error(ex);
@@ -159,16 +173,16 @@ public class BukkitDelegate extends Command implements PluginIdentifiableCommand
                                                            .map(World::getName)
                                                            .toList());
                     case "%number%" -> results.addAll(List.of(
-                        "0",
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9"));
+                            "0",
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5",
+                            "6",
+                            "7",
+                            "8",
+                            "9"));
                     case "%location%" -> results.add("world,x,y,z");
                     default -> results.add(p);
                 }

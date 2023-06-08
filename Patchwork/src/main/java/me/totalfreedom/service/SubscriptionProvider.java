@@ -16,7 +16,16 @@ public final class SubscriptionProvider
     public static final <S extends Service> ServiceSubscription<S> syncService(@NotNull final JavaPlugin plugin,
         @NotNull final S service)
     {
-        return new ServiceSubscription<>(plugin, service, false);
+        return new ServiceSubscription<>(plugin, service);
+    }
+
+    @NotNull
+    @Contract(value = "_,_,_ -> new", pure = false)
+    public static final <S extends Service> ServiceSubscription<S> syncService(@NotNull final JavaPlugin plugin,
+        final long interval,
+        @NotNull final S service)
+    {
+        return new ServiceSubscription<>(plugin, service, interval);
     }
 
     @NotNull
@@ -33,6 +42,15 @@ public final class SubscriptionProvider
         @NotNull final T task)
     {
         return new TaskSubscription<>(plugin, task, false);
+    }
+
+    @NotNull
+    @Contract(value = "_,_,_ -> new", pure = false)
+    public static final <S extends Service> ServiceSubscription<S> asyncService(@NotNull final JavaPlugin plugin,
+        final long interval,
+        @NotNull final S service)
+    {
+        return new ServiceSubscription<>(plugin, service, interval, true);
     }
 
     @NotNull

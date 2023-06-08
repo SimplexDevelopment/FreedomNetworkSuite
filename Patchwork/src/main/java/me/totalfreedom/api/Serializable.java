@@ -1,5 +1,12 @@
 package me.totalfreedom.api;
 
+/**
+ * This interface represents a Serializable object.
+ * Objects which require custom serialization and cannot simply override or call
+ * the default {@link Object#toString()} method should implement this interface.
+ *
+ * @param <T> The type of object to serialize
+ */
 public interface Serializable<T>
 {
     /**
@@ -11,5 +18,11 @@ public interface Serializable<T>
      */
     String serialize(T object);
 
-    T deserialize(Context<?>... contexts);
+    /**
+     * Deserialize an object from a Serialized string..
+     * @param serializedObject The serialized object
+     * @return The deserialized object
+     */
+
+    T deserialize(String serializedObject);
 }

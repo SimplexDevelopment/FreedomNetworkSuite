@@ -2,5 +2,5 @@ package me.totalfreedom.shop;
 
 public enum ReactionType
 {
-    COPYCAT, UNSCRAMBLE;
+    COPYCAT, UNSCRAMBLE, MATH;
 }

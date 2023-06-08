@@ -45,7 +45,7 @@ public class FreedomUser implements User
         final Datura datura = CommonsBase.getInstance()
                                          .getRegistrations()
                                          .getModuleRegistry()
-                                         .getModule(Datura.class)
+                                         .getProvider(Datura.class)
                                          .getModule();
 
         UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString());
