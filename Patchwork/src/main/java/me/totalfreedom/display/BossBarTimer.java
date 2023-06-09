@@ -1,7 +1,6 @@
 package me.totalfreedom.display;
 
 import me.totalfreedom.service.Task;
-import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 
 import java.time.Duration;

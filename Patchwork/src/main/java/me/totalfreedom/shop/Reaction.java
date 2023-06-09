@@ -1,7 +1,6 @@
 package me.totalfreedom.shop;
 
 import me.totalfreedom.display.BossBarDisplay;
-import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 
 import java.time.Duration;
@@ -44,6 +43,11 @@ public abstract class Reaction implements Reactable
         return reactionMessage;
     }
 
+    public void setReactionMessage(final Component message)
+    {
+        this.reactionMessage = message;
+    }
+
     @Override
     public Duration getReactionDuration()
     {
@@ -60,10 +64,5 @@ public abstract class Reaction implements Reactable
     public BossBarDisplay getBossBarDisplay()
     {
 
-    }
-
-    public void setReactionMessage(final Component message)
-    {
-        this.reactionMessage = message;
     }
 }
