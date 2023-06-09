@@ -2,7 +2,7 @@ package me.totalfreedom.datura.sql;
 
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.sql.SQL;
-import me.totalfreedom.utils.Identity;
+import me.totalfreedom.utils.container.Identity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

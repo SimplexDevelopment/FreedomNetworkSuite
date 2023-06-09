@@ -1,5 +1,6 @@
-package me.totalfreedom.utils;
+package me.totalfreedom.utils.logging;
 
+import me.totalfreedom.utils.kyori.FreedomAdventure;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.chat.ChatType;
 import net.kyori.adventure.chat.SignedMessage;

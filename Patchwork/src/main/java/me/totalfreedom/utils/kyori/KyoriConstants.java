@@ -1,4 +1,4 @@
-package me.totalfreedom.utils;
+package me.totalfreedom.utils.kyori;
 
 import me.totalfreedom.base.CommonsBase;
 import net.kyori.adventure.chat.ChatType;

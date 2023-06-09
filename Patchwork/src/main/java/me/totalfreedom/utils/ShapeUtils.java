@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 
-public class Shaper
+public class ShapeUtils
 {
     private final double start;
     private final double end;
     private final World world;
 
-    public Shaper(final World world, final double start, final double end)
+    public ShapeUtils(final World world, final double start, final double end)
     {
         this.start = start;
         this.end = end;

@@ -7,7 +7,7 @@ import me.totalfreedom.security.Group;
 import me.totalfreedom.sql.SQL;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
-import me.totalfreedom.utils.FreedomLogger;
+import me.totalfreedom.utils.logging.FreedomLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

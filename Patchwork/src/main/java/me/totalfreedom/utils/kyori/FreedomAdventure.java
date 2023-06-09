@@ -1,4 +1,4 @@
-package me.totalfreedom.utils;
+package me.totalfreedom.utils.kyori;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;

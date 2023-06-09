@@ -1,4 +1,4 @@
-package me.totalfreedom.utils;
+package me.totalfreedom.utils.container;
 
 import java.util.UUID;
 

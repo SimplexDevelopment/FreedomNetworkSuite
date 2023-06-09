@@ -25,7 +25,7 @@ import me.totalfreedom.command.Commander;
 import me.totalfreedom.command.annotation.Base;
 import me.totalfreedom.command.annotation.Info;
 import me.totalfreedom.command.annotation.Permissive;
-import me.totalfreedom.utils.FreedomMiniMessage;
+import me.totalfreedom.utils.kyori.FreedomMiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;

@@ -2,7 +2,7 @@ package me.totalfreedom.datura.punishment;
 
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.service.Service;
-import me.totalfreedom.utils.Shaper;
+import me.totalfreedom.utils.ShapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -53,25 +53,25 @@ public class Cager extends Service
     /**
      * This method generates a cube centered around the passed location,
      * made of the provided material. This method returns the passed location object.
-     * We use the {@link Shaper} class to generate the cube, which allows us to define
+     * We use the {@link ShapeUtils} class to generate the cube, which allows us to define
      * custom shapes using {@link DoubleUnaryOperator}s.
      *
      * @param location The location to center the cube around.
      * @param material The material to use for the cube.
      * @return The center location of the cube (the passed location).
-     * @see Shaper
+     * @see ShapeUtils
      * @see DoubleUnaryOperator
      */
     public Location createCage(final Location location, final Material material)
     {
-        final Shaper shaper = new Shaper(location.getWorld(), 0.0, 4.0);
+        final ShapeUtils shapeUtils = new ShapeUtils(location.getWorld(), 0.0, 4.0);
         final List<Location> cubed = new LinkedList<>();
-        cubed.addAll(shaper.generate(5, t -> t, t -> 4.0, t -> t));
-        cubed.addAll(shaper.generate(5, t -> t, t -> 0.0, t -> t));
-        cubed.addAll(shaper.generate(5, t -> 0.0, t -> t, t -> t));
-        cubed.addAll(shaper.generate(5, t -> 4.0, t -> t, t -> t));
-        cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 0.0));
-        cubed.addAll(shaper.generate(5, t -> t, t -> t, t -> 4.0));
+        cubed.addAll(shapeUtils.generate(5, t -> t, t -> 4.0, t -> t));
+        cubed.addAll(shapeUtils.generate(5, t -> t, t -> 0.0, t -> t));
+        cubed.addAll(shapeUtils.generate(5, t -> 0.0, t -> t, t -> t));
+        cubed.addAll(shapeUtils.generate(5, t -> 4.0, t -> t, t -> t));
+        cubed.addAll(shapeUtils.generate(5, t -> t, t -> t, t -> 0.0));
+        cubed.addAll(shapeUtils.generate(5, t -> t, t -> t, t -> 4.0));
 
         for (final Location l : cubed)
         {

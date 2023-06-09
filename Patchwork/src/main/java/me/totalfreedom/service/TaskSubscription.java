@@ -1,6 +1,6 @@
 package me.totalfreedom.service;
 
-import me.totalfreedom.utils.Pair;
+import me.totalfreedom.utils.container.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;

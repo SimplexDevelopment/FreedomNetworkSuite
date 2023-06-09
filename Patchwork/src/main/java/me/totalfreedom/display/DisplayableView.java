@@ -1,6 +1,6 @@
 package me.totalfreedom.display;
 
-import me.totalfreedom.utils.FreedomAdventure;
+import me.totalfreedom.utils.kyori.FreedomAdventure;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;

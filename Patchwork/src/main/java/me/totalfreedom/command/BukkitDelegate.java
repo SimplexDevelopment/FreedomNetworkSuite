@@ -4,7 +4,7 @@ import me.totalfreedom.api.Context;
 import me.totalfreedom.command.annotation.Completion;
 import me.totalfreedom.command.annotation.Subcommand;
 import me.totalfreedom.provider.ContextProvider;
-import me.totalfreedom.utils.FreedomLogger;
+import me.totalfreedom.utils.logging.FreedomLogger;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

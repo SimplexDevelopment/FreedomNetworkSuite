@@ -5,7 +5,7 @@ import me.totalfreedom.economy.CompletedTransaction;
 import me.totalfreedom.economy.EconomicEntity;
 import me.totalfreedom.economy.TransactionLogger;
 import me.totalfreedom.economy.TransactionResult;
-import me.totalfreedom.utils.FreedomLogger;
+import me.totalfreedom.utils.logging.FreedomLogger;
 import net.kyori.adventure.text.Component;
 
 public class SimpleTransactionLogger implements TransactionLogger
