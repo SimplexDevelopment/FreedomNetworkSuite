@@ -5,6 +5,7 @@ import me.totalfreedom.datura.punishment.Cager;
 import me.totalfreedom.datura.punishment.Halter;
 import me.totalfreedom.datura.punishment.Locker;
 import me.totalfreedom.datura.sql.MySQL;
+import me.totalfreedom.service.SubscriptionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,18 +21,40 @@ public class Datura extends JavaPlugin
     public void onEnable()
     {
         CommonsBase.getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .addModule(this);
+                   .getRegistrations()
+                   .getModuleRegistry()
+                   .addModule(this);
 
-        CommonsBase.getInstance().getRegistrations().getServiceRegistry().register(this, locker);
-        CommonsBase.getInstance().getRegistrations().getServiceRegistry().register(this, cager);
+        CommonsBase.getInstance()
+                   .getRegistrations()
+                   .getServiceTaskRegistry()
+                   .registerService(SubscriptionProvider.syncService(this, locker));
+        CommonsBase.getInstance()
+                   .getRegistrations()
+                   .getServiceTaskRegistry()
+                   .registerService(SubscriptionProvider.syncService(this, cager));
 
-        Bukkit.getPluginManager().registerEvents(halter, this);
+        Bukkit.getPluginManager()
+              .registerEvents(halter, this);
     }
 
     public MySQL getSQL()
     {
         return sql;
+    }
+
+    public Halter getHalter()
+    {
+        return halter;
+    }
+
+    public Locker getLocker()
+    {
+        return locker;
+    }
+
+    public Cager getCager()
+    {
+        return cager;
     }
 }

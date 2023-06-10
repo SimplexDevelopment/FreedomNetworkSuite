@@ -3,7 +3,7 @@ package me.totalfreedom.datura.perms;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.Datura;
 import me.totalfreedom.datura.user.SimpleUserData;
-import me.totalfreedom.security.perm.Node;
+import me.totalfreedom.security.Node;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
 import net.kyori.adventure.text.Component;
@@ -23,9 +23,9 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * The superinterface User extends PermissionHolder,
- * which is an extension of {@link org.bukkit.permissions.Permissible}.
- * This means that our permission data can be interchanged with other permission plugins.
+ * The superinterface User extends PermissionHolder, which is an extension of
+ * {@link org.bukkit.permissions.Permissible}. This means that our permission data can be interchanged with other
+ * permission plugins.
  */
 public class FreedomUser implements User
 {
@@ -43,10 +43,10 @@ public class FreedomUser implements User
         this.displayName = player.displayName();
 
         final Datura datura = CommonsBase.getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .getModule(Datura.class)
-                .getModule();
+                                         .getRegistrations()
+                                         .getModuleRegistry()
+                                         .getProvider(Datura.class)
+                                         .getModule();
 
         UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString());
 
@@ -58,14 +58,27 @@ public class FreedomUser implements User
         this.userData = data;
 
         CommonsBase.getInstance()
-                .getRegistrations()
-                .getUserRegistry()
-                .registerUserData(this, userData);
+                   .getRegistrations()
+                   .getUserRegistry()
+                   .registerUserData(this, userData);
     }
 
     @Override
-    public UserData getUserData() {
+    public UserData getUserData()
+    {
         return userData;
+    }
+
+    @Override
+    public Component getDisplayName()
+    {
+        return displayName;
+    }
+
+    @Override
+    public boolean isOnline()
+    {
+        return Bukkit.getPlayer(uuid) != null;
     }
 
     @Override
@@ -97,18 +110,6 @@ public class FreedomUser implements User
     }
 
     @Override
-    public Component getDisplayName()
-    {
-        return displayName;
-    }
-
-    @Override
-    public boolean isOnline()
-    {
-        return Bukkit.getPlayer(uuid) != null;
-    }
-
-    @Override
     public boolean isPermissionSet(@NotNull final String name)
     {
         final Player player = Bukkit.getPlayer(uuid);
@@ -137,7 +138,8 @@ public class FreedomUser implements User
     }
 
     @Override
-    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value)
+    public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
+                                                       final boolean value)
     {
         final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
@@ -161,7 +163,8 @@ public class FreedomUser implements User
     }
 
     @Override
-    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name, final boolean value, final int ticks)
+    public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
+                                                        final boolean value, final int ticks)
     {
         final Player player = Bukkit.getPlayer(uuid);
         if (player != null)

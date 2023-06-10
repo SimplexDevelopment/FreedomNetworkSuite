@@ -1,14 +1,10 @@
 package me.totalfreedom.datura.perms;
 
-import me.totalfreedom.security.perm.Node;
-import me.totalfreedom.security.perm.NodeType;
+import me.totalfreedom.security.Node;
+import me.totalfreedom.security.NodeType;
 
 public class DefaultNodes
 {
-    private DefaultNodes() {
-        throw new AssertionError();
-    }
-
     public static final Node OP = new PermissionNodeBuilder()
             .key("freedom.master_key")
             .value(true)
@@ -16,7 +12,6 @@ public class DefaultNodes
             .negated(false)
             .wildcard(true)
             .build();
-
     public static final Node NON_OP = new PermissionNodeBuilder()
             .key("freedom.default")
             .value(true)
@@ -24,7 +19,6 @@ public class DefaultNodes
             .negated(false)
             .wildcard(false)
             .build();
-
     public static final Node ALL = new PermissionNodeBuilder()
             .key("*")
             .value(true)
@@ -32,7 +26,6 @@ public class DefaultNodes
             .negated(false)
             .wildcard(true)
             .build();
-
     public static final Node NONE = new PermissionNodeBuilder()
             .key("freedom.none")
             .value(true)
@@ -40,4 +33,9 @@ public class DefaultNodes
             .negated(false)
             .wildcard(false)
             .build();
+
+    private DefaultNodes()
+    {
+        throw new AssertionError();
+    }
 }

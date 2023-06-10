@@ -6,7 +6,8 @@ package me.totalfreedom.economy;
 public interface EconomicEntity
 {
     /**
-     * Gets the {@link EconomicEntityData} (which contains various common metadata about this {@link EconomicEntity}) associated with this class
+     * Gets the {@link EconomicEntityData} (which contains various common metadata about this {@link EconomicEntity})
+     * associated with this class
      *
      * @return the {@link EconomicEntityData}
      */

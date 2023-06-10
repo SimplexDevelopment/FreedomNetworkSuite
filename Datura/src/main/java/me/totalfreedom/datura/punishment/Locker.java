@@ -22,15 +22,23 @@ public class Locker extends Service
         super("locker-service");
     }
 
-    public void lock(final UUID uuid)
+    public void lock(final Player player)
     {
-        lockedPlayers.add(uuid);
+        lockedPlayers.add(player.getUniqueId());
+    }
+
+    public void unlock(final Player player)
+    {
+        lockedPlayers.remove(player.getUniqueId());
     }
 
     @Override
     public void tick()
     {
-        lockedPlayers.removeIf(uuid -> !CommonsBase.getInstance().getServer().getOfflinePlayer(uuid).isOnline());
+        lockedPlayers.removeIf(uuid -> !CommonsBase.getInstance()
+                                                   .getServer()
+                                                   .getOfflinePlayer(uuid)
+                                                   .isOnline());
 
         for (final UUID uuid : lockedPlayers)
         {
@@ -43,8 +51,10 @@ public class Locker extends Service
 
     private void lockingMethod(@NotNull final Player player)
     {
-        final double x = player.getLocation().getX();
-        final double z = player.getLocation().getZ();
+        final double x = player.getLocation()
+                               .getX();
+        final double z = player.getLocation()
+                               .getZ();
 
         if ((x / z % 0.001) < 1)
         {
@@ -65,13 +75,15 @@ public class Locker extends Service
 
         player.openInventory(Bukkit.createInventory(null, 54));
         player.closeInventory(InventoryCloseEvent.Reason.UNKNOWN);
-        player.teleport(player.getLocation().clone());
+        player.teleport(player.getLocation()
+                              .clone());
 
         final SplittableRandom random = new SplittableRandom();
-        player.getEyeLocation().add(new Vector(
-                random.nextDouble(-1.0, 1.0),
-                random.nextDouble(-1.0, 1.0),
-                random.nextDouble(-1.0, 1.0)
-        ));
+        player.getEyeLocation()
+              .add(new Vector(
+                      random.nextDouble(-1.0, 1.0),
+                      random.nextDouble(-1.0, 1.0),
+                      random.nextDouble(-1.0, 1.0)
+              ));
     }
 }

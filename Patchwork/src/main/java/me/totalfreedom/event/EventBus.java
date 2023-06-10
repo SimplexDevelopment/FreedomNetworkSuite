@@ -27,9 +27,10 @@ public class EventBus extends Service
     public <T extends FEvent> T getEvent(final Class<T> eventClass)
     {
         final FEvent e = eventSet.stream()
-                .filter(event -> event.getEventClass().equals(eventClass))
-                .findFirst()
-                .orElse(null);
+                                 .filter(event -> event.getEventClass()
+                                                       .equals(eventClass))
+                                 .findFirst()
+                                 .orElse(null);
 
         return eventClass.cast(e);
     }
@@ -37,10 +38,11 @@ public class EventBus extends Service
     public <T extends FEvent> EventSubscription<T> subscribe(final Class<T> eventClass, final Callback<T> callback)
     {
         final Context<T> eventContext = () -> eventSet.stream()
-                .filter(event -> event.getEventClass().equals(eventClass))
-                .findFirst()
-                .map(eventClass::cast)
-                .orElse(null);
+                                                      .filter(event -> event.getEventClass()
+                                                                            .equals(eventClass))
+                                                      .findFirst()
+                                                      .map(eventClass::cast)
+                                                      .orElse(null);
 
         if (eventContext.get() == null)
         {

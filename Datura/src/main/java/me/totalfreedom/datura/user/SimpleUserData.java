@@ -3,11 +3,11 @@ package me.totalfreedom.datura.user;
 import me.totalfreedom.base.CommonsBase;
 import me.totalfreedom.datura.event.UserDataUpdateEvent;
 import me.totalfreedom.datura.perms.FreedomUser;
-import me.totalfreedom.security.perm.Group;
+import me.totalfreedom.security.Group;
 import me.totalfreedom.sql.SQL;
 import me.totalfreedom.user.User;
 import me.totalfreedom.user.UserData;
-import me.totalfreedom.utils.FreedomLogger;
+import me.totalfreedom.utils.logging.FreedomLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,9 +26,7 @@ public class SimpleUserData implements UserData
     private final UserDataUpdateEvent event = new UserDataUpdateEvent(this);
     private Group group;
     private long playtime;
-    private boolean frozen;
     private boolean canInteract;
-    private boolean caged;
     private AtomicLong balance;
     private boolean transactionsFrozen;
 
@@ -38,7 +36,9 @@ public class SimpleUserData implements UserData
         this.username = player.getName();
         this.user = new FreedomUser(player);
 
-        CommonsBase.getInstance().getEventBus().addEvent(event);
+        CommonsBase.getInstance()
+                   .getEventBus()
+                   .addEvent(event);
     }
 
     private SimpleUserData(
@@ -47,9 +47,7 @@ public class SimpleUserData implements UserData
             final User user,
             final Group group,
             final long playtime,
-            final boolean frozen,
             final boolean canInteract,
-            final boolean caged,
             final long balance,
             final boolean transactionsFrozen)
     {
@@ -58,9 +56,7 @@ public class SimpleUserData implements UserData
         this.user = user;
         this.group = group;
         this.playtime = playtime;
-        this.frozen = frozen;
         this.canInteract = canInteract;
-        this.caged = caged;
         this.balance = new AtomicLong(balance);
         this.transactionsFrozen = transactionsFrozen;
     }
@@ -68,57 +64,59 @@ public class SimpleUserData implements UserData
     public static SimpleUserData fromSQL(final SQL sql, final String uuid)
     {
         return sql.executeQuery("SELECT * FROM users WHERE UUID = ?", uuid)
-                .thenApplyAsync(result ->
-                {
-                    try
-                    {
-                        if (result.next())
-                        {
-                            final String g = result.getString("group");
+                  .thenApplyAsync(result ->
+                  {
+                      try
+                      {
+                          if (result.next())
+                          {
+                              final String g = result.getString("group");
 
-                            final UUID u = UUID.fromString(uuid);
-                            final String username = result.getString("username");
+                              final UUID u = UUID.fromString(uuid);
+                              final String username = result.getString("username");
 
-                            final Player player = Bukkit.getPlayer(u);
+                              final Player player = Bukkit.getPlayer(u);
 
-                            if (player == null)
-                                throw new IllegalStateException("Player should be online but they are not!");
+                              if (player == null)
+                                  throw new IllegalStateException("Player should be online but they are not!");
 
-                            final User user = new FreedomUser(player);
-                            final Group group = CommonsBase.getInstance()
-                                    .getRegistrations()
-                                    .getGroupRegistry()
-                                    .getGroup(g);
+                              final User user = new FreedomUser(player);
+                              final Group group = CommonsBase.getInstance()
+                                                             .getRegistrations()
+                                                             .getGroupRegistry()
+                                                             .getGroup(g);
 
-                            final long playtime = result.getLong("playtime");
-                            final boolean frozen = result.getBoolean("frozen");
-                            final boolean canInteract = result.getBoolean("canInteract");
-                            final boolean caged = result.getBoolean("caged");
-                            final long balance = result.getLong("balance");
-                            final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
-                            return new SimpleUserData(u, username, user, group, playtime, frozen, canInteract, caged, balance, transactionsFrozen);
-                        }
-                    } catch (SQLException ex)
-                    {
-                        final String sb = "An error occurred while trying to retrieve user data for UUID " +
-                                uuid +
-                                " from the database." +
-                                "\nCaused by: " +
-                                ExceptionUtils.getRootCauseMessage(ex) +
-                                "\nStack trace: " +
-                                ExceptionUtils.getStackTrace(ex);
+                              final long playtime = result.getLong("playtime");
+                              final boolean canInteract = result.getBoolean("canInteract");
+                              final long balance = result.getLong("balance");
+                              final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
 
-                        FreedomLogger.getLogger("Datura")
-                                .error(sb);
-                    }
+                              return new SimpleUserData(u, username, user, group, playtime,
+                                      canInteract, balance, transactionsFrozen);
+                          }
+                      } catch (SQLException ex)
+                      {
+                          final String sb = "An error occurred while trying to retrieve user data for" +
+                                  " UUID " +
+                                  uuid +
+                                  " from the database." +
+                                  "\nCaused by: " +
+                                  ExceptionUtils.getRootCauseMessage(ex) +
+                                  "\nStack trace: " +
+                                  ExceptionUtils.getStackTrace(ex);
 
-                    final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
-                    if (player == null) throw new IllegalStateException("Player should be online but they are not!");
-                    return new SimpleUserData(player);
-                }, CommonsBase.getInstance()
-                        .getExecutor()
-                        .getAsync())
-                .join();
+                          FreedomLogger.getLogger("Datura")
+                                       .error(sb);
+                      }
+
+                      final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+                      if (player == null) throw new IllegalStateException("Player should be online but they are not!");
+
+                      return new SimpleUserData(player);
+                  }, CommonsBase.getInstance()
+                                .getExecutor()
+                                .getAsync())
+                  .join();
     }
 
     @Override
@@ -180,19 +178,6 @@ public class SimpleUserData implements UserData
     }
 
     @Override
-    public boolean isFrozen()
-    {
-        return frozen;
-    }
-
-    @Override
-    public void setFrozen(final boolean frozen)
-    {
-        event.ping();
-        this.frozen = true;
-    }
-
-    @Override
     public boolean canInteract()
     {
         return canInteract;
@@ -203,19 +188,6 @@ public class SimpleUserData implements UserData
     {
         event.ping();
         this.canInteract = canInteract;
-    }
-
-    @Override
-    public boolean isCaged()
-    {
-        return caged;
-    }
-
-    @Override
-    public void setCaged(final boolean caged)
-    {
-        event.ping();
-        this.caged = caged;
     }
 
     @Override
@@ -231,6 +203,12 @@ public class SimpleUserData implements UserData
     }
 
     @Override
+    public void setBalance(final long newBalance)
+    {
+        balance.set(newBalance);
+    }
+
+    @Override
     public long addToBalance(final long amount)
     {
         return balance.addAndGet(amount);
@@ -240,11 +218,5 @@ public class SimpleUserData implements UserData
     public long removeFromBalance(final long amount)
     {
         return balance.addAndGet(-amount);
-    }
-
-    @Override
-    public void setBalance(final long newBalance)
-    {
-        balance.set(newBalance);
     }
 }

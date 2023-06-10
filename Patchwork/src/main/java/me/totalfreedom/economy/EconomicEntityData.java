@@ -16,6 +16,13 @@ public interface EconomicEntityData
     long getBalance();
 
     /**
+     * Sets the balance of the associated instance
+     *
+     * @param newBalance the new balance
+     */
+    void setBalance(final long newBalance);
+
+    /**
      * Adds the provided amount to the associated instance's balance
      *
      * @param amount the amount to add
@@ -30,11 +37,4 @@ public interface EconomicEntityData
      * @return the new balance
      */
     long removeFromBalance(final long amount);
-
-    /**
-     * Sets the balance of the associated instance
-     *
-     * @param newBalance the new balance
-     */
-    void setBalance(final long newBalance);
 }

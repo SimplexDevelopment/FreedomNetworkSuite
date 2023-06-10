@@ -1,64 +1,102 @@
 package me.totalfreedom.base;
 
-import me.totalfreedom.data.GroupRegistry;
-import me.totalfreedom.data.BanRegistry;
 import me.totalfreedom.data.ConfigRegistry;
-import me.totalfreedom.data.ModuleRegistry;
-import me.totalfreedom.data.ServiceRegistry;
-import me.totalfreedom.data.UserRegistry;
 import me.totalfreedom.data.EventRegistry;
+import me.totalfreedom.data.GroupRegistry;
+import me.totalfreedom.data.ModuleRegistry;
+import me.totalfreedom.data.ServiceTaskRegistry;
+import me.totalfreedom.data.UserRegistry;
 
+/**
+ * This class is a holder for each registry in the data package.
+ * <br>
+ * Registries such as {@link ModuleRegistry} and {@link ServiceTaskRegistry} can be found as final objects in this
+ * class. These registries should only ever be accessed through the single Registration object in CommonsBase using
+ * {@link CommonsBase#getRegistrations()}
+ */
 public class Registration
 {
+    /**
+     * The {@link EventRegistry}
+     */
     private final EventRegistry eventRegistry;
+    /**
+     * The {@link UserRegistry}
+     */
     private final UserRegistry userRegistry;
-    private final ServiceRegistry serviceRegistry;
+    /**
+     * The {@link ServiceTaskRegistry}
+     */
+    private final ServiceTaskRegistry serviceTaskRegistry;
+    /**
+     * The {@link ModuleRegistry}
+     */
     private final ModuleRegistry moduleRegistry;
+    /**
+     * The {@link GroupRegistry}
+     */
     private final GroupRegistry groupRegistry;
-    private final BanRegistry banRegistry;
+    /**
+     * The {@link ConfigRegistry}
+     */
     private final ConfigRegistry configRegistry;
 
-    public Registration()
+    /**
+     * Constructs a new Registration object and initializes all registries.
+     */
+    Registration()
     {
         this.eventRegistry = new EventRegistry();
         this.userRegistry = new UserRegistry();
-        this.serviceRegistry = new ServiceRegistry();
+        this.serviceTaskRegistry = new ServiceTaskRegistry();
         this.moduleRegistry = new ModuleRegistry();
         this.groupRegistry = new GroupRegistry();
-        this.banRegistry = new BanRegistry();
-        this.configRegistry =  new ConfigRegistry();
+        this.configRegistry = new ConfigRegistry();
     }
 
+    /**
+     * @return The {@link ModuleRegistry}
+     */
     public ModuleRegistry getModuleRegistry()
     {
         return moduleRegistry;
     }
 
+    /**
+     * @return The {@link EventRegistry}
+     */
     public EventRegistry getEventRegistry()
     {
         return eventRegistry;
     }
 
+    /**
+     * @return The {@link UserRegistry}
+     */
     public UserRegistry getUserRegistry()
     {
         return userRegistry;
     }
 
-    public ServiceRegistry getServiceRegistry()
+    /**
+     * @return The {@link ServiceTaskRegistry}
+     */
+    public ServiceTaskRegistry getServiceTaskRegistry()
     {
-        return serviceRegistry;
+        return serviceTaskRegistry;
     }
 
+    /**
+     * @return The {@link GroupRegistry}
+     */
     public GroupRegistry getGroupRegistry()
     {
         return groupRegistry;
     }
 
-    public BanRegistry getBanRegistry()
-    {
-        return banRegistry;
-    }
-
+    /**
+     * @return The {@link ConfigRegistry}
+     */
     public ConfigRegistry getConfigRegistry()
     {
         return configRegistry;

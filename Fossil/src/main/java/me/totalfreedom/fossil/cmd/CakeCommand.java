@@ -21,37 +21,42 @@
 
 package me.totalfreedom.fossil.cmd;
 
-import me.totalfreedom.command.CommandBase;
+import me.totalfreedom.command.Commander;
 import me.totalfreedom.command.annotation.Base;
 import me.totalfreedom.command.annotation.Info;
 import me.totalfreedom.command.annotation.Permissive;
-import me.totalfreedom.utils.FreedomMiniMessage;
+import me.totalfreedom.utils.kyori.FreedomMiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 @Info(name = "cake", description = "Gives everyone cake and broadcasts a message.", usage = "/cake")
 @Permissive(perm = "fossil.cake")
-public class CakeCommand extends CommandBase
+public class CakeCommand extends Commander
 {
-    protected CakeCommand(JavaPlugin plugin)
+    protected CakeCommand(final @NotNull JavaPlugin plugin)
     {
         super(plugin);
     }
 
     @Base
-    public void cake(final CommandSender sender)
+    public void broadcastCake(final CommandSender sender)
     {
-        Bukkit.broadcast(FreedomMiniMessage.deserialize(true, "<rainbow>But there's no sense crying over every mistake. You just keep on trying till you run out of cake.</rainbow>"));
+        Bukkit.broadcast(FreedomMiniMessage.deserialize(true,
+                "<rainbow>But there's no sense crying over every mistake. You just keep on trying till you run out of " +
+                        "cake.</rainbow>"));
 
         final ItemStack stack = new ItemStack(Material.CAKE, 1);
         final ItemMeta meta = stack.getItemMeta();
         meta.displayName(FreedomMiniMessage.deserialize(true, "<dark_gray>The <white>Lie"));
         stack.setItemMeta(meta);
 
-        Bukkit.getOnlinePlayers().forEach(player -> player.getInventory().addItem(stack));
+        Bukkit.getOnlinePlayers()
+              .forEach(player -> player.getInventory()
+                                       .addItem(stack));
     }
 }

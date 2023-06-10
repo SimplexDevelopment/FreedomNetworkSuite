@@ -1,11 +1,11 @@
 package me.totalfreedom.fossil.economy;
 
 import me.totalfreedom.audience.MutableAudienceForwarder;
-import me.totalfreedom.economy.TransactionResult;
 import me.totalfreedom.economy.CompletedTransaction;
-import me.totalfreedom.economy.TransactionLogger;
 import me.totalfreedom.economy.EconomicEntity;
-import me.totalfreedom.utils.FreedomLogger;
+import me.totalfreedom.economy.TransactionLogger;
+import me.totalfreedom.economy.TransactionResult;
+import me.totalfreedom.utils.logging.FreedomLogger;
 import net.kyori.adventure.text.Component;
 
 public class SimpleTransactionLogger implements TransactionLogger
@@ -24,17 +24,19 @@ public class SimpleTransactionLogger implements TransactionLogger
         final EconomicEntity destination = completedTransaction.getDestination();
         final long transactionAmount = completedTransaction.getBalance();
 
-        transactionLoggingStatementBuilder.append(resultSuccess ? "Successful" : "Unsuccessful")
-                .append(" (")
-                .append(resultMessage)
-                .append(") ")
-                .append(" transaction between ")
-                .append(source.getName())
-                .append(" ")
-                .append(destination.getName())
-                .append(" where the volume of currency transferred was $")
-                .append(transactionAmount)
-                .append(".");
+        transactionLoggingStatementBuilder.append(resultSuccess
+                                                  ? "Successful"
+                                                  : "Unsuccessful")
+                                          .append(" (")
+                                          .append(resultMessage)
+                                          .append(") ")
+                                          .append(" transaction between ")
+                                          .append(source.getName())
+                                          .append(" ")
+                                          .append(destination.getName())
+                                          .append(" where the volume of currency transferred was $")
+                                          .append(transactionAmount)
+                                          .append(".");
 
         final Component message = Component.text(transactionLoggingStatementBuilder.toString());
 

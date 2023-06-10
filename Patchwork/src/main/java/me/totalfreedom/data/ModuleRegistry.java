@@ -6,15 +6,29 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A registry for modules.
+ */
 public class ModuleRegistry
 {
+    /**
+     * The list of modules.
+     */
     private final List<JavaPlugin> plugins;
 
+    /**
+     * Creates a new module registry.
+     */
     public ModuleRegistry()
     {
         this.plugins = new ArrayList<>();
     }
 
+    /**
+     * Adds a module to the registry.
+     *
+     * @param plugin The module to add.
+     */
     public void addModule(final JavaPlugin plugin)
     {
         if (this.plugins.contains(plugin))
@@ -24,18 +38,30 @@ public class ModuleRegistry
         this.plugins.add(plugin);
     }
 
-    public void removeModule(final JavaPlugin plugin) {
+    /**
+     * Removes a module from the registry.
+     *
+     * @param plugin The module to remove.
+     */
+    public void removeModule(final JavaPlugin plugin)
+    {
         this.plugins.remove(plugin);
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends JavaPlugin> ModuleProvider<T> getModule(final Class<T> clazz)
+    /**
+     * Gets a module from the registry wrapped in a {@link ModuleProvider}.
+     *
+     * @param clazz The class of the module.
+     * @param <T>   The type of the module.
+     * @return The module.
+     */
+    public <T extends JavaPlugin> ModuleProvider<T> getProvider(final Class<T> clazz)
     {
         for (final JavaPlugin plugin : plugins)
         {
             if (clazz.isInstance(plugin))
             {
-                return () -> (T) plugin;
+                return () -> clazz.cast(plugin);
             }
         }
 

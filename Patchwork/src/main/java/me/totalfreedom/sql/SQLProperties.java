@@ -19,18 +19,6 @@ public interface SQLProperties
         return properties;
     }
 
-    String getDriver();
-
-    String getHost();
-
-    String getPort();
-
-    String getDatabase();
-
-    String getUsername();
-
-    String getPassword();
-
     default String toURLPlain()
     {
         return String.format("jdbc:%s://%s:%s/%s",
@@ -39,6 +27,14 @@ public interface SQLProperties
                 this.getPort(),
                 this.getDatabase());
     }
+
+    String getDriver();
+
+    String getHost();
+
+    String getPort();
+
+    String getDatabase();
 
     default String toURLWithLogin()
     {
@@ -50,4 +46,8 @@ public interface SQLProperties
                 this.getUsername(),
                 this.getPassword());
     }
+
+    String getUsername();
+
+    String getPassword();
 }

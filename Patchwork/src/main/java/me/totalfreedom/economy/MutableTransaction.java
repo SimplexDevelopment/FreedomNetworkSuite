@@ -3,7 +3,8 @@ package me.totalfreedom.economy;
 /**
  * A transaction that can be changed.
  * <p>
- * IMPORTANT NOTE: Please ensure that all modifications of {@link MutableTransaction} happen BEFORE it is passed to a {@link Transactor} implementation
+ * IMPORTANT NOTE: Please ensure that all modifications of {@link MutableTransaction} happen BEFORE it is passed to a
+ * {@link Transactor} implementation
  */
 public interface MutableTransaction extends Transaction
 {
