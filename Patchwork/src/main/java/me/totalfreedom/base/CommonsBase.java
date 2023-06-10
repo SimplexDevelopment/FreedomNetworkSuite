@@ -25,8 +25,8 @@ public class CommonsBase extends JavaPlugin
     private final FreedomExecutor executor = new FreedomExecutor();
 
     /**
-     * Provides this plugin instance through a safe static method.
-     * This is effectively the same thing as using {@link JavaPlugin#getPlugin(Class)}
+     * Provides this plugin instance through a safe static method. This is effectively the same thing as using
+     * {@link JavaPlugin#getPlugin(Class)}
      *
      * @return the plugin instance
      */

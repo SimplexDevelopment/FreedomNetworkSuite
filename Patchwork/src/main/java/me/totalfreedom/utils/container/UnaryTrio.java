@@ -1,12 +1,12 @@
 package me.totalfreedom.utils.container;
 
-public class UnaryTuple<T>
+public class UnaryTrio<T>
 {
     private final T primary;
     private final T secondary;
     private final T tertiary;
 
-    public UnaryTuple(final T primary, final T secondary, final T tertiary)
+    public UnaryTrio(final T primary, final T secondary, final T tertiary)
     {
         this.primary = primary;
         this.secondary = secondary;

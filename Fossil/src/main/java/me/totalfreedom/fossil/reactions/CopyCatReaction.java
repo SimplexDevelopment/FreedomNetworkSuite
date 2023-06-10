@@ -38,18 +38,21 @@ public final class CopyCatReaction extends Reaction
     @Override
     public void display(final Audience audience)
     {
-        final BossBar bossBar = BossBarDisplay.builder().setName(getRandomCharacterString())
-                                     .setProgress(0.0F)
-                                     .build();
+        final BossBar bossBar = BossBarDisplay.builder()
+                                              .setName(getRandomCharacterString())
+                                              .setProgress(0.0F)
+                                              .build();
     }
 
-    public String getRandomCharacterString() {
+    public String getRandomCharacterString()
+    {
         final SplittableRandom random = new SplittableRandom();
         final StringBuilder sb = new StringBuilder(10);
 
         final String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             sb.append(chars.charAt(random.nextInt(chars.length())));
         }
 

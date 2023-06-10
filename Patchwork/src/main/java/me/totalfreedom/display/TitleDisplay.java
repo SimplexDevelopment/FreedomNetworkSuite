@@ -20,6 +20,7 @@ public class TitleDisplay
 
     /**
      * Creates a new {@link TitleDisplay} with the given {@link Title}.
+     *
      * @param title The {@link Title} to display.
      */
     public TitleDisplay(final Title title)
@@ -37,6 +38,7 @@ public class TitleDisplay
 
     /**
      * Displays the {@link Title} to the given {@link Audience}.
+     *
      * @param audience The {@link Audience} to display the {@link Title} to.
      */
     public void displayTo(final Audience audience)
@@ -55,6 +57,7 @@ public class TitleDisplay
 
     /**
      * Sets the {@link Title} to display.
+     *
      * @param title The {@link Title} to display.
      */
     public void setTitle(final Title title)
@@ -64,6 +67,7 @@ public class TitleDisplay
 
     /**
      * Displays the {@link Title} to the given {@link ForwardingAudience}.
+     *
      * @param forwardingAudience The {@link ForwardingAudience} to display the {@link Title} to.
      */
     public void displayForwarded(final ForwardingAudience forwardingAudience)
@@ -99,8 +103,7 @@ public class TitleDisplay
         private Duration displayDuration;
 
         /**
-         * Creates a new {@link TitleBuilder} with default values.
-         * The default values are:
+         * Creates a new {@link TitleBuilder} with default values. The default values are:
          * <ul>
          *     <li>Empty main title</li>
          *     <li>Empty subtitle</li>
@@ -108,6 +111,7 @@ public class TitleDisplay
          *     <li>Default fade out time</li>
          *     <li>Default display duration</li>
          * </ul>
+         *
          * @see Title#DEFAULT_TIMES
          */
         public TitleBuilder()
@@ -121,6 +125,7 @@ public class TitleDisplay
 
         /**
          * Sets the main title of the {@link Title}.
+         *
          * @param title The main title of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -132,7 +137,8 @@ public class TitleDisplay
 
         /**
          * Sets the main title of the {@link Title}.
-         * @param title The main title of the {@link Title}.
+         *
+         * @param title      The main title of the {@link Title}.
          * @param titleColor The color of the main title.
          * @return The {@link TitleBuilder} instance.
          */
@@ -144,6 +150,7 @@ public class TitleDisplay
 
         /**
          * Sets the main title of the {@link Title}.
+         *
          * @param mainTitle The main title of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -155,6 +162,7 @@ public class TitleDisplay
 
         /**
          * Sets the subtitle of the {@link Title}.
+         *
          * @param title The subtitle of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -166,7 +174,8 @@ public class TitleDisplay
 
         /**
          * Sets the subtitle of the {@link Title}.
-         * @param title The subtitle of the {@link Title}.
+         *
+         * @param title      The subtitle of the {@link Title}.
          * @param titleColor The color of the subtitle.
          * @return The {@link TitleBuilder} instance.
          */
@@ -178,6 +187,7 @@ public class TitleDisplay
 
         /**
          * Sets the subtitle of the {@link Title}.
+         *
          * @param subTitle The subtitle of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -189,6 +199,7 @@ public class TitleDisplay
 
         /**
          * Sets the fade in time of the {@link Title}.
+         *
          * @param duration The fade in time of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -200,6 +211,7 @@ public class TitleDisplay
 
         /**
          * Sets the fade out time of the {@link Title}.
+         *
          * @param duration The fade out time of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -211,6 +223,7 @@ public class TitleDisplay
 
         /**
          * Sets the display duration of the {@link Title}.
+         *
          * @param duration The display duration of the {@link Title}.
          * @return The {@link TitleBuilder} instance.
          */
@@ -222,14 +235,15 @@ public class TitleDisplay
 
         /**
          * Builds the {@link Title} with the given parameters.
+         *
          * @return The built {@link Title}.
          */
         public Title build()
         {
             return Title.title(
-                this.mainTitle,
-                this.subTitle,
-                Title.Times.times(this.fadeIn, this.displayDuration, this.fadeOut)
+                    this.mainTitle,
+                    this.subTitle,
+                    Title.Times.times(this.fadeIn, this.displayDuration, this.fadeOut)
             );
         }
     }

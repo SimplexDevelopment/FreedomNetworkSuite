@@ -52,10 +52,10 @@ public abstract class Task extends BukkitRunnable
     }
 
     /**
-     * Creates a new task with the given name and delay. This will intialize a single execute task with an
-     * initial delay before execution.
+     * Creates a new task with the given name and delay. This will intialize a single execute task with an initial delay
+     * before execution.
      *
-     * @param name The name of the task.
+     * @param name  The name of the task.
      * @param delay How long the task should wait before executing.
      */
     protected Task(final String name, final long delay)
@@ -64,44 +64,44 @@ public abstract class Task extends BukkitRunnable
     }
 
     /**
-     * Creates a new task with the given name and delay.
-     * This is the same as longs, except that here, we naturally support durations which are automatically converted to
-     * ticks for you. This means that using {@link Duration#ofSeconds(long)} will work as expected.
+     * Creates a new task with the given name and delay. This is the same as longs, except that here, we naturally
+     * support durations which are automatically converted to ticks for you. This means that using
+     * {@link Duration#ofSeconds(long)} will work as expected.
      *
-     * @param name The name of the task.
+     * @param name  The name of the task.
      * @param delay How long the task should wait before executing.
      */
     protected Task(final String name, final Duration delay)
     {
-        this(name, DurationTools.getTickedSeconds(delay), -1L);
+        this(name, DurationTools.getTicks(delay), -1L);
     }
 
     /**
-     * Creates a new task with the given name, delay, and interval.
-     * This is the same as longs, except that here, we naturally support durations which are automatically converted to
-     * ticks for you. This means that using {@link Duration#ofSeconds(long)} will work as expected.
+     * Creates a new task with the given name, delay, and interval. This is the same as longs, except that here, we
+     * naturally support durations which are automatically converted to ticks for you. This means that using
+     * {@link Duration#ofSeconds(long)} will work as expected.
      *
-     * @param name The name of the task.
-     * @param delay How long the task should wait before executing.
+     * @param name     The name of the task.
+     * @param delay    How long the task should wait before executing.
      * @param interval How long the task should wait between executions.
      */
     protected Task(final String name, final Duration delay, final Duration interval)
     {
-        this(name, DurationTools.getTickedSeconds(delay), DurationTools.getTickedSeconds(interval));
+        this(name, DurationTools.getTicks(delay), DurationTools.getTicks(interval));
     }
 
     /**
-     * Creates a new task with the given name, delay, and interval.
-     * This method is a convenience method to use a {@link Duration} for the interval, while also being able to
-     * specify the delay as -1L so the task does not have an initial delay before execution.
+     * Creates a new task with the given name, delay, and interval. This method is a convenience method to use a
+     * {@link Duration} for the interval, while also being able to specify the delay as -1L so the task does not have an
+     * initial delay before execution.
      *
-     * @param name The name of the task.
-     * @param delay The delay of the task.
+     * @param name     The name of the task.
+     * @param delay    The delay of the task.
      * @param interval The interval of the task.
      */
     protected Task(final String name, final long delay, final Duration interval)
     {
-        this(name, delay, DurationTools.getTickedSeconds(interval));
+        this(name, delay, DurationTools.getTicks(interval));
     }
 
     /**

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 @Info(name = "locker", description = "Lock a player, preventing them from interacting with their game client.",
-    usage = "/locker <player> <on|off>", aliases = {"lock", "lockup"})
+        usage = "/locker <player> <on|off>", aliases = {"lock", "lockup"})
 @Permissive(perm = "datura.locker")
 public final class LockerCommand extends Commander
 {

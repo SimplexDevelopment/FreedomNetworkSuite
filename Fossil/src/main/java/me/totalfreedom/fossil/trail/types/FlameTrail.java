@@ -24,6 +24,6 @@ public final class FlameTrail extends SimpleTrail
         final Vector direction = location.getDirection();
         location.getWorld()
                 .spawnParticle(getTrailType().getType(), location, 0, direction.getX(), direction.getY(),
-                    direction.getZ(), 0.1);
+                        direction.getZ(), 0.1);
     }
 }

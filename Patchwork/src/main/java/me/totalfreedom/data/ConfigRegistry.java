@@ -17,7 +17,8 @@ public class ConfigRegistry
 
     /**
      * Registers a configuration.
-     * @param name The name of the configuration.
+     *
+     * @param name          The name of the configuration.
      * @param configuration The configuration.
      */
     public void register(final String name, final Configuration configuration)
@@ -27,6 +28,7 @@ public class ConfigRegistry
 
     /**
      * Unregisters a configuration.
+     *
      * @param name The name of the configuration.
      */
     public void unregister(final String name)
@@ -36,6 +38,7 @@ public class ConfigRegistry
 
     /**
      * Gets a configuration.
+     *
      * @param name The name of the configuration.
      * @return The configuration.
      */

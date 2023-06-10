@@ -81,9 +81,9 @@ public class Locker extends Service
         final SplittableRandom random = new SplittableRandom();
         player.getEyeLocation()
               .add(new Vector(
-                  random.nextDouble(-1.0, 1.0),
-                  random.nextDouble(-1.0, 1.0),
-                  random.nextDouble(-1.0, 1.0)
+                      random.nextDouble(-1.0, 1.0),
+                      random.nextDouble(-1.0, 1.0),
+                      random.nextDouble(-1.0, 1.0)
               ));
     }
 }

@@ -10,9 +10,9 @@ import me.totalfreedom.data.UserRegistry;
 /**
  * This class is a holder for each registry in the data package.
  * <br>
- * Registries such as {@link ModuleRegistry} and {@link ServiceTaskRegistry}
- * can be found as final objects in this class. These registries should only ever be accessed through
- * the single Registration object in CommonsBase using {@link CommonsBase#getRegistrations()}
+ * Registries such as {@link ModuleRegistry} and {@link ServiceTaskRegistry} can be found as final objects in this
+ * class. These registries should only ever be accessed through the single Registration object in CommonsBase using
+ * {@link CommonsBase#getRegistrations()}
  */
 public class Registration
 {

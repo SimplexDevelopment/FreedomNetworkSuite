@@ -26,6 +26,7 @@ public class GroupRegistry
 
     /**
      * Registers a group.
+     *
      * @param group The group to register.
      * @return {@code true} if the group was registered, {@code false} otherwise.
      */
@@ -36,6 +37,7 @@ public class GroupRegistry
 
     /**
      * Unregisters a group.
+     *
      * @param group The group to unregister.
      * @return {@code true} if the group was unregistered, {@code false} otherwise.
      */
@@ -46,6 +48,7 @@ public class GroupRegistry
 
     /**
      * Gets a group by name.
+     *
      * @param name The name of the group.
      * @return The group, or {@code null} if no group was found.
      */

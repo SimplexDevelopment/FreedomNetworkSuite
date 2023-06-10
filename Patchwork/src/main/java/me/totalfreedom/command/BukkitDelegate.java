@@ -25,8 +25,8 @@ import java.util.Set;
 /**
  * This class is acts as a delegate between our custom command implementation and the Bukkit API.
  * <br>
- * This class is not meant to be used directly, and is only public to allow for the Bukkit API to access it.
- * As a result, this file will remain undocumented.
+ * This class is not meant to be used directly, and is only public to allow for the Bukkit API to access it. As a
+ * result, this file will remain undocumented.
  * <span color=#ff0000>
  * <br>
  * This class is not thread-safe.

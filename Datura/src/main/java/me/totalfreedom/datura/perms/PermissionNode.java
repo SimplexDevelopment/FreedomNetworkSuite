@@ -16,9 +16,9 @@ record PermissionNode(String key,
     public Permission bukkit()
     {
         return new Permission(key(),
-            value()
-            ? PermissionDefault.TRUE
-            : PermissionDefault.FALSE);
+                value()
+                        ? PermissionDefault.TRUE
+                        : PermissionDefault.FALSE);
     }
 
     @Override
@@ -26,8 +26,8 @@ record PermissionNode(String key,
     {
         return node.key()
                    .equalsIgnoreCase(key())
-                   && node.value() == value()
-                   && node.type() == type();
+                && node.value() == value()
+                && node.type() == type();
     }
 
     @Override

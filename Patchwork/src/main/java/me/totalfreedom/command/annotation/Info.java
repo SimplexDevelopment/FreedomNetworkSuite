@@ -11,9 +11,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Info
 {
     /**
-     * Technically, this is the only required value you must supply yourself.
-     * However, it is HIGHLY recommended you supply the other optional values as well,
-     * for better customization of your command.
+     * Technically, this is the only required value you must supply yourself. However, it is HIGHLY recommended you
+     * supply the other optional values as well, for better customization of your command.
      *
      * @return The command's name.
      */

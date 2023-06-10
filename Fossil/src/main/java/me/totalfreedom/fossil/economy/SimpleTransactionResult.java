@@ -8,11 +8,11 @@ public class SimpleTransactionResult implements TransactionResult
 {
     public static final TransactionResult SUCCESSFUL = new SimpleTransactionResult("Successful transaction.", true);
     public static final TransactionResult UNAUTHORIZED = new SimpleTransactionResult("Unauthorized transaction.",
-        false);
+            false);
     public static final TransactionResult AMOUNT_TOO_SMALL = new SimpleTransactionResult(
-        "Transaction balance too small.", false);
+            "Transaction balance too small.", false);
     public static final TransactionResult INSUFFICIENT_FUNDS = new SimpleTransactionResult(
-        "The source has an insufficient balance to carry out this transaction.", false);
+            "The source has an insufficient balance to carry out this transaction.", false);
     private final String message;
     private final Component component;
     private final boolean successful;
@@ -20,8 +20,8 @@ public class SimpleTransactionResult implements TransactionResult
     public SimpleTransactionResult(final String message, final boolean successful)
     {
         this(message, Component.text(message, successful
-                                              ? NamedTextColor.GREEN
-                                              : NamedTextColor.RED), successful);
+                ? NamedTextColor.GREEN
+                : NamedTextColor.RED), successful);
     }
 
     public SimpleTransactionResult(final String message, final Component component, final boolean successful)

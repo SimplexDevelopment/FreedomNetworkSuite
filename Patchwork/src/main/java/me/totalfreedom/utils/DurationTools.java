@@ -16,7 +16,7 @@ public final class DurationTools
         throw new AssertionError();
     }
 
-    public static final long getTickedSeconds(final Duration duration)
+    public static final long getTicks(final Duration duration)
     {
         return duration.toMillis() / 50L;
     }

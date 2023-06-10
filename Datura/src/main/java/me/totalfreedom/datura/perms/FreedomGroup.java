@@ -28,11 +28,11 @@ public class FreedomGroup implements Group
     private final PermissionAttachment attachment;
 
     public FreedomGroup(final Component name,
-        final Component prefix,
-        final Component abbreviation,
-        final int weight,
-        final boolean isDefault,
-        final boolean isHidden)
+                        final Component prefix,
+                        final Component abbreviation,
+                        final int weight,
+                        final boolean isDefault,
+                        final boolean isHidden)
     {
         this.name = name;
         this.prefix = prefix;
@@ -121,11 +121,11 @@ public class FreedomGroup implements Group
     public boolean isPermissionSet(@NotNull final Permission perm)
     {
         final Node node = permissions()
-                              .stream()
-                              .filter(n -> n.bukkit()
-                                            .equals(perm))
-                              .findFirst()
-                              .orElse(null);
+                .stream()
+                .filter(n -> n.bukkit()
+                              .equals(perm))
+                .findFirst()
+                .orElse(null);
 
         return node != null && node.value();
     }
@@ -146,30 +146,29 @@ public class FreedomGroup implements Group
     public boolean hasPermission(@NotNull final Permission perm)
     {
         final Node node = permissions()
-                              .stream()
-                              .filter(n -> n.bukkit()
-                                            .equals(perm))
-                              .findFirst()
-                              .orElse(null);
+                .stream()
+                .filter(n -> n.bukkit()
+                              .equals(perm))
+                .findFirst()
+                .orElse(null);
 
         return node != null && node.value();
     }
 
     /**
-     * Adds a permission to the relative PermissionAttachment for this group.
-     * This method is not thread-safe and should not be called asynchronously.
+     * Adds a permission to the relative PermissionAttachment for this group. This method is not thread-safe and should
+     * not be called asynchronously.
      * <p>
      * This method is only here for compatibility with the Bukkit API.
      *
-     * @param plugin The plugin responsible for this attachment. May not be null
-     *               or disabled.
+     * @param plugin The plugin responsible for this attachment. May not be null or disabled.
      * @param name   Name of the permission to attach
      * @param value  Value of the permission
      * @return This group's PermissionAttachment.
      */
     @Override
     public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
-        final boolean value)
+                                                       final boolean value)
     {
         attachment.setPermission(name, value);
         return attachment;
@@ -183,7 +182,7 @@ public class FreedomGroup implements Group
 
     @Override
     public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
-        final boolean value, final int ticks)
+                                                        final boolean value, final int ticks)
     {
         attachment.setPermission(name, value);
         return attachment;
@@ -211,23 +210,23 @@ public class FreedomGroup implements Group
     public @NotNull Set<PermissionAttachmentInfo> getEffectivePermissions()
     {
         return permissions()
-                   .stream()
-                   .map(n -> new PermissionAttachmentInfo(
-                       this,
-                       n.key(),
-                       attachment,
-                       n.value()))
-                   .collect(Collectors.toSet());
+                .stream()
+                .map(n -> new PermissionAttachmentInfo(
+                        this,
+                        n.key(),
+                        attachment,
+                        n.value()))
+                .collect(Collectors.toSet());
     }
 
     @Override
     public boolean isOp()
     {
         final Node node = permissions()
-                              .stream()
-                              .filter(n -> n.equals(DefaultNodes.OP))
-                              .findFirst()
-                              .orElse(null);
+                .stream()
+                .filter(n -> n.equals(DefaultNodes.OP))
+                .findFirst()
+                .orElse(null);
 
         return node != null && node.value();
     }

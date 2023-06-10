@@ -1,6 +1,5 @@
 package me.totalfreedom.particle;
 
-import org.bukkit.Note;
 import org.bukkit.Particle;
 
 public enum TrailType

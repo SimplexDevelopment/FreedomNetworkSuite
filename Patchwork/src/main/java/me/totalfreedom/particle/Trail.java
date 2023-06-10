@@ -17,9 +17,8 @@ import java.util.UUID;
 public interface Trail
 {
     /**
-     * Returns the UUID of the player associated with the trail. This is for usage with our persistant storage
-     * container so that we can safely send and retrieve the trails without having to directly reference a player
-     * object.
+     * Returns the UUID of the player associated with the trail. This is for usage with our persistant storage container
+     * so that we can safely send and retrieve the trails without having to directly reference a player object.
      * <br>
      * TL;DR Memory optimization!
      *
@@ -30,9 +29,9 @@ public interface Trail
 
     /**
      * Returns the player associated with this trail. Trails are user specific, and should be persistent across all
-     * usages. This is also used when displaying the particles, as they will be relative to the player's back, which
-     * is an inverse offset of the player's eye location. We use OfflinePlayer as we can make a simple check and cast
-     * to determine if the player is online when spawning trails.
+     * usages. This is also used when displaying the particles, as they will be relative to the player's back, which is
+     * an inverse offset of the player's eye location. We use OfflinePlayer as we can make a simple check and cast to
+     * determine if the player is online when spawning trails.
      *
      * @return The player associated with this Trail.
      */
@@ -50,8 +49,8 @@ public interface Trail
     TrailType getTrailType();
 
     /**
-     * This method is nullable because if the value of {@link #isGradient()} is true, then
-     * {@link #getColors()} should be used instead, as that will contain the color data for our trail.
+     * This method is nullable because if the value of {@link #isGradient()} is true, then {@link #getColors()} should
+     * be used instead, as that will contain the color data for our trail.
      * <br>
      * However, this method will also be null if the particle type is not colorable.
      *
@@ -71,8 +70,8 @@ public interface Trail
     void setColor(@NotNull Color color);
 
     /**
-     * This method is nullable because if the value of {@link #isGradient()} is false, then
-     * {@link #getColor()} should be used instead, as our trail is a single static color.
+     * This method is nullable because if the value of {@link #isGradient()} is false, then {@link #getColor()} should
+     * be used instead, as our trail is a single static color.
      * <br>
      * However, this method will also be null if the particle type is not colorable.
      *

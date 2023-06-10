@@ -1,6 +1,5 @@
 package me.totalfreedom.logging;
 
-import me.totalfreedom.sql.SQL;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -120,8 +119,8 @@ public final class InteractionFormatter
         final int dotIndex = trimmed.indexOf('.');
 
         return (dotIndex != -1)
-               ? trimmed.substring(0, dotIndex)
-               : trimmed;
+                ? trimmed.substring(0, dotIndex)
+                : trimmed;
     }
 
     // Format: <item>,<amount>

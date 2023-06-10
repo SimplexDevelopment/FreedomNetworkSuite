@@ -9,12 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * This class contains different methods to provide {@link ChatType.Bound} instances for sending messages to players
- * in game.
- * This is now a requirement for all message requests to players due to the new chat signature system.
+ * This class contains different methods to provide {@link ChatType.Bound} instances for sending messages to players in
+ * game. This is now a requirement for all message requests to players due to the new chat signature system.
  * <br>
- * Even though Scissors has this feature disabled, upstream (Paper) and Kyori Adventure
- * have made the appropriate API changes to accomodate chat signatures.
+ * Even though Scissors has this feature disabled, upstream (Paper) and Kyori Adventure have made the appropriate API
+ * changes to accomodate chat signatures.
  * <br>
  * As a result, we need to conform to those specifications even if we do not use this feature.
  */
@@ -34,8 +33,8 @@ public final class KyoriConstants
     /**
      * Represents a Chat Bound for a plugin.
      * <br>
-     * This is a convenience method so you are not required to dependency inject
-     * your plugin instance any time that you need a Bound.
+     * This is a convenience method so you are not required to dependency inject your plugin instance any time that you
+     * need a Bound.
      *
      * @param pluginClass The plugin class to get the plugin instance from.
      * @return A ChatType.Bound instance for the plugin.
@@ -55,11 +54,10 @@ public final class KyoriConstants
     }
 
     /**
-     * Represents a Chat Bound for a player.
-     * Chat bounds are required for sending messages to players.
+     * Represents a Chat Bound for a player. Chat bounds are required for sending messages to players.
      * <br>
-     * The chat bound is a representation of a validated chat signature,
-     * which is tied directly to the user's account name. In our case, this is the player's name.
+     * The chat bound is a representation of a validated chat signature, which is tied directly to the user's account
+     * name. In our case, this is the player's name.
      *
      * @param player The player to get the bound for.
      * @return A ChatType.Bound instance for the player.
@@ -72,8 +70,8 @@ public final class KyoriConstants
     /**
      * Represents a Chat Bound for the console.
      * <br>
-     * The chat bound is a representation of a validated chat signature,
-     * which is tied directly to the user's account name. In our case, this is the player's name.
+     * The chat bound is a representation of a validated chat signature, which is tied directly to the user's account
+     * name. In our case, this is the player's name.
      *
      * @param sender The console to get the bound for.
      * @return A ChatType.Bound instance for the console.

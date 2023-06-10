@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class FreedomAdventure
 {
     private static final PlainTextComponentSerializer PLAIN_TEXT_COMPONENT_SERIALIZER =
-        PlainTextComponentSerializer.plainText();
+            PlainTextComponentSerializer.plainText();
 
     private FreedomAdventure()
     {

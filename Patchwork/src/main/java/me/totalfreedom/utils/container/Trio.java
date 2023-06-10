@@ -1,12 +1,12 @@
 package me.totalfreedom.utils.container;
 
-public final class Tuple<A, B, C>
+public final class Trio<A, B, C>
 {
     private final A a;
     private final B b;
     private final C c;
 
-    public Tuple(final A a, final B b, final C c)
+    public Trio(final A a, final B b, final C c)
     {
         this.a = a;
         this.b = b;

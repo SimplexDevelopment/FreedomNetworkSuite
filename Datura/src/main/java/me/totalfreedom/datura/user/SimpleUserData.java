@@ -42,14 +42,14 @@ public class SimpleUserData implements UserData
     }
 
     private SimpleUserData(
-        final UUID uuid,
-        final String username,
-        final User user,
-        final Group group,
-        final long playtime,
-        final boolean canInteract,
-        final long balance,
-        final boolean transactionsFrozen)
+            final UUID uuid,
+            final String username,
+            final User user,
+            final Group group,
+            final long playtime,
+            final boolean canInteract,
+            final long balance,
+            final boolean transactionsFrozen)
     {
         this.uuid = uuid;
         this.username = username;
@@ -66,57 +66,56 @@ public class SimpleUserData implements UserData
         return sql.executeQuery("SELECT * FROM users WHERE UUID = ?", uuid)
                   .thenApplyAsync(result ->
                   {
-                       try
-                       {
-                           if (result.next())
-                           {
-                               final String g = result.getString("group");
+                      try
+                      {
+                          if (result.next())
+                          {
+                              final String g = result.getString("group");
 
-                               final UUID u = UUID.fromString(uuid);
-                               final String username = result.getString("username");
+                              final UUID u = UUID.fromString(uuid);
+                              final String username = result.getString("username");
 
-                               final Player player = Bukkit.getPlayer(u);
+                              final Player player = Bukkit.getPlayer(u);
 
-                               if (player == null)
-                                   throw new IllegalStateException("Player should be online but they are not!");
+                              if (player == null)
+                                  throw new IllegalStateException("Player should be online but they are not!");
 
-                               final User user = new FreedomUser(player);
-                               final Group group = CommonsBase.getInstance()
-                                                              .getRegistrations()
-                                                              .getGroupRegistry()
-                                                              .getGroup(g);
+                              final User user = new FreedomUser(player);
+                              final Group group = CommonsBase.getInstance()
+                                                             .getRegistrations()
+                                                             .getGroupRegistry()
+                                                             .getGroup(g);
 
-                               final long playtime = result.getLong("playtime");
-                               final boolean canInteract = result.getBoolean("canInteract");
-                               final long balance = result.getLong("balance");
-                               final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
-                               
-                               return new SimpleUserData(u, username, user, group, playtime,
-                                                         canInteract, balance, transactionsFrozen);
-                           }
-                       }
-                       catch (SQLException ex)
-                       {
-                           final String sb = "An error occurred while trying to retrieve user data for" +
-                                             " UUID " +
-                                             uuid +
-                                             " from the database." +
-                                             "\nCaused by: " +
-                                             ExceptionUtils.getRootCauseMessage(ex) +
-                                             "\nStack trace: " +
-                                             ExceptionUtils.getStackTrace(ex);
+                              final long playtime = result.getLong("playtime");
+                              final boolean canInteract = result.getBoolean("canInteract");
+                              final long balance = result.getLong("balance");
+                              final boolean transactionsFrozen = result.getBoolean("transactionsFrozen");
 
-                           FreedomLogger.getLogger("Datura")
-                                        .error(sb);
-                       }
+                              return new SimpleUserData(u, username, user, group, playtime,
+                                      canInteract, balance, transactionsFrozen);
+                          }
+                      } catch (SQLException ex)
+                      {
+                          final String sb = "An error occurred while trying to retrieve user data for" +
+                                  " UUID " +
+                                  uuid +
+                                  " from the database." +
+                                  "\nCaused by: " +
+                                  ExceptionUtils.getRootCauseMessage(ex) +
+                                  "\nStack trace: " +
+                                  ExceptionUtils.getStackTrace(ex);
 
-                       final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
-                       if (player == null) throw new IllegalStateException("Player should be online but they are not!");
-                                      
-                       return new SimpleUserData(player);
-                   }, CommonsBase.getInstance()
-                                 .getExecutor()
-                                 .getAsync())
+                          FreedomLogger.getLogger("Datura")
+                                       .error(sb);
+                      }
+
+                      final Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+                      if (player == null) throw new IllegalStateException("Player should be online but they are not!");
+
+                      return new SimpleUserData(player);
+                  }, CommonsBase.getInstance()
+                                .getExecutor()
+                                .getAsync())
                   .join();
     }
 

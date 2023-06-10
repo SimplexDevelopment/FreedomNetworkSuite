@@ -34,7 +34,7 @@ public final class InterpolationUtils
     }
 
     private static Set<Color> hsvGradient(final int length, final Color from, final Color to,
-        final Interpolator interpolator)
+                                          final Interpolator interpolator)
     {
         // returns a float-array where hsv[0] = hue, hsv[1] = saturation, hsv[2] = value/brightness
         final float[] hsvFrom = java.awt.Color.RGBtoHSB(from.getRed(), from.getGreen(), from.getBlue(), null);
@@ -69,18 +69,18 @@ public final class InterpolationUtils
     {
         final LinkedHashSet<TextColor> base = new LinkedHashSet<>();
         final Set<TextColor> redToOrange = componentRGBGradient(length, NamedTextColor.RED,
-            NamedTextColor.GOLD, InterpolationUtils::linear);
+                NamedTextColor.GOLD, InterpolationUtils::linear);
         final Set<TextColor> orangeToYellow = componentRGBGradient(length, NamedTextColor.GOLD,
-            NamedTextColor.YELLOW, InterpolationUtils::linear);
+                NamedTextColor.YELLOW, InterpolationUtils::linear);
         final Set<TextColor> yellowToGreen = componentRGBGradient(length, NamedTextColor.YELLOW,
-            NamedTextColor.GREEN, InterpolationUtils::linear);
+                NamedTextColor.GREEN, InterpolationUtils::linear);
         final Set<TextColor> greenToBlue = componentRGBGradient(length, NamedTextColor.GREEN,
-            NamedTextColor.BLUE, InterpolationUtils::linear);
+                NamedTextColor.BLUE, InterpolationUtils::linear);
         final Set<TextColor> blueToPurple = componentRGBGradient(length, NamedTextColor.BLUE,
-            NamedTextColor.LIGHT_PURPLE,
-            InterpolationUtils::linear);
+                NamedTextColor.LIGHT_PURPLE,
+                InterpolationUtils::linear);
         final Set<TextColor> purpleToRed = componentRGBGradient(length, TextColor.color(75, 0, 130),
-            TextColor.color(255, 0, 0), InterpolationUtils::linear);
+                TextColor.color(255, 0, 0), InterpolationUtils::linear);
         base.addAll(redToOrange);
         base.addAll(orangeToYellow);
         base.addAll(yellowToGreen);
@@ -91,7 +91,7 @@ public final class InterpolationUtils
     }
 
     private static Set<TextColor> componentRGBGradient(final int length, final TextColor from, final TextColor to,
-        final Interpolator interpolator)
+                                                       final Interpolator interpolator)
     {
         final double[] r = interpolator.interpolate(from.red(), to.red(), length);
         final double[] g = interpolator.interpolate(from.green(), to.green(), length);
@@ -113,7 +113,7 @@ public final class InterpolationUtils
     }
 
     private static Set<Color> rgbGradient(final int length, final Color from, final Color to,
-        final Interpolator interpolator)
+                                          final Interpolator interpolator)
     {
         final double[] r = interpolator.interpolate(from.getRed(), to.getRed(), length);
         final double[] g = interpolator.interpolate(from.getGreen(), to.getGreen(), length);

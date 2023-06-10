@@ -26,6 +26,7 @@ public class EventRegistry
 
     /**
      * Registers an event.
+     *
      * @param event The event to register.
      */
     public void register(final FEvent event)
@@ -35,6 +36,7 @@ public class EventRegistry
 
     /**
      * Unregisters an event.
+     *
      * @param event The event to unregister.
      */
     public void unregister(final FEvent event)
@@ -46,8 +48,8 @@ public class EventRegistry
      * Gets an {@link EventProvider} for the specified event class which contains the actual {@link FEvent} instance.
      *
      * @param clazz The event class.
+     * @param <T>   The event type.
      * @return The event provider.
-     * @param <T> The event type.
      */
     public <T extends FEvent> EventProvider<T> getEvent(final Class<T> clazz)
     {

@@ -32,17 +32,18 @@ public class PadHolder implements Listener
      */
     public PadHolder()
     {
-        Bukkit.getPluginManager().registerEvents(this, CommonsBase
-                .getInstance()
-                .getRegistrations()
-                .getModuleRegistry()
-                .getProvider(Fossil.class)
-                .getModule());
+        Bukkit.getPluginManager()
+              .registerEvents(this, CommonsBase
+                      .getInstance()
+                      .getRegistrations()
+                      .getModuleRegistry()
+                      .getProvider(Fossil.class)
+                      .getModule());
     }
 
     /**
-     * Adds a pad for the given player. If the player already has a pad stored in the map,
-     * it will be overwritten with the new pad.
+     * Adds a pad for the given player. If the player already has a pad stored in the map, it will be overwritten with
+     * the new pad.
      *
      * @param player The player to add the pad for.
      * @param pad    The pad to add.
@@ -63,8 +64,8 @@ public class PadHolder implements Listener
     }
 
     /**
-     * Gets the pad for the given player, if the player has one.
-     * If the player has no active pad, this will return null.
+     * Gets the pad for the given player, if the player has one. If the player has no active pad, this will return
+     * null.
      *
      * @param player The player to get the pad for.
      * @return The pad for the given player.
@@ -98,8 +99,8 @@ public class PadHolder implements Listener
 
     /**
      * Handles player pad interaction. This will check the relative block for each acceptible direction, and pass the
-     * resulting block face (if any) to the bounce pad. See {@link BouncyPad#bouncePad(Player, org.bukkit.block.BlockFace)}
-     * for how the resulting block face is processed.
+     * resulting block face (if any) to the bounce pad. See
+     * {@link BouncyPad#bouncePad(Player, org.bukkit.block.BlockFace)} for how the resulting block face is processed.
      *
      * @param event The event which gets called when a player moves.
      */
@@ -122,10 +123,10 @@ public class PadHolder implements Listener
         final Block yNeg1 = getRelative(location, 0, -1, 0);
 
         Stream.of(xNeg1, xPos1, zNeg1, zPos1, yNeg1)
-                .filter(this::isWool)
-                .map(block -> block.getFace(location.getBlock()))
-                .findFirst()
-                .ifPresent(face -> pad.bouncePad(player, face));
+              .filter(this::isWool)
+              .map(block -> block.getFace(location.getBlock()))
+              .findFirst()
+              .ifPresent(face -> pad.bouncePad(player, face));
     }
 
     /**
@@ -139,7 +140,8 @@ public class PadHolder implements Listener
      */
     private Block getRelative(final Location location, final int x, final int y, final int z)
     {
-        return location.getBlock().getRelative(x, y, z);
+        return location.getBlock()
+                       .getRelative(x, y, z);
     }
 
     /**

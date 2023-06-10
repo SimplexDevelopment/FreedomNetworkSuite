@@ -9,10 +9,10 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.concurrent.Executor;
 
 /**
- * Represents a subscription to a task. Task subscriptions offer a nice wrapper for managing tasks, which are
- * inevitably just bukkit runnables with a bit more lenience in terms of instantiation modification and execution.
- * It also offers a more intuitive way to manage our tasks; rather than having to keep track of task ids for each
- * {@link BukkitTask} object that gets returned by the {@link BukkitScheduler}.
+ * Represents a subscription to a task. Task subscriptions offer a nice wrapper for managing tasks, which are inevitably
+ * just bukkit runnables with a bit more lenience in terms of instantiation modification and execution. It also offers a
+ * more intuitive way to manage our tasks; rather than having to keep track of task ids for each {@link BukkitTask}
+ * object that gets returned by the {@link BukkitScheduler}.
  *
  * @param <T> The type of task.
  */

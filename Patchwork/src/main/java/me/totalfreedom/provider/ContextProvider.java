@@ -18,16 +18,16 @@ public class ContextProvider
     public <T> T fromString(final String string, final Class<T> clazz)
     {
         return Stream.of(toBoolean(string),
-                         toDouble(string),
-                         toInt(string),
-                         toLong(string),
-                         toFloat(string),
-                         toMaterial(string),
-                         toPlayer(string),
-                         toWorld(string),
-                         toLocation(string),
-                         toCommandSender(string),
-                         toComponent(string))
+                             toDouble(string),
+                             toInt(string),
+                             toLong(string),
+                             toFloat(string),
+                             toMaterial(string),
+                             toPlayer(string),
+                             toWorld(string),
+                             toLocation(string),
+                             toCommandSender(string),
+                             toComponent(string))
                      .filter(Objects::nonNull)
                      .findFirst()
                      .map(clazz::cast)
@@ -36,14 +36,12 @@ public class ContextProvider
 
     private @Nullable Boolean toBoolean(final String string)
     {
-        try
-        {
-            return Boolean.parseBoolean(string);
-        }
-        catch (Exception ignored)
-        {
-            return null;
-        }
+        // Previoulsy we used Boolean#parseBoolean, but that will always return a value and does not throw
+        // an exception. This means that if the string is not "true" or "false", it will return false.
+        if (string.equalsIgnoreCase("true")) return true;
+        if (string.equalsIgnoreCase("false")) return false;
+
+        return null;
     }
 
     private @Nullable Double toDouble(final String string)
@@ -51,8 +49,7 @@ public class ContextProvider
         try
         {
             return Double.parseDouble(string);
-        }
-        catch (Exception ignored)
+        } catch (NumberFormatException ignored)
         {
             return null;
         }
@@ -63,8 +60,7 @@ public class ContextProvider
         try
         {
             return Integer.parseInt(string);
-        }
-        catch (Exception ignored)
+        } catch (NumberFormatException ignored)
         {
             return null;
         }
@@ -75,8 +71,7 @@ public class ContextProvider
         try
         {
             return Long.parseLong(string);
-        }
-        catch (Exception ignored)
+        } catch (NumberFormatException ignored)
         {
             return null;
         }
@@ -87,8 +82,7 @@ public class ContextProvider
         try
         {
             return Float.parseFloat(string);
-        }
-        catch (Exception ignored)
+        } catch (NumberFormatException ignored)
         {
             return null;
         }

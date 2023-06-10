@@ -91,7 +91,7 @@ Datura:
 - [ ] Permission Handling *(In Progress...)*
 - [ ] Permission Registration & Assignment *(In Progress...)*
 - [ ] SQL Data Handling *(In Progress...)*
-- [ ] Configuration Implementations 
+- [ ] Configuration Implementations
 - [ ] User Data Implementations *(In Progress...)*
 - [x] Punishment Systems (e.x. Locker, Halter, Cager)
 
@@ -101,7 +101,7 @@ Fossil:
 - [ ] Particle Implementation / Trails *(In Progress...)*
 - [ ] Command Implementations *(In Progress...)*
 - [ ] Implement a shop for the economy *(In Progress...)*
-- [ ] Chat reaction / game system 
+- [ ] Chat reaction / game system
 - [ ] Jumppads
 
 Corvo:

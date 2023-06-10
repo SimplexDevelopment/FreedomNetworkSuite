@@ -21,7 +21,7 @@ public class ShapeUtils
     }
 
     public List<Location> generate(final int count, final DoubleUnaryOperator x, final DoubleUnaryOperator y,
-        final DoubleUnaryOperator z)
+                                   final DoubleUnaryOperator z)
     {
         final double step = (start - end) / (count - 1);
         final LinkedList<Location> lset = new LinkedList<>();

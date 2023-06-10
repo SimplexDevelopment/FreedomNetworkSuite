@@ -12,8 +12,8 @@ public enum PadType
      */
     NORMAL,
     /**
-     * A pad which will bounce the player on {@link BlockFace#NORTH}, {@link BlockFace#SOUTH}, {@link BlockFace#EAST}
-     * or {@link BlockFace#WEST}.
+     * A pad which will bounce the player on {@link BlockFace#NORTH}, {@link BlockFace#SOUTH}, {@link BlockFace#EAST} or
+     * {@link BlockFace#WEST}.
      */
     SIDES,
     /**

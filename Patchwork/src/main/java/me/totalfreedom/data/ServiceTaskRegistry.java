@@ -21,9 +21,8 @@ import java.util.List;
  * <br>
  * <br>
  * <b>Tasks</b> are runnable tasks which execute at the provided times in the {@link Task} and
- * {@link TaskSubscription} classes. These define whether the Task is repeating, delayed, or just a one-time task.
- * Tasks are registered using {@link #registerTask(TaskSubscription)} and can be started using
- * {@link #startTask(Class)}.
+ * {@link TaskSubscription} classes. These define whether the Task is repeating, delayed, or just a one-time task. Tasks
+ * are registered using {@link #registerTask(TaskSubscription)} and can be started using {@link #startTask(Class)}.
  * <br>
  * <br>
  * <b>ServiceSubscriptions</b> and <b>TaskSubscriptions</b> can both be easily obtained using the
@@ -59,16 +58,14 @@ public class ServiceTaskRegistry
     /**
      * Starts all services registered with the registry.
      * <br>
-     * This method should be <i>avoided</i>, due to the fact that <b><i>modules may have registered their services
-     * after this method
-     * has already been called.</i></b> In this case, it is preferred to start
-     * each service using {@link #startService(Class)}.
+     * This method should be <i>avoided</i>, due to the fact that <b><i>modules may have registered their services after
+     * this method has already been called.</i></b> In this case, it is preferred to start each service using
+     * {@link #startService(Class)}.
      * <br>
      * However, <i><b>Patchwork calls this method when the server is starting up</b></i>, as Patchwork is the central
-     * resource
-     * manager for registered tasks and services. Patchwork will call this method on the first server tick, so unless
-     * you are registering services <b>AND</b> starting them <b>POST WORLD</b>, you do not need to worry about starting
-     * your services.
+     * resource manager for registered tasks and services. Patchwork will call this method on the first server tick, so
+     * unless you are registering services <b>AND</b> starting them <b>POST WORLD</b>, you do not need to worry about
+     * starting your services.
      */
     public void startAllServices()
     {
@@ -82,16 +79,13 @@ public class ServiceTaskRegistry
      * Starts all tasks registered with the registry.
      * <br>
      * This method should be <i>avoided</i>, due to the fact that <b><i>modules may have registered their tasks after
-     * this method
-     * has already been called.</i></b> In this case, it is preferred to start
-     * each task
-     * using {@link #startTask(Class)}.
+     * this method has already been called.</i></b> In this case, it is preferred to start each task using
+     * {@link #startTask(Class)}.
      * <br>
      * However, <i><b>Patchwork calls this method when the server is starting up</b></i>, as Patchwork is the central
-     * resource
-     * manager for registered tasks and services. Patchwork will call this method on the first server tick, so unless
-     * you are registering tasks <b>AND</b> starting them <b>POST WORLD</b>, you do not need to worry about starting
-     * your tasks.
+     * resource manager for registered tasks and services. Patchwork will call this method on the first server tick, so
+     * unless you are registering tasks <b>AND</b> starting them <b>POST WORLD</b>, you do not need to worry about
+     * starting your tasks.
      */
     public void startAllTasks()
     {
@@ -105,13 +99,13 @@ public class ServiceTaskRegistry
      * Stops all services registered with the registry.
      * <br>
      * This method should be <i>avoided</i>, due to the fact that <b><i>modules should be handling their own
-     * registrations</i></b>.
-     * It is preferred to use {@link #stopService(Class)} for each service you would like to stop.
+     * registrations</i></b>. It is preferred to use {@link #stopService(Class)} for each service you would like to
+     * stop.
      * <br>
      * However, <b><i>Patchwork calls this method when the server is shutting down</i></b>, or when Patchwork is being
-     * disabled, as Patchwork is the central resource manager for registered tasks and services.
-     * Unless you are <b>modifying service states while the server is running</b>, you do not need to worry about
-     * disabling or unregistering your services.
+     * disabled, as Patchwork is the central resource manager for registered tasks and services. Unless you are
+     * <b>modifying service states while the server is running</b>, you do not need to worry about disabling or
+     * unregistering your services.
      */
     public void stopAllServices()
     {
@@ -125,13 +119,12 @@ public class ServiceTaskRegistry
      * Stops all tasks registered with the registry.
      * <br>
      * This method should be <i>avoided</i>, due to the fact that <b><i>modules should be handling their own
-     * registrations</i></b>.
-     * It is preferred to use {@link #stopTask(Class)} for each task you would like to stop.
+     * registrations</i></b>. It is preferred to use {@link #stopTask(Class)} for each task you would like to stop.
      * <br>
      * However, <b><i>Patchwork calls this method when the server is shutting down</i></b>, or when Patchwork is being
-     * disabled, as Patchwork is the central resource manager for registered tasks and services.
-     * Unless you are <b>modifying task states while the server is running</b>, you do not need to worry about
-     * disabling or unregistering your tasks.
+     * disabled, as Patchwork is the central resource manager for registered tasks and services. Unless you are
+     * <b>modifying task states while the server is running</b>, you do not need to worry about disabling or
+     * unregistering your tasks.
      */
     public void stopAllTasks()
     {

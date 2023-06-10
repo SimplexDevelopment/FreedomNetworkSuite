@@ -5,8 +5,8 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Handles the registration of commands.
- * The plugin which initializes this class should be the plugin that is registering the commands.
+ * Handles the registration of commands. The plugin which initializes this class should be the plugin that is
+ * registering the commands.
  */
 public class CommandHandler
 {

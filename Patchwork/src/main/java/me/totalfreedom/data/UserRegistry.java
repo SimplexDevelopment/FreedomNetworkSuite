@@ -71,7 +71,8 @@ public class UserRegistry
 
     /**
      * Registers the given {@link User} and {@link UserData} objects.
-     * @param user The {@link User} to register.
+     *
+     * @param user     The {@link User} to register.
      * @param userData The {@link UserData} to register.
      */
     public void registerUserData(final User user, final UserData userData)
@@ -81,6 +82,7 @@ public class UserRegistry
 
     /**
      * Unregisters the given {@link User} and {@link UserData} objects.
+     *
      * @param user The {@link User} to unregister.
      */
     public void unregisterUserData(final User user)
@@ -90,6 +92,7 @@ public class UserRegistry
 
     /**
      * Gets the map of {@link User} objects to {@link UserData} objects.
+     *
      * @return The map of {@link User} objects to {@link UserData} objects.
      */
     public Map<User, UserData> getUserDataMap()

@@ -7,18 +7,16 @@ import me.totalfreedom.economy.EconomicEntityData;
  * Represents the server's economy holder.
  * <br>
  * <br>
- * This is effectively a Bank object which is meant to represent the server itself,
- * which can store a balance and perform transactions with other EconomicEntity objects.
+ * This is effectively a Bank object which is meant to represent the server itself, which can store a balance and
+ * perform transactions with other EconomicEntity objects.
  * <br>
  * <br>
- * The server is initially given a maximum balance of {@link Long#MAX_VALUE}, though this can be changed
- * using the constructor {@link #ServerEconomyHolder(String, long)}. The value that this
- * bank object holds is persistent, which means that the total economic resources available
- * are of limited supply.
+ * The server is initially given a maximum balance of {@link Long#MAX_VALUE}, though this can be changed using the
+ * constructor {@link #ServerEconomyHolder(String, long)}. The value that this bank object holds is persistent, which
+ * means that the total economic resources available are of limited supply.
  * <br>
  * <br>
- * Please be aware, if the server's economy falls below 0,
- * it will have drastic consequences.
+ * Please be aware, if the server's economy falls below 0, it will have drastic consequences.
  */
 public class ServerEconomyHolder implements EconomicEntity, EconomicEntityData
 {
@@ -49,9 +47,9 @@ public class ServerEconomyHolder implements EconomicEntity, EconomicEntityData
     }
 
     /**
-     * This method will return this object, as it is both the EconomicEntity and the EconomicEntityData.
-     * This is due to the fact that the server should only ever have one singular concrete representation
-     * of it's economic entity and the respective data.
+     * This method will return this object, as it is both the EconomicEntity and the EconomicEntityData. This is due to
+     * the fact that the server should only ever have one singular concrete representation of it's economic entity and
+     * the respective data.
      *
      * @return this object.
      */
@@ -71,8 +69,7 @@ public class ServerEconomyHolder implements EconomicEntity, EconomicEntityData
     }
 
     /**
-     * This method will always return false, as the server should not ever be
-     * prevented from performing transactions.
+     * This method will always return false, as the server should not ever be prevented from performing transactions.
      *
      * @return false
      */
@@ -103,8 +100,7 @@ public class ServerEconomyHolder implements EconomicEntity, EconomicEntityData
     }
 
     /**
-     * Adds the specified amount to the server's balance.
-     * This method mutates the balance and returns the new balance.
+     * Adds the specified amount to the server's balance. This method mutates the balance and returns the new balance.
      *
      * @param amount The amount to add.
      * @return The new balance.
@@ -117,8 +113,8 @@ public class ServerEconomyHolder implements EconomicEntity, EconomicEntityData
     }
 
     /**
-     * Removes the specified amount from the server's balance.
-     * This method mutates the balance and returns the new balance.
+     * Removes the specified amount from the server's balance. This method mutates the balance and returns the new
+     * balance.
      *
      * @param amount The amount to remove.
      * @return The new balance.

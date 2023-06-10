@@ -29,8 +29,7 @@ public class MySQL implements SQL
     }
 
     /**
-     * Adds credentials to the MySQL URL.
-     * If the URL already contains credentials, they will be overwritten.
+     * Adds credentials to the MySQL URL. If the URL already contains credentials, they will be overwritten.
      *
      * @param username The username to add
      * @param password The password to add
@@ -61,25 +60,24 @@ public class MySQL implements SQL
     public CompletableFuture<PreparedStatement> prepareStatement(final String query, final Object... args)
     {
         return getConnection()
-                   .thenApplyAsync(connection ->
-                   {
-                       try
-                       {
-                           final PreparedStatement statement = connection.prepareStatement(query);
-                           for (int i = 0; i < args.length; i++)
-                           {
-                               statement.setObject(i + 1, args[i]);
-                           }
-                           return statement;
-                       }
-                       catch (SQLException ex)
-                       {
-                           throw new CompletionException("Failed to prepare statement: "
-                                                             + query + "\n", ex);
-                       }
-                   }, CommonsBase.getInstance()
-                                 .getExecutor()
-                                 .getAsync());
+                .thenApplyAsync(connection ->
+                {
+                    try
+                    {
+                        final PreparedStatement statement = connection.prepareStatement(query);
+                        for (int i = 0; i < args.length; i++)
+                        {
+                            statement.setObject(i + 1, args[i]);
+                        }
+                        return statement;
+                    } catch (SQLException ex)
+                    {
+                        throw new CompletionException("Failed to prepare statement: "
+                                + query + "\n", ex);
+                    }
+                }, CommonsBase.getInstance()
+                              .getExecutor()
+                              .getAsync());
     }
 
     private CompletableFuture<Connection> getConnection()
@@ -89,11 +87,10 @@ public class MySQL implements SQL
             try
             {
                 return DriverManager.getConnection(url.toString());
-            }
-            catch (SQLException ex)
+            } catch (SQLException ex)
             {
                 throw new CompletionException("Failed to connect to the database: "
-                                                  + url.toString() + "\n", ex);
+                        + url.toString() + "\n", ex);
             }
         }, CommonsBase.getInstance()
                       .getExecutor()
@@ -104,61 +101,58 @@ public class MySQL implements SQL
     public CompletableFuture<ResultSet> executeQuery(final String query, final Object... args)
     {
         return prepareStatement(query, args)
-                   .thenApplyAsync(statement ->
-                   {
-                       try
-                       {
-                           return statement.executeQuery();
-                       }
-                       catch (SQLException ex)
-                       {
-                           throw new CompletionException(
-                               "Failed to retrieve a result set from query: "
-                                   + query + "\n", ex);
-                       }
-                   }, CommonsBase.getInstance()
-                                 .getExecutor()
-                                 .getAsync());
+                .thenApplyAsync(statement ->
+                {
+                    try
+                    {
+                        return statement.executeQuery();
+                    } catch (SQLException ex)
+                    {
+                        throw new CompletionException(
+                                "Failed to retrieve a result set from query: "
+                                        + query + "\n", ex);
+                    }
+                }, CommonsBase.getInstance()
+                              .getExecutor()
+                              .getAsync());
     }
 
     @Override
     public CompletableFuture<Integer> executeUpdate(final String query, final Object... args)
     {
         return prepareStatement(query, args)
-                   .thenApplyAsync(statement ->
-                   {
-                       try
-                       {
-                           return statement.executeUpdate();
-                       }
-                       catch (SQLException ex)
-                       {
-                           throw new CompletionException("Failed to execute update: "
-                                                             + query + "\n", ex);
-                       }
-                   }, CommonsBase.getInstance()
-                                 .getExecutor()
-                                 .getAsync());
+                .thenApplyAsync(statement ->
+                {
+                    try
+                    {
+                        return statement.executeUpdate();
+                    } catch (SQLException ex)
+                    {
+                        throw new CompletionException("Failed to execute update: "
+                                + query + "\n", ex);
+                    }
+                }, CommonsBase.getInstance()
+                              .getExecutor()
+                              .getAsync());
     }
 
     @Override
     public CompletableFuture<Boolean> execute(final String query, final Object... args)
     {
         return prepareStatement(query, args)
-                   .thenApplyAsync(statement ->
-                   {
-                       try
-                       {
-                           return statement.execute();
-                       }
-                       catch (SQLException ex)
-                       {
-                           throw new CompletionException("Failed to execute statement: "
-                                                             + query + "\n", ex);
-                       }
-                   }, CommonsBase.getInstance()
-                                 .getExecutor()
-                                 .getAsync());
+                .thenApplyAsync(statement ->
+                {
+                    try
+                    {
+                        return statement.execute();
+                    } catch (SQLException ex)
+                    {
+                        throw new CompletionException("Failed to execute statement: "
+                                + query + "\n", ex);
+                    }
+                }, CommonsBase.getInstance()
+                              .getExecutor()
+                              .getAsync());
     }
 
     @Override
@@ -181,46 +175,45 @@ public class MySQL implements SQL
     }
 
     public <T> CompletableFuture<T> getColumn(final String table, final String column, final String key,
-        final Identity identity, final Class<T> type)
+                                              final Identity identity, final Class<T> type)
     {
         return executeQuery("SELECT ? FROM ? WHERE ? = ?", column, table, key, identity.getId())
-                   .thenApplyAsync(resultSet ->
-                   {
-                       try
-                       {
-                           if (resultSet.next())
-                           {
-                               return resultSet.getObject(column, type);
-                           }
-                       }
-                       catch (SQLException ex)
-                       {
-                           throw new CompletionException(
-                               "Failed to retrieve column: " + column + " from table: " + table + " " +
-                                   "where primary key: " + key + " is equal to: " + identity.getId() + "\n",
-                               ex);
-                       }
-                       return null;
-                   }, CommonsBase.getInstance()
-                                 .getExecutor()
-                                 .getAsync());
+                .thenApplyAsync(resultSet ->
+                {
+                    try
+                    {
+                        if (resultSet.next())
+                        {
+                            return resultSet.getObject(column, type);
+                        }
+                    } catch (SQLException ex)
+                    {
+                        throw new CompletionException(
+                                "Failed to retrieve column: " + column + " from table: " + table + " " +
+                                        "where primary key: " + key + " is equal to: " + identity.getId() + "\n",
+                                ex);
+                    }
+                    return null;
+                }, CommonsBase.getInstance()
+                              .getExecutor()
+                              .getAsync());
     }
 
     public CompletableFuture<Boolean> updateColumn(final String table, final String column, final Object value,
-        final String key, final Identity identity)
+                                                   final String key, final Identity identity)
     {
         return executeUpdate("UPDATE ? SET ? = ? WHERE ? = ?", table, column, value, key, identity.getId())
-                   .thenApplyAsync(result -> result > 0, CommonsBase.getInstance()
-                                                                    .getExecutor()
-                                                                    .getAsync());
+                .thenApplyAsync(result -> result > 0, CommonsBase.getInstance()
+                                                                 .getExecutor()
+                                                                 .getAsync());
     }
 
     public CompletableFuture<Boolean> deleteRow(final String table, final String key, final Identity identity)
     {
         return executeUpdate("DELETE FROM ? WHERE ? = ?", table, key, identity.getId())
-                   .thenApplyAsync(result -> result > 0, CommonsBase.getInstance()
-                                                                    .getExecutor()
-                                                                    .getAsync());
+                .thenApplyAsync(result -> result > 0, CommonsBase.getInstance()
+                                                                 .getExecutor()
+                                                                 .getAsync());
     }
 
     public CompletableFuture<Boolean> insertRow(final String table, final Object... values)

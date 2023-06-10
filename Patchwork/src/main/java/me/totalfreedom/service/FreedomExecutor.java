@@ -119,8 +119,8 @@ public class FreedomExecutor
     }
 
     /**
-     * Gets the synchronous executor instance. This is a convenience for {@link CompletableFuture} invocations,
-     * when defining a custom executor for the {@link CompletableFuture}.
+     * Gets the synchronous executor instance. This is a convenience for {@link CompletableFuture} invocations, when
+     * defining a custom executor for the {@link CompletableFuture}.
      *
      * @return The synchronous executor instance.
      */
@@ -130,8 +130,8 @@ public class FreedomExecutor
     }
 
     /**
-     * Gets the asynchronous executor instance. This is a convenience for {@link CompletableFuture} invocations,
-     * when defining a custom executor for the {@link CompletableFuture}.
+     * Gets the asynchronous executor instance. This is a convenience for {@link CompletableFuture} invocations, when
+     * defining a custom executor for the {@link CompletableFuture}.
      *
      * @return The asynchronous executor instance.
      */

@@ -23,9 +23,9 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * The superinterface User extends PermissionHolder,
- * which is an extension of {@link org.bukkit.permissions.Permissible}.
- * This means that our permission data can be interchanged with other permission plugins.
+ * The superinterface User extends PermissionHolder, which is an extension of
+ * {@link org.bukkit.permissions.Permissible}. This means that our permission data can be interchanged with other
+ * permission plugins.
  */
 public class FreedomUser implements User
 {
@@ -139,7 +139,7 @@ public class FreedomUser implements User
 
     @Override
     public @NotNull PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
-        final boolean value)
+                                                       final boolean value)
     {
         final Player player = Bukkit.getPlayer(uuid);
         if (player != null)
@@ -164,7 +164,7 @@ public class FreedomUser implements User
 
     @Override
     public @Nullable PermissionAttachment addAttachment(@NotNull final Plugin plugin, @NotNull final String name,
-        final boolean value, final int ticks)
+                                                        final boolean value, final int ticks)
     {
         final Player player = Bukkit.getPlayer(uuid);
         if (player != null)

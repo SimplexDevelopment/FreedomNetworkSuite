@@ -9,11 +9,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation should be used to mark methods as subcommand methods.
- * Subcommand methods can have custom arguments (current supported arguments can be found in the {@link ContextProvider}),
- * and can also have a custom permission. These subcommands can also be annotated with {@link Completions} to provide
- * tab completions for the subcommand. The subcommand method must be public, and must be in a class that is registered
- * with the {@link CommandHandler}.
+ * This annotation should be used to mark methods as subcommand methods. Subcommand methods can have custom arguments
+ * (current supported arguments can be found in the {@link ContextProvider}), and can also have a custom permission.
+ * These subcommands can also be annotated with {@link Completions} to provide tab completions for the subcommand. The
+ * subcommand method must be public, and must be in a class that is registered with the {@link CommandHandler}.
  * <br>
  * Tab completions with the {@link Completions} annotation are only supported for subcommands. When registering
  * completions, you only need to define the completion arguments a single time. If there are other methods which

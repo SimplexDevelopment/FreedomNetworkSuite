@@ -51,10 +51,9 @@ public class Cager extends Service
     }
 
     /**
-     * This method generates a cube centered around the passed location,
-     * made of the provided material. This method returns the passed location object.
-     * We use the {@link ShapeUtils} class to generate the cube, which allows us to define
-     * custom shapes using {@link DoubleUnaryOperator}s.
+     * This method generates a cube centered around the passed location, made of the provided material. This method
+     * returns the passed location object. We use the {@link ShapeUtils} class to generate the cube, which allows us to
+     * define custom shapes using {@link DoubleUnaryOperator}s.
      *
      * @param location The location to center the cube around.
      * @param material The material to use for the cube.
@@ -108,8 +107,7 @@ public class Cager extends Service
     }
 
     /**
-     * This method will check to make sure each caged player remains within their cage.
-     * We use
+     * This method will check to make sure each caged player remains within their cage. We use
      * <p>
      * <code>{@link Location#distanceSquared(Location)} * {@link Math#pow(double, double)}</code>
      * <p>

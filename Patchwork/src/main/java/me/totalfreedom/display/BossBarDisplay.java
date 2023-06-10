@@ -275,6 +275,7 @@ public class BossBarDisplay
 
         /**
          * Adds a flag to the boss bar.
+         *
          * @param flag The flag to add.
          * @return The builder.
          */
@@ -286,6 +287,7 @@ public class BossBarDisplay
 
         /**
          * Adds multiple flags to the boss bar.
+         *
          * @param flags The flags to add.
          * @return The builder.
          */
@@ -297,6 +299,7 @@ public class BossBarDisplay
 
         /**
          * Removes a flag from the boss bar.
+         *
          * @param flag The flag to remove.
          * @return The builder.
          */
@@ -308,6 +311,7 @@ public class BossBarDisplay
 
         /**
          * Removes multiple flags from the boss bar.
+         *
          * @param flags The flags to remove.
          * @return The builder.
          */
@@ -319,6 +323,7 @@ public class BossBarDisplay
 
         /**
          * Clears all flags from the boss bar.
+         *
          * @return The builder.
          */
         public BossBarBuilder clearFlags()
@@ -329,6 +334,7 @@ public class BossBarDisplay
 
         /**
          * Sets the color of the boss bar.
+         *
          * @param color The color of the boss bar.
          * @return The builder.
          */
@@ -340,6 +346,7 @@ public class BossBarDisplay
 
         /**
          * Sets the overlay of the boss bar.
+         *
          * @param overlay The overlay of the boss bar.
          * @return The builder.
          */
@@ -351,6 +358,7 @@ public class BossBarDisplay
 
         /**
          * Sets the progress of the boss bar. This must satisfy {@code 0 <= progress <= 100}.
+         *
          * @param progress The progress of the boss bar.
          * @return The builder.
          */
@@ -362,6 +370,7 @@ public class BossBarDisplay
 
         /**
          * Builds the boss bar.
+         *
          * @return The {@link BossBar}.
          */
         public BossBar build()

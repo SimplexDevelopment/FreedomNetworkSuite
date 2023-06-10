@@ -33,8 +33,7 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a message to the console,
-     * while also returning a Component that could be used to
+     * This method allows you to log a message to the console, while also returning a Component that could be used to
      * message a player.
      *
      * @param message The message to send.
@@ -47,8 +46,7 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a component to the console,
-     * while also returning a String representation of the
+     * This method allows you to log a component to the console, while also returning a String representation of the
      * component
      *
      * @param component The component to send.
@@ -71,7 +69,9 @@ public class FreedomLogger implements Audience
 
         logger.info(plainText);
         return plainText;
-    }    /**
+    }
+
+    /**
      * This method allows you to log a message to the console.
      *
      * @param message The message to send.
@@ -104,9 +104,8 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method logs an error message to the console.
-     * It is highly recommended to deconstruct the stack trace and pass it
-     * in a more readable format to this method.
+     * This method logs an error message to the console. It is highly recommended to deconstruct the stack trace and
+     * pass it in a more readable format to this method.
      *
      * @param message The message to send.
      */
@@ -126,11 +125,9 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log an error message to the console,
-     * while also returning a Component that could be used to
-     * message a player. It is highly recommended that you deconstruct and limit
-     * the stack trace before passing it to this method, if you are intending to
-     * use it for player communication.
+     * This method allows you to log an error message to the console, while also returning a Component that could be
+     * used to message a player. It is highly recommended that you deconstruct and limit the stack trace before passing
+     * it to this method, if you are intending to use it for player communication.
      *
      * @param message The message to send.
      * @return A component representation of the message.
@@ -142,9 +139,8 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log an error component to the console,
-     * while also returning a String representation of the error
-     * component.
+     * This method allows you to log an error component to the console, while also returning a String representation of
+     * the error component.
      *
      * @param component The component to send.
      * @return A String representation of the component.
@@ -169,10 +165,9 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a debug message to the console,
-     * while also returning a Component that could be used to
-     * message a player. This method will only log if debug mode is enabled.
-     * If debug mode is not enabled, this method will return an empty component.
+     * This method allows you to log a debug message to the console, while also returning a Component that could be used
+     * to message a player. This method will only log if debug mode is enabled. If debug mode is not enabled, this
+     * method will return an empty component.
      *
      * @param message The message to send.
      * @return A component representation of the message.
@@ -188,8 +183,8 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a debug component to the console,
-     * while also returning a String representation of the debug component.
+     * This method allows you to log a debug component to the console, while also returning a String representation of
+     * the debug component.
      *
      * @param component The component to send.
      * @return A String representation of the message.
@@ -204,8 +199,8 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a debug component to the console.
-     * This method will only log if debug mode is enabled.
+     * This method allows you to log a debug component to the console. This method will only log if debug mode is
+     * enabled.
      *
      * @param component The component to send.
      */
@@ -219,8 +214,8 @@ public class FreedomLogger implements Audience
     }
 
     /**
-     * This method allows you to log a debug message to the console.
-     * This method will only log if debug mode is enabled.
+     * This method allows you to log a debug message to the console. This method will only log if debug mode is
+     * enabled.
      *
      * @param message The message to send.
      */
@@ -229,8 +224,6 @@ public class FreedomLogger implements Audience
         if (debug)
             logger.debug(message);
     }
-
-
 
 
     @Override
@@ -269,7 +262,7 @@ public class FreedomLogger implements Audience
     public void sendMessage(@NotNull final SignedMessage signedMessage, final ChatType.@NotNull Bound boundChatType)
     {
         this.info(
-            signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message,
+                signedMessage.message()); // TODO: We might want to investigate whether this logs the ENTIRE message,
         // including unsigned & signed content, or only the signed part. This method was written in the assumption
         // that it provided all content.
     }
