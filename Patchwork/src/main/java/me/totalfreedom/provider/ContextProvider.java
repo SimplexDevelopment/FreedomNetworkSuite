@@ -36,7 +36,7 @@ public class ContextProvider
 
     private @Nullable Boolean toBoolean(final String string)
     {
-        // Previoulsy we used Boolean#parseBoolean, but that will always return a value and does not throw
+        // Previously we used Boolean#parseBoolean, but that will always return a value and does not throwl
         // an exception. This means that if the string is not "true" or "false", it will return false.
         if (string.equalsIgnoreCase("true")) return true;
         if (string.equalsIgnoreCase("false")) return false;
