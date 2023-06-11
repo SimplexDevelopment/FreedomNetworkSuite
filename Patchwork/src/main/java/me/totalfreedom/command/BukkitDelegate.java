@@ -1,12 +1,12 @@
 package me.totalfreedom.command;
 
-import me.totalfreedom.api.Context;
 import me.totalfreedom.command.annotation.Completion;
 import me.totalfreedom.command.annotation.Subcommand;
 import me.totalfreedom.provider.ContextProvider;
 import me.totalfreedom.utils.logging.FreedomLogger;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -120,7 +120,7 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
                                     final Subcommand node)
     {
         final Class<?>[] argTypes = node.args();
-        if (argTypes.length != args.length)
+        if (argTypes.length > args.length)
             return;
 
         final Object[] objects = new Object[argTypes.length + 1];
@@ -130,11 +130,27 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
             final Class<?> argType = argTypes[i];
             final String arg = args[i];
 
-            if (argType == String.class)
-                continue;
+            if (argType.equals(String.class))
+            {
+                if (i == argTypes.length - 1)
+                {
+                    final String[] reasonArgs = Arrays.copyOfRange(args, i, args.length - 1);
+                    final String reason = String.join(" ", reasonArgs);
+                    objects[i] = reason;
+                } else
+                {
+                    continue;
+                }
+            }
 
-            final Context<?> context = () -> provider.fromString(arg, argType);
-            objects[i] = context.get();
+            if (argType.equals(Location.class)) {
+                final String[] locationArgs = Arrays.copyOfRange(args, i, i + 3);
+                final String location = String.join(" ", locationArgs);
+                objects[i] = location;
+            }
+
+            final Object obj = provider.fromString(arg, argType);
+            objects[i] = obj;
         }
         try
         {
@@ -183,7 +199,7 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
                             "7",
                             "8",
                             "9"));
-                    case "%location%" -> results.add("world,x,y,z");
+                    case "%location%" -> results.add("world x y z");
                     default -> results.add(p);
                 }
             }

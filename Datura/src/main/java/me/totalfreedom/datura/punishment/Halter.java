@@ -22,6 +22,15 @@ public class Halter implements Listener
         this.haltedPlayers.add(uuid);
     }
 
+    public void stop(final UUID uuid)
+    {
+        this.haltedPlayers.remove(uuid);
+    }
+
+    public void clear() {
+        this.haltedPlayers.clear();
+    }
+
     @EventHandler
     public void playerMove(final PlayerMoveEvent event)
     {

@@ -48,20 +48,16 @@ public class CageCommand extends Commander
     @Subcommand(permission = "datura.cage", args = {Player.class, String.class})
     public void cagePlayer(final CommandSender sender, final Player player, final String string)
     {
-        switch (string.toLowerCase())
+        if (string.equalsIgnoreCase("on"))
         {
-            case "on" ->
-            {
-                ((Datura) getPlugin()).getCager()
-                                      .cagePlayer(player.getUniqueId());
-                sender.sendPlainMessage("Caged " + player.getName() + ".");
-            }
-            case "off" ->
-            {
-                ((Datura) getPlugin()).getCager()
-                                      .uncagePlayer(player.getUniqueId());
-                sender.sendPlainMessage("Liberated " + player.getName() + ".");
-            }
+            ((Datura) getPlugin()).getCager()
+                                  .cagePlayer(player.getUniqueId());
+            sender.sendPlainMessage("Caged " + player.getName() + ".");
+        } else if (string.equalsIgnoreCase("off"))
+        {
+            ((Datura) getPlugin()).getCager()
+                                  .uncagePlayer(player.getUniqueId());
+            sender.sendPlainMessage("Liberated " + player.getName() + ".");
         }
     }
 
@@ -70,20 +66,16 @@ public class CageCommand extends Commander
     public void cagePlayer(final CommandSender sender, final Player player, final String string,
                            final Material material)
     {
-        switch (string.toLowerCase())
+        if (string.equalsIgnoreCase("on"))
         {
-            case "on" ->
-            {
-                ((Datura) getPlugin()).getCager()
-                                      .cagePlayer(player.getUniqueId(), material);
-                sender.sendPlainMessage("Caged " + player.getName() + ".");
-            }
-            case "off" ->
-            {
-                ((Datura) getPlugin()).getCager()
-                                      .uncagePlayer(player.getUniqueId());
-                sender.sendPlainMessage("Liberated " + player.getName() + ".");
-            }
+            ((Datura) getPlugin()).getCager()
+                                  .cagePlayer(player.getUniqueId(), material);
+            sender.sendPlainMessage("Caged " + player.getName() + ".");
+        } else if (string.equalsIgnoreCase("off"))
+        {
+            ((Datura) getPlugin()).getCager()
+                                  .uncagePlayer(player.getUniqueId());
+            sender.sendPlainMessage("Liberated " + player.getName() + ".");
         }
     }
 }
