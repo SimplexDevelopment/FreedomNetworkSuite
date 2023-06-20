@@ -1,6 +1,6 @@
 package me.totalfreedom.corvo;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Corvo extends JavaPlugin
@@ -8,18 +8,18 @@ public class Corvo extends JavaPlugin
     @Override
     public void onDisable()
     {
-        CommonsBase.getInstance()
-                   .getRegistrations()
-                   .getModuleRegistry()
-                   .removeModule(this);
+        Patchwork.getInstance()
+                 .getRegistrations()
+                 .getModuleRegistry()
+                 .removeModule(this);
     }
 
     @Override
     public void onEnable()
     {
-        CommonsBase.getInstance()
-                   .getRegistrations()
-                   .getModuleRegistry()
-                   .addModule(this);
+        Patchwork.getInstance()
+                 .getRegistrations()
+                 .getModuleRegistry()
+                 .addModule(this);
     }
 }

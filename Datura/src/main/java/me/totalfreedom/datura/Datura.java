@@ -1,6 +1,6 @@
 package me.totalfreedom.datura;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.datura.punishment.Cager;
 import me.totalfreedom.datura.punishment.Halter;
 import me.totalfreedom.datura.punishment.Locker;
@@ -20,19 +20,19 @@ public class Datura extends JavaPlugin
     @Override
     public void onEnable()
     {
-        CommonsBase.getInstance()
-                   .getRegistrations()
-                   .getModuleRegistry()
-                   .addModule(this);
+        Patchwork.getInstance()
+                 .getRegistrations()
+                 .getModuleRegistry()
+                 .addModule(this);
 
-        CommonsBase.getInstance()
-                   .getRegistrations()
-                   .getServiceTaskRegistry()
-                   .registerService(SubscriptionProvider.syncService(this, locker));
-        CommonsBase.getInstance()
-                   .getRegistrations()
-                   .getServiceTaskRegistry()
-                   .registerService(SubscriptionProvider.syncService(this, cager));
+        Patchwork.getInstance()
+                 .getRegistrations()
+                 .getServiceTaskRegistry()
+                 .registerService(SubscriptionProvider.syncService(this, locker));
+        Patchwork.getInstance()
+                 .getRegistrations()
+                 .getServiceTaskRegistry()
+                 .registerService(SubscriptionProvider.syncService(this, cager));
 
         Bukkit.getPluginManager()
               .registerEvents(halter, this);

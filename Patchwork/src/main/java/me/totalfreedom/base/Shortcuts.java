@@ -10,6 +10,6 @@ public final class Shortcuts
     }
 
     public static <T extends JavaPlugin> ModuleProvider<T> provideModule(final Class<T> pluginClass) {
-        return CommonsBase.getInstance().getRegistrations().getModuleRegistry().getProvider(pluginClass);
+        return Patchwork.getInstance().getRegistrations().getModuleRegistry().getProvider(pluginClass);
     }
 }

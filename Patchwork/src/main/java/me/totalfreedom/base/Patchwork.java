@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * The base class for Patchwork.
  */
-public class CommonsBase extends JavaPlugin
+public class Patchwork extends JavaPlugin
 {
     /**
      * The {@link EventBus} for this plugin.
@@ -30,9 +30,9 @@ public class CommonsBase extends JavaPlugin
      *
      * @return the plugin instance
      */
-    public static CommonsBase getInstance()
+    public static Patchwork getInstance()
     {
-        return JavaPlugin.getPlugin(CommonsBase.class);
+        return JavaPlugin.getPlugin(Patchwork.class);
     }
 
     @Override

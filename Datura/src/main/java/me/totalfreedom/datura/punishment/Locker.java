@@ -1,6 +1,6 @@
 package me.totalfreedom.datura.punishment;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.service.Service;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -35,10 +35,10 @@ public class Locker extends Service
     @Override
     public void tick()
     {
-        lockedPlayers.removeIf(uuid -> !CommonsBase.getInstance()
-                                                   .getServer()
-                                                   .getOfflinePlayer(uuid)
-                                                   .isOnline());
+        lockedPlayers.removeIf(uuid -> !Patchwork.getInstance()
+                                                 .getServer()
+                                                 .getOfflinePlayer(uuid)
+                                                 .isOnline());
 
         for (final UUID uuid : lockedPlayers)
         {

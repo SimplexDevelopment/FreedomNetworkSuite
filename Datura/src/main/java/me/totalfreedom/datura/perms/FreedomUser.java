@@ -1,6 +1,6 @@
 package me.totalfreedom.datura.perms;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.datura.Datura;
 import me.totalfreedom.datura.user.SimpleUserData;
 import me.totalfreedom.security.Node;
@@ -42,11 +42,11 @@ public class FreedomUser implements User
         this.permissions = new HashSet<>();
         this.displayName = player.displayName();
 
-        final Datura datura = CommonsBase.getInstance()
-                                         .getRegistrations()
-                                         .getModuleRegistry()
-                                         .getProvider(Datura.class)
-                                         .getModule();
+        final Datura datura = Patchwork.getInstance()
+                                       .getRegistrations()
+                                       .getModuleRegistry()
+                                       .getProvider(Datura.class)
+                                       .getModule();
 
         UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString());
 
@@ -57,10 +57,10 @@ public class FreedomUser implements User
 
         this.userData = data;
 
-        CommonsBase.getInstance()
-                   .getRegistrations()
-                   .getUserRegistry()
-                   .registerUserData(this, userData);
+        Patchwork.getInstance()
+                 .getRegistrations()
+                 .getUserRegistry()
+                 .registerUserData(this, userData);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class FreedomUser implements User
     @Override
     public boolean addPermission(final Node node)
     {
-        final PermissionAttachment attachment = addAttachment(CommonsBase.getInstance(), node.key(), node.value());
+        final PermissionAttachment attachment = addAttachment(Patchwork.getInstance(), node.key(), node.value());
         bukkitAttachments.put(node, attachment);
         return permissions().add(node);
     }

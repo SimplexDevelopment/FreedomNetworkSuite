@@ -1,6 +1,6 @@
 package me.totalfreedom.service;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,9 +29,9 @@ public class FreedomExecutor
     public FreedomExecutor()
     {
         syncExecutor = r -> Bukkit.getScheduler()
-                                  .runTask(CommonsBase.getInstance(), r);
+                                  .runTask(Patchwork.getInstance(), r);
         asyncExecutor = r -> Bukkit.getScheduler()
-                                   .runTaskAsynchronously(CommonsBase.getInstance(), r);
+                                   .runTaskAsynchronously(Patchwork.getInstance(), r);
     }
 
     /**

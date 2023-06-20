@@ -1,7 +1,7 @@
 package me.totalfreedom.event;
 
 import me.totalfreedom.api.Context;
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.service.Service;
 
 import java.util.HashSet;
@@ -9,11 +9,11 @@ import java.util.Set;
 
 public class EventBus extends Service
 {
-    private final CommonsBase plugin;
+    private final Patchwork plugin;
     private final Set<FEvent> eventSet = new HashSet<>();
     private final SubscriptionBox<?> runningSubscriptions = new SubscriptionBox<>();
 
-    public EventBus(final CommonsBase plugin)
+    public EventBus(final Patchwork plugin)
     {
         super("event_bus");
         this.plugin = plugin;
@@ -57,7 +57,7 @@ public class EventBus extends Service
         runningSubscriptions.removeSubscription(subscription);
     }
 
-    public CommonsBase getCommonsBase()
+    public Patchwork getCommonsBase()
     {
         return plugin;
     }

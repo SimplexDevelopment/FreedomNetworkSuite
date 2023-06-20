@@ -1,6 +1,6 @@
 package me.totalfreedom.fossil.bouncypads;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.fossil.Fossil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -33,7 +33,7 @@ public class PadHolder implements Listener
     public PadHolder()
     {
         Bukkit.getPluginManager()
-              .registerEvents(this, CommonsBase
+              .registerEvents(this, Patchwork
                       .getInstance()
                       .getRegistrations()
                       .getModuleRegistry()

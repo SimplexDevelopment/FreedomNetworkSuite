@@ -1,6 +1,6 @@
 package me.totalfreedom.datura.perms;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.security.Group;
 import me.totalfreedom.security.Node;
 import net.kyori.adventure.text.Component;
@@ -41,7 +41,7 @@ public class FreedomGroup implements Group
         this.isDefault = isDefault;
         this.isHidden = isHidden;
         this.permissions = new HashSet<>();
-        this.attachment = new PermissionAttachment(CommonsBase.getInstance(), this);
+        this.attachment = new PermissionAttachment(Patchwork.getInstance(), this);
     }
 
     @Override

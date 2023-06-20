@@ -12,7 +12,7 @@ import me.totalfreedom.data.UserRegistry;
  * <br>
  * Registries such as {@link ModuleRegistry} and {@link ServiceTaskRegistry} can be found as final objects in this
  * class. These registries should only ever be accessed through the single Registration object in CommonsBase using
- * {@link CommonsBase#getRegistrations()}
+ * {@link Patchwork#getRegistrations()}
  */
 public class Registration
 {

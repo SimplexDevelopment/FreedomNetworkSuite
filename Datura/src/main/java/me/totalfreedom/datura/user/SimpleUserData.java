@@ -1,8 +1,9 @@
 package me.totalfreedom.datura.user;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.datura.event.UserDataUpdateEvent;
 import me.totalfreedom.datura.perms.FreedomUser;
+import me.totalfreedom.display.adminchat.AdminChatFormat;
 import me.totalfreedom.security.Group;
 import me.totalfreedom.sql.SQL;
 import me.totalfreedom.user.User;
@@ -29,6 +30,8 @@ public class SimpleUserData implements UserData
     private boolean canInteract;
     private AtomicLong balance;
     private boolean transactionsFrozen;
+    private boolean hasCustomACFormat = false;
+    private String customACFormat;
 
     public SimpleUserData(final Player player)
     {
@@ -36,9 +39,9 @@ public class SimpleUserData implements UserData
         this.username = player.getName();
         this.user = new FreedomUser(player);
 
-        CommonsBase.getInstance()
-                   .getEventBus()
-                   .addEvent(event);
+        Patchwork.getInstance()
+                 .getEventBus()
+                 .addEvent(event);
     }
 
     private SimpleUserData(
@@ -59,6 +62,7 @@ public class SimpleUserData implements UserData
         this.canInteract = canInteract;
         this.balance = new AtomicLong(balance);
         this.transactionsFrozen = transactionsFrozen;
+        this.customACFormat = AdminChatFormat.DEFAULT.serialize();
     }
 
     public static SimpleUserData fromSQL(final SQL sql, final String uuid)
@@ -81,10 +85,10 @@ public class SimpleUserData implements UserData
                                   throw new IllegalStateException("Player should be online but they are not!");
 
                               final User user = new FreedomUser(player);
-                              final Group group = CommonsBase.getInstance()
-                                                             .getRegistrations()
-                                                             .getGroupRegistry()
-                                                             .getGroup(g);
+                              final Group group = Patchwork.getInstance()
+                                                           .getRegistrations()
+                                                           .getGroupRegistry()
+                                                           .getGroup(g);
 
                               final long playtime = result.getLong("playtime");
                               final boolean canInteract = result.getBoolean("canInteract");
@@ -113,9 +117,9 @@ public class SimpleUserData implements UserData
                       if (player == null) throw new IllegalStateException("Player should be online but they are not!");
 
                       return new SimpleUserData(player);
-                  }, CommonsBase.getInstance()
-                                .getExecutor()
-                                .getAsync())
+                  }, Patchwork.getInstance()
+                              .getExecutor()
+                              .getAsync())
                   .join();
     }
 
@@ -218,5 +222,24 @@ public class SimpleUserData implements UserData
     public long removeFromBalance(final long amount)
     {
         return balance.addAndGet(-amount);
+    }
+
+    @Override
+    public boolean hasCustomACFormat()
+    {
+        return hasCustomACFormat;
+    }
+
+    @Override
+    public void setCustomACFormat(final String format)
+    {
+        this.hasCustomACFormat = format.equals(AdminChatFormat.DEFAULT.serialize());
+        this.customACFormat = format;
+    }
+
+    @Override
+    public AdminChatFormat getCustomACFormat()
+    {
+        return AdminChatFormat.deserialize(customACFormat);
     }
 }

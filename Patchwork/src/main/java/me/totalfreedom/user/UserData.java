@@ -1,5 +1,6 @@
 package me.totalfreedom.user;
 
+import me.totalfreedom.display.adminchat.AdminChatFormat;
 import me.totalfreedom.economy.EconomicEntityData;
 import me.totalfreedom.security.Group;
 import org.jetbrains.annotations.NotNull;
@@ -30,4 +31,10 @@ public interface UserData extends EconomicEntityData
     boolean canInteract();
 
     void setInteractionState(boolean canInteract);
+
+    boolean hasCustomACFormat();
+
+    void setCustomACFormat(final String customACFormat);
+
+    AdminChatFormat getCustomACFormat();
 }

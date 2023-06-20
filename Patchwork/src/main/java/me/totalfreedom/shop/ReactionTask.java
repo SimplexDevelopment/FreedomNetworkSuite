@@ -1,7 +1,7 @@
 package me.totalfreedom.shop;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.display.BossBarDisplay;
 import me.totalfreedom.display.BossBarTimer;
 import me.totalfreedom.economy.EconomicEntity;
@@ -36,7 +36,7 @@ public class ReactionTask extends Task implements Listener
         }
 
         final BossBarTimer timer = new BossBarTimer(bossBarDisplay, reaction.getReactionDuration());
-        timer.runTaskTimer(CommonsBase.getInstance(), 0L, timer.getInterval());
+        timer.runTaskTimer(Patchwork.getInstance(), 0L, timer.getInterval());
     }
 
     @EventHandler
@@ -45,10 +45,10 @@ public class ReactionTask extends Task implements Listener
         if (event.message()
                  .equals(reaction.getReactionMessage()))
         {
-            final EconomicEntity entity = CommonsBase.getInstance()
-                                                     .getRegistrations()
-                                                     .getUserRegistry()
-                                                     .getUser(event.getPlayer());
+            final EconomicEntity entity = Patchwork.getInstance()
+                                                   .getRegistrations()
+                                                   .getUserRegistry()
+                                                   .getUser(event.getPlayer());
 
             reaction.onReact(entity);
         }

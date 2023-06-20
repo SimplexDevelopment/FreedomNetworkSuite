@@ -1,6 +1,6 @@
 package me.totalfreedom.datura.sql;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.sql.SQL;
 import me.totalfreedom.utils.container.Identity;
 
@@ -75,9 +75,9 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to prepare statement: "
                                 + query + "\n", ex);
                     }
-                }, CommonsBase.getInstance()
-                              .getExecutor()
-                              .getAsync());
+                }, Patchwork.getInstance()
+                            .getExecutor()
+                            .getAsync());
     }
 
     private CompletableFuture<Connection> getConnection()
@@ -92,9 +92,9 @@ public class MySQL implements SQL
                 throw new CompletionException("Failed to connect to the database: "
                         + url.toString() + "\n", ex);
             }
-        }, CommonsBase.getInstance()
-                      .getExecutor()
-                      .getAsync());
+        }, Patchwork.getInstance()
+                    .getExecutor()
+                    .getAsync());
     }
 
     @Override
@@ -112,9 +112,9 @@ public class MySQL implements SQL
                                 "Failed to retrieve a result set from query: "
                                         + query + "\n", ex);
                     }
-                }, CommonsBase.getInstance()
-                              .getExecutor()
-                              .getAsync());
+                }, Patchwork.getInstance()
+                            .getExecutor()
+                            .getAsync());
     }
 
     @Override
@@ -131,9 +131,9 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to execute update: "
                                 + query + "\n", ex);
                     }
-                }, CommonsBase.getInstance()
-                              .getExecutor()
-                              .getAsync());
+                }, Patchwork.getInstance()
+                            .getExecutor()
+                            .getAsync());
     }
 
     @Override
@@ -150,9 +150,9 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to execute statement: "
                                 + query + "\n", ex);
                     }
-                }, CommonsBase.getInstance()
-                              .getExecutor()
-                              .getAsync());
+                }, Patchwork.getInstance()
+                            .getExecutor()
+                            .getAsync());
     }
 
     @Override
@@ -194,26 +194,26 @@ public class MySQL implements SQL
                                 ex);
                     }
                     return null;
-                }, CommonsBase.getInstance()
-                              .getExecutor()
-                              .getAsync());
+                }, Patchwork.getInstance()
+                            .getExecutor()
+                            .getAsync());
     }
 
     public CompletableFuture<Boolean> updateColumn(final String table, final String column, final Object value,
                                                    final String key, final Identity identity)
     {
         return executeUpdate("UPDATE ? SET ? = ? WHERE ? = ?", table, column, value, key, identity.getId())
-                .thenApplyAsync(result -> result > 0, CommonsBase.getInstance()
-                                                                 .getExecutor()
-                                                                 .getAsync());
+                .thenApplyAsync(result -> result > 0, Patchwork.getInstance()
+                                                               .getExecutor()
+                                                               .getAsync());
     }
 
     public CompletableFuture<Boolean> deleteRow(final String table, final String key, final Identity identity)
     {
         return executeUpdate("DELETE FROM ? WHERE ? = ?", table, key, identity.getId())
-                .thenApplyAsync(result -> result > 0, CommonsBase.getInstance()
-                                                                 .getExecutor()
-                                                                 .getAsync());
+                .thenApplyAsync(result -> result > 0, Patchwork.getInstance()
+                                                               .getExecutor()
+                                                               .getAsync());
     }
 
     public CompletableFuture<Boolean> insertRow(final String table, final Object... values)

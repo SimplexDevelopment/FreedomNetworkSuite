@@ -1,6 +1,6 @@
 package me.totalfreedom.utils.kyori;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import net.kyori.adventure.chat.ChatType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -24,7 +24,7 @@ public final class KyoriConstants
     /**
      * A singleton {@link ChatType.Bound} for the Patchwork plugin.
      */
-    public static final ChatType.Bound PATCHWORK = fromPlugin(CommonsBase.class);
+    public static final ChatType.Bound PATCHWORK = fromPlugin(Patchwork.class);
 
     private KyoriConstants()
     {

@@ -1,6 +1,6 @@
 package me.totalfreedom.datura.punishment;
 
-import me.totalfreedom.base.CommonsBase;
+import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.service.Service;
 import me.totalfreedom.utils.ShapeUtils;
 import org.bukkit.Bukkit;
@@ -32,7 +32,7 @@ public class Cager extends Service
         this.cagedPlayers = new HashSet<>();
         this.cageLocations = new HashMap<>();
         Bukkit.getPluginManager()
-              .registerEvents(new CageListener(), CommonsBase.getInstance());
+              .registerEvents(new CageListener(), Patchwork.getInstance());
     }
 
     /**
