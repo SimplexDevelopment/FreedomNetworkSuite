@@ -21,6 +21,7 @@
 
 package me.totalfreedom.datura.cmd;
 
+import me.totalfreedom.base.Shortcuts;
 import me.totalfreedom.command.Commander;
 import me.totalfreedom.command.annotation.Completion;
 import me.totalfreedom.command.annotation.Info;
@@ -68,13 +69,15 @@ public class CageCommand extends Commander
     {
         if (string.equalsIgnoreCase("on"))
         {
-            ((Datura) getPlugin()).getCager()
-                                  .cagePlayer(player.getUniqueId(), material);
+            Shortcuts.provideModule(Datura.class)
+                     .getCager()
+                     .cagePlayer(player.getUniqueId(), material);
             sender.sendPlainMessage("Caged " + player.getName() + ".");
         } else if (string.equalsIgnoreCase("off"))
         {
-            ((Datura) getPlugin()).getCager()
-                                  .uncagePlayer(player.getUniqueId());
+            Shortcuts.provideModule(Datura.class)
+                     .getCager()
+                     .uncagePlayer(player.getUniqueId());
             sender.sendPlainMessage("Liberated " + player.getName() + ".");
         }
     }

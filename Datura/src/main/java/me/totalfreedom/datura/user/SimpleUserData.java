@@ -231,15 +231,15 @@ public class SimpleUserData implements UserData
     }
 
     @Override
+    public AdminChatFormat getCustomACFormat()
+    {
+        return AdminChatFormat.deserialize(customACFormat);
+    }
+
+    @Override
     public void setCustomACFormat(final String format)
     {
         this.hasCustomACFormat = format.equals(AdminChatFormat.DEFAULT.serialize());
         this.customACFormat = format;
-    }
-
-    @Override
-    public AdminChatFormat getCustomACFormat()
-    {
-        return AdminChatFormat.deserialize(customACFormat);
     }
 }

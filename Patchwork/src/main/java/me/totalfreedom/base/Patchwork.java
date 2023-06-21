@@ -1,5 +1,6 @@
 package me.totalfreedom.base;
 
+import me.totalfreedom.display.adminchat.AdminChatDisplay;
 import me.totalfreedom.event.EventBus;
 import me.totalfreedom.service.FreedomExecutor;
 import me.totalfreedom.service.SubscriptionProvider;
@@ -23,6 +24,10 @@ public class Patchwork extends JavaPlugin
      * The {@link FreedomExecutor} for this plugin.
      */
     private final FreedomExecutor executor = new FreedomExecutor();
+    /**
+     * The {@link AdminChatDisplay} for this plugin.
+     */
+    private final AdminChatDisplay acdisplay = new AdminChatDisplay();
 
     /**
      * Provides this plugin instance through a safe static method. This is effectively the same thing as using
@@ -88,5 +93,16 @@ public class Patchwork extends JavaPlugin
     public EventBus getEventBus()
     {
         return eventBus;
+    }
+
+    /**
+     * Gets the {@link AdminChatDisplay} for this plugin. The AdminChatDisplay is used to display messages sent in
+     * adminchat.
+     *
+     * @return the {@link AdminChatDisplay}
+     */
+    public AdminChatDisplay getAdminChatDisplay()
+    {
+        return acdisplay;
     }
 }

@@ -27,7 +27,8 @@ public class Halter implements Listener
         this.haltedPlayers.remove(uuid);
     }
 
-    public void clear() {
+    public void clear()
+    {
         this.haltedPlayers.clear();
     }
 

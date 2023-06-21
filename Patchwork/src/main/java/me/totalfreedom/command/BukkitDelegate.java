@@ -69,7 +69,7 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
                            @NotNull final String commandLabel,
                            @NotNull final String[] args)
     {
-        if (sender instanceof ConsoleCommandSender && noConsole)
+        if (!(sender instanceof Player) && noConsole)
         {
             sender.sendMessage(Component.text("This command can only be run by players."));
             return true;
@@ -101,8 +101,13 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         {
             try
             {
-                command.getBaseMethod()
-                       .invoke(command, sender);
+                if (noConsole) {
+                    command.getBaseMethod()
+                           .invoke(command, (Player)sender);
+                } else {
+                    command.getBaseMethod()
+                           .invoke(command, sender);
+                }
             } catch (Exception ex)
             {
                 FreedomLogger.getLogger("Patchwork")
@@ -154,9 +159,15 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         }
         try
         {
-            command.getSubcommands()
-                   .get(node)
-                   .invoke(command, sender, objects);
+            if (noConsole) {
+                command.getSubcommands()
+                       .get(node)
+                       .invoke(command, (Player)sender, objects);
+            } else {
+                command.getSubcommands()
+                       .get(node)
+                       .invoke(command, sender, objects);
+            }
         } catch (Exception ex)
         {
             FreedomLogger.getLogger("Patchwork")

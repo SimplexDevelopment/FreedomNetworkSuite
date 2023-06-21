@@ -3,9 +3,11 @@ package me.totalfreedom.display.adminchat;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.totalfreedom.base.Patchwork;
 import me.totalfreedom.base.Shortcuts;
-import me.totalfreedom.data.UserRegistry;
+import me.totalfreedom.security.Groups;
 import me.totalfreedom.user.UserData;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,10 +21,12 @@ import java.util.UUID;
 
 public class AdminChatDisplay
 {
+    protected static final String ACPERM = "patchwork.adminchat";
     private final Map<UUID, AdminChatFormat> adminChatFormat = new HashMap<>();
     private final Set<UUID> toggledChat = new HashSet<>();
 
-    public AdminChatDisplay() {
+    public AdminChatDisplay()
+    {
         new ACListener(this);
     }
 
@@ -61,6 +65,39 @@ public class AdminChatDisplay
         return adminChatFormat;
     }
 
+    public boolean isToggled(final Player player)
+    {
+        return toggledChat.contains(player.getUniqueId());
+    }
+
+    public void toggleChat(final Player player)
+    {
+        if (toggledChat.contains(player.getUniqueId()))
+        {
+            toggledChat.remove(player.getUniqueId());
+        } else
+        {
+            toggledChat.add(player.getUniqueId());
+        }
+    }
+
+    public void adminChatMessage(final CommandSender sender, final Component message)
+    {
+        Bukkit.getOnlinePlayers()
+              .forEach(player ->
+              {
+                  if (player.hasPermission(ACPERM))
+                  {
+                      final Component formatted = Component.empty();
+                      formatted.append(getFormat(player).format(sender.getName(), Groups.fromSender(sender)))
+                               .append(Component.space())
+                               .append(message);
+
+                      player.sendMessage(formatted);
+                  }
+              });
+    }
+
     public static final class ACListener implements Listener
     {
         private final AdminChatDisplay display;
@@ -69,26 +106,34 @@ public class AdminChatDisplay
         {
             this.display = display;
             Bukkit.getPluginManager()
-                  .registerEvents(this, Shortcuts.provideModule(Patchwork.class)
-                                                 .getModule());
+                  .registerEvents(this, Shortcuts.provideModule(Patchwork.class));
         }
 
         @EventHandler
-        public void playerChat(final AsyncChatEvent event) {
-            if (display.getPlayers().contains(event.getPlayer().getUniqueId())) {
+        public void playerChat(final AsyncChatEvent event)
+        {
+            if (display.isToggled(event.getPlayer()))
+            {
                 event.setCancelled(true);
-
+                display.adminChatMessage(event.getPlayer(), event.message());
             }
         }
 
         @EventHandler
-        public void playerJoin(final PlayerJoinEvent event) {
+        public void playerJoin(final PlayerJoinEvent event)
+        {
             final Player player = event.getPlayer();
-            if (player.hasPermission("patchwork.adminchat")) {
-                final UserData data = Patchwork.getInstance().getRegistrations().getUserRegistry().fromPlayer(player);
-                if (data.hasCustomACFormat()) {
+            if (player.hasPermission(ACPERM))
+            {
+                final UserData data = Patchwork.getInstance()
+                                               .getRegistrations()
+                                               .getUserRegistry()
+                                               .fromPlayer(player);
+                if (data.hasCustomACFormat())
+                {
                     display.addPlayer(player, data.getCustomACFormat());
-                } else {
+                } else
+                {
                     display.addPlayer(player, AdminChatFormat.DEFAULT);
                 }
             }

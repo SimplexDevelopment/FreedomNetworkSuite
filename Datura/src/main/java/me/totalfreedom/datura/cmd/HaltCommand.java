@@ -2,6 +2,7 @@ package me.totalfreedom.datura.cmd;
 
 import me.totalfreedom.base.Shortcuts;
 import me.totalfreedom.command.Commander;
+import me.totalfreedom.command.annotation.Completion;
 import me.totalfreedom.command.annotation.Info;
 import me.totalfreedom.command.annotation.Permissive;
 import me.totalfreedom.command.annotation.Subcommand;
@@ -18,8 +19,7 @@ import org.jetbrains.annotations.NotNull;
 @Permissive(perm = "datura.halt")
 public class HaltCommand extends Commander
 {
-    private final Datura plugin = Shortcuts.provideModule(Datura.class)
-                                           .getModule();
+    private final Datura plugin = Shortcuts.provideModule(Datura.class);
 
     /**
      * Initializes this command object. The provided {@link JavaPlugin} should be the plugin which contains the
@@ -36,6 +36,8 @@ public class HaltCommand extends Commander
     }
 
 
+    @Completion(index = 0, args = {"%player%", "all"})
+    @Completion(index = 1, args = {"on", "off"})
     @Subcommand(permission = "datura.halt", args = {Player.class, String.class})
     public void haltPlayer(final CommandSender sender, final Player target, final String toggle)
     {
@@ -56,6 +58,7 @@ public class HaltCommand extends Commander
         }
     }
 
+    // No completion needed here since it's already registered.
     @Subcommand(permission = "datura.halt.all", args = {String.class, String.class})
     public void haltAll(final CommandSender sender, final String all, final String toggle)
     {
@@ -65,11 +68,8 @@ public class HaltCommand extends Commander
             {
                 Bukkit.getServer()
                       .getOnlinePlayers()
-                      .forEach(player ->
-                      {
-                          plugin.getHalter()
-                                .halt(player.getUniqueId());
-                      });
+                      .forEach(player -> plugin.getHalter()
+                                               .halt(player.getUniqueId()));
 
                 final Component message = sender.name()
                                                 .append(Component.text(": Freezing all players"))

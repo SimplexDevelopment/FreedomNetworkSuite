@@ -25,15 +25,25 @@ public final class AdminChatFormat
         this.rank = Component.text(builder.openBracket(), builder.bracketColor())
                              .append(Component.text("%rank%", builder.rankColor()))
                              .append(Component.text(builder.closeBracket(), builder.bracketColor()));
-        this.chatSplitter = Component.text(builder.chatSplitter(), NamedTextColor.WHITE);
 
-        this.fullFormat = prefix.append(Component.space())
+        // Nice formatting :(
+        if (builder.chatSplitter()
+                   .equals(":"))
+        {
+            this.chatSplitter = Component.text(":", NamedTextColor.WHITE);
+        } else
+        {
+            this.chatSplitter = Component.space()
+                                         .append(Component.text(builder.chatSplitter(), NamedTextColor.WHITE));
+        }
+
+        // Formatting because []: is cleaner than [] :, but anything else such as [] >> or [] -> looks better with the space between.
+        this.fullFormat = prefix.appendSpace()
                                 .append(userName)
-                                .append(Component.space())
+                                .appendSpace()
                                 .append(rank)
-                                .append(Component.space())
                                 .append(chatSplitter)
-                                .append(Component.space());
+                                .appendSpace();
     }
 
     public static AdminChatFormat deserialize(final String serialized)
