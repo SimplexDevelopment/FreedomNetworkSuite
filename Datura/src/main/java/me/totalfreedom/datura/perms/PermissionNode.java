@@ -5,29 +5,19 @@ import me.totalfreedom.security.NodeType;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-record PermissionNode(String key,
-                      boolean value,
-                      long expiry,
-                      NodeType type,
-                      boolean wildcard) implements Node
+record PermissionNode(String key, long expiry, NodeType type, boolean wildcard) implements Node
 {
 
     @Override
     public Permission bukkit()
     {
-        return new Permission(key(),
-                value()
-                        ? PermissionDefault.TRUE
-                        : PermissionDefault.FALSE);
+        return new Permission(key(), PermissionDefault.FALSE);
     }
 
     @Override
     public boolean compare(final Node node)
     {
-        return node.key()
-                   .equalsIgnoreCase(key())
-                && node.value() == value()
-                && node.type() == type();
+        return node.key().equalsIgnoreCase(key()) && node.type().equals(type()) && !node.isExpired();
     }
 
     @Override

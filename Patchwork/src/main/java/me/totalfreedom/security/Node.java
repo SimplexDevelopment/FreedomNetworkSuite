@@ -9,8 +9,6 @@ public interface Node
 {
     String key();
 
-    boolean value();
-
     Permission bukkit();
 
     NodeType type();

@@ -19,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 @Info(name = "cleardrops", description = "Clears all item drops in the world" + ".", usage = "/<command>", aliases =
-    {"cd", "clearitems", "ci", "wipeitems", "wi"})
+    {"cd", "clearitems", "ci", "wipeitems", "wi", "removedrops", "rd"})
 @Permissive(perm = "datura.cleardrops")
 public class ClearDropsCommand extends Commander
 {

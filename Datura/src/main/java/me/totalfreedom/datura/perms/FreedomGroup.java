@@ -114,7 +114,7 @@ public class FreedomGroup implements Group
                                        .findFirst()
                                        .orElse(null);
 
-        return node != null && node.value();
+        return node != null;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class FreedomGroup implements Group
                 .findFirst()
                 .orElse(null);
 
-        return node != null && node.value();
+        return node != null;
     }
 
     @Override
@@ -139,7 +139,7 @@ public class FreedomGroup implements Group
                                        .findFirst()
                                        .orElse(null);
 
-        return node != null && node.value();
+        return node != null;
     }
 
     @Override
@@ -152,7 +152,7 @@ public class FreedomGroup implements Group
                 .findFirst()
                 .orElse(null);
 
-        return node != null && node.value();
+        return node != null;
     }
 
     /**
@@ -214,8 +214,7 @@ public class FreedomGroup implements Group
                 .map(n -> new PermissionAttachmentInfo(
                         this,
                         n.key(),
-                        attachment,
-                        n.value()))
+                        attachment, true))
                 .collect(Collectors.toSet());
     }
 
@@ -228,7 +227,7 @@ public class FreedomGroup implements Group
                 .findFirst()
                 .orElse(null);
 
-        return node != null && node.value();
+        return node != null;
     }
 
     @Override

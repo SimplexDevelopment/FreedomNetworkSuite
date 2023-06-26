@@ -40,25 +40,26 @@ public class ContextProvider
 {
     public <T> T fromString(final String string, final Class<T> clazz)
     {
-        return Stream.of(toBoolean(string),
-                             toDouble(string),
-                             toInt(string),
-                             toLong(string),
-                             toFloat(string),
-                             toMaterial(string),
-                             toPlayer(string),
-                             toWorld(string),
-                             toLocation(string),
-                             toCommandSender(string),
-                             toComponent(string))
+        return Stream.of(toBoolean(string, clazz),
+                             toDouble(string, clazz),
+                             toInt(string, clazz),
+                             toLong(string, clazz),
+                             toFloat(string, clazz),
+                             toMaterial(string, clazz),
+                             toPlayer(string, clazz),
+                             toWorld(string, clazz),
+                             toLocation(string, clazz),
+                             toComponent(string, clazz))
                      .filter(Objects::nonNull)
                      .findFirst()
                      .map(clazz::cast)
                      .orElse(null);
     }
 
-    private @Nullable Boolean toBoolean(final String string)
+    private @Nullable Boolean toBoolean(final String string, final Class<?> clazz)
     {
+        if (clazz != Boolean.class) return null;
+
         // Previously we used Boolean#parseBoolean, but that will always return a value and does not throw
         // an exception. This means that if the string is not "true" or "false", it will return false.
         if (string.equalsIgnoreCase("true")) return true;
@@ -67,8 +68,10 @@ public class ContextProvider
         return null;
     }
 
-    private @Nullable Double toDouble(final String string)
+    private @Nullable Double toDouble(final String string, final Class<?> clazz)
     {
+        if (clazz != Double.class) return null;
+
         try
         {
             return Double.parseDouble(string);
@@ -78,8 +81,10 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Integer toInt(final String string)
+    private @Nullable Integer toInt(final String string, final Class<?> clazz)
     {
+        if (clazz != Integer.class) return null;
+
         try
         {
             return Integer.parseInt(string);
@@ -89,8 +94,10 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Long toLong(final String string)
+    private @Nullable Long toLong(final String string, final Class<?> clazz)
     {
+        if (clazz != Long.class) return null;
+
         try
         {
             return Long.parseLong(string);
@@ -100,8 +107,10 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Float toFloat(final String string)
+    private @Nullable Float toFloat(final String string, final Class<?> clazz)
     {
+        if (clazz != Float.class) return null;
+
         try
         {
             return Float.parseFloat(string);
@@ -111,18 +120,21 @@ public class ContextProvider
         }
     }
 
-    private @Nullable Material toMaterial(final String string)
+    private @Nullable Material toMaterial(final String string, final Class<?> clazz)
     {
+        if (clazz != Material.class) return null;
         return Material.matchMaterial(string);
     }
 
-    private @Nullable Player toPlayer(final String string)
+    private @Nullable Player toPlayer(final String string, final Class<?> clazz)
     {
+        if (clazz != Player.class) return null;
         return Bukkit.getPlayer(string);
     }
 
-    private @Nullable World toWorld(final String string)
+    private @Nullable World toWorld(final String string, final Class<?> clazz)
     {
+        if (clazz != World.class) return null;
         return Bukkit.getWorld(string);
     }
 
@@ -135,32 +147,28 @@ public class ContextProvider
      * @return A location object if xyz is valid
      * @see BukkitDelegate#processSubCommands(String[], CommandSender, ContextProvider, Subcommand) 
      */
-    private @Nullable Location toLocation(final String string)
+    private @Nullable Location toLocation(final String string, final Class<?> clazz)
     {
+        if (clazz != Location.class) return null;
+
         final String[] split = string.split(" ");
 
-        if (split.length != 4 || toWorld(split[0]) == null) return null;
+        if (split.length != 4 || toWorld(split[0], World.class) == null) return null;
 
         try {
             final double x = Double.parseDouble(split[1]);
             final double y = Double.parseDouble(split[2]);
             final double z = Double.parseDouble(split[3]);
 
-            return new Location(toWorld(split[0]), x, y, z);
+            return new Location(toWorld(split[0], World.class), x, y, z);
         } catch (NumberFormatException ex) {
             return null;
         }
     }
 
-    private @Nullable CommandSender toCommandSender(final String string)
+    private @Nullable Component toComponent(final String string, final Class<?> clazz)
     {
-        if (toPlayer(string) == null) return null;
-
-        return toPlayer(string);
-    }
-
-    private @NotNull Component toComponent(final String string)
-    {
+        if (clazz != Component.class) return null;
         return Component.text(string);
     }
 }

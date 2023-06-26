@@ -3,6 +3,8 @@ package me.totalfreedom.datura.cmd;
 import me.totalfreedom.command.Commander;
 import me.totalfreedom.command.annotation.Base;
 import me.totalfreedom.command.annotation.Completion;
+import me.totalfreedom.command.annotation.Info;
+import me.totalfreedom.command.annotation.Permissive;
 import me.totalfreedom.command.annotation.Subcommand;
 import me.totalfreedom.utils.Tagged;
 import org.bukkit.World;
@@ -12,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+@Info(name = "clearentities", description = "Clears all entities in the world.", usage = "/<command> [world]",
+    aliases = {"ew", "ce", "entitywipe", "entityclear", "ec"})
+@Permissive(perm = "datura.clearentities")
 public class ClearEntitiesCommand extends Commander
 {
     /**

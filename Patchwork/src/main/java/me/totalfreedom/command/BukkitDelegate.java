@@ -155,6 +155,10 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
             }
 
             final Object obj = provider.fromString(arg, argType);
+            if (obj == null) {
+                FreedomLogger.getLogger("Datura").error("Failed to parse argument " + arg + " for type " + argType.getName());
+                return;
+            }
             objects[i] = obj;
         }
         try

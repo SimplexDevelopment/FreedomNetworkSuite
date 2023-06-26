@@ -7,23 +7,14 @@ import me.totalfreedom.security.NodeType;
 public class PermissionNodeBuilder implements NodeBuilder
 {
     private String key = "freedom.default";
-    private boolean value = true;
     private long expiry = -1;
     private NodeType type = NodeType.PERMISSION;
     private boolean wildcard = false;
-    private boolean negated = false;
 
     @Override
     public NodeBuilder key(final String key)
     {
         this.key = key;
-        return this;
-    }
-
-    @Override
-    public NodeBuilder value(final boolean value)
-    {
-        this.value = value;
         return this;
     }
 
@@ -49,15 +40,8 @@ public class PermissionNodeBuilder implements NodeBuilder
     }
 
     @Override
-    public NodeBuilder negated(final boolean negated)
-    {
-        this.negated = negated;
-        return this;
-    }
-
-    @Override
     public Node build()
     {
-        return new PermissionNode(key, value, expiry, type, wildcard, negated);
+        return new PermissionNode(key, expiry, type, wildcard);
     }
 }
