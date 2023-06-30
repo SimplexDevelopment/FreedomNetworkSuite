@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'me.totalfreedom'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
+    compileOnly "io.projectreactor:reactor-core:3.5.7"
+    implementation "org.jetbrains:annotations:23.0.0"
+    implementation "com.google.errorprone:error_prone_annotations:2.11.0"
+}
+
+var buildOrder = 0;

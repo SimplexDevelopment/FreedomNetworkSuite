@@ -52,19 +52,23 @@ subprojects {
         useJUnitPlatform()
     }
 
-    var weight = -1;
+    var buildOrder = -1;
 
     afterEvaluate {
-        if (weight == -1) {
-            weight = 0
+        if (buildOrder == -1) {
+            buildOrder = 0
         }
     }
 }
 
 tasks.register('buildChain') {
-    dependsOn subprojects.sort {
-        a, b -> a.properties.weight <=> b.properties.weight
+    dependsOn subprojects.sort { a, b ->
+        def buildOrderA = a.hasProperty('buildOrder') ? a.buildOrder : 0
+        def buildOrderB = b.hasProperty('buildOrder') ? b.buildOrder : 0
+
+        buildOrderA <=> buildOrderB
     }.collect {
         ":${it.path}:build"
     }
 }
+

@@ -1,0 +1,7 @@
+name: Obsidian
+version: '${version}'
+main: me.totalfreedom.obsidian.Obsidian
+api-version: '1.20'
+load: STARTUP
+libraries:
+  - io.projectreactor:reactor-core:3.5.4
