@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 @Info(name = "locker", description = "Lock a player, preventing them from interacting with their game client.",
         usage = "/locker <player> <on|off>", aliases = {"lock", "lockup"})
 @Permissive(perm = "datura.locker")
+@Completion(args = {"%player%"}, index = 0)
+@Completion(args = {"on", "off"}, index = 1)
 public final class LockerCommand extends Commander
 {
     public LockerCommand(final @NotNull Datura plugin)
@@ -20,8 +22,6 @@ public final class LockerCommand extends Commander
         super(plugin);
     }
 
-    @Completion(args = {"%player%"}, index = 0)
-    @Completion(args = {"on", "off"}, index = 1)
     @Subcommand(permission = "datura.locker", args = {Player.class, String.class})
     public void lockPlayer(final CommandSender sender, final Player player, final String string)
     {

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * This will register at class level, and does not retain method information. As a result, you only need to register the
  * arguments a single time, and it will always be used in tab completions.
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Repeatable(Completions.class)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Completion

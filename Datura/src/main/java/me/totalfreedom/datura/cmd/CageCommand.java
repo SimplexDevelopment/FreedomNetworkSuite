@@ -37,6 +37,9 @@ import org.jetbrains.annotations.NotNull;
 @Info(name = "cage", description = "Cage a player.",
         usage = "/cage <player> <on|off> [material]")
 @Permissive(perm = "datura.cage")
+@Completion(args = {"%player%"}, index = 0)
+@Completion(args = {"on", "off"}, index = 1)
+@Completion(args = {"[material]"}, index = 2)
 public class CageCommand extends Commander
 {
     protected CageCommand(final @NotNull JavaPlugin plugin)
@@ -44,8 +47,6 @@ public class CageCommand extends Commander
         super(plugin);
     }
 
-    @Completion(args = {"%player%"}, index = 0)
-    @Completion(args = {"on", "off"}, index = 1)
     @Subcommand(permission = "datura.cage", args = {Player.class, String.class})
     public void cagePlayer(final CommandSender sender, final Player player, final String string)
     {
@@ -62,7 +63,6 @@ public class CageCommand extends Commander
         }
     }
 
-    @Completion(args = {"[material]"}, index = 2)
     @Subcommand(permission = "datura.cage.custom", args = {Player.class, String.class, Material.class})
     public void cagePlayer(final CommandSender sender, final Player player, final String string,
                            final Material material)

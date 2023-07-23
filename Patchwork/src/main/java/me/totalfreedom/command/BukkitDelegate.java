@@ -1,5 +1,9 @@
 package me.totalfreedom.command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import me.totalfreedom.command.annotation.Completion;
 import me.totalfreedom.command.annotation.Subcommand;
 import me.totalfreedom.provider.ContextProvider;
@@ -10,24 +14,18 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginIdentifiableCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 /**
  * This class is acts as a delegate between our custom command implementation and the Bukkit API.
  * <br>
  * This class is not meant to be used directly, and is only public to allow for the Bukkit API to access it. As a
  * result, this file will remain undocumented.
- * <span color=#ff0000>
+ * <br>
  * <br>
  * This class is not thread-safe.
  * <br>
@@ -36,7 +34,6 @@ import java.util.Set;
  * This class is not meant to be instantiated.
  * <br>
  * This class is not meant to be used outside Patchwork.
- * </span>
  */
 public final class BukkitDelegate extends Command implements PluginIdentifiableCommand
 {
@@ -101,14 +98,18 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         {
             try
             {
-                if (noConsole) {
+                if (noConsole)
+                {
                     command.getBaseMethod()
-                           .invoke(command, (Player)sender);
-                } else {
+                           .invoke(command, (Player) sender);
+                }
+                else
+                {
                     command.getBaseMethod()
                            .invoke(command, sender);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 FreedomLogger.getLogger("Patchwork")
                              .error(ex);
@@ -142,37 +143,45 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
                     final String[] reasonArgs = Arrays.copyOfRange(args, i, args.length - 1);
                     final String reason = String.join(" ", reasonArgs);
                     objects[i] = reason;
-                } else
+                }
+                else
                 {
                     continue;
                 }
             }
 
-            if (argType.equals(Location.class)) {
+            if (argType.equals(Location.class))
+            {
                 final String[] locationArgs = Arrays.copyOfRange(args, i, i + 3);
                 final String location = String.join(" ", locationArgs);
                 objects[i] = location;
             }
 
             final Object obj = provider.fromString(arg, argType);
-            if (obj == null) {
-                FreedomLogger.getLogger("Datura").error("Failed to parse argument " + arg + " for type " + argType.getName());
+            if (obj == null)
+            {
+                FreedomLogger.getLogger("Datura")
+                             .error("Failed to parse argument " + arg + " for type " + argType.getName());
                 return;
             }
             objects[i] = obj;
         }
         try
         {
-            if (noConsole) {
+            if (noConsole)
+            {
                 command.getSubcommands()
                        .get(node)
-                       .invoke(command, (Player)sender, objects);
-            } else {
+                       .invoke(command, (Player) sender, objects);
+            }
+            else
+            {
                 command.getSubcommands()
                        .get(node)
                        .invoke(command, sender, objects);
             }
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             FreedomLogger.getLogger("Patchwork")
                          .error(ex);
@@ -204,16 +213,16 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
                                                            .map(World::getName)
                                                            .toList());
                     case "%number%" -> results.addAll(List.of(
-                            "0",
-                            "1",
-                            "2",
-                            "3",
-                            "4",
-                            "5",
-                            "6",
-                            "7",
-                            "8",
-                            "9"));
+                        "0",
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9"));
                     case "%location%" -> results.add("world x y z");
                     default -> results.add(p);
                 }

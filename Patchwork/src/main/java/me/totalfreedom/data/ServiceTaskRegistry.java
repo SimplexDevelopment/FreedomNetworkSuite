@@ -284,7 +284,7 @@ public class ServiceTaskRegistry
      * <br>
      * <i>The service should have been registered previously as a <b>ServiceSubscription</b></i>.
      *
-     * @param service The service you are trying to unregister.
+     * @param clazz The service you are trying to unregister.
      * @see #registerService(ServiceSubscription)
      * @see ServiceSubscription
      */

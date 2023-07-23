@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @Info(name = "cleardrops", description = "Clears all item drops in the world" + ".", usage = "/<command>", aliases =
     {"cd", "clearitems", "ci", "wipeitems", "wi", "removedrops", "rd"})
 @Permissive(perm = "datura.cleardrops")
+@Completion(index = 0, args = {"%world%"})
 public class ClearDropsCommand extends Commander
 {
     /**
@@ -70,7 +71,6 @@ public class ClearDropsCommand extends Commander
     }
 
     @Subcommand(permission = "datura.cleardrops", args = {World.class})
-    @Completion(index = 0, args = {"%world%"})
     public void clearDrops(final CommandSender sender, final World world)
     {
         Patchwork.getInstance()

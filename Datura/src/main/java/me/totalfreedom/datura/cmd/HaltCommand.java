@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 @Info(name = "halt", description = "Halt a single player, or every player.", usage = "/<command> <player | all> <on, off>")
 @Permissive(perm = "datura.halt")
+@Completion(index = 0, args = {"%player%", "all"})
+@Completion(index = 1, args = {"on", "off"})
 public class HaltCommand extends Commander
 {
     private final Datura plugin = Shortcuts.provideModule(Datura.class);
@@ -35,9 +37,6 @@ public class HaltCommand extends Commander
         super(plugin);
     }
 
-
-    @Completion(index = 0, args = {"%player%", "all"})
-    @Completion(index = 1, args = {"on", "off"})
     @Subcommand(permission = "datura.halt", args = {Player.class, String.class})
     public void haltPlayer(final CommandSender sender, final Player target, final String toggle)
     {
@@ -58,7 +57,6 @@ public class HaltCommand extends Commander
         }
     }
 
-    // No completion needed here since it's already registered.
     @Subcommand(permission = "datura.halt.all", args = {String.class, String.class})
     public void haltAll(final CommandSender sender, final String all, final String toggle)
     {

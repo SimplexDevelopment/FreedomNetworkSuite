@@ -1,9 +1,7 @@
 package me.totalfreedom.shop;
 
-import me.totalfreedom.display.BossBarDisplay;
-import net.kyori.adventure.text.Component;
-
 import java.time.Duration;
+import net.kyori.adventure.text.Component;
 
 /**
  * Represents a chat reaction that can be performed by a player.
@@ -58,11 +56,5 @@ public abstract class Reaction implements Reactable
     public ReactionType getReactionType()
     {
         return reactionType;
-    }
-
-    @Override
-    public BossBarDisplay getBossBarDisplay()
-    {
-
     }
 }

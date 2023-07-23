@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 @Info(name = "clearentities", description = "Clears all entities in the world.", usage = "/<command> [world]",
     aliases = {"ew", "ce", "entitywipe", "entityclear", "ec"})
 @Permissive(perm = "datura.clearentities")
+@Completion(index = 0, args = {"%world%"})
 public class ClearEntitiesCommand extends Commander
 {
     /**
@@ -57,7 +58,6 @@ public class ClearEntitiesCommand extends Commander
     }
 
     @Subcommand(permission = "datura.clearentities", args = {World.class})
-    @Completion(index = 0, args = {"%world%"})
     public void clearEntities(final CommandSender sender, final World world)
     {
         int i = 0;

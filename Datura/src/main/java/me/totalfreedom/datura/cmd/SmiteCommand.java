@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Info(name = "smite", description = "Smite a player.", usage = "/smite <player>", aliases = {"sm"})
 @Permissive(perm = "datura.smite")
+@Completion(index = 0, args = {"%player%"})
 public class SmiteCommand extends Commander
 {
     /**
@@ -30,7 +31,6 @@ public class SmiteCommand extends Commander
     }
 
     @Subcommand(permission = "datura.smite", args = {Player.class})
-    @Completion(index = 0, args = {"%player%"})
     public void smite(final CommandSender sender, final Player player)
     {
         final double size = 5D;

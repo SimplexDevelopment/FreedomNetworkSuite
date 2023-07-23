@@ -20,6 +20,9 @@ import org.jetbrains.annotations.NotNull;
 @Info(name = "manageuser", description = "Manage a user's permissions", usage = "/manageuser <username> <info | (add "
     + "| remove <permission>)>", aliases = {"mu", "userdata", "ud", "usermanager", "um"})
 @Permissive(perm = "datura.manageuser")
+@Completion(index = 0, args = {"%player%"})
+@Completion(index = 1, args = {"info", "add", "remove"})
+@Completion(index = 2, args = {"<permission>"})
 public class ManageUserCommand extends Commander
 {
 
@@ -38,9 +41,6 @@ public class ManageUserCommand extends Commander
     }
 
     @Subcommand(permission = "datura.manageuser", args = {Player.class, String.class, String.class, Long.class})
-    @Completion(index = 0, args = {"%player%"})
-    @Completion(index = 1, args = {"info", "add", "remove"})
-    @Completion(index = 2, args = {"<permission>"})
     public void manageUser(final CommandSender sender, final Player player, final String addOrRemove,
                            final String permission, final long duration)
     {

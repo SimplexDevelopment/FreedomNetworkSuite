@@ -78,6 +78,7 @@ public class DisplayableView extends InventoryView
     }
 
     @Override
+    @Deprecated(forRemoval = true, since = "1.16")
     public @NotNull String getTitle()
     {
         return title;

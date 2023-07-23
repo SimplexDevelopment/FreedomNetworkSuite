@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 /**
  * A marker interface which represents a holder for multiple {@link Completion} annotations.
  * <br>
- * <u>This interface is <span color=#ff0000><b>NOT</b></span> intended for implementation and should
- * <span color=#ff0000><b>NOT</b></span> be used.</u>
+ * <u>This interface is <b>NOT</b> intended for implementation and should
+ * <b>NOT</b> be used.</u>
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Completions
 {

@@ -56,7 +56,7 @@ public interface Trail
      *
      * @return The color of the trail, or null if the trail is a gradient or non-colorable.
      * @see Particle
-     * @see #getColors();
+     * @see #getColors()
      */
     @Nullable
     Color getColor();

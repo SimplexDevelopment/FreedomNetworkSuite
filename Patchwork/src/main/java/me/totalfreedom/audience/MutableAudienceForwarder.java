@@ -1,5 +1,9 @@
 package me.totalfreedom.audience;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.chat.ChatType;
@@ -13,13 +17,8 @@ import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
 /**
- * A replacement for {@link net.kyori.adventure.audience.ForwardingAudience} that allows for audiences to be removed &
+ * A replacement for {@link net.kyori.adventure.audience.ForwardingAudience} that allows for audiences to be removed and
  * added at will. Not thread safe.
  * <p>
  * This is intended for use in toggleable logging systems, for example, potion spy.
