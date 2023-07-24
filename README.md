@@ -18,7 +18,7 @@
 
 #####
 
-![Header Image](https://media.discordapp.net/attachments/436759124953399296/1107175759941996544/20230514_002037_0000.png)
+![Header Image](https://simplexdev.app/images/fns-content/fnslogo.png)
 
 ###
 
