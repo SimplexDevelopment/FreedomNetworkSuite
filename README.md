@@ -18,7 +18,9 @@
 
 #####
 
-![Header Image](https://simplexdev.app/images/fns-content/fnslogo.png)
+<p align="center">
+  <img src="https://simplexdev.app/images/fns-content/fnslogo-icon.png" width=175 height=175 alt="FNS Logo">
+</p>
 
 ###
 
@@ -40,7 +42,7 @@
 ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
 ![TFM Used](https://img.shields.io/static/v1?label=TFM%20Code%20Used&message=0%25&color=red&style=for-the-badge&logo=tensorflow)
 
-# FreedomNetworkSuite
+# ![Header Image](https://simplexdev.app/images/fns-content/fnslogo.png)
 
 This is a proof of concept for a new suite of modules supported by a common library.
 This is designed to encompass the ideologies of a Freedom server, while maintaining full customization through modules.
