@@ -1,6 +1,7 @@
 package me.totalfreedom.datura;
 
 import me.totalfreedom.base.Patchwork;
+import me.totalfreedom.datura.features.Fuckoff;
 import me.totalfreedom.datura.punishment.Cager;
 import me.totalfreedom.datura.punishment.Halter;
 import me.totalfreedom.datura.punishment.Locker;
@@ -15,7 +16,7 @@ public class Datura extends JavaPlugin
     private final Halter halter = new Halter();
     private final Locker locker = new Locker();
     private final Cager cager = new Cager();
-
+    private final Fuckoff fuckoff = new Fuckoff();
 
     @Override
     public void onEnable()
@@ -33,6 +34,10 @@ public class Datura extends JavaPlugin
                  .getRegistrations()
                  .getServiceTaskRegistry()
                  .registerService(SubscriptionProvider.syncService(this, cager));
+        Patchwork.getInstance()
+                .getRegistrations()
+                .getServiceTaskRegistry()
+                .registerService(SubscriptionProvider.syncService(this, fuckoff));
 
         Bukkit.getPluginManager()
               .registerEvents(halter, this);
@@ -56,5 +61,9 @@ public class Datura extends JavaPlugin
     public Cager getCager()
     {
         return cager;
+    }
+
+    public Fuckoff getFuckoff() {
+        return fuckoff;
     }
 }
