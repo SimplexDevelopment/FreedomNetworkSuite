@@ -35,7 +35,7 @@ public class ManageUserCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected ManageUserCommand(final @NotNull JavaPlugin plugin)
+    public ManageUserCommand(final @NotNull JavaPlugin plugin)
     {
         super(plugin);
     }

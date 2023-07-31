@@ -36,7 +36,7 @@ public class ClearDropsCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected ClearDropsCommand(final @NotNull JavaPlugin plugin)
+    public ClearDropsCommand(final @NotNull JavaPlugin plugin)
     {
         super(plugin);
     }

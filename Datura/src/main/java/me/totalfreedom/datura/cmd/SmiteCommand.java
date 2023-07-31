@@ -25,7 +25,7 @@ public class SmiteCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected SmiteCommand(@NotNull final JavaPlugin plugin)
+    public SmiteCommand(@NotNull final JavaPlugin plugin)
     {
         super(plugin);
     }
