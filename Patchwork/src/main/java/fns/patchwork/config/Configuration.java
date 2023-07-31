@@ -25,11 +25,13 @@ package fns.patchwork.config;
 
 import fns.patchwork.api.Context;
 import fns.patchwork.provider.ContextProvider;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a configuration file of any type.
@@ -132,14 +134,13 @@ public interface Configuration
     /**
      * Gets the value at the given path as the given type.
      * <p>
-     * This method will use {@link Context}s and the {@link ContextProvider} to get the object type. If the object type
-     * cannot be inferred, the method will return a generic {@link Object}.
+     * This method will use {@link Context}s and the {@link ContextProvider} to get the object type.
      *
      * @param path The path to get the value from.
      * @param <T>  The type of the value.
-     * @return The value at the given path.
+     * @return An optional containing the value at the given path if it is present or the type could not be inferred.
      */
-    <T> T get(String path);
+    <T> Optional<T> get(String path);
 
     /**
      * Gets the value at the given path as the given type.
