@@ -153,7 +153,8 @@ public interface Configuration
      * @param path     The path to get the value from.
      * @param fallback The fallback value to return if the value at the given path is null.
      * @param <T>      The type of the value.
+     * @param clazz The class of the type.
      * @return The value at the given path.
      */
-    <T> T getOrDefault(String path, T fallback);
+    <T> T getOrDefault(String path, Class<T> clazz, T fallback);
 }
