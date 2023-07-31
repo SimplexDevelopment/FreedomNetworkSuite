@@ -78,8 +78,8 @@ public interface Configuration
 
     /**
      * Gets a List object from the associated path. This method will use {@link Context}s and the
-     * {@link ContextProvider} to get the object types in the list. If the objects cannot be inferred, the method will
-     * return a list of generic {@link Object}s.
+     * {@link ContextProvider} to get the object types in the list. If the stored objects cannot be deciphered,
+     * the method will return an empty list.
      *
      * @param path The path to get the List from.
      * @param <T>  The type of the objects in the list.
