@@ -142,7 +142,7 @@ public interface Configuration
      * @aram clazz The class of the type.
      * @return An optional containing the value at the given path if it is present or the type could not be inferred.
      */
-    <T> Optional<T> get(String path, final Class<T> clazz);
+    <T> Optional<T> get(String path, Class<T> clazz);
 
     /**
      * Gets the value at the given path as the given type.
