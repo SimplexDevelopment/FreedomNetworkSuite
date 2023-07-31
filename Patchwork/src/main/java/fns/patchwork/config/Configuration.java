@@ -85,6 +85,7 @@ public interface Configuration
      *
      * @param path The path to get the List from.
      * @param <T>  The type of the objects in the list.
+     * @param clazz The class of the type.
      * @return The List object.
      */
     <T> @Unmodifiable List<T> getList(String path, Class<T> clazz);
