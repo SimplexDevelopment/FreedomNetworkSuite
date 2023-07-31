@@ -15,7 +15,8 @@ public final class WrappedBukkitConfiguration implements Configuration
     private final FileConfiguration fileConfiguration;
     private final File file;
 
-    public WrappedBukkitConfiguration(Function<File, FileConfiguration> configurationCreator, File file) {
+    public WrappedBukkitConfiguration(Function<File, FileConfiguration> configurationCreator, File file)
+    {
         this.fileConfiguration = configurationCreator.apply(file);
         this.file = file;
     }
