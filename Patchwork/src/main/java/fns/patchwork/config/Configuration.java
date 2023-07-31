@@ -67,12 +67,12 @@ public interface Configuration
     String getString(String path);
 
     /**
-     * Gets a Boolean object from the associated path.
+     * Gets a boolean primitive from the associated path.
      *
-     * @param path The path to get the Boolean from.
-     * @return The Boolean object.
+     * @param path The path to get the boolean from.
+     * @return The boolean primitive.
      */
-    Boolean getBoolean(String path);
+    boolean getBoolean(String path);
 
     /**
      * Gets a List object from the associated path. This method will use {@link Context}s and the
@@ -95,28 +95,28 @@ public interface Configuration
     List<String> getStringList(String path);
 
     /**
-     * Gets an Integer from the associated path.
+     * Gets an int from the associated path.
      *
-     * @param path The path to get the Integer from.
-     * @return The Integer object.
+     * @param path The path to get the int from.
+     * @return The int primitive.
      */
-    Integer getInt(String path);
+    int getInt(String path);
 
     /**
-     * Gets a Long from the associated path.
+     * Gets a long from the associated path.
      *
-     * @param path The path to get the Long from.
-     * @return The Long object.
+     * @param path The path to get the long from.
+     * @return The long primitive.
      */
-    Long getLong(String path);
+    long getLong(String path);
 
     /**
-     * Gets a Double from the associated path.
+     * Gets a double from the associated path.
      *
-     * @param path The path to get the Double from.
-     * @return The Double object.
+     * @param path The path to get the double from.
+     * @return The double primitive.
      */
-    Double getDouble(String path);
+    double getDouble(String path);
 
     /**
      * Sets the value at the given path to the given value.
