@@ -85,7 +85,7 @@ public interface Configuration
      * @param <T>  The type of the objects in the list.
      * @return The List object.
      */
-    <T> @Unmodifiable List<T> getList(String path);
+    <T> @Unmodifiable List<T> getList(String path, Class<T> clazz);
 
     /**
      * Gets a List object from the associated path. The List that is returned will be the String values which are stored
