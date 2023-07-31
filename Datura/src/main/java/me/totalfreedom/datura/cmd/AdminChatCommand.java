@@ -26,7 +26,7 @@ public class AdminChatCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected AdminChatCommand(@NotNull final JavaPlugin plugin)
+    public AdminChatCommand(@NotNull final JavaPlugin plugin)
     {
         super(plugin);
     }

@@ -29,7 +29,7 @@ public class ClearEntitiesCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected ClearEntitiesCommand(final @NotNull JavaPlugin plugin)
+    public ClearEntitiesCommand(final @NotNull JavaPlugin plugin)
     {
         super(plugin);
     }

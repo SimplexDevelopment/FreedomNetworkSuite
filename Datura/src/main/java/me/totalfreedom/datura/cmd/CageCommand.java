@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 @Completion(args = {"[material]"}, index = 2)
 public class CageCommand extends Commander
 {
-    protected CageCommand(final @NotNull JavaPlugin plugin)
+    public CageCommand(final @NotNull JavaPlugin plugin)
     {
         super(plugin);
     }

@@ -32,7 +32,7 @@ public class HaltCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected HaltCommand(@NotNull final JavaPlugin plugin)
+    public HaltCommand(@NotNull final JavaPlugin plugin)
     {
         super(plugin);
     }
