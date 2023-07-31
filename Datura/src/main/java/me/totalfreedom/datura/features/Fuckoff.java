@@ -40,11 +40,11 @@ public class Fuckoff extends Service
                 continue;
             }
 
-            pushOfPlayers(player, entry.getValue());
+            pushPlayers(player, entry.getValue());
         }
     }
 
-    private void pushOfPlayers(@NotNull final Player player, final int radius)
+    private void pushPlayers(@NotNull final Player player, final int radius)
     {
         Bukkit.getOnlinePlayers()
                 .stream()
