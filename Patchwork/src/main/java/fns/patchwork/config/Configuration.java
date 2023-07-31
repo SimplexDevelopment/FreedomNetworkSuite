@@ -139,7 +139,7 @@ public interface Configuration
      *
      * @param path The path to get the value from
      * @param <T>  The type of the value.
-     * @aram clazz The class of the type.
+     * @param clazz The class of the type.
      * @return An optional containing the value at the given path if it is present or the type could not be inferred.
      */
     <T> Optional<T> get(String path, Class<T> clazz);
