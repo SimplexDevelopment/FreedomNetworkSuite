@@ -34,7 +34,7 @@ public class FuckoffCommand extends Commander
     @Subcommand(permission = "datura.fuckoff", args = {String.class})
     public void fuckOff(final CommandSender sender, final String toggle)
     {
-        execute(sender, toggle, 3);
+        execute(sender, toggle, 15);
     }
 
     @Subcommand(permission = "datura.fuckoff", args = {String.class, Integer.class})
