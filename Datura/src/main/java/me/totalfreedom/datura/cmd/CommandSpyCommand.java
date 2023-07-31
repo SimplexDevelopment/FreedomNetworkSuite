@@ -24,7 +24,7 @@ public class CommandSpyCommand extends Commander
      *
      * @param plugin The plugin which contains this command.
      */
-    protected CommandSpyCommand(@NotNull JavaPlugin plugin)
+    public CommandSpyCommand(@NotNull JavaPlugin plugin)
     {
         super(plugin);
     }
