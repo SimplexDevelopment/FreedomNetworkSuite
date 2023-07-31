@@ -40,19 +40,19 @@ public class Fuckoff extends Service
                 continue;
             }
 
-            pushOfPlayers(player);
+            pushOfPlayers(player, entry.getValue());
         }
     }
 
-    private void pushOfPlayers(@NotNull final Player player)
+    private void pushOfPlayers(@NotNull final Player player, final int radius)
     {
         Bukkit.getOnlinePlayers()
                 .stream()
-                .filter(onlinePlayer -> onlinePlayer.getLocation().distanceSquared(player.getLocation()) < (3 * 3))
+                .filter(onlinePlayer -> onlinePlayer.getLocation().distanceSquared(player.getLocation()) < (radius * radius))
                 .forEach(onlinePlayer -> {
                     onlinePlayer.setVelocity(
                             player.getLocation().toVector()
-                                    .add(onlinePlayer.getLocation().toVector()).normalize().multiply(3)
+                                    .add(onlinePlayer.getLocation().toVector()).normalize().multiply(radius)
                     );
         });
     }
