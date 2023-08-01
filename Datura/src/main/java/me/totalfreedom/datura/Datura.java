@@ -1,6 +1,7 @@
 package me.totalfreedom.datura;
 
 import me.totalfreedom.base.Patchwork;
+import me.totalfreedom.datura.features.Fuckoff;
 import me.totalfreedom.datura.features.CommandSpy;
 import me.totalfreedom.datura.punishment.Cager;
 import me.totalfreedom.datura.punishment.Halter;
@@ -21,6 +22,7 @@ public class Datura extends JavaPlugin
 
     // Features
     private final CommandSpy commandSpy = new CommandSpy();
+    private final Fuckoff fuckoff = new Fuckoff();
 
     @Override
     public void onEnable()
@@ -38,6 +40,10 @@ public class Datura extends JavaPlugin
                  .getRegistrations()
                  .getServiceTaskRegistry()
                  .registerService(SubscriptionProvider.syncService(this, cager));
+        Patchwork.getInstance()
+                .getRegistrations()
+                .getServiceTaskRegistry()
+                .registerService(SubscriptionProvider.syncService(this, fuckoff));
 
         Bukkit.getPluginManager()
               .registerEvents(halter, this);
@@ -65,7 +71,13 @@ public class Datura extends JavaPlugin
         return cager;
     }
 
-    public CommandSpy getCommandSpy() {
+    public CommandSpy getCommandSpy() 
+    {
         return commandSpy;
+    }
+
+    public Fuckoff getFuckoff() 
+    {
+        return fuckoff;
     }
 }
