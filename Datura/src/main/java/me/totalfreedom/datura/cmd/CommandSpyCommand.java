@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 @Info(name = "commandspy", description = "Spy on commands executed by players.", usage = "/commandspy")
-@Permissive(perm = "datura.commandspy")
+@Permissive(perm = "datura.commandspy", onlyPlayers = true)
 public class CommandSpyCommand extends Commander
 {
 
@@ -30,18 +30,12 @@ public class CommandSpyCommand extends Commander
     }
 
     @Base
-    public void commandSpy(final CommandSender sender)
+    public void commandSpy(final Player sender)
     {
-        if (!(sender instanceof Player))
-        {
-            sender.sendPlainMessage("You have to be a player to perform this command.");
-            return;
-        }
-
         final var commandSpy = ((Datura) getPlugin()).
                 getCommandSpy();
 
-        final var uuid = ((Player) sender).
+        final var uuid = sender.
                 getUniqueId();
 
         if (commandSpy.isSpying(uuid))
