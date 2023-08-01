@@ -74,7 +74,7 @@ This proof-of-concept also uses the following libraries:
 
 # To Do List
 
-Patchwork:
+Patchwork (API):
 
 - [x] Logging System
 - [x] SQL API
@@ -88,7 +88,7 @@ Patchwork:
 - [ ] Configuration API *(In Progress...)*
 - [ ] Event API *(In Progress...)*
 
-Datura:
+Datura (Data Manager):
 
 - [ ] Permission Handling *(In Progress...)*
 - [ ] Permission Registration & Assignment *(In Progress...)*
@@ -97,7 +97,7 @@ Datura:
 - [ ] User Data Implementations *(In Progress...)*
 - [x] Punishment Systems (e.x. Locker, Halter, Cager)
 
-Fossil:
+Fossil (Entertainment):
 
 - [x] Economy Implementation
 - [ ] Particle Implementation / Trails *(In Progress...)*
@@ -106,7 +106,7 @@ Fossil:
 - [ ] Chat reaction / game system
 - [ ] Jumppads
 
-Corvo:
+Corvo (Scheduling and Listening Service):
 
 - [ ] Service Implementation
 - [ ] Service Handling
