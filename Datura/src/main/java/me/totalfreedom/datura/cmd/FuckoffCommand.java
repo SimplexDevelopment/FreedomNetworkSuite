@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 @Info(name = "fuckoff", description = "You'll never even see it coming - repeatedly push players away from you until command is untoggled.", usage = "/fuckoff <on|off> [radius]")
-@Permissive(perm = "datura.fuckoff")
+@Permissive(perm = "datura.fuckoff", onlyPlayers = true)
 @Completion(args = {"on", "off"}, index = 0)
 @Completion(args = {"[radius]"}, index = 1)
 public class FuckoffCommand extends Commander
@@ -32,36 +32,29 @@ public class FuckoffCommand extends Commander
     }
 
     @Subcommand(permission = "datura.fuckoff", args = {String.class})
-    public void fuckOff(final CommandSender sender, final String toggle)
+    public void fuckOff(final Player sender, final String toggle)
     {
         execute(sender, toggle, 15);
     }
 
     @Subcommand(permission = "datura.fuckoff", args = {String.class, Integer.class})
-    public void fuckOff(final CommandSender sender, final String toggle, final Integer radius)
+    public void fuckOff(final Player sender, final String toggle, final Integer radius)
     {
         execute(sender, toggle, radius);
     }
 
-    private void execute(final CommandSender sender, final String toggle, final int radius)
+    private void execute(final Player sender, final String toggle, final int radius)
     {
-        if (!(sender instanceof Player))
-        {
-            sender.sendPlainMessage("You have to be a player to perform this command.");
-            return;
-        }
-        final var player = (Player) sender;
-
         if (toggle.equalsIgnoreCase("on"))
         {
             plugin.getFuckoff().
-                    add(player, radius);
+                    add(sender, radius);
 
             sender.sendPlainMessage("FuckOff enabled.");
         } else if (toggle.equalsIgnoreCase("off"))
         {
             plugin.getFuckoff().
-                    remove(player);
+                    remove(sender);
 
             sender.sendPlainMessage("FuckOff disabled.");
         }
