@@ -71,6 +71,8 @@ This proof-of-concept also uses the following libraries:
 [<img src="https://img.shields.io/static/v1?label=Developer&message=Video&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/VideoGameSmash12)
 <br />
 [<img src="https://img.shields.io/static/v1?label=Developer&message=Allink&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/allinkdev)
+<br />
+[<img src="https://img.shields.io/static/v1?label=Developer&message=EnZaXD&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/FlorianMichael)
 
 # To Do List
 
