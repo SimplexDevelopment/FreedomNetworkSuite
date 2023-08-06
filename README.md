@@ -44,16 +44,17 @@
 
 # ![Header Image](https://simplexdev.app/images/fns-content/fnslogo.png)
 
-This is a proof of concept for a new suite of modules supported by a common library.
+This project is a collection of plugins supported by a common library designed for creative-based freedom servers (servers which grant generous amounts of permission nodes to all players.)
 This is designed to encompass the ideologies of a Freedom server, while maintaining full customization through modules.
-This is a ground up rewrite of [TotalFreedomMod].
+Most modules are designed to be either optional or interchangable, except Patchwork (API) and Datura (Data Manager). These two are required to run any of the other modules.
+This is NOT a ground up rewrite of [TotalFreedomMod]. This is a completely new project designed to be entirely ambiguous.
 <br>
 <br>
 Honorable mention:
 <br>
 [<img src="https://img.shields.io/static/v1?label=Plex&message=A%20New%20Freedom%20Plugin&color=4285F4&style=flat-square&logo=plex)">](https://github.com/plexusorg/Plex)
 
-This proof-of-concept also uses the following libraries:
+This plugin suite also uses the following libraries:
 
 - [Google GSON] for Json interpretation
 - [Jetbrains Annotations] for additional compiler annotations
@@ -92,8 +93,8 @@ Patchwork (API):
 
 Datura (Data Manager):
 
-- [ ] Permission Handling *(In Progress...)*
-- [ ] Permission Registration & Assignment *(In Progress...)*
+- [x] Permission Handling
+- [x] Permission Registration & Assignment
 - [ ] SQL Data Handling *(In Progress...)*
 - [ ] Configuration Implementations
 - [ ] User Data Implementations *(In Progress...)*
