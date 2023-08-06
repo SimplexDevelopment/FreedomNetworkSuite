@@ -27,9 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * You are allowed to have as many methods as you want which are annotated with the {@link Subcommand} annotation. These
  * methods will be called when the command is executed with the specified subcommand.
  * <br>
- * You are also allowed to use multiple {@link Completion} annotations per method to define multiple tab completions for
- * a single subcommand. This would be useful in the case where you would like to include specific completion cases, but
- * also support basic String completion cases.
+ * You are also allowed to use multiple {@link Completion} annotations per class to define the tab completions for each method. 
  * <br>
  * When creating {@link Completion} annotations, you only need to register arguments a single time per class. For more
  * information, see {@link Subcommand}.
