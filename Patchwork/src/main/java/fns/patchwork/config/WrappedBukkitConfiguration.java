@@ -23,18 +23,19 @@
 
 package fns.patchwork.config;
 
+import fns.patchwork.provider.ContextProvider;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 public final class WrappedBukkitConfiguration implements Configuration
 {
+    private final ContextProvider contextProvider = new ContextProvider();
     private final FileConfiguration fileConfiguration;
     private final File file;
 
@@ -95,8 +96,7 @@ public final class WrappedBukkitConfiguration implements Configuration
     @Override
     public <T> List<T> getList(String path, Class<T> clazz)
     {
-        // TODO: Implement when the ContextProvider system is fully fleshed out and flexible enough to deal with configuration types
-        return Collections.emptyList();
+        return this.contextProvider.getList(this.getStringList(path), clazz);
     }
 
     @Override
@@ -132,8 +132,7 @@ public final class WrappedBukkitConfiguration implements Configuration
     @Override
     public <T> Optional<T> get(String path, Class<T> clazz)
     {
-        // TODO: Implement when the ContextProvider system is fully fleshed out and flexible enough to deal with configuration types
-        return Optional.empty();
+        return Optional.ofNullable(this.contextProvider.fromString(path, clazz));
     }
 
     @Override
