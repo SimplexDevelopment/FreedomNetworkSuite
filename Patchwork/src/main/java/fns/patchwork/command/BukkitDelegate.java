@@ -24,6 +24,8 @@
 package fns.patchwork.command;
 
 import fns.patchwork.command.annotation.Completion;
+import fns.patchwork.command.annotation.Info;
+import fns.patchwork.command.annotation.Permissive;
 import fns.patchwork.command.annotation.Subcommand;
 import fns.patchwork.provider.ContextProvider;
 import fns.patchwork.utils.logging.FreedomLogger;
@@ -68,20 +70,19 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
     {
         super(command.getInfo()
                      .name());
+
+        final Info info = command.getInfo();
+        final Permissive perms = command.getPerms();
+
         this.command = command;
         this.plugin = command.getPlugin();
-        this.setDescription(command.getInfo()
-                                   .description());
-        this.setUsage(command.getInfo()
-                             .usage());
-        this.setPermission(command.getPerms()
-                                  .perm());
-        this.setAliases(Arrays.asList(command.getInfo()
-                                             .aliases()));
-        this.permissionMessage(Component.text(command.getPerms()
-                                                     .noPerms()));
-        this.noConsole = command.getPerms()
-                                .onlyPlayers();
+        this.setLabel(info.name());
+        this.setDescription(info.description());
+        this.setUsage(info.usage());
+        this.setPermission(perms.perm());
+        this.setAliases(Arrays.asList(info.aliases()));
+        this.permissionMessage(Component.text(perms.noPerms()));
+        this.noConsole = perms.onlyPlayers();
     }
 
     @Override
@@ -216,6 +217,16 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
     {
         final Set<Completion> completions = command.getCompletions();
         final List<String> results = new ArrayList<>();
+
+        if (args.length == 0)
+        {
+            results.addAll(getAliases());
+            results.add(getLabel());
+            return results.stream()
+                          .filter(s -> s.startsWith(alias))
+                          .toList();
+        }
+
         for (final Completion completion : completions)
         {
             if (completion.index() != args.length)
