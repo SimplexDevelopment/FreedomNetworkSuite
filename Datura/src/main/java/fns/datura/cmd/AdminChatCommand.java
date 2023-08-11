@@ -1,6 +1,7 @@
 package fns.datura.cmd;
 
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.command.Commander;
 import fns.patchwork.command.annotation.Base;
 import fns.patchwork.command.annotation.Info;
@@ -38,11 +39,11 @@ public class AdminChatCommand extends Commander
 
         final Player player = (Player) sender;
 
-        Patchwork.getInstance()
+        Shortcuts.provideModule(Patchwork.class)
                  .getAdminChatDisplay()
                  .toggleChat(player);
 
-        final boolean toggled = Patchwork.getInstance()
+        final boolean toggled = Shortcuts.provideModule(Patchwork.class)
                                          .getAdminChatDisplay()
                                          .isToggled(player);
 
@@ -57,7 +58,7 @@ public class AdminChatCommand extends Commander
     @Subcommand(permission = "patchwork.adminchat", args = {String.class})
     public void sendMessage(final CommandSender sender, final String message)
     {
-        Patchwork.getInstance()
+        Shortcuts.provideModule(Patchwork.class)
                  .getAdminChatDisplay()
                  .adminChatMessage(sender, Component.text(message));
     }

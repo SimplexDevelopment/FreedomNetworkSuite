@@ -1,6 +1,7 @@
 package fns.datura.sql;
 
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.sql.SQL;
 import fns.patchwork.utils.container.Identity;
 import java.sql.Connection;
@@ -74,7 +75,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to prepare statement: "
                                 + query + "\n", ex);
                     }
-                }, Patchwork.getInstance()
+                }, Shortcuts.provideModule(Patchwork.class)
                             .getExecutor()
                             .getAsync());
     }
@@ -91,7 +92,7 @@ public class MySQL implements SQL
                 throw new CompletionException("Failed to connect to the database: "
                         + url.toString() + "\n", ex);
             }
-        }, Patchwork.getInstance()
+        }, Shortcuts.provideModule(Patchwork.class)
                     .getExecutor()
                     .getAsync());
     }
@@ -111,7 +112,7 @@ public class MySQL implements SQL
                                 "Failed to retrieve a result set from query: "
                                         + query + "\n", ex);
                     }
-                }, Patchwork.getInstance()
+                }, Shortcuts.provideModule(Patchwork.class)
                             .getExecutor()
                             .getAsync());
     }
@@ -130,7 +131,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to execute update: "
                                 + query + "\n", ex);
                     }
-                }, Patchwork.getInstance()
+                }, Shortcuts.provideModule(Patchwork.class)
                             .getExecutor()
                             .getAsync());
     }
@@ -149,7 +150,7 @@ public class MySQL implements SQL
                         throw new CompletionException("Failed to execute statement: "
                                 + query + "\n", ex);
                     }
-                }, Patchwork.getInstance()
+                }, Shortcuts.provideModule(Patchwork.class)
                             .getExecutor()
                             .getAsync());
     }
@@ -193,7 +194,7 @@ public class MySQL implements SQL
                                 ex);
                     }
                     return null;
-                }, Patchwork.getInstance()
+                }, Shortcuts.provideModule(Patchwork.class)
                             .getExecutor()
                             .getAsync());
     }
@@ -202,7 +203,7 @@ public class MySQL implements SQL
                                                    final String key, final Identity identity)
     {
         return executeUpdate("UPDATE ? SET ? = ? WHERE ? = ?", table, column, value, key, identity.getId())
-                .thenApplyAsync(result -> result > 0, Patchwork.getInstance()
+                .thenApplyAsync(result -> result > 0, Shortcuts.provideModule(Patchwork.class)
                                                                .getExecutor()
                                                                .getAsync());
     }
@@ -210,7 +211,7 @@ public class MySQL implements SQL
     public CompletableFuture<Boolean> deleteRow(final String table, final String key, final Identity identity)
     {
         return executeUpdate("DELETE FROM ? WHERE ? = ?", table, key, identity.getId())
-                .thenApplyAsync(result -> result > 0, Patchwork.getInstance()
+                .thenApplyAsync(result -> result > 0, Shortcuts.provideModule(Patchwork.class)
                                                                .getExecutor()
                                                                .getAsync());
     }

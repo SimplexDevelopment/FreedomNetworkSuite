@@ -1,6 +1,7 @@
 package fns.datura.punishment;
 
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.service.Service;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class Locker extends Service
     @Override
     public void tick()
     {
-        lockedPlayers.removeIf(uuid -> !Patchwork.getInstance()
+        lockedPlayers.removeIf(uuid -> !Shortcuts.provideModule(Patchwork.class)
                                                  .getServer()
                                                  .getOfflinePlayer(uuid)
                                                  .isOnline());

@@ -11,53 +11,44 @@ import fns.patchwork.data.UserRegistry;
  * This class is a holder for each registry in the data package.
  * <br>
  * Registries such as {@link ModuleRegistry} and {@link ServiceTaskRegistry} can be found as final objects in this
- * class. These registries should only ever be accessed through the single Registration object in CommonsBase using
- * {@link Patchwork#getRegistrations()}
+ * class.
  */
 public class Registration
 {
     /**
      * The {@link EventRegistry}
      */
-    private final EventRegistry eventRegistry;
+    private static final EventRegistry eventRegistry = new EventRegistry();
     /**
      * The {@link UserRegistry}
      */
-    private final UserRegistry userRegistry;
+    private static final UserRegistry userRegistry = new UserRegistry();
     /**
      * The {@link ServiceTaskRegistry}
      */
-    private final ServiceTaskRegistry serviceTaskRegistry;
+    private static final ServiceTaskRegistry serviceTaskRegistry = new ServiceTaskRegistry();
     /**
      * The {@link ModuleRegistry}
      */
-    private final ModuleRegistry moduleRegistry;
+    private static final ModuleRegistry moduleRegistry = new ModuleRegistry();
     /**
      * The {@link GroupRegistry}
      */
-    private final GroupRegistry groupRegistry;
+    private static final GroupRegistry groupRegistry = new GroupRegistry();
     /**
      * The {@link ConfigRegistry}
      */
-    private final ConfigRegistry configRegistry;
+    private static final ConfigRegistry configRegistry = new ConfigRegistry();
 
-    /**
-     * Constructs a new Registration object and initializes all registries.
-     */
-    Registration()
+    private Registration()
     {
-        this.eventRegistry = new EventRegistry();
-        this.userRegistry = new UserRegistry();
-        this.serviceTaskRegistry = new ServiceTaskRegistry();
-        this.moduleRegistry = new ModuleRegistry();
-        this.groupRegistry = new GroupRegistry();
-        this.configRegistry = new ConfigRegistry();
+        throw new AssertionError();
     }
 
     /**
      * @return The {@link ModuleRegistry}
      */
-    public ModuleRegistry getModuleRegistry()
+    public static ModuleRegistry getModuleRegistry()
     {
         return moduleRegistry;
     }
@@ -65,7 +56,7 @@ public class Registration
     /**
      * @return The {@link EventRegistry}
      */
-    public EventRegistry getEventRegistry()
+    public static EventRegistry getEventRegistry()
     {
         return eventRegistry;
     }
@@ -73,7 +64,7 @@ public class Registration
     /**
      * @return The {@link UserRegistry}
      */
-    public UserRegistry getUserRegistry()
+    public static UserRegistry getUserRegistry()
     {
         return userRegistry;
     }
@@ -81,7 +72,7 @@ public class Registration
     /**
      * @return The {@link ServiceTaskRegistry}
      */
-    public ServiceTaskRegistry getServiceTaskRegistry()
+    public static ServiceTaskRegistry getServiceTaskRegistry()
     {
         return serviceTaskRegistry;
     }
@@ -89,7 +80,7 @@ public class Registration
     /**
      * @return The {@link GroupRegistry}
      */
-    public GroupRegistry getGroupRegistry()
+    public static GroupRegistry getGroupRegistry()
     {
         return groupRegistry;
     }
@@ -97,7 +88,7 @@ public class Registration
     /**
      * @return The {@link ConfigRegistry}
      */
-    public ConfigRegistry getConfigRegistry()
+    public static ConfigRegistry getConfigRegistry()
     {
         return configRegistry;
     }

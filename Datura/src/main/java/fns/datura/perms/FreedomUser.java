@@ -3,6 +3,8 @@ package fns.datura.perms;
 import fns.datura.Datura;
 import fns.datura.user.SimpleUserData;
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Registration;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.security.Node;
 import fns.patchwork.user.User;
 import fns.patchwork.user.UserData;
@@ -41,11 +43,7 @@ public class FreedomUser implements User
         this.permissions = new HashSet<>();
         this.displayName = player.displayName();
 
-        final Datura datura = Patchwork.getInstance()
-                                       .getRegistrations()
-                                       .getModuleRegistry()
-                                       .getProvider(Datura.class)
-                                       .getModule();
+        final Datura datura = Shortcuts.provideModule(Datura.class);
 
         UserData data = SimpleUserData.fromSQL(datura.getSQL(), uuid.toString());
 
@@ -56,8 +54,7 @@ public class FreedomUser implements User
 
         this.userData = data;
 
-        Patchwork.getInstance()
-                 .getRegistrations()
+        Registration
                  .getUserRegistry()
                  .registerUserData(this, userData);
     }
@@ -96,7 +93,7 @@ public class FreedomUser implements User
     public boolean addPermission(final Node node)
     {
         final boolean value = !node.isTemporary() || node.isExpired();
-        final PermissionAttachment attachment = addAttachment(Patchwork.getInstance(), node.key(), value);
+        final PermissionAttachment attachment = addAttachment(Shortcuts.provideModule(Patchwork.class), node.key(), value);
         bukkitAttachments.put(node, attachment);
         return permissions().add(node);
     }

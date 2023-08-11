@@ -25,12 +25,12 @@ public class FreedomExecutor
     /**
      * Creates a new {@link FreedomExecutor} instance.
      */
-    public FreedomExecutor()
+    public FreedomExecutor(final Patchwork patchwork)
     {
         syncExecutor = r -> Bukkit.getScheduler()
-                                  .runTask(Patchwork.getInstance(), r);
+                                  .runTask(patchwork, r);
         asyncExecutor = r -> Bukkit.getScheduler()
-                                   .runTaskAsynchronously(Patchwork.getInstance(), r);
+                                   .runTaskAsynchronously(patchwork, r);
     }
 
     /**

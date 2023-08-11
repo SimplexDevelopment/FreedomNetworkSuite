@@ -1,6 +1,8 @@
 package fns.patchwork.shop;
 
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Registration;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.display.BossBarDisplay;
 import fns.patchwork.display.BossBarTimer;
 import fns.patchwork.economy.EconomicEntity;
@@ -36,7 +38,7 @@ public class ReactionTask extends Task implements Listener
         }
 
         final BossBarTimer timer = new BossBarTimer(bossBarDisplay, reaction.getReactionDuration());
-        timer.runTaskTimer(Patchwork.getInstance(), 0L, timer.getInterval());
+        timer.runTaskTimer(Shortcuts.provideModule(Patchwork.class), 0L, timer.getInterval());
     }
 
     @EventHandler
@@ -45,9 +47,7 @@ public class ReactionTask extends Task implements Listener
         if (event.message()
                  .equals(reaction.getReactionMessage()))
         {
-            final EconomicEntity entity = Patchwork.getInstance()
-                                                   .getRegistrations()
-                                                   .getUserRegistry()
+            final EconomicEntity entity = Registration.getUserRegistry()
                                                    .getUser(event.getPlayer());
 
             reaction.onReact(entity);

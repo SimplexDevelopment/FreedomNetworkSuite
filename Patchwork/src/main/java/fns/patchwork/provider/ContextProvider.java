@@ -160,7 +160,6 @@ public class ContextProvider
      *
      * @param string The string to parse
      * @return A location object if xyz is valid
-     * @see BukkitDelegate#processSubCommands(String[], CommandSender, ContextProvider, Subcommand)
      */
     private @Nullable Location toLocation(final String string, final Class<?> clazz)
     {

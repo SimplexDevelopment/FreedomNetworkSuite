@@ -1,11 +1,12 @@
 package fns.fossil.bouncypads;
 
 import fns.fossil.Fossil;
-import fns.patchwork.base.Patchwork;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import fns.patchwork.base.Shortcuts;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Tag;
@@ -32,12 +33,7 @@ public class PadHolder implements Listener
     public PadHolder()
     {
         Bukkit.getPluginManager()
-              .registerEvents(this, Patchwork
-                      .getInstance()
-                      .getRegistrations()
-                      .getModuleRegistry()
-                      .getProvider(Fossil.class)
-                      .getModule());
+              .registerEvents(this, Shortcuts.provideModule(Fossil.class));
     }
 
     /**

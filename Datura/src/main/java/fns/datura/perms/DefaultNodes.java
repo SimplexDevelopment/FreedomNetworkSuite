@@ -7,30 +7,26 @@ public class DefaultNodes
 {
     public static final Node OP = new PermissionNodeBuilder()
             .key("freedom.master_key")
-            .value(true)
+            .expiry(-1)
             .type(NodeType.PERMISSION)
-            .negated(false)
             .wildcard(true)
             .build();
     public static final Node NON_OP = new PermissionNodeBuilder()
             .key("freedom.default")
-            .value(true)
+            .expiry(-1)
             .type(NodeType.PERMISSION)
-            .negated(false)
             .wildcard(false)
             .build();
     public static final Node ALL = new PermissionNodeBuilder()
             .key("*")
-            .value(true)
+            .expiry(-1)
             .type(NodeType.PERMISSION)
-            .negated(false)
             .wildcard(true)
             .build();
     public static final Node NONE = new PermissionNodeBuilder()
             .key("freedom.none")
-            .value(true)
+            .expiry(-1)
             .type(NodeType.PERMISSION)
-            .negated(false)
             .wildcard(false)
             .build();
 
