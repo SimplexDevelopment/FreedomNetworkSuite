@@ -21,23 +21,29 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.sql;
+package fns.patchwork.data;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.concurrent.CompletableFuture;
+import fns.patchwork.sql.SQL;
+import java.util.HashMap;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
-public interface SQL
+public class SQLRegistry
 {
-    SQLProperties getProperties();
+    private final Map<String, SQL> sqlMapByModule = new HashMap<>();
 
-    CompletableFuture<PreparedStatement> prepareStatement(final String query, final Object... args);
+    public void registerSQL(@NotNull final String serverName, @NotNull final SQL sql)
+    {
+        sqlMapByModule.put(serverName, sql);
+    }
 
-    CompletableFuture<ResultSet> executeQuery(final String query, final Object... args);
+    public void unregisterSQL(@NotNull final String serverName)
+    {
+        sqlMapByModule.remove(serverName);
+    }
 
-    CompletableFuture<Integer> executeUpdate(final String query, final Object... args);
-
-    CompletableFuture<Boolean> execute(final String query, final Object... args);
-
-    CompletableFuture<Boolean> createTable(final String table, final String... columns);
+    public SQL getSQL(@NotNull final String serverName)
+    {
+        return sqlMapByModule.get(serverName);
+    }
 }

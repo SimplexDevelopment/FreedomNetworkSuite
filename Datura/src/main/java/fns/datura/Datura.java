@@ -30,6 +30,7 @@ import fns.datura.punishment.Cager;
 import fns.datura.punishment.Halter;
 import fns.datura.punishment.Locker;
 import fns.datura.sql.MySQL;
+import fns.datura.sql.SimpleSQLProperties;
 import fns.patchwork.base.Registration;
 import fns.patchwork.command.CommandHandler;
 import fns.patchwork.service.SubscriptionProvider;
@@ -38,12 +39,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Datura extends JavaPlugin
 {
-    private final MySQL sql = new MySQL("localhost", 3011, "master");
-
     // Punishment
     private final Halter halter = new Halter();
     private final Locker locker = new Locker();
     private Cager cager;
+    private MySQL mySQL;
 
     // Features
     private final CommandSpy commandSpy = new CommandSpy();
@@ -53,6 +53,7 @@ public class Datura extends JavaPlugin
     public void onEnable()
     {
         cager = new Cager(this);
+        mySQL = new MySQL(new SimpleSQLProperties(this));
 
         Registration.getServiceTaskRegistry()
                  .registerService(SubscriptionProvider.syncService(this, locker));
@@ -74,7 +75,7 @@ public class Datura extends JavaPlugin
 
     public MySQL getSQL()
     {
-        return sql;
+        return mySQL;
     }
 
     public Halter getHalter()

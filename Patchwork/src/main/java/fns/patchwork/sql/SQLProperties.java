@@ -28,7 +28,9 @@ import java.util.Properties;
 
 public interface SQLProperties
 {
-    Properties getProperties(File propertiesFile);
+    Properties getProperties();
+
+    Properties load(final File propertiesFile);
 
     default Properties getDefaultProperties()
     {
@@ -39,6 +41,7 @@ public interface SQLProperties
         properties.setProperty("database", "database.db");
         properties.setProperty("username", "root");
         properties.setProperty("password", "password");
+        properties.setProperty("serverName", "server");
         return properties;
     }
 
@@ -73,4 +76,6 @@ public interface SQLProperties
     String getUsername();
 
     String getPassword();
+
+    String getServerName();
 }

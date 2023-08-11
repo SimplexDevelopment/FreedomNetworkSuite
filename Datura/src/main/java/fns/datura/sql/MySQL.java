@@ -26,6 +26,7 @@ package fns.datura.sql;
 import fns.patchwork.base.Patchwork;
 import fns.patchwork.base.Shortcuts;
 import fns.patchwork.sql.SQL;
+import fns.patchwork.sql.SQLProperties;
 import fns.patchwork.utils.container.Identity;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,14 +42,31 @@ public class MySQL implements SQL
      * Using StringBuilder for finality.
      */
     private final StringBuilder url = new StringBuilder("jdbc:mysql://");
+    private final SQLProperties properties;
 
     public MySQL(final String host, final int port, final String database)
     {
+        properties = null;
+
         url.append(host)
            .append(':')
            .append(port)
            .append('/')
            .append(database);
+    }
+
+    public MySQL(final SQLProperties properties) {
+        this.properties = properties;
+
+        url.setLength(0);
+        url.append("jdbc:")
+            .append(properties.getDriver())
+            .append("://")
+            .append(properties.getHost())
+            .append(':')
+            .append(properties.getPort())
+            .append('/')
+            .append(properties.getDatabase());
     }
 
     /**
@@ -280,5 +298,8 @@ public class MySQL implements SQL
         return execute(query.toString(), table, columns, values);
     }
 
-
+    public SQLProperties getProperties()
+    {
+        return properties;
+    }
 }
