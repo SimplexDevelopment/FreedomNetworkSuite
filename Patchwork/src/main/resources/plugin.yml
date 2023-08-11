@@ -1,5 +1,6 @@
 name: Patchwork
-main: me.totalfreedom.base.CommonsBase
+main: fns.patchwork.base.Patchwork
+api-version: 1.20
 version: 1.0.0
 author: TotalFreedom
 description: The Core of Freedom Network Suite

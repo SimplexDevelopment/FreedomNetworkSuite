@@ -13,18 +13,14 @@ public final class Shortcuts
 
     public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
     {
-        return Patchwork.getInstance()
-                        .getRegistrations()
-                        .getModuleRegistry()
-                        .getProvider(pluginClass)
-                        .getModule();
+        return Registration.getModuleRegistry()
+                              .getProvider(pluginClass)
+                              .getModule();
     }
 
     public static User getUser(final Player player)
     {
-        return Patchwork.getInstance()
-                              .getRegistrations()
-                              .getUserRegistry()
+        return Registration.getUserRegistry()
                               .getUser(player);
     }
 }

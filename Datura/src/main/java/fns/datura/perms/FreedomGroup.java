@@ -1,6 +1,7 @@
 package fns.datura.perms;
 
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.security.Group;
 import fns.patchwork.security.Node;
 import java.util.HashSet;
@@ -40,7 +41,7 @@ public class FreedomGroup implements Group
         this.isDefault = isDefault;
         this.isHidden = isHidden;
         this.permissions = new HashSet<>();
-        this.attachment = new PermissionAttachment(Patchwork.getInstance(), this);
+        this.attachment = new PermissionAttachment(Shortcuts.provideModule(Patchwork.class), this);
     }
 
     @Override

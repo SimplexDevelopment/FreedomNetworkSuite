@@ -1,6 +1,7 @@
 package fns.patchwork.display.adminchat;
 
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Registration;
 import fns.patchwork.base.Shortcuts;
 import fns.patchwork.security.Groups;
 import fns.patchwork.user.UserData;
@@ -24,9 +25,9 @@ public class AdminChatDisplay
     private final Map<UUID, AdminChatFormat> adminChatFormat = new HashMap<>();
     private final Set<UUID> toggledChat = new HashSet<>();
 
-    public AdminChatDisplay()
+    public AdminChatDisplay(final Patchwork patchwork)
     {
-        new ACListener(this);
+        new ACListener(this, patchwork);
     }
 
     public void addPlayer(final Player player, final AdminChatFormat format)
@@ -101,11 +102,11 @@ public class AdminChatDisplay
     {
         private final AdminChatDisplay display;
 
-        public ACListener(final AdminChatDisplay display)
+        public ACListener(final AdminChatDisplay display, final Patchwork patchwork)
         {
             this.display = display;
             Bukkit.getPluginManager()
-                  .registerEvents(this, Shortcuts.provideModule(Patchwork.class));
+                  .registerEvents(this, patchwork);
         }
 
         @EventHandler
@@ -124,9 +125,7 @@ public class AdminChatDisplay
             final Player player = event.getPlayer();
             if (player.hasPermission(ACPERM))
             {
-                final UserData data = Patchwork.getInstance()
-                                               .getRegistrations()
-                                               .getUserRegistry()
+                final UserData data = Registration.getUserRegistry()
                                                .fromPlayer(player);
                 if (data.hasCustomACFormat())
                 {

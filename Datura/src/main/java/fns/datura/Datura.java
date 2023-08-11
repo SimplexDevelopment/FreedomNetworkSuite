@@ -6,7 +6,7 @@ import fns.datura.punishment.Cager;
 import fns.datura.punishment.Halter;
 import fns.datura.punishment.Locker;
 import fns.datura.sql.MySQL;
-import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Registration;
 import fns.patchwork.service.SubscriptionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +18,7 @@ public class Datura extends JavaPlugin
     // Punishment
     private final Halter halter = new Halter();
     private final Locker locker = new Locker();
-    private final Cager cager = new Cager();
+    private Cager cager;
 
     // Features
     private final CommandSpy commandSpy = new CommandSpy();
@@ -27,28 +27,22 @@ public class Datura extends JavaPlugin
     @Override
     public void onEnable()
     {
-        Patchwork.getInstance()
-                 .getRegistrations()
-                 .getModuleRegistry()
-                 .addModule(this);
+        cager = new Cager(this);
 
-        Patchwork.getInstance()
-                 .getRegistrations()
-                 .getServiceTaskRegistry()
+        Registration.getServiceTaskRegistry()
                  .registerService(SubscriptionProvider.syncService(this, locker));
-        Patchwork.getInstance()
-                 .getRegistrations()
-                 .getServiceTaskRegistry()
+        Registration.getServiceTaskRegistry()
                  .registerService(SubscriptionProvider.syncService(this, cager));
-        Patchwork.getInstance()
-                .getRegistrations()
-                .getServiceTaskRegistry()
+        Registration.getServiceTaskRegistry()
                 .registerService(SubscriptionProvider.syncService(this, fuckoff));
 
         Bukkit.getPluginManager()
               .registerEvents(halter, this);
         Bukkit.getPluginManager()
               .registerEvents(commandSpy, this);
+
+        Registration.getModuleRegistry()
+                .addModule(this);
     }
 
     public MySQL getSQL()

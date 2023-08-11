@@ -15,52 +15,45 @@ public class Patchwork extends JavaPlugin
     /**
      * The {@link EventBus} for this plugin.
      */
-    private final EventBus eventBus = new EventBus(this);
-    /**
-     * The {@link Registration} object for this plugin.
-     */
-    private final Registration registration = new Registration();
+    private EventBus eventBus;
     /**
      * The {@link FreedomExecutor} for this plugin.
      */
-    private final FreedomExecutor executor = new FreedomExecutor();
+    private FreedomExecutor executor;
     /**
      * The {@link AdminChatDisplay} for this plugin.
      */
-    private final AdminChatDisplay acdisplay = new AdminChatDisplay();
-
-    /**
-     * Provides this plugin instance through a safe static method. This is effectively the same thing as using
-     * {@link JavaPlugin#getPlugin(Class)}
-     *
-     * @return the plugin instance
-     */
-    public static Patchwork getInstance()
-    {
-        return JavaPlugin.getPlugin(Patchwork.class);
-    }
+    private AdminChatDisplay acdisplay;
 
     @Override
     public void onDisable()
     {
         Bukkit.getScheduler()
-              .runTaskLater(this, () -> getRegistrations()
+              .runTaskLater(this, () -> Registration
                       .getServiceTaskRegistry()
                       .stopAllServices(), 1L);
 
-        getRegistrations().getServiceTaskRegistry()
+        Registration.getServiceTaskRegistry()
                           .unregisterService(EventBus.class);
     }
 
     @Override
     public void onEnable()
     {
-        getRegistrations().getServiceTaskRegistry()
+        eventBus = new EventBus(this);
+        executor = new FreedomExecutor(this);
+        acdisplay = new AdminChatDisplay(this);
+
+
+        Registration.getServiceTaskRegistry()
                           .registerService(SubscriptionProvider.asyncService(this, eventBus));
+
         getExecutor().getSync()
-                     .execute(() -> getRegistrations()
+                     .execute(() -> Registration
                              .getServiceTaskRegistry()
                              .startAllServices());
+
+        Registration.getModuleRegistry().addModule(this);
     }
 
     /**
@@ -71,17 +64,6 @@ public class Patchwork extends JavaPlugin
     public FreedomExecutor getExecutor()
     {
         return executor;
-    }
-
-    /**
-     * Get's the Registration object for this plugin. This object contains every registry class for the various features
-     * provided by this plugin.
-     *
-     * @return the Registration object
-     */
-    public Registration getRegistrations()
-    {
-        return registration;
     }
 
     /**

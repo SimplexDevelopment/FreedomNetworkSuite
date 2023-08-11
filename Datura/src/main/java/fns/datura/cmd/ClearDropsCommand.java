@@ -51,7 +51,7 @@ public class ClearDropsCommand extends Commander
         }
 
         final Player player = (Player) sender;
-        Patchwork.getInstance()
+        Shortcuts.provideModule(Patchwork.class)
                  .getExecutor()
                  .delayedExecutor(Shortcuts.provideModule(Datura.class), 20 * 10L)
                  .execute(() ->
@@ -73,7 +73,7 @@ public class ClearDropsCommand extends Commander
     @Subcommand(permission = "datura.cleardrops", args = {World.class})
     public void clearDrops(final CommandSender sender, final World world)
     {
-        Patchwork.getInstance()
+        Shortcuts.provideModule(Patchwork.class)
                  .getExecutor()
                  .delayedExecutor(Shortcuts.provideModule(Datura.class), 20 * 10L)
                  .execute(() ->
