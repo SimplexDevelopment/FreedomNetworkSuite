@@ -126,7 +126,7 @@ public class ContextProvider
 
     private @Nullable Long toLong(final String string, final Class<?> clazz)
     {
-        if (clazz != Long.class || string.endsWith("L"))
+        if (clazz != Long.class || !string.endsWith("L"))
             return null;
 
         try
@@ -141,7 +141,7 @@ public class ContextProvider
 
     private @Nullable Float toFloat(final String string, final Class<?> clazz)
     {
-        if (clazz != Float.class)
+        if (clazz != Float.class || !string.endsWith("F"))
             return null;
 
         try
