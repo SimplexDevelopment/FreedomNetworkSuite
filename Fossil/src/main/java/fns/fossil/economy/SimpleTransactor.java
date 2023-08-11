@@ -21,7 +21,7 @@ public class SimpleTransactor implements Transactor
 
         final long transactionAmount = transaction.getBalance();
 
-        if (transactionAmount >= 0)
+        if (transactionAmount <= 0)
         {
             return new SimpleCompletedTransaction(transaction, SimpleTransactionResult.AMOUNT_TOO_SMALL);
         }
