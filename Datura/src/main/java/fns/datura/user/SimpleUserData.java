@@ -3,6 +3,8 @@ package fns.datura.user;
 import fns.datura.event.UserDataUpdateEvent;
 import fns.datura.perms.FreedomUser;
 import fns.patchwork.base.Patchwork;
+import fns.patchwork.base.Registration;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.display.adminchat.AdminChatFormat;
 import fns.patchwork.security.Group;
 import fns.patchwork.sql.SQL;
@@ -38,7 +40,7 @@ public class SimpleUserData implements UserData
         this.username = player.getName();
         this.user = new FreedomUser(player);
 
-        Patchwork.getInstance()
+        Shortcuts.provideModule(Patchwork.class)
                  .getEventBus()
                  .addEvent(event);
     }
@@ -84,8 +86,7 @@ public class SimpleUserData implements UserData
                                   throw new IllegalStateException("Player should be online but they are not!");
 
                               final User user = new FreedomUser(player);
-                              final Group group = Patchwork.getInstance()
-                                                           .getRegistrations()
+                              final Group group = Registration
                                                            .getGroupRegistry()
                                                            .getGroup(g);
 
@@ -116,7 +117,7 @@ public class SimpleUserData implements UserData
                       if (player == null) throw new IllegalStateException("Player should be online but they are not!");
 
                       return new SimpleUserData(player);
-                  }, Patchwork.getInstance()
+                  }, Shortcuts.provideModule(Patchwork.class)
                               .getExecutor()
                               .getAsync())
                   .join();

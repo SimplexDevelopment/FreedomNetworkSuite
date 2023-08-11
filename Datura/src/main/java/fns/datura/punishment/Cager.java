@@ -1,5 +1,6 @@
 package fns.datura.punishment;
 
+import fns.datura.Datura;
 import fns.patchwork.base.Patchwork;
 import fns.patchwork.service.Service;
 import fns.patchwork.utils.ShapeUtils;
@@ -20,18 +21,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import javax.sound.midi.Patch;
+
 public class Cager extends Service
 {
     private final Set<UUID> cagedPlayers;
     private final Map<UUID, Location> cageLocations;
 
-    public Cager()
+    public Cager(final Datura datura)
     {
         super("cager-service");
         this.cagedPlayers = new HashSet<>();
         this.cageLocations = new HashMap<>();
         Bukkit.getPluginManager()
-              .registerEvents(new CageListener(), Patchwork.getInstance());
+              .registerEvents(new CageListener(), datura);
     }
 
     /**

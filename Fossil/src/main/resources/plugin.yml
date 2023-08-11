@@ -1,6 +1,7 @@
 name: Fossil
 version: 1.0
-main: me.totalfreedom.fossil.Fossil
+main: fns.fossil.Fossil
+api-version: 1.20
 author: TotalFreedom
 description: The Fun Module for the Freedom Network.
 depend:
