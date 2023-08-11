@@ -61,10 +61,7 @@ public class CommandHandler
      */
     public <T extends Commander> void registerCommand(final T command)
     {
-        final BukkitDelegate delegate = new BukkitDelegate(command);
-
-        Bukkit.getCommandMap()
-              .register(plugin.getName(), delegate);
+        new BukkitDelegate(command).register(Bukkit.getServer().getCommandMap());
     }
 
     /**
