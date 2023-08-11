@@ -25,9 +25,13 @@ package fns.patchwork.config;
 
 import fns.patchwork.api.Context;
 import fns.patchwork.provider.ContextProvider;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a configuration file of any type.
@@ -67,23 +71,24 @@ public interface Configuration
     String getString(String path);
 
     /**
-     * Gets a Boolean object from the associated path.
+     * Gets a boolean primitive from the associated path.
      *
-     * @param path The path to get the Boolean from.
-     * @return The Boolean object.
+     * @param path The path to get the boolean from.
+     * @return The boolean primitive.
      */
-    Boolean getBoolean(String path);
+    boolean getBoolean(String path);
 
     /**
      * Gets a List object from the associated path. This method will use {@link Context}s and the
-     * {@link ContextProvider} to get the object types in the list. If the objects cannot be inferred, the method will
-     * return a list of generic {@link Object}s.
+     * {@link ContextProvider} to get the object types in the list. If the stored objects cannot be deciphered,
+     * the method will return an empty list.
      *
      * @param path The path to get the List from.
      * @param <T>  The type of the objects in the list.
+     * @param clazz The class of the type.
      * @return The List object.
      */
-    <T> List<T> getList(String path);
+    <T> @Unmodifiable List<T> getList(String path, Class<T> clazz);
 
     /**
      * Gets a List object from the associated path. The List that is returned will be the String values which are stored
@@ -92,31 +97,31 @@ public interface Configuration
      * @param path The path to get the List from.
      * @return The List object.
      */
-    List<String> getStringList(String path);
+    @Unmodifiable List<String> getStringList(String path);
 
     /**
-     * Gets an Integer from the associated path.
+     * Gets an int from the associated path.
      *
-     * @param path The path to get the Integer from.
-     * @return The Integer object.
+     * @param path The path to get the int from.
+     * @return The int primitive.
      */
-    Integer getInt(String path);
+    int getInt(String path);
 
     /**
-     * Gets a Long from the associated path.
+     * Gets a long from the associated path.
      *
-     * @param path The path to get the Long from.
-     * @return The Long object.
+     * @param path The path to get the long from.
+     * @return The long primitive.
      */
-    Long getLong(String path);
+    long getLong(String path);
 
     /**
-     * Gets a Double from the associated path.
+     * Gets a double from the associated path.
      *
-     * @param path The path to get the Double from.
-     * @return The Double object.
+     * @param path The path to get the double from.
+     * @return The double primitive.
      */
-    Double getDouble(String path);
+    double getDouble(String path);
 
     /**
      * Sets the value at the given path to the given value.
@@ -130,14 +135,14 @@ public interface Configuration
     /**
      * Gets the value at the given path as the given type.
      * <p>
-     * This method will use {@link Context}s and the {@link ContextProvider} to get the object type. If the object type
-     * cannot be inferred, the method will return a generic {@link Object}.
+     * This method will use {@link Context}s and the {@link ContextProvider} to get the object type.
      *
-     * @param path The path to get the value from.
+     * @param path The path to get the value from
      * @param <T>  The type of the value.
-     * @return The value at the given path.
+     * @param clazz The class of the type.
+     * @return An optional containing the value at the given path if it is present or the type could not be inferred.
      */
-    <T> T get(String path);
+    <T> Optional<T> get(String path, Class<T> clazz);
 
     /**
      * Gets the value at the given path as the given type.
@@ -148,7 +153,8 @@ public interface Configuration
      * @param path     The path to get the value from.
      * @param fallback The fallback value to return if the value at the given path is null.
      * @param <T>      The type of the value.
+     * @param clazz The class of the type.
      * @return The value at the given path.
      */
-    <T> T getOrDefault(String path, T fallback);
+    <T> T getOrDefault(String path, Class<T> clazz, T fallback);
 }
