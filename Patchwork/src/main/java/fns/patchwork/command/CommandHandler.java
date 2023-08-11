@@ -23,9 +23,11 @@
 
 package fns.patchwork.command;
 
+import java.util.Objects;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reflections.Reflections;
 
 /**
  * Handles the registration of commands. The plugin which initializes this class should be the plugin that is
@@ -63,5 +65,33 @@ public class CommandHandler
 
         Bukkit.getCommandMap()
               .register(plugin.getName(), delegate);
+    }
+
+    /**
+     * Registers all commands in the specified package that contains the provided class. This method will automatically
+     * delegate the command information to the Bukkit API and register with the {@link CommandMap}.
+     *
+     * @param commandClass The class to register commands from.
+     * @param <T>          The type of the command.
+     */
+    public <T extends Commander> void registerCommands(final Class<T> commandClass)
+    {
+        final Reflections reflections = new Reflections(commandClass.getPackageName());
+        reflections.getSubTypesOf(commandClass)
+                   .stream()
+                   .map(c ->
+                        {
+                            try
+                            {
+                                return c.getDeclaredConstructor(JavaPlugin.class).newInstance(this);
+                            }
+                            catch (ReflectiveOperationException ex)
+                            {
+                                plugin.getSLF4JLogger().error("Unable to register command: " + c.getName(), ex);
+                                return null;
+                            }
+                        })
+                   .filter(Objects::nonNull)
+                   .forEach(this::registerCommand);
     }
 }

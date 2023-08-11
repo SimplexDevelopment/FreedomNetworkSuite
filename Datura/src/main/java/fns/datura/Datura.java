@@ -23,6 +23,7 @@
 
 package fns.datura;
 
+import fns.datura.cmd.LockerCommand;
 import fns.datura.features.CommandSpy;
 import fns.datura.features.Fuckoff;
 import fns.datura.punishment.Cager;
@@ -30,6 +31,7 @@ import fns.datura.punishment.Halter;
 import fns.datura.punishment.Locker;
 import fns.datura.sql.MySQL;
 import fns.patchwork.base.Registration;
+import fns.patchwork.command.CommandHandler;
 import fns.patchwork.service.SubscriptionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -55,17 +57,19 @@ public class Datura extends JavaPlugin
         Registration.getServiceTaskRegistry()
                  .registerService(SubscriptionProvider.syncService(this, locker));
         Registration.getServiceTaskRegistry()
-                 .registerService(SubscriptionProvider.syncService(this, cager));
+                    .registerService(SubscriptionProvider.syncService(this, cager));
         Registration.getServiceTaskRegistry()
-                .registerService(SubscriptionProvider.syncService(this, fuckoff));
+                    .registerService(SubscriptionProvider.syncService(this, fuckoff));
 
         Bukkit.getPluginManager()
               .registerEvents(halter, this);
         Bukkit.getPluginManager()
               .registerEvents(commandSpy, this);
 
+        new CommandHandler(this).registerCommands(LockerCommand.class);
+
         Registration.getModuleRegistry()
-                .addModule(this);
+                    .addModule(this);
     }
 
     public MySQL getSQL()

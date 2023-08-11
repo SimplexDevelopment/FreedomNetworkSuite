@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group = 'fns.cladis'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.networkmanager.xyz/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly project(":Patchwork")
+    compileOnly 'nl.chimpgamer.networkmanager:api:2.13.1'
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

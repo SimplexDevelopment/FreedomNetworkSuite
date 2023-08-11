@@ -23,8 +23,6 @@
 
 package fns.patchwork.provider;
 
-import fns.patchwork.command.BukkitDelegate;
-import fns.patchwork.command.annotation.Subcommand;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,8 +31,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -65,12 +63,13 @@ public class ContextProvider
     public <T> T fromString(final String string, final Class<T> clazz)
     {
         return Stream.of(toBoolean(string, clazz),
+                         toLong(string, clazz),
                          toDouble(string, clazz),
                          toInt(string, clazz),
-                         toLong(string, clazz),
                          toFloat(string, clazz),
                          toMaterial(string, clazz),
                          toPlayer(string, clazz),
+                         toOfflinePlayer(string, clazz),
                          toWorld(string, clazz),
                          toLocation(string, clazz),
                          toComponent(string, clazz))
@@ -127,7 +126,7 @@ public class ContextProvider
 
     private @Nullable Long toLong(final String string, final Class<?> clazz)
     {
-        if (clazz != Long.class)
+        if (clazz != Long.class || !string.endsWith("L"))
             return null;
 
         try
@@ -142,7 +141,7 @@ public class ContextProvider
 
     private @Nullable Float toFloat(final String string, final Class<?> clazz)
     {
-        if (clazz != Float.class)
+        if (clazz != Float.class || !string.endsWith("F"))
             return null;
 
         try
@@ -167,6 +166,16 @@ public class ContextProvider
         if (clazz != Player.class)
             return null;
         return Bukkit.getPlayer(string);
+    }
+
+    private OfflinePlayer toOfflinePlayer(final String string, final Class<?> clazz)
+    {
+        if (clazz != OfflinePlayer.class)
+        {
+            return null;
+        }
+
+        return Bukkit.getOfflinePlayer(string);
     }
 
     private @Nullable World toWorld(final String string, final Class<?> clazz)

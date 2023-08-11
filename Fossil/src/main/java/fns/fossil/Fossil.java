@@ -23,8 +23,10 @@
 
 package fns.fossil;
 
+import fns.fossil.cmd.CakeCommand;
 import fns.fossil.trail.Trailer;
 import fns.patchwork.base.Registration;
+import fns.patchwork.command.CommandHandler;
 import fns.patchwork.service.SubscriptionProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,9 +38,11 @@ public class Fossil extends JavaPlugin
     {
         Registration.getServiceTaskRegistry()
                     .registerService(
-                            SubscriptionProvider.syncService(this, trailer));
+                        SubscriptionProvider.syncService(this, trailer));
+
+        new CommandHandler(this).registerCommands(CakeCommand.class);
 
         Registration.getModuleRegistry()
-                .addModule(this);
+                    .addModule(this);
     }
 }
