@@ -59,6 +59,12 @@ subprojects {
             weight = 0
         }
     }
+
+    javadoc {
+        options {
+            encoding = 'UTF-8'
+        }
+    }
 }
 
 tasks.register('buildChain') {
