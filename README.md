@@ -73,13 +73,15 @@ This plugin suite also uses the following libraries:
 
 # Developers
 
-[<img src="https://img.shields.io/static/v1?label=Developer&message=Patches&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/Paldiu)
+[<img src="https://img.shields.io/static/v1?label=Team%20Lead&message=Patches&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/Paldiu)
 <br />
-[<img src="https://img.shields.io/static/v1?label=Developer&message=Video&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/VideoGameSmash12)
+[<img src="https://img.shields.io/static/v1?label=Project%20Advisor&message=Video&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/VideoGameSmash12)
 <br />
 [<img src="https://img.shields.io/static/v1?label=Developer&message=Allink&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/allinkdev)
 <br />
 [<img src="https://img.shields.io/static/v1?label=Developer&message=EnZaXD&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/FlorianMichael)
+<br />
+[<img src="https://img.shields.io/static/v1?label=Developer&message=Eva&color=blueviolet&style=for-the-badge&logo=intellijidea">](https://github.com/evallll)
 
 # To Do List
 
