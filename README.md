@@ -12,7 +12,7 @@
 
 [Kyori Adventure]: https://github.com/KyoriPowered/adventure "Kyori Adventure"
 
-[Reflections API]: https://github.com/ronmamo/reflections "Reflections API"
+[ClassGraph]: https://github.com/classgraph/classgraph "ClassGraph"
 
 [TotalFreedomMod]: https://github.com/AtlasMediaGroup/TotalFreedomMod "TotalFreedomMod"
 
@@ -69,7 +69,7 @@ This plugin suite also uses the following libraries:
 - [SLF4J] for logging
 - [Paper] for the server implementation
 - [Kyori Adventure] for chat formatting
-- [Reflections API] for reflections
+- [ClassGraph] for runtime class searching functionality
 
 # Developers
 

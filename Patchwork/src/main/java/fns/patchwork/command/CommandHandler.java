@@ -23,11 +23,17 @@
 
 package fns.patchwork.command;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
+
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
+import io.github.classgraph.ScanResult;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.reflections.Reflections;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 /**
  * Handles the registration of commands. The plugin which initializes this class should be the plugin that is
@@ -41,6 +47,10 @@ public class CommandHandler
      * This should be the plugin instance which is trying to register the commands.
      */
     private final JavaPlugin plugin;
+    /**
+     * The logger instance of the plugin this command handler is registered to.
+     */
+    private final Logger logger;
 
     /**
      * Creates a new command handler.
@@ -50,6 +60,7 @@ public class CommandHandler
     public CommandHandler(final JavaPlugin plugin)
     {
         this.plugin = plugin;
+        this.logger = plugin.getSLF4JLogger();
     }
 
     /**
@@ -64,6 +75,39 @@ public class CommandHandler
         new BukkitDelegate(command).register(Bukkit.getServer().getCommandMap());
     }
 
+    private @Nullable Commander instantiateCommandClass(final ClassInfo commandSubclassInfo) {
+        final Class<?> genericClass;
+
+        try {
+            genericClass = commandSubclassInfo.loadClass();
+        } catch (IllegalArgumentException e) {
+            this.logger.error("Failed to load command subclass", e);
+            return null;
+        }
+
+        final Class<? extends Commander> subClass;
+
+        try {
+            subClass = genericClass.asSubclass(Commander.class);
+        } catch (ClassCastException e) {
+            this.logger.error("Failed to cast command class to subtype of commander class", e);
+            return null;
+        }
+
+        try {
+            return subClass.getDeclaredConstructor(JavaPlugin.class).newInstance(this.plugin);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
+            //
+        }
+
+        try {
+            return subClass.getDeclaredConstructor(this.plugin.getClass()).newInstance(this.plugin);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            this.logger.error("Failed to instantiate instance of command class", e);
+            return null;
+        }
+    }
+
     /**
      * Registers all commands in the specified package that contains the provided class. This method will automatically
      * delegate the command information to the Bukkit API and register with the {@link CommandMap}.
@@ -73,22 +117,17 @@ public class CommandHandler
      */
     public <T extends Commander> void registerCommands(final Class<T> commandClass)
     {
-        final Reflections reflections = new Reflections(commandClass.getPackageName());
-        reflections.getSubTypesOf(commandClass)
-                   .stream()
-                   .map(c ->
-                        {
-                            try
-                            {
-                                return c.getDeclaredConstructor(JavaPlugin.class).newInstance(this);
-                            }
-                            catch (ReflectiveOperationException ex)
-                            {
-                                plugin.getSLF4JLogger().error("Unable to register command: " + c.getName(), ex);
-                                return null;
-                            }
-                        })
-                   .filter(Objects::nonNull)
-                   .forEach(this::registerCommand);
+        try (final ScanResult scanResult = new ClassGraph()
+                .ignoreParentClassLoaders()
+                .overrideClassLoaders(commandClass.getClassLoader(), this.getClass().getClassLoader())
+                .enableClassInfo()
+                .acceptPackages(commandClass.getPackageName())
+                .scan()) {
+
+            scanResult.getSubclasses(Commander.class).stream()
+                    .map(this::instantiateCommandClass)
+                    .filter(Objects::nonNull)
+                    .forEach(this::registerCommand);
+        }
     }
 }
