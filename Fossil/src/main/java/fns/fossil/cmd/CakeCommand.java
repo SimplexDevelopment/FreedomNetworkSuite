@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 @Permissive(perm = "fossil.cake")
 public class CakeCommand extends Commander
 {
-    protected CakeCommand(final @NotNull JavaPlugin plugin)
+    public CakeCommand(final @NotNull JavaPlugin plugin)
     {
         super(plugin);
     }
