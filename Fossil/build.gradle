@@ -16,6 +16,12 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+bukkit {
+    main = "fns.fossil.Fossil"
+    description = "The Fun Module for the Freedom Network."
+    depend = ["Datura", "Patchwork"]
+}
+
 test {
     useJUnitPlatform()
 }

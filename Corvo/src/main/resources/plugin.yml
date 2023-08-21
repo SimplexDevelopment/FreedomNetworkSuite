@@ -1,8 +1,0 @@
-name: Corvo
-main: fns.corvo.Corvo
-api-version: 1.20
-version: 1.0.0
-author: TotalFreedom
-description: Services and Listeners for the Freedom Network Suite
-depend:
-  - Patchwork

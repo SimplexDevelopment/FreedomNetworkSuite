@@ -6,12 +6,17 @@ repositories {
 }
 
 dependencies {
-    api 'io.projectreactor:reactor-core:3.5.4'
-    api 'org.reflections:reflections:0.10.2'
+    library 'io.projectreactor:reactor-core:3.5.4'
+    library 'io.github.classgraph:classgraph:4.8.162'
     api 'org.slf4j:slf4j-api:1.7.36'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+bukkit {
+    main = "fns.patchwork.base.Patchwork"
+    description = "The Core of Freedom Network Suite"
 }
 
 var weight = 1
