@@ -63,18 +63,6 @@ public class CommandHandler
         this.logger = plugin.getSLF4JLogger();
     }
 
-    /**
-     * Registers a command. This method will automatically delegate the command information to the Bukkit API and
-     * register with the {@link CommandMap}.
-     *
-     * @param command The command to register.
-     * @param <T>     The type of the command.
-     */
-    public <T extends Commander> void registerCommand(final T command)
-    {
-        new BukkitDelegate(command).register(Bukkit.getServer().getCommandMap());
-    }
-
     private @Nullable Commander instantiateCommandClass(final ClassInfo commandSubclassInfo) {
         final Class<?> genericClass;
 
@@ -117,6 +105,8 @@ public class CommandHandler
      */
     public <T extends Commander> void registerCommands(final Class<T> commandClass)
     {
+        final CommandMap commandMap = Bukkit.getCommandMap();
+
         try (final ScanResult scanResult = new ClassGraph()
                 .ignoreParentClassLoaders()
                 .overrideClassLoaders(commandClass.getClassLoader(), this.getClass().getClassLoader())
@@ -124,10 +114,11 @@ public class CommandHandler
                 .acceptPackages(commandClass.getPackageName())
                 .scan()) {
 
+            final String lowercasePluginName = this.plugin.getName().toLowerCase();
             scanResult.getSubclasses(Commander.class).stream()
                     .map(this::instantiateCommandClass)
                     .filter(Objects::nonNull)
-                    .forEach(this::registerCommand);
+                    .forEach(c -> commandMap.register(lowercasePluginName, new BukkitDelegate(c)));
         }
     }
 }
