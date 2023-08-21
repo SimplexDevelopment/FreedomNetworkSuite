@@ -1,8 +1,0 @@
-name: Datura
-main: fns.datura.Datura
-api-version: 1.20
-version: 1.0.0
-author: TotalFreedom
-description: Data Manager for the Freedom Network Suite
-depend:
-  - Patchwork

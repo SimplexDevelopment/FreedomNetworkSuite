@@ -16,6 +16,12 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+bukkit {
+    main = "fns.corvo.Corvo"
+    description = "Services and Listeners for the Freedom Network Suite"
+    depend = ["Patchwork"]
+}
+
 test {
     useJUnitPlatform()
 }

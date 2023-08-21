@@ -20,6 +20,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+bukkit {
+    main = "fns.cladis.Cladis"
+    description = "Network Manager integration for the Freedom Network Suite."
+}
+
 test {
     useJUnitPlatform()
 }
