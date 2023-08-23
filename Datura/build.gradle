@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'me.totalfreedom'
+group = 'fns.datura'
 version = '1.0.0'
 
 repositories {
@@ -18,7 +18,7 @@ dependencies {
 
 bukkit {
     main = "fns.datura.Datura"
-    description = "Data Manager for the Freedom Network Suite"
+    description = "Freedom Network Suite Data Management Module"
     depend = ["Patchwork"]
 }
 

@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'fns'
+group = 'fns.corvo'
 version = '1.0.0'
 
 repositories {
@@ -18,7 +18,7 @@ dependencies {
 
 bukkit {
     main = "fns.corvo.Corvo"
-    description = "Services and Listeners for the Freedom Network Suite"
+    description = "FreedomNetworkSuite Optional Services and Listeners"
     depend = ["Patchwork"]
 }
 

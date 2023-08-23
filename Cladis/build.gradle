@@ -22,7 +22,7 @@ dependencies {
 
 bukkit {
     main = "fns.cladis.Cladis"
-    description = "Network Manager integration for the Freedom Network Suite."
+    description = "FreedomNetworkSuite Optional NetworkManager Integration"
 }
 
 test {
