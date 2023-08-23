@@ -25,21 +25,21 @@
 ###
 
 [<img src="https://img.shields.io/static/v1?label=%20&message=Help%20Wanted&color=red&style=for-the-badge">](https://discord.gg/4PdtmrVNRx)
-![GitHub contributors](https://img.shields.io/github/contributors/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
-[<img src="https://img.shields.io/github/issues/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/issues)
-[<img src="https://img.shields.io/github/issues-pr/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/pulls)
-![GitHub last commit](https://img.shields.io/github/last-commit/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+[<img src="https://img.shields.io/github/issues/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/issues)
+[<img src="https://img.shields.io/github/issues-pr/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/pulls)
+![GitHub last commit](https://img.shields.io/github/last-commit/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![Codacy grade](https://img.shields.io/codacy/grade/176b8003312c4602afb9be7706aef146?style=for-the-badge)
 
 ###
 
 [<img src="https://img.shields.io/static/v1?label=Roadmap&message=Google%20Docs&color=4285F4&style=for-the-badge&logo=googledrive">](https://docs.google.com/document/d/197fwNo076RsCiPW6e6QWaGEzTGnDcRuf5FBA6lNeiPE)
-[<img src="https://img.shields.io/github/license/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge">](https://github.com/AtlasMediaGroup/Freedom-Network-Suite/blob/kitchen-sink/LICENSE.md)
-![GitHub top language](https://img.shields.io/github/languages/top/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge&logo=github)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/AtlasMediaGroup/Freedom-Network-Suite?include_prereleases&style=for-the-badge&logo=github)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/AtlasMediaGroup/Freedom-Network-Suite?style=for-the-badge)
+[<img src="https://img.shields.io/github/license/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge">](https://github.com/SimplexDevelopment/FreedomNetworkSuite/blob/kitchen-sink/LICENSE.md)
+![GitHub top language](https://img.shields.io/github/languages/top/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge&logo=github)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/SimplexDevelopment/FreedomNetworkSuite?include_prereleases&style=for-the-badge&logo=github)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/SimplexDevelopment/FreedomNetworkSuite?style=for-the-badge)
 ![TFM Used](https://img.shields.io/static/v1?label=TFM%20Code%20Used&message=0%25&color=red&style=for-the-badge&logo=tensorflow)
 
 #
@@ -96,7 +96,7 @@ Patchwork (API):
 - [x] Service API
 - [x] Task API
 - [x] Permissions API
-- [ ] Configuration API *(In Progress...)*
+- [x] Configuration API *Done...? Check with @allinkdev*
 - [ ] Event API *(In Progress...)*
 
 Datura (Data Manager):
@@ -115,7 +115,7 @@ Fossil (Entertainment):
 - [ ] Command Implementations *(In Progress...)*
 - [ ] Implement a shop for the economy *(In Progress...)*
 - [ ] Chat reaction / game system
-- [ ] Jumppads
+- [ ] Jumppads *(In Progress...)*
 
 Corvo (Scheduling and Listening Service):
 
