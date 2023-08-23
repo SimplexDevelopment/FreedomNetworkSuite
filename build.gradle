@@ -34,7 +34,11 @@ subprojects {
 
     bukkit {
         apiVersion = "1.20"
-        authors = {"allinkdev", "Paldiu", "evallll", "FlorianMichael", "VideoGameSmash12"}
+        authors = {"allinkdev", 
+                   "Paldiu", 
+                   "evallll", 
+                   "FlorianMichael/EnZaXD", 
+                   "VideoGameSmash12"}
     }
 
     dependencies {
