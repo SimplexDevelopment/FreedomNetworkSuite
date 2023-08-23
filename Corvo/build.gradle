@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'me.totalfreedom'
+group = 'fns'
 version = '1.0.0'
 
 repositories {
