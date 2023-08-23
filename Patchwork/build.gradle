@@ -1,4 +1,4 @@
-group = 'me.totalfreedom'
+group = 'fns.patchwork'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -16,7 +16,7 @@ dependencies {
 
 bukkit {
     main = "fns.patchwork.base.Patchwork"
-    description = "The Core of Freedom Network Suite"
+    description = "Freedom Network Suite Core Module (API & Library)"
 }
 
 var weight = 1
