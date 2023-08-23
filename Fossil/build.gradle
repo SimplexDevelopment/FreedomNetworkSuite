@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'me.totalfreedom'
+group = 'fns'
 version = '1.0.0'
 
 repositories {
@@ -18,7 +18,7 @@ dependencies {
 
 bukkit {
     main = "fns.fossil.Fossil"
-    description = "The Fun Module for the Freedom Network."
+    description = "The Freedom Server module."
     depend = ["Datura", "Patchwork"]
 }
 
