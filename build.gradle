@@ -1,11 +1,13 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'net.minecrell.plugin-yml.bukkit' version '0.6.0'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.5.2'
 }
 
 group 'fns'
 version '1.0.0'
+
+def weight = -1
 
 subprojects {
     apply plugin: 'java'
@@ -34,11 +36,11 @@ subprojects {
 
     bukkit {
         apiVersion = "1.20"
-        authors = {"allinkdev", 
-                   "Paldiu", 
-                   "evallll", 
-                   "FlorianMichael/EnZaXD", 
-                   "VideoGameSmash12"}
+        authors = ["allinkdev",
+                   "Paldiu",
+                   "evallll",
+                   "FlorianMichael/EnZaXD",
+                   "VideoGameSmash12"]
     }
 
     dependencies {
@@ -63,14 +65,6 @@ subprojects {
         useJUnitPlatform()
     }
 
-    var weight = -1;
-
-    afterEvaluate {
-        if (weight == -1) {
-            weight = 0
-        }
-    }
-
     javadoc {
         options {
             encoding = 'UTF-8'
@@ -78,10 +72,12 @@ subprojects {
     }
 }
 
-tasks.register('buildChain') {
-    dependsOn subprojects.sort {
-        a, b -> a.properties.weight <=> b.properties.weight
-    }.collect {
-        ":${it.path}:build"
+afterEvaluate {
+    if (weight == -1) {
+        weight = 0
     }
+}
+
+tasks.register('buildChain') {
+    dependsOn subprojects.sort { a, b -> a.properties.weight <=> b.properties.weight }.collect { ":${it.path}:build" }
 }
