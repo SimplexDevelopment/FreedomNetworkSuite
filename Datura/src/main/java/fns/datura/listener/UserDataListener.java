@@ -21,23 +21,33 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.sql;
+package fns.datura.listener;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.concurrent.CompletableFuture;
+import fns.datura.user.SimpleUserData;
+import fns.patchwork.base.Registration;
+import fns.patchwork.sql.SQL;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
-public interface SQL
+public class UserDataListener implements Listener
 {
-    SQLProperties getProperties();
+    @EventHandler
+    public void onPlayerJoin(final PlayerJoinEvent event)
+    {
+        final Player player = event.getPlayer();
+        if (player.hasPlayedBefore())
+        {
+            final SQL sql = Registration.getSQLRegistry().getSQL(Bukkit.getServer().getName());
+            if (sql != null)
+            {
+                SimpleUserData.fromSQL(sql, player.getUniqueId().toString());
+            }
+            return;
+        }
 
-    CompletableFuture<PreparedStatement> prepareStatement(final String query, final Object... args);
-
-    CompletableFuture<ResultSet> executeQuery(final String query, final Object... args);
-
-    CompletableFuture<Integer> executeUpdate(final String query, final Object... args);
-
-    CompletableFuture<Boolean> execute(final String query, final Object... args);
-
-    CompletableFuture<Boolean> createTable(final String table, final String... columns);
+        new SimpleUserData(player);
+    }
 }
