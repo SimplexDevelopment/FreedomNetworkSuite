@@ -28,7 +28,7 @@ import fns.patchwork.command.annotation.Info;
 import fns.patchwork.command.annotation.Permissive;
 import fns.patchwork.command.annotation.Subcommand;
 import fns.patchwork.provider.ContextProvider;
-import fns.patchwork.utils.logging.FreedomLogger;
+import fns.patchwork.utils.logging.FNS4J;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -135,8 +135,8 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
             }
             catch (Exception ex)
             {
-                FreedomLogger.getLogger("Patchwork")
-                             .error(ex);
+                FNS4J.getLogger("Patchwork")
+                     .error(ex);
             }
 
             return true;
@@ -184,8 +184,8 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
             final Object obj = provider.fromString(arg, argType);
             if (obj == null)
             {
-                FreedomLogger.getLogger("Datura")
-                             .error("Failed to parse argument " + arg + " for type " + argType.getName());
+                FNS4J.getLogger("Datura")
+                     .error("Failed to parse argument " + arg + " for type " + argType.getName());
                 return;
             }
             objects[i] = obj;
@@ -207,8 +207,8 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         }
         catch (Exception ex)
         {
-            FreedomLogger.getLogger("Patchwork")
-                         .error(ex);
+            FNS4J.getLogger("Patchwork")
+                 .error(ex);
         }
     }
 

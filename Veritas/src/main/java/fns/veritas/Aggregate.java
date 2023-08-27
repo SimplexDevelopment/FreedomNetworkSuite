@@ -21,42 +21,34 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.user;
+package fns.veritas;
 
-import fns.patchwork.display.adminchat.AdminChatFormat;
-import fns.patchwork.economy.EconomicEntityData;
-import fns.patchwork.permissible.Group;
-import java.util.UUID;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import fns.patchwork.utils.logging.FNS4J;
+import fns.veritas.client.BotClient;
+import fns.veritas.client.BotConfig;
 
-public interface UserData extends EconomicEntityData
+public class Aggregate
 {
-    @NotNull UUID getUniqueId();
+    private final FNS4J logger;
+    private final BotClient bot;
+    private final Veritas plugin;
 
-    String getUsername();
+    public Aggregate(final Veritas plugin)
+    {
+        this.plugin = plugin;
+        this.logger = FNS4J.getLogger(plugin.getName());
+        this.bot = new BotClient(new BotConfig(plugin));
+    }
 
-    User getUser();
+    public FNS4J getLogger() {
+        return logger;
+    }
 
-    @Nullable Group getGroup();
+    public BotClient getBot() {
+        return bot;
+    }
 
-    void setGroup(@Nullable Group group);
-
-    long getPlaytime();
-
-    void setPlaytime(long playtime);
-
-    void addPlaytime(long playtime);
-
-    void resetPlaytime();
-
-    boolean canInteract();
-
-    void setInteractionState(boolean canInteract);
-
-    boolean hasCustomACFormat();
-
-    void setCustomACFormat(final String customACFormat);
-
-    AdminChatFormat getCustomACFormat();
+    public Veritas getPlugin() {
+        return plugin;
+    }
 }

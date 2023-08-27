@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.utils.kyori;
+package fns.patchwork.kyori;
 
 import java.util.function.Supplier;
 import net.kyori.adventure.text.Component;
@@ -31,12 +31,12 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
  * This class contains the only reference to plain text component serializer, and allows access to it via wrapper
  * functions.
  */
-public class FreedomAdventure
+public class PlainTextWrapper
 {
     private static final PlainTextComponentSerializer PLAIN_TEXT_COMPONENT_SERIALIZER =
             PlainTextComponentSerializer.plainText();
 
-    private FreedomAdventure()
+    private PlainTextWrapper()
     {
         throw new UnsupportedOperationException("Instantiation of a static utility class is not supported.");
     }

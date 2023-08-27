@@ -27,7 +27,7 @@ import fns.patchwork.command.Commander;
 import fns.patchwork.command.annotation.Base;
 import fns.patchwork.command.annotation.Info;
 import fns.patchwork.command.annotation.Permissive;
-import fns.patchwork.utils.kyori.FreedomMiniMessage;
+import fns.patchwork.kyori.MiniMessageWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -48,7 +48,7 @@ public class CakeCommand extends Commander
     @Base
     public void broadcastCake(final CommandSender sender)
     {
-        Bukkit.getServer().sendMessage(FreedomMiniMessage.deserialize(true,
+        Bukkit.getServer().sendMessage(MiniMessageWrapper.deserialize(true,
                                                                       "<rainbow>But there's no sense crying over " +
                                                                           "every mistake. You just keep on trying " +
                                                                           "till you run out of " +
@@ -56,7 +56,7 @@ public class CakeCommand extends Commander
 
         final ItemStack stack = new ItemStack(Material.CAKE, 1);
         final ItemMeta meta = stack.getItemMeta();
-        meta.displayName(FreedomMiniMessage.deserialize(true, "<dark_gray>The <white>Lie"));
+        meta.displayName(MiniMessageWrapper.deserialize(true, "<dark_gray>The <white>Lie"));
         stack.setItemMeta(meta);
 
         Bukkit.getOnlinePlayers()

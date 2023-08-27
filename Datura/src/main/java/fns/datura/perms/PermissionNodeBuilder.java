@@ -23,9 +23,9 @@
 
 package fns.datura.perms;
 
-import fns.patchwork.security.Node;
-import fns.patchwork.security.NodeBuilder;
-import fns.patchwork.security.NodeType;
+import fns.patchwork.permissible.Node;
+import fns.patchwork.permissible.NodeBuilder;
+import fns.patchwork.permissible.NodeType;
 
 public class PermissionNodeBuilder implements NodeBuilder
 {

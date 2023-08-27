@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.utils.kyori;
+package fns.patchwork.kyori;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -32,7 +32,7 @@ import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 /**
  * This class contains a wrapper for a MiniMessage serializer.
  */
-public class FreedomMiniMessage
+public class MiniMessageWrapper
 {
     private static final MiniMessage unsafe = MiniMessage.miniMessage();
     private static final MiniMessage safe = MiniMessage.builder()
@@ -48,7 +48,7 @@ public class FreedomMiniMessage
                                                        ))
                                                        .build();
 
-    private FreedomMiniMessage()
+    private MiniMessageWrapper()
     {
         throw new UnsupportedOperationException("Instantiation of a static utility class is not supported.");
     }
@@ -65,7 +65,7 @@ public class FreedomMiniMessage
     public static Component deserialize(final boolean safe, final String input, final TagResolver... placeholders)
     {
         return (safe
-            ? FreedomMiniMessage.safe
+            ? MiniMessageWrapper.safe
             : unsafe).deserialize(input, placeholders);
     }
 
@@ -80,7 +80,7 @@ public class FreedomMiniMessage
     public static String serialize(final boolean safe, final Component input)
     {
         return (safe
-            ? FreedomMiniMessage.safe
+            ? MiniMessageWrapper.safe
             : unsafe).serialize(input);
     }
 }

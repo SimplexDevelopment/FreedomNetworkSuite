@@ -28,7 +28,7 @@ import fns.datura.user.SimpleUserData;
 import fns.patchwork.base.Patchwork;
 import fns.patchwork.base.Registration;
 import fns.patchwork.base.Shortcuts;
-import fns.patchwork.security.Node;
+import fns.patchwork.permissible.Node;
 import fns.patchwork.user.User;
 import fns.patchwork.user.UserData;
 import java.util.HashMap;

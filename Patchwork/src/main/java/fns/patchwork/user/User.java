@@ -25,7 +25,7 @@ package fns.patchwork.user;
 
 import fns.patchwork.economy.EconomicEntity;
 import fns.patchwork.economy.EconomicEntityData;
-import fns.patchwork.security.PermissionHolder;
+import fns.patchwork.permissible.PermissionHolder;
 import net.kyori.adventure.text.Component;
 
 public interface User extends PermissionHolder, EconomicEntity

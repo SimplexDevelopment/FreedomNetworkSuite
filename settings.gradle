@@ -4,3 +4,6 @@ include 'Datura'
 include 'Fossil'
 include 'Corvo'
 include 'Cladis'
+include 'Tyr'
+include 'Veritas'
+

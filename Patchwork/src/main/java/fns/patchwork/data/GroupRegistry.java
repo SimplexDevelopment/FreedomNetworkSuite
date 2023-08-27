@@ -23,7 +23,7 @@
 
 package fns.patchwork.data;
 
-import fns.patchwork.security.Group;
+import fns.patchwork.permissible.Group;
 import java.util.ArrayList;
 import java.util.List;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;

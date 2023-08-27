@@ -21,17 +21,19 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.security;
+package fns.patchwork.permissible;
 
-public interface NodeBuilder
+import java.util.Set;
+import java.util.UUID;
+import org.bukkit.permissions.Permissible;
+
+public interface PermissionHolder extends Permissible
 {
-    NodeBuilder key(String key);
+    UUID getUniqueId();
 
-    NodeBuilder expiry(long expiry);
+    Set<Node> permissions();
 
-    NodeBuilder type(NodeType type);
+    boolean addPermission(Node node);
 
-    NodeBuilder wildcard(boolean wildcard);
-
-    Node build();
+    boolean removePermission(Node node);
 }

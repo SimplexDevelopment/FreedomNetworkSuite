@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.security;
+package fns.patchwork.permissible;
 
 public enum NodeType
 {

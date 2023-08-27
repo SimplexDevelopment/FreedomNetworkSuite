@@ -28,12 +28,12 @@ import fns.patchwork.economy.CompletedTransaction;
 import fns.patchwork.economy.EconomicEntity;
 import fns.patchwork.economy.TransactionLogger;
 import fns.patchwork.economy.TransactionResult;
-import fns.patchwork.utils.logging.FreedomLogger;
+import fns.patchwork.utils.logging.FNS4J;
 import net.kyori.adventure.text.Component;
 
 public class SimpleTransactionLogger implements TransactionLogger
 {
-    private final MutableAudienceForwarder audience = MutableAudienceForwarder.from(FreedomLogger.getLogger("Fossil"));
+    private final MutableAudienceForwarder audience = MutableAudienceForwarder.from(FNS4J.getLogger("Fossil"));
 
     @Override
     public void logTransaction(final CompletedTransaction completedTransaction)

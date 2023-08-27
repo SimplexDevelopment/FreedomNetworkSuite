@@ -25,8 +25,8 @@ package fns.datura.perms;
 
 import fns.patchwork.base.Patchwork;
 import fns.patchwork.base.Shortcuts;
-import fns.patchwork.security.Group;
-import fns.patchwork.security.Node;
+import fns.patchwork.permissible.Group;
+import fns.patchwork.permissible.Node;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;

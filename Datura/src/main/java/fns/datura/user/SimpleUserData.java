@@ -29,11 +29,11 @@ import fns.patchwork.base.Patchwork;
 import fns.patchwork.base.Registration;
 import fns.patchwork.base.Shortcuts;
 import fns.patchwork.display.adminchat.AdminChatFormat;
-import fns.patchwork.security.Group;
+import fns.patchwork.permissible.Group;
 import fns.patchwork.sql.SQL;
 import fns.patchwork.user.User;
 import fns.patchwork.user.UserData;
-import fns.patchwork.utils.logging.FreedomLogger;
+import fns.patchwork.utils.logging.FNS4J;
 import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
@@ -132,8 +132,8 @@ public class SimpleUserData implements UserData
                                   "\nStack trace: " +
                                   ExceptionUtils.getStackTrace(ex);
 
-                          FreedomLogger.getLogger("Datura")
-                                       .error(sb);
+                          FNS4J.getLogger("Datura")
+                               .error(sb);
                       }
 
                       final Player player = Bukkit.getPlayer(UUID.fromString(uuid));

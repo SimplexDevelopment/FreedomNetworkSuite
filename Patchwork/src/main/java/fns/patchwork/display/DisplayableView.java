@@ -23,7 +23,7 @@
 
 package fns.patchwork.display;
 
-import fns.patchwork.utils.kyori.FreedomAdventure;
+import fns.patchwork.kyori.PlainTextWrapper;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -73,7 +73,7 @@ public class DisplayableView extends InventoryView
         this.top = top;
         this.bottom = bottom;
         this.type = InventoryType.CHEST;
-        this.title = FreedomAdventure.toPlainText(type.defaultTitle());
+        this.title = PlainTextWrapper.toPlainText(type.defaultTitle());
     }
 
     @Override
@@ -116,6 +116,6 @@ public class DisplayableView extends InventoryView
     @Override
     public @NotNull String getOriginalTitle()
     {
-        return FreedomAdventure.toPlainText(type.defaultTitle());
+        return PlainTextWrapper.toPlainText(type.defaultTitle());
     }
 }

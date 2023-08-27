@@ -25,8 +25,7 @@ package fns.patchwork.display.adminchat;
 
 import fns.patchwork.base.Patchwork;
 import fns.patchwork.base.Registration;
-import fns.patchwork.base.Shortcuts;
-import fns.patchwork.security.Groups;
+import fns.patchwork.permissible.Groups;
 import fns.patchwork.user.UserData;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import java.util.HashMap;

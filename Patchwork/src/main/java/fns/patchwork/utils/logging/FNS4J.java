@@ -23,7 +23,7 @@
 
 package fns.patchwork.utils.logging;
 
-import fns.patchwork.utils.kyori.FreedomAdventure;
+import fns.patchwork.kyori.PlainTextWrapper;
 import java.util.function.Supplier;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.chat.ChatType;
@@ -34,19 +34,21 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FreedomLogger implements Audience
+public class FNS4J implements Audience
 {
     private final Logger logger;
     private boolean debug = false;
 
-    private FreedomLogger(final String moduleName)
+    public static final FNS4J PATCHWORK = getLogger("Patchwork");
+
+    private FNS4J(final String moduleName)
     {
         this.logger = LoggerFactory.getLogger("FreedomNetworkSuite::" + moduleName);
     }
 
-    public static FreedomLogger getLogger(final String moduleName)
+    public static FNS4J getLogger(final String moduleName)
     {
-        return new FreedomLogger(moduleName);
+        return new FNS4J(moduleName);
     }
 
     public void setDebugMode(final boolean debug)
@@ -87,7 +89,7 @@ public class FreedomLogger implements Audience
      */
     public String infoComponent(final Component component)
     {
-        final String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = PlainTextWrapper.toPlainText(component);
 
         logger.info(plainText);
         return plainText;
@@ -120,7 +122,7 @@ public class FreedomLogger implements Audience
      */
     public void warnComponent(final Component component)
     {
-        final String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = PlainTextWrapper.toPlainText(component);
 
         logger.warn(plainText);
     }
@@ -179,7 +181,7 @@ public class FreedomLogger implements Audience
      */
     public String errorComponent(final Component component)
     {
-        final String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = PlainTextWrapper.toPlainText(component);
 
         logger.error(plainText);
 
@@ -228,7 +230,7 @@ public class FreedomLogger implements Audience
      */
     public String debugComponent(final Component component)
     {
-        final String plainText = FreedomAdventure.toPlainText(component);
+        final String plainText = PlainTextWrapper.toPlainText(component);
 
         this.debug(plainText);
 

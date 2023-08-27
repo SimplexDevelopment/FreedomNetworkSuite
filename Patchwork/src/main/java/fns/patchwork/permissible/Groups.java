@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.security;
+package fns.patchwork.permissible;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

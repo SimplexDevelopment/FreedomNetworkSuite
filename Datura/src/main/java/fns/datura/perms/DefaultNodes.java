@@ -23,8 +23,8 @@
 
 package fns.datura.perms;
 
-import fns.patchwork.security.Node;
-import fns.patchwork.security.NodeType;
+import fns.patchwork.permissible.Node;
+import fns.patchwork.permissible.NodeType;
 
 public class DefaultNodes
 {

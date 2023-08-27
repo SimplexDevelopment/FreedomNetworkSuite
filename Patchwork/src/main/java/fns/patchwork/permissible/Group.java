@@ -21,42 +21,44 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.user;
+package fns.patchwork.permissible;
 
-import fns.patchwork.display.adminchat.AdminChatFormat;
-import fns.patchwork.economy.EconomicEntityData;
-import fns.patchwork.permissible.Group;
-import java.util.UUID;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.kyori.adventure.text.Component;
 
-public interface UserData extends EconomicEntityData
+/**
+ * Represents a permissible group which holds a set of permissions that can then be applied to a User / Player.
+ */
+public interface Group extends PermissionHolder
 {
-    @NotNull UUID getUniqueId();
+    /**
+     * @return The name of the group.
+     */
+    Component getName();
 
-    String getUsername();
+    /**
+     * @return The prefix of the group.
+     */
+    Component getPrefix();
 
-    User getUser();
+    /**
+     * @return The abbreviation of the group.
+     */
+    Component getAbbreviation();
 
-    @Nullable Group getGroup();
+    /**
+     * @return The weight of the group.
+     */
+    int getWeight();
 
-    void setGroup(@Nullable Group group);
+    /**
+     * If more than one group is marked as default, the first retrieved default group will be used.
+     *
+     * @return Whether this is the default group.
+     */
+    boolean isDefault();
 
-    long getPlaytime();
-
-    void setPlaytime(long playtime);
-
-    void addPlaytime(long playtime);
-
-    void resetPlaytime();
-
-    boolean canInteract();
-
-    void setInteractionState(boolean canInteract);
-
-    boolean hasCustomACFormat();
-
-    void setCustomACFormat(final String customACFormat);
-
-    AdminChatFormat getCustomACFormat();
+    /**
+     * @return Whether the group is hidden.
+     */
+    boolean isHidden();
 }

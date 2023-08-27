@@ -21,27 +21,17 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.security;
+package fns.patchwork.permissible;
 
-import javax.annotation.concurrent.Immutable;
-import org.bukkit.permissions.Permission;
-
-@Immutable
-public interface Node
+public interface NodeBuilder
 {
-    String key();
+    NodeBuilder key(String key);
 
-    Permission bukkit();
+    NodeBuilder expiry(long expiry);
 
-    NodeType type();
+    NodeBuilder type(NodeType type);
 
-    boolean compare(Node node);
+    NodeBuilder wildcard(boolean wildcard);
 
-    long expiry();
-
-    boolean isExpired();
-
-    boolean isTemporary();
-
-    boolean wildcard();
+    Node build();
 }

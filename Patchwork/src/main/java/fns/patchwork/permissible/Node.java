@@ -21,19 +21,27 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.security;
+package fns.patchwork.permissible;
 
-import java.util.Set;
-import java.util.UUID;
-import org.bukkit.permissions.Permissible;
+import javax.annotation.concurrent.Immutable;
+import org.bukkit.permissions.Permission;
 
-public interface PermissionHolder extends Permissible
+@Immutable
+public interface Node
 {
-    UUID getUniqueId();
+    String key();
 
-    Set<Node> permissions();
+    Permission bukkit();
 
-    boolean addPermission(Node node);
+    NodeType type();
 
-    boolean removePermission(Node node);
+    boolean compare(Node node);
+
+    long expiry();
+
+    boolean isExpired();
+
+    boolean isTemporary();
+
+    boolean wildcard();
 }

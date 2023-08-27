@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.utils.kyori;
+package fns.patchwork.kyori;
 
 import fns.patchwork.base.Patchwork;
 import net.kyori.adventure.chat.ChatType;
@@ -40,7 +40,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * <br>
  * As a result, we need to conform to those specifications even if we do not use this feature.
  */
-public final class KyoriConstants
+public final class ChatBinder
 {
     private static final ChatType type = ChatType.CHAT;
 
@@ -49,7 +49,7 @@ public final class KyoriConstants
      */
     public static final ChatType.Bound PATCHWORK = fromPlugin(Patchwork.class);
 
-    private KyoriConstants()
+    private ChatBinder()
     {
     }
 

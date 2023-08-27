@@ -21,44 +21,26 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.security;
+package fns.veritas;
 
-import net.kyori.adventure.text.Component;
+import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * Represents a permissible group which holds a set of permissions that can then be applied to a User / Player.
- */
-public interface Group extends PermissionHolder
+public class Veritas extends JavaPlugin
 {
-    /**
-     * @return The name of the group.
-     */
-    Component getName();
+    private Aggregate aggregate;
 
-    /**
-     * @return The prefix of the group.
-     */
-    Component getPrefix();
+    @Override
+    public void onEnable()
+    {
+        this.aggregate = new Aggregate(this);
 
-    /**
-     * @return The abbreviation of the group.
-     */
-    Component getAbbreviation();
+        getAggregate()
+            .getLogger()
+            .info("Veritas has been enabled!");
+    }
 
-    /**
-     * @return The weight of the group.
-     */
-    int getWeight();
-
-    /**
-     * If more than one group is marked as default, the first retrieved default group will be used.
-     *
-     * @return Whether this is the default group.
-     */
-    boolean isDefault();
-
-    /**
-     * @return Whether the group is hidden.
-     */
-    boolean isHidden();
+    public Aggregate getAggregate()
+    {
+        return aggregate;
+    }
 }
