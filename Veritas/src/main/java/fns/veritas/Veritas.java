@@ -1,6 +1,6 @@
 /*
- * This file is part of Freedom-Network-Suite - https://github.com/AtlasMediaGroup/Freedom-Network-Suite
- * Copyright (C) 2023 Total Freedom Server Network and contributors
+ * This file is part of FreedomNetworkSuite - https://github.com/SimplexDevelopment/FreedomNetworkSuite
+ * Copyright (C) 2023 Simplex Development and contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
