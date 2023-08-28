@@ -21,25 +21,30 @@
  * SOFTWARE.
  */
 
-package fns.veritas;
+package fns.patchwork.serializer;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
-public class Veritas extends JavaPlugin
+/**
+ * This interface represents a Serializable object. Objects which require custom serialization and cannot simply
+ * override or call the default {@link Object#toString()} method should implement this interface.
+ *
+ * @param <T> The type of object to serialize
+ */
+public interface Serializable<T>
 {
-    private Aggregate aggregate;
+    /**
+     * Serialize an object to a string. Ideally, this should serialize to an SQL query for easy data transfer.
+     *
+     * @param object The object to serialize
+     * @return The serialized object
+     */
+    String serialize(T object);
 
-    @Override
-    public void onEnable()
-    {
-        this.aggregate = new Aggregate(this);
+    /**
+     * Deserialize an object from a Serialized string..
+     *
+     * @param serializedObject The serialized object
+     * @return The deserialized object
+     */
 
-        Aggregate.getLogger()
-                 .info("Veritas has been enabled!");
-    }
-
-    public Aggregate getAggregate()
-    {
-        return aggregate;
-    }
+    T deserialize(String serializedObject);
 }

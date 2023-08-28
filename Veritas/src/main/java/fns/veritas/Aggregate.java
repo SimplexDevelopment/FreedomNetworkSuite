@@ -24,31 +24,53 @@
 package fns.veritas;
 
 import fns.patchwork.utils.logging.FNS4J;
+import fns.veritas.bukkit.BukkitNative;
+import fns.veritas.bukkit.ServerListener;
 import fns.veritas.client.BotClient;
 import fns.veritas.client.BotConfig;
+import org.bukkit.Bukkit;
 
 public class Aggregate
 {
-    private final FNS4J logger;
+    private static final FNS4J logger = FNS4J.getLogger("Veritas");
     private final BotClient bot;
     private final Veritas plugin;
+    private final BukkitNative bukkitNativeListener;
+    private final ServerListener serverListener;
 
     public Aggregate(final Veritas plugin)
     {
         this.plugin = plugin;
-        this.logger = FNS4J.getLogger(plugin.getName());
         this.bot = new BotClient(new BotConfig(plugin));
+        this.bukkitNativeListener = new BukkitNative(plugin);
+        this.serverListener = new ServerListener(plugin);
+
+        Bukkit.getServer().getPluginManager().registerEvents(this.getBukkitNativeListener(), plugin);
+        this.getServerListener().minecraftChatBound().subscribe();
     }
 
-    public FNS4J getLogger() {
+    public static FNS4J getLogger()
+    {
         return logger;
     }
 
-    public BotClient getBot() {
+    public ServerListener getServerListener()
+    {
+        return serverListener;
+    }
+
+    public BukkitNative getBukkitNativeListener()
+    {
+        return bukkitNativeListener;
+    }
+
+    public BotClient getBot()
+    {
         return bot;
     }
 
-    public Veritas getPlugin() {
+    public Veritas getPlugin()
+    {
         return plugin;
     }
 }

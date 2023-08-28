@@ -23,12 +23,12 @@
 
 package fns.patchwork.base;
 
-import fns.patchwork.data.ConfigRegistry;
-import fns.patchwork.data.EventRegistry;
-import fns.patchwork.data.GroupRegistry;
-import fns.patchwork.data.ModuleRegistry;
-import fns.patchwork.data.ServiceTaskRegistry;
-import fns.patchwork.data.UserRegistry;
+import fns.patchwork.registry.ConfigRegistry;
+import fns.patchwork.registry.EventRegistry;
+import fns.patchwork.registry.GroupRegistry;
+import fns.patchwork.registry.ModuleRegistry;
+import fns.patchwork.registry.ServiceTaskRegistry;
+import fns.patchwork.registry.UserRegistry;
 
 /**
  * This class is a holder for each registry in the data package.

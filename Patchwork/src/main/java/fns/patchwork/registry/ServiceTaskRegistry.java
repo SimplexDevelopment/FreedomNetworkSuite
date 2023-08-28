@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.patchwork.registry;
 
 import fns.patchwork.service.Service;
 import fns.patchwork.service.ServiceSubscription;

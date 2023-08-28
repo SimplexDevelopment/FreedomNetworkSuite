@@ -21,25 +21,44 @@
  * SOFTWARE.
  */
 
-package fns.veritas;
+package fns.veritas.cmd;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
+import fns.veritas.cmd.base.BotCommand;
+import fns.veritas.messaging.Embed;
+import fns.veritas.messaging.EmbedWrapper;
+import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.Bukkit;
+import reactor.core.publisher.Mono;
 
-public class Veritas extends JavaPlugin
+public class TpsCommand implements BotCommand
 {
-    private Aggregate aggregate;
-
     @Override
-    public void onEnable()
+    public String getName()
     {
-        this.aggregate = new Aggregate(this);
-
-        Aggregate.getLogger()
-                 .info("Veritas has been enabled!");
+        return "tps";
     }
 
-    public Aggregate getAggregate()
+    @Override
+    public Mono<Void> handle(ChatInputInteractionEvent event)
     {
-        return aggregate;
+        final double[] tps = Bukkit.getServer().getTPS();
+        final EmbedWrapper e = new EmbedWrapper();
+
+        final List<Embed> embeds = new ArrayList<>();
+
+        embeds.add(embedContent("1 Minute:", String.valueOf(tps[0]), false));
+        embeds.add(embedContent("5 Minutes:", String.valueOf(tps[1]), false));
+        embeds.add(embedContent("15 Minutes:", String.valueOf(tps[2]), false));
+
+        e.quickEmbed("Server TPS:",
+                     "Current TPS (1m, 5m, 15m)",
+                     embeds);
+
+        return event.reply()
+                    .withEmbeds(e.getEmbeds())
+                    .withEphemeral(true)
+                    .then();
     }
 }

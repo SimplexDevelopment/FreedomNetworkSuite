@@ -1,0 +1,33 @@
+{
+  "name": "",
+  "description": "",
+  "options": [
+    {
+      "name": "",
+      "description": "",
+      "type": 3,
+      "required": true
+    }
+  ]
+}
+
+# <-- Types --> #
+
+1 -> Sub Command
+2 -> Sub Command Group
+3 -> String
+4 -> Integer
+5 -> Boolean
+6 -> User
+7 -> Channel
+8 -> Role
+9 -> Mentionable
+10 -> Number
+
+# <-- Choices --> #
+(From the official documentation)
+Choices can be defined on the STRING, INTEGER, and NUMBER option types.
+Choices are preset values the user can pick when selecting the option that contains them.
+
+CAUTION
+If you specify choices for an option, these are the only valid values a user may pick.

@@ -23,36 +23,40 @@
 
 package fns.veritas.client;
 
-import com.google.common.collect.ImmutableList;
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.entity.Guild;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.TextChannel;
 import discord4j.core.spec.MessageCreateSpec;
+import fns.veritas.cmd.base.BotCommandHandler;
+import java.util.List;
 import reactor.core.publisher.Mono;
 
 public class BotClient
 {
     private final GatewayDiscordClient client;
     private final BotConfig config;
-    private final ImmutableList<String> DISCORD_SUBDOMAINS;
+    private final List<String> subdomains;
 
     public BotClient(final BotConfig config)
     {
         this.config = config;
-        this.DISCORD_SUBDOMAINS = ImmutableList.of("discordapp.com", "discord.com", "discord.gg");
+        this.subdomains = List.of("discordapp.com", "discord.com", "discord.gg");
+
         this.client = DiscordClientBuilder.create(config.getToken())
                                           .build()
                                           .login()
                                           .block();
-    }
 
-    public void validateConnection()
-    {
         if (client == null)
             throw new IllegalStateException();
+
+        final BotCommandHandler handler = new BotCommandHandler(client.getRestClient());
+
+        client.on(ChatInputInteractionEvent.class, handler::handle);
     }
 
     public String getBotId()
@@ -87,14 +91,14 @@ public class BotClient
 
     public void messageChatChannel(String message, boolean system)
     {
-        String chat_channel_id = config.getChatChannelId().asString();
+        String channelID = config.getChatChannelId().asString();
 
         String sanitizedMessage = (system) ? message : sanitizeChatMessage(message);
 
         if (sanitizedMessage.isBlank())
             return;
 
-        if (!chat_channel_id.isEmpty())
+        if (!channelID.isEmpty())
         {
             MessageCreateSpec spec = MessageCreateSpec.builder()
                                                       .content(sanitizedMessage)
@@ -124,7 +128,7 @@ public class BotClient
             return "";
         }
 
-        for (String subdomain : DISCORD_SUBDOMAINS)
+        for (String subdomain : subdomains)
         {
             if (message.toLowerCase().contains(subdomain + "/invite"))
             {

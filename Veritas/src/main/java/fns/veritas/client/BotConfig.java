@@ -24,8 +24,8 @@
 package fns.veritas.client;
 
 import discord4j.common.util.Snowflake;
-import discord4j.discordjson.Id;
 import fns.patchwork.config.WrappedBukkitConfiguration;
+import fns.veritas.Aggregate;
 import fns.veritas.Veritas;
 import java.io.File;
 import java.io.IOException;
@@ -108,7 +108,7 @@ public class BotConfig
                     }
                     catch (IOException e)
                     {
-                        plugin.getAggregate().getLogger().error(e);
+                        Aggregate.getLogger().error(e);
                     }
                 }
             }

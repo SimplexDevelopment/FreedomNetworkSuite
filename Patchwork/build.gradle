@@ -8,6 +8,8 @@ repositories {
 dependencies {
     library 'io.projectreactor:reactor-core:3.5.4'
     library 'io.github.classgraph:classgraph:4.8.162'
+    library 'org.tomlj:tomlj:1.1.0'
+    library 'com.google.code.gson:gson:2.8.9'
     api 'org.slf4j:slf4j-api:1.7.36'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')

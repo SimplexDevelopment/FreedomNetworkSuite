@@ -21,67 +21,52 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.veritas.messaging;
 
-import fns.patchwork.event.FEvent;
-import fns.patchwork.provider.EventProvider;
-import java.util.ArrayList;
-import java.util.List;
+import discord4j.core.object.component.LayoutComponent;
+import discord4j.core.spec.MessageCreateFields;
+import discord4j.core.spec.MessageCreateSpec;
+import discord4j.rest.util.AllowedMentions;
 
-/**
- * A registry for {@link FEvent}s.
- */
-public class EventRegistry
+public class SimpleMessageWrapper
 {
-    /**
-     * The list of events.
-     */
-    private final List<FEvent> events;
+    private final MessageCreateSpec.Builder spec;
 
-    /**
-     * Creates a new event registry.
-     */
-    public EventRegistry()
+    public SimpleMessageWrapper()
     {
-        this.events = new ArrayList<>();
+        this.spec = MessageCreateSpec.builder();
     }
 
-    /**
-     * Registers an event.
-     *
-     * @param event The event to register.
-     */
-    public void register(final FEvent event)
+    public void setContent(final String content)
     {
-        this.events.add(event);
+        this.spec.content(content);
     }
 
-    /**
-     * Unregisters an event.
-     *
-     * @param event The event to unregister.
-     */
-    public void unregister(final FEvent event)
+    public void setEmbeds(final EmbedWrapper embed)
     {
-        this.events.remove(event);
+        this.spec.addAllEmbeds(embed.getEmbeds());
     }
 
-    /**
-     * Gets an {@link EventProvider} for the specified event class which contains the actual {@link FEvent} instance.
-     *
-     * @param clazz The event class.
-     * @param <T>   The event type.
-     * @return The event provider.
-     */
-    public <T extends FEvent> EventProvider<T> getEvent(final Class<T> clazz)
+    public void setAttachments(final MessageCreateFields.File... files)
     {
-        for (final FEvent event : this.events)
+        this.spec.addFiles(files);
+    }
+
+    public void setSpoilerAttachments(final MessageCreateFields.FileSpoiler... files)
+    {
+        this.spec.addFileSpoilers(files);
+    }
+
+    public void setAllowedMentions(final AllowedMentions allowedMentions)
+    {
+        this.spec.allowedMentions(allowedMentions);
+    }
+
+    public void setLayoutComponents(final LayoutComponent... components)
+    {
+        for (final LayoutComponent component : components)
         {
-            if (clazz.isInstance(event))
-            {
-                return () -> clazz.cast(event);
-            }
+            this.spec.addComponent(component);
         }
-        return null;
     }
 }

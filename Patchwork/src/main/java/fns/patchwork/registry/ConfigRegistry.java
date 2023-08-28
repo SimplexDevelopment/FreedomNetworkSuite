@@ -21,72 +21,51 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.patchwork.registry;
 
-import fns.patchwork.provider.ModuleProvider;
-import java.util.ArrayList;
-import java.util.List;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.patchwork.config.Configuration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A registry for modules.
+ * A registry for all the configurations.
  */
-public class ModuleRegistry
+public class ConfigRegistry
 {
     /**
-     * The list of modules.
+     * A map of all the configurations.
      */
-    private final List<JavaPlugin> plugins;
+    private final Map<String, Configuration> configurationList = new HashMap<>();
 
     /**
-     * Creates a new module registry.
+     * Registers a configuration.
+     *
+     * @param name          The name of the configuration.
+     * @param configuration The configuration.
      */
-    public ModuleRegistry()
+    public void register(final String name, final Configuration configuration)
     {
-        this.plugins = new ArrayList<>();
+        configurationList.put(name, configuration);
     }
 
     /**
-     * Adds a module to the registry.
+     * Unregisters a configuration.
      *
-     * @param plugin The module to add.
+     * @param name The name of the configuration.
      */
-    public void addModule(final JavaPlugin plugin)
+    public void unregister(final String name)
     {
-        if (this.plugins.contains(plugin))
-        {
-            return;
-        }
-        this.plugins.add(plugin);
+        configurationList.remove(name);
     }
 
     /**
-     * Removes a module from the registry.
+     * Gets a configuration.
      *
-     * @param plugin The module to remove.
+     * @param name The name of the configuration.
+     * @return The configuration.
      */
-    public void removeModule(final JavaPlugin plugin)
+    public Configuration getConfiguration(final String name)
     {
-        this.plugins.remove(plugin);
-    }
-
-    /**
-     * Gets a module from the registry wrapped in a {@link ModuleProvider}.
-     *
-     * @param clazz The class of the module.
-     * @param <T>   The type of the module.
-     * @return The module.
-     */
-    public <T extends JavaPlugin> ModuleProvider<T> getProvider(final Class<T> clazz)
-    {
-        for (final JavaPlugin plugin : plugins)
-        {
-            if (clazz.isInstance(plugin))
-            {
-                return () -> clazz.cast(plugin);
-            }
-        }
-
-        return () -> null;
+        return configurationList.get(name);
     }
 }

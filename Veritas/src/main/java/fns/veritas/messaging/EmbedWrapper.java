@@ -21,51 +21,43 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.veritas.messaging;
 
-import fns.patchwork.config.Configuration;
-import java.util.HashMap;
-import java.util.Map;
+import discord4j.core.spec.EmbedCreateSpec;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A registry for all the configurations.
- */
-public class ConfigRegistry
+public class EmbedWrapper
 {
-    /**
-     * A map of all the configurations.
-     */
-    private final Map<String, Configuration> configurationList = new HashMap<>();
+    private final List<EmbedCreateSpec> embeds = new ArrayList<>();
 
-    /**
-     * Registers a configuration.
-     *
-     * @param name          The name of the configuration.
-     * @param configuration The configuration.
-     */
-    public void register(final String name, final Configuration configuration)
+    public List<EmbedCreateSpec> getEmbeds()
     {
-        configurationList.put(name, configuration);
+        return embeds;
     }
 
-    /**
-     * Unregisters a configuration.
-     *
-     * @param name The name of the configuration.
-     */
-    public void unregister(final String name)
+    public void addEmbed(final EmbedCreateSpec embed)
     {
-        configurationList.remove(name);
+        this.embeds.add(embed);
     }
 
-    /**
-     * Gets a configuration.
-     *
-     * @param name The name of the configuration.
-     * @return The configuration.
-     */
-    public Configuration getConfiguration(final String name)
+    public EmbedCreateSpec.Builder create()
     {
-        return configurationList.get(name);
+        return EmbedCreateSpec.builder();
+    }
+
+    public void quickEmbed(final String title,
+                           final String description,
+                           final List<Embed> content)
+    {
+        final EmbedCreateSpec.Builder builder = create()
+            .title(title)
+            .description(description);
+
+        content.forEach(t -> builder.addField(t.fieldName(),
+                                              t.value(),
+                                              t.inline()));
+
+        addEmbed(builder.build());
     }
 }
