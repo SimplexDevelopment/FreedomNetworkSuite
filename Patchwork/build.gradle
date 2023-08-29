@@ -8,6 +8,9 @@ repositories {
 dependencies {
     library 'io.projectreactor:reactor-core:3.5.4'
     library 'io.github.classgraph:classgraph:4.8.162'
+    library 'com.electronwill.night-config:core:3.6.7'
+    library 'com.electronwill.night-config:toml:3.6.7'
+    library 'com.electronwill.night-config:json:3.6.7'
     api 'org.slf4j:slf4j-api:1.7.36'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
@@ -19,7 +22,7 @@ bukkit {
     description = "Freedom Network Suite Core Module (API & Library)"
 }
 
-var weight = 1
+def weight = 1
 
 test {
     useJUnitPlatform()

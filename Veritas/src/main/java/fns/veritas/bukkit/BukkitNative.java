@@ -109,7 +109,7 @@ public class BukkitNative implements Listener
         if (!plugin.getServer().hasWhitelist() && bot != null)
         {
             plugin.getAggregate().getBot().messageChatChannel(player.getName()
-                                                                  + " \u00BB "
+                                                                  + " » "
                                                                   + message, true);
         }
     }

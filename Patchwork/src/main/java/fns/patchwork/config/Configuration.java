@@ -23,9 +23,8 @@
 
 package fns.patchwork.config;
 
-import fns.patchwork.api.Context;
+import fns.patchwork.provider.Context;
 import fns.patchwork.provider.ContextProvider;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.File;

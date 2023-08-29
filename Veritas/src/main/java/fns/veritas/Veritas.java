@@ -34,9 +34,8 @@ public class Veritas extends JavaPlugin
     {
         this.aggregate = new Aggregate(this);
 
-        getAggregate()
-            .getLogger()
-            .info("Veritas has been enabled!");
+        Aggregate.getLogger()
+                 .info("Veritas has been enabled!");
     }
 
     public Aggregate getAggregate()

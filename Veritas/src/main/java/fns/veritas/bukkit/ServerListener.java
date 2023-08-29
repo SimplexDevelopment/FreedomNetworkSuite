@@ -27,6 +27,7 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Attachment;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
+import fns.veritas.Aggregate;
 import fns.veritas.Veritas;
 import fns.veritas.client.BotClient;
 import net.kyori.adventure.text.Component;
@@ -35,6 +36,8 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
+import reactor.core.publisher.Mono;
 
 public class ServerListener
 {
@@ -48,9 +51,9 @@ public class ServerListener
         this.bot = plugin.getAggregate().getBot();
     }
 
-    public void minecraftChatBound()
+    public Mono<Void> minecraftChatBound()
     {
-        bot.getClient()
+        return bot.getClient()
            .getEventDispatcher()
            .on(MessageCreateEvent.class)
            .filter(m -> m.getMessage()
@@ -62,8 +65,9 @@ public class ServerListener
                           .orElseThrow(IllegalAccessError::new)
                           .getId()
                           .equals(plugin.getAggregate().getBot().getClient().getSelfId()))
-           .doOnError(plugin.getAggregate().getLogger()::error)
-           .subscribe(this::doMessageBodyDetails);
+           .doOnError(Aggregate.getLogger()::error)
+           .doOnNext(this::doMessageBodyDetails)
+           .then();
     }
 
     private void doMessageBodyDetails(MessageCreateEvent m)
@@ -83,6 +87,14 @@ public class ServerListener
 
         user = user.append(Component.text(member.getDisplayName().trim()));
 
+        final TextComponent message = builder(msg);
+
+        Bukkit.broadcast(builder.append(prefix, user, message).build());
+    }
+
+    @NotNull
+    private TextComponent builder(Message msg)
+    {
         TextComponent message = Component.text(": ", NamedTextColor.DARK_GRAY)
                                          .append(
                                              Component.text(msg.getContent(), NamedTextColor.WHITE));
@@ -102,7 +114,6 @@ public class ServerListener
                                                   .clickEvent(ClickEvent.openUrl(attachment.getUrl())));
             }
         }
-
-        Bukkit.broadcast(builder.append(prefix, user, message).build());
+        return message;
     }
 }

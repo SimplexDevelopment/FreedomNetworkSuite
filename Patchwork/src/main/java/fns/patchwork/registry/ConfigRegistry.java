@@ -21,27 +21,51 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.command.annotation;
+package fns.patchwork.registry;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import org.jetbrains.annotations.ApiStatus;
+import fns.patchwork.config.Configuration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A marker interface which represents a holder for multiple {@link Completion} annotations.
- * <br>
- * <u>This interface is <b>NOT</b> intended for implementation and should
- * <b>NOT</b> be used.</u>
+ * A registry for all the configurations.
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@ApiStatus.Internal
-public @interface Completions
+public class ConfigRegistry
 {
     /**
-     * @return The {@link Completion} annotations.
+     * A map of all the configurations.
      */
-    Completion[] value();
+    private final Map<String, Configuration> configurationList = new HashMap<>();
+
+    /**
+     * Registers a configuration.
+     *
+     * @param name          The name of the configuration.
+     * @param configuration The configuration.
+     */
+    public void register(final String name, final Configuration configuration)
+    {
+        configurationList.put(name, configuration);
+    }
+
+    /**
+     * Unregisters a configuration.
+     *
+     * @param name The name of the configuration.
+     */
+    public void unregister(final String name)
+    {
+        configurationList.remove(name);
+    }
+
+    /**
+     * Gets a configuration.
+     *
+     * @param name The name of the configuration.
+     * @return The configuration.
+     */
+    public Configuration getConfiguration(final String name)
+    {
+        return configurationList.get(name);
+    }
 }

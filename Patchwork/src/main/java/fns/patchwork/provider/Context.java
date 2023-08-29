@@ -21,9 +21,8 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.api;
+package fns.patchwork.provider;
 
-import fns.patchwork.provider.ContextProvider;
 import java.util.function.Function;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;

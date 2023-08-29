@@ -9,6 +9,12 @@ repositories {
     mavenCentral()
 }
 
+bukkit {
+    main = "fns.veritas.Veritas"
+    description = "Discord Module for Freedom Network Suite"
+    depend = ["Patchwork", "Datura"]
+}
+
 dependencies {
     compileOnly project(":Patchwork")
     compileOnly project(":Datura")

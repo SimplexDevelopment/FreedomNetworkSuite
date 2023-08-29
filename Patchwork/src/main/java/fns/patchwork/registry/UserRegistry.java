@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.patchwork.registry;
 
 import fns.patchwork.user.User;
 import fns.patchwork.user.UserData;

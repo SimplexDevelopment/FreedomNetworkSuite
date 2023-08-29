@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.patchwork.registry;
 
 import fns.patchwork.event.FEvent;
 import fns.patchwork.provider.EventProvider;

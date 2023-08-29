@@ -1,0 +1,12 @@
+{
+  "name": "list",
+  "description": "List all players on the server.",
+  "options": [
+    {
+      "type": 5,
+      "name": "staff",
+      "description": "Show only staff members currently online.",
+      "required": false
+    }
+  ]
+}

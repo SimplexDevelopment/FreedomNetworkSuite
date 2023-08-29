@@ -23,7 +23,6 @@
 
 package fns.patchwork.utils;
 
-import fns.patchwork.api.Interpolator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -154,5 +153,25 @@ public final class InterpolationUtils
     public static Set<TextColor> standardComponentGradient(final int length, final TextColor from, final TextColor to)
     {
         return componentRGBGradient(length, from, to, InterpolationUtils::linear);
+    }
+
+    /**
+     * Interpolates a range of values and returns the results in a {@link Double} array.
+     * <br>
+     * This is a functional interface, to allow for lambda expressions, but also for anonymous custom interpolation
+     * implementations.
+     */
+    @FunctionalInterface
+    public static interface Interpolator
+    {
+        /**
+         * Interpolates a range of values and returns the results in a {@link Double} array.
+         *
+         * @param from The starting value.
+         * @param to   The ending value.
+         * @param max  The number of values to interpolate.
+         * @return The interpolated values.
+         */
+        double[] interpolate(final double from, final double to, final int max);
     }
 }

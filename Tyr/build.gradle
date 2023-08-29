@@ -9,6 +9,12 @@ repositories {
     mavenCentral()
 }
 
+bukkit {
+    main = "fns.tyr.Tyr"
+    description = "SSH -> RCON Module for Freedom Network Suite"
+    depend = ["Patchwork", "Datura"]
+}
+
 dependencies {
     compileOnly project(":Patchwork")
     compileOnly project(":Datura")

@@ -23,7 +23,6 @@
 
 package fns.patchwork.particle;
 
-import fns.patchwork.api.Interpolator;
 import fns.patchwork.utils.InterpolationUtils;
 import java.util.Set;
 import java.util.UUID;
@@ -101,7 +100,7 @@ public interface Trail
      * @see #getColor()
      * @see Particle
      * @see InterpolationUtils
-     * @see Interpolator
+     * @see InterpolationUtils.Interpolator
      */
     @Nullable
     Set<Color> getColors();

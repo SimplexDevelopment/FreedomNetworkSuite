@@ -21,51 +21,30 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
-
-import fns.patchwork.config.Configuration;
-import java.util.HashMap;
-import java.util.Map;
+package fns.patchwork.serializer;
 
 /**
- * A registry for all the configurations.
+ * This interface represents a Serializable object. Objects which require custom serialization and cannot simply
+ * override or call the default {@link Object#toString()} method should implement this interface.
+ *
+ * @param <T> The type of object to serialize
  */
-public class ConfigRegistry
+public interface Serializable<T>
 {
     /**
-     * A map of all the configurations.
+     * Serialize an object to a string. Ideally, this should serialize to an SQL query for easy data transfer.
+     *
+     * @param object The object to serialize
+     * @return The serialized object
      */
-    private final Map<String, Configuration> configurationList = new HashMap<>();
+    String serialize(T object);
 
     /**
-     * Registers a configuration.
+     * Deserialize an object from a Serialized string..
      *
-     * @param name          The name of the configuration.
-     * @param configuration The configuration.
+     * @param serializedObject The serialized object
+     * @return The deserialized object
      */
-    public void register(final String name, final Configuration configuration)
-    {
-        configurationList.put(name, configuration);
-    }
 
-    /**
-     * Unregisters a configuration.
-     *
-     * @param name The name of the configuration.
-     */
-    public void unregister(final String name)
-    {
-        configurationList.remove(name);
-    }
-
-    /**
-     * Gets a configuration.
-     *
-     * @param name The name of the configuration.
-     * @return The configuration.
-     */
-    public Configuration getConfiguration(final String name)
-    {
-        return configurationList.get(name);
-    }
+    T deserialize(String serializedObject);
 }

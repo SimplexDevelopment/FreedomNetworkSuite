@@ -21,72 +21,78 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.data;
+package fns.patchwork.registry;
 
-import fns.patchwork.provider.ModuleProvider;
+import fns.patchwork.permissible.Group;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 /**
- * A registry for modules.
+ * A registry for {@link Group}s.
  */
-public class ModuleRegistry
+public class GroupRegistry
 {
     /**
-     * The list of modules.
+     * The list of groups.
      */
-    private final List<JavaPlugin> plugins;
+    private final List<Group> groups;
 
     /**
-     * Creates a new module registry.
+     * Creates a new group registry.
      */
-    public ModuleRegistry()
+    public GroupRegistry()
     {
-        this.plugins = new ArrayList<>();
+        this.groups = new ArrayList<>();
     }
 
     /**
-     * Adds a module to the registry.
+     * Registers a group.
      *
-     * @param plugin The module to add.
+     * @param group The group to register.
+     * @return {@code true} if the group was registered, {@code false} otherwise.
      */
-    public void addModule(final JavaPlugin plugin)
+    public boolean registerGroup(final Group group)
     {
-        if (this.plugins.contains(plugin))
+        return groups.add(group);
+    }
+
+    /**
+     * Unregisters a group.
+     *
+     * @param group The group to unregister.
+     * @return {@code true} if the group was unregistered, {@code false} otherwise.
+     */
+    public boolean unregisterGroup(final Group group)
+    {
+        return groups.remove(group);
+    }
+
+    /**
+     * Gets a group by name.
+     *
+     * @param name The name of the group.
+     * @return The group, or {@code null} if no group was found.
+     */
+    public Group getGroup(final String name)
+    {
+        final PlainTextComponentSerializer s = PlainTextComponentSerializer.plainText();
+        for (final Group group : groups)
         {
-            return;
-        }
-        this.plugins.add(plugin);
-    }
-
-    /**
-     * Removes a module from the registry.
-     *
-     * @param plugin The module to remove.
-     */
-    public void removeModule(final JavaPlugin plugin)
-    {
-        this.plugins.remove(plugin);
-    }
-
-    /**
-     * Gets a module from the registry wrapped in a {@link ModuleProvider}.
-     *
-     * @param clazz The class of the module.
-     * @param <T>   The type of the module.
-     * @return The module.
-     */
-    public <T extends JavaPlugin> ModuleProvider<T> getProvider(final Class<T> clazz)
-    {
-        for (final JavaPlugin plugin : plugins)
-        {
-            if (clazz.isInstance(plugin))
+            final String n = s.serialize(group.getName());
+            if (n.equalsIgnoreCase(name))
             {
-                return () -> clazz.cast(plugin);
+                return group;
             }
         }
+        return null;
+    }
 
-        return () -> null;
+    /**
+     * @return The list of groups.
+     */
+    public List<Group> getGroups()
+    {
+        return groups;
     }
 }
