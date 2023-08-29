@@ -43,6 +43,7 @@ import org.bukkit.command.PluginIdentifiableCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -60,6 +61,8 @@ import org.jetbrains.annotations.NotNull;
  * <br>
  * This class is not meant to be used outside Patchwork.
  */
+@ApiStatus.Internal
+@ApiStatus.NonExtendable
 public final class BukkitDelegate extends Command implements PluginIdentifiableCommand
 {
     private final JavaPlugin plugin;
@@ -274,3 +277,4 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         return this.plugin;
     }
 }
+
