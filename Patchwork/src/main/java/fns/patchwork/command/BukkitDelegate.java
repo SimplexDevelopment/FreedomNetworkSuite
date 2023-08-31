@@ -32,6 +32,7 @@ import fns.patchwork.utils.logging.FNS4J;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -156,50 +157,19 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         if (argTypes.length > args.length)
             return;
 
+        final Player p = (sender instanceof Player player) ? player : null;
+
         final Object[] objects = new Object[argTypes.length + 1];
 
-        for (int i = 0; i < argTypes.length; i++)
-        {
-            final Class<?> argType = argTypes[i];
-            final String arg = args[i];
+        parseArguments(args, provider, argTypes, objects);
 
-            if (argType.equals(String.class))
-            {
-                if (i == argTypes.length - 1)
-                {
-                    final String[] reasonArgs = Arrays.copyOfRange(args, i, args.length - 1);
-                    final String reason = String.join(" ", reasonArgs);
-                    objects[i] = reason;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-
-            if (argType.equals(Location.class))
-            {
-                final String[] locationArgs = Arrays.copyOfRange(args, i, i + 3);
-                final String location = String.join(" ", locationArgs);
-                objects[i] = location;
-            }
-
-            final Object obj = provider.fromString(arg, argType);
-            if (obj == null)
-            {
-                FNS4J.getLogger("Datura")
-                     .error("Failed to parse argument " + arg + " for type " + argType.getName());
-                return;
-            }
-            objects[i] = obj;
-        }
         try
         {
             if (noConsole)
             {
                 command.getSubcommands()
                        .get(node)
-                       .invoke(command, (Player) sender, objects);
+                       .invoke(command, p, objects);
             }
             else
             {
@@ -215,11 +185,55 @@ public final class BukkitDelegate extends Command implements PluginIdentifiableC
         }
     }
 
-    @Override
-    public List<String> tabComplete(final CommandSender sender, final String alias, final String[] args)
+    private void parseArguments(@NotNull String @NotNull [] args,
+                                ContextProvider provider,
+                                Class<?>[] argTypes,
+                                Object[] objects)
     {
-        final Set<Completion> completions = command.getCompletions();
+        for (int i = 0; i < argTypes.length; i++)
+        {
+            final Class<?> argType = argTypes[i];
+            String arg = args[i];
+
+            boolean wasResolved = false;
+
+            if (argType.equals(String.class) && (i == argTypes.length - 1))
+            {
+                final String[] reasonArgs = Arrays.copyOfRange(args, i, args.length - 1);
+                final String reason = String.join(" ", reasonArgs);
+                objects[i] = reason;
+                wasResolved = true;
+            }
+
+            if (argType.equals(Location.class))
+            {
+                final String[] locationArgs = Arrays.copyOfRange(args, i, i + 3);
+                arg = String.join(" ", locationArgs);
+            }
+
+            if (!wasResolved)
+            {
+                final Optional<?> obj = provider.fromString(arg, argType);
+                if (obj.isEmpty())
+                {
+                    FNS4J.getLogger("Datura")
+                         .error("Failed to parse argument " + arg + " for type " + argType.getName());
+                    continue;
+                }
+                objects[i] = obj.get();
+            }
+        }
+    }
+
+    @Override
+    public @NotNull List<String> tabComplete(final @NotNull CommandSender sender, final @NotNull String alias,
+                                             final String[] args)
+    {
         final List<String> results = new ArrayList<>();
+        final Set<Completion> completions = command.getCompletions();
+
+        if (completions == null || completions.isEmpty())
+            return results;
 
         if (args.length == 0)
         {

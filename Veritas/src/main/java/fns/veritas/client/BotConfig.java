@@ -24,7 +24,8 @@
 package fns.veritas.client;
 
 import discord4j.common.util.Snowflake;
-import fns.patchwork.config.WrappedBukkitConfiguration;
+import fns.patchwork.config.ConfigType;
+import fns.patchwork.config.GenericConfig;
 import fns.veritas.Aggregate;
 import fns.veritas.Veritas;
 import java.io.File;
@@ -41,12 +42,11 @@ public class BotConfig
     public static final String GUILD_ID = "guild_id";
     @NonNls
     private static final String BOT_TOKEN = "bot_token";
-    private final WrappedBukkitConfiguration config;
+    private final GenericConfig config;
 
-    public BotConfig(final Veritas plugin)
+    public BotConfig(final Veritas plugin) throws IOException
     {
-        this.config = new WrappedBukkitConfiguration(f0(plugin),
-                                                     new File(plugin.getDataFolder(), "config.yml"));
+        this.config = new GenericConfig(ConfigType.TOML, plugin, "config.toml");
     }
 
     public String getToken()

@@ -28,6 +28,7 @@ import fns.veritas.bukkit.BukkitNative;
 import fns.veritas.bukkit.ServerListener;
 import fns.veritas.client.BotClient;
 import fns.veritas.client.BotConfig;
+import java.io.IOException;
 import org.bukkit.Bukkit;
 
 public class Aggregate
@@ -40,13 +41,30 @@ public class Aggregate
 
     public Aggregate(final Veritas plugin)
     {
+        BotClient bot1;
         this.plugin = plugin;
-        this.bot = new BotClient(new BotConfig(plugin));
+
+        try
+        {
+            bot1 = new BotClient(new BotConfig(plugin));
+        }
+        catch (IOException ex)
+        {
+            getLogger().error("Failed to load bot config! Shutting down...");
+            getLogger().error(ex);
+            this.bot = null;
+            this.serverListener = null;
+            this.bukkitNativeListener = null;
+            Bukkit.getPluginManager().disablePlugin(plugin);
+            return;
+        }
+
         this.bukkitNativeListener = new BukkitNative(plugin);
         this.serverListener = new ServerListener(plugin);
 
         Bukkit.getServer().getPluginManager().registerEvents(this.getBukkitNativeListener(), plugin);
         this.getServerListener().minecraftChatBound().subscribe();
+        this.bot = bot1;
     }
 
     public static FNS4J getLogger()
