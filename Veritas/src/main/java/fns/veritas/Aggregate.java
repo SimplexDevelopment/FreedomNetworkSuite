@@ -34,6 +34,13 @@ import org.bukkit.Bukkit;
 public class Aggregate
 {
     private static final FNS4J logger = FNS4J.getLogger("Veritas");
+    private static final String FAILED_PACKET = """
+                                                Failed to process inbound chat packet.
+                                                An offending element was found transmitted through the stream.
+                                                The element has been dropped, and ignored.
+                                                Offending element: %s
+                                                Caused by: %s
+                                                Stack Trace: %s""";
     private final BotClient bot;
     private final Veritas plugin;
     private final BukkitNative bukkitNativeListener;
@@ -62,8 +69,17 @@ public class Aggregate
         this.bukkitNativeListener = new BukkitNative(plugin);
         this.serverListener = new ServerListener(plugin);
 
-        Bukkit.getServer().getPluginManager().registerEvents(this.getBukkitNativeListener(), plugin);
-        this.getServerListener().minecraftChatBound().subscribe();
+        Bukkit.getServer()
+              .getPluginManager()
+              .registerEvents(this.getBukkitNativeListener(), plugin);
+        this.getServerListener()
+            .minecraftChatBound()
+            .onErrorContinue((th, v) -> Aggregate.getLogger()
+                                                 .error(FAILED_PACKET.formatted(
+                                                     v.getClass().getName(),
+                                                     th.getCause(),
+                                                     th.getMessage())))
+            .subscribe();
         this.bot = bot1;
     }
 
@@ -85,6 +101,11 @@ public class Aggregate
     public BotClient getBot()
     {
         return bot;
+    }
+
+    public BotConfig getBotConfig()
+    {
+        return bot.getConfig();
     }
 
     public Veritas getPlugin()

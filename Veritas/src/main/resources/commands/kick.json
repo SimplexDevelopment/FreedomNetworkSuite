@@ -1,0 +1,18 @@
+{
+  "name": "kick",
+  "description": "Kicks a user from the server",
+  "options": [
+    {
+      "name": "player",
+      "type": 3,
+      "description": "The player to kick",
+      "required": true
+    },
+    {
+      "name": "reason",
+      "type": 3,
+      "description": "The reason for kicking the player",
+      "required": true
+    }
+  ]
+}
