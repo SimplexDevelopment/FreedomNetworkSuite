@@ -25,7 +25,7 @@ package fns.patchwork.registry;
 
 import fns.patchwork.service.Service;
 import fns.patchwork.service.ServiceSubscription;
-import fns.patchwork.service.SubscriptionProvider;
+import fns.patchwork.provider.SubscriptionProvider;
 import fns.patchwork.service.Task;
 import fns.patchwork.service.TaskSubscription;
 import java.util.ArrayList;

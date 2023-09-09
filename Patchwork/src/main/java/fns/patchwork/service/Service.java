@@ -23,6 +23,8 @@
 
 package fns.patchwork.service;
 
+import fns.patchwork.provider.SubscriptionProvider;
+
 /**
  * Represents a ticking service. Services may be asynchronous or synchronous, however there are some restrictions:
  * <ul>

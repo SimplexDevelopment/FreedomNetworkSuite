@@ -27,6 +27,7 @@ import fns.patchwork.registry.ConfigRegistry;
 import fns.patchwork.registry.EventRegistry;
 import fns.patchwork.registry.GroupRegistry;
 import fns.patchwork.registry.ModuleRegistry;
+import fns.patchwork.registry.SQLRegistry;
 import fns.patchwork.registry.ServiceTaskRegistry;
 import fns.patchwork.registry.UserRegistry;
 
@@ -62,6 +63,10 @@ public class Registration
      * The {@link ConfigRegistry}
      */
     private static final ConfigRegistry configRegistry = new ConfigRegistry();
+    /**
+     * The SQL Registry
+     */
+    private static final SQLRegistry sqlRegistry = new SQLRegistry();
 
     private Registration()
     {
@@ -114,5 +119,13 @@ public class Registration
     public static ConfigRegistry getConfigRegistry()
     {
         return configRegistry;
+    }
+
+    /**
+     * @return The {@link SQLRegistry}
+     */
+    public static SQLRegistry getSQLRegistry()
+    {
+        return sqlRegistry;
     }
 }

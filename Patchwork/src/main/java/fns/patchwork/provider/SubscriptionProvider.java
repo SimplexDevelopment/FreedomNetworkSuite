@@ -21,8 +21,12 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.service;
+package fns.patchwork.provider;
 
+import fns.patchwork.service.Service;
+import fns.patchwork.service.ServiceSubscription;
+import fns.patchwork.service.Task;
+import fns.patchwork.service.TaskSubscription;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

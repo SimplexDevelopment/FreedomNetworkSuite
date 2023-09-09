@@ -32,7 +32,7 @@ import fns.datura.punishment.Locker;
 import fns.datura.sql.MySQL;
 import fns.patchwork.base.Registration;
 import fns.patchwork.command.CommandHandler;
-import fns.patchwork.service.SubscriptionProvider;
+import fns.patchwork.provider.SubscriptionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

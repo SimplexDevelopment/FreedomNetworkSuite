@@ -25,8 +25,8 @@ package fns.patchwork.base;
 
 import fns.patchwork.display.adminchat.AdminChatDisplay;
 import fns.patchwork.event.EventBus;
-import fns.patchwork.service.FreedomExecutor;
-import fns.patchwork.service.SubscriptionProvider;
+import fns.patchwork.provider.ExecutorProvider;
+import fns.patchwork.provider.SubscriptionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,9 +40,9 @@ public class Patchwork extends JavaPlugin
      */
     private EventBus eventBus;
     /**
-     * The {@link FreedomExecutor} for this plugin.
+     * The {@link ExecutorProvider} for this plugin.
      */
-    private FreedomExecutor executor;
+    private ExecutorProvider executor;
     /**
      * The {@link AdminChatDisplay} for this plugin.
      */
@@ -64,7 +64,7 @@ public class Patchwork extends JavaPlugin
     public void onEnable()
     {
         eventBus = new EventBus(this);
-        executor = new FreedomExecutor(this);
+        executor = new ExecutorProvider(this);
         acdisplay = new AdminChatDisplay(this);
 
 
@@ -80,11 +80,11 @@ public class Patchwork extends JavaPlugin
     }
 
     /**
-     * Gets the {@link FreedomExecutor} for this plugin.
+     * Gets the {@link ExecutorProvider} for this plugin.
      *
-     * @return the {@link FreedomExecutor}
+     * @return the {@link ExecutorProvider}
      */
-    public FreedomExecutor getExecutor()
+    public ExecutorProvider getExecutor()
     {
         return executor;
     }

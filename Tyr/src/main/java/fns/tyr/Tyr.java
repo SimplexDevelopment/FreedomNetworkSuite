@@ -21,28 +21,28 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.tyr;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.datura.Datura;
+import fns.patchwork.base.Shortcuts;
+import fns.patchwork.sql.SQL;
+import fns.patchwork.utils.logging.FNS4J;
 
-public class Fossil extends JavaPlugin
+public class Tyr
 {
-    private final Trailer trailer = new Trailer();
-    @Override
     public void onEnable()
     {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+        final SQL sql = Shortcuts.provideModule(Datura.class).getSQL();
+        sql.createTable("sessionData",
+                        "user VARCHAR(16) NOT NULL PRIMARY KEY, secretKey VARCHAR(64) NOT NULL;")
+           .whenCompleteAsync((result, throwable) ->
+                              {
+                                  if (throwable != null)
+                                      FNS4J.getLogger("Tyr")
+                                           .error(throwable.getMessage());
+                              }, Shortcuts.getExecutors()
+                                          .getAsync());
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
     }
 }

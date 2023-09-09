@@ -21,28 +21,24 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.patchwork.registry;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.patchwork.sql.SQL;
+import java.util.Optional;
 
-public class Fossil extends JavaPlugin
+public class SQLRegistry
 {
-    private final Trailer trailer = new Trailer();
-    @Override
-    public void onEnable()
-    {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+    private SQL sql;
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+    public SQLRegistry() {
+        this.sql = null;
+    }
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+    public Optional<SQL> getSQL() {
+        return (sql == null) ? Optional.empty() : Optional.of(sql);
+    }
+
+    public void setSQL(final SQL sql) {
+        this.sql = sql;
     }
 }

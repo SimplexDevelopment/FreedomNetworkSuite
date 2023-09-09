@@ -21,28 +21,43 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.tyr.oauth;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.j256.twofactorauth.TimeBasedOneTimePasswordUtil;
+import fns.patchwork.utils.logging.FNS4J;
+import java.security.GeneralSecurityException;
 
-public class Fossil extends JavaPlugin
+/**
+ * User-friendly version of TimeBasedOneTimePasswordUtil.
+ */
+public final class TOTP
 {
-    private final Trailer trailer = new Trailer();
-    @Override
-    public void onEnable()
+    private TOTP()
     {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+        throw new AssertionError("This class cannot be instantiated.");
+    }
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+    public static String createSecretKey()
+    {
+        return TimeBasedOneTimePasswordUtil.generateBase32Secret(32);
+    }
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+    public static String createQRCode(final String username, final String secretKey)
+    {
+        return TimeBasedOneTimePasswordUtil.qrImageUrl(username, secretKey);
+    }
+
+    public static boolean verify(final String secretKey, final int userCode)
+    {
+        try
+        {
+            int vCode = TimeBasedOneTimePasswordUtil.generateCurrentNumber(secretKey);
+            return vCode == userCode;
+        }
+        catch (GeneralSecurityException ex)
+        {
+            FNS4J.getLogger("Tyr").error("Failed to verify TOTP code: " + ex.getMessage());
+            return false;
+        }
     }
 }

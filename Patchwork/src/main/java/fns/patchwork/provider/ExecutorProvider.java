@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.service;
+package fns.patchwork.provider;
 
 import fns.patchwork.base.Patchwork;
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +34,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * This class is here for both convenience purposes, and also for the sake of providing easy access to executors for
  * {@link CompletableFuture} invocations.
  */
-public class FreedomExecutor
+public class ExecutorProvider
 {
     /**
      * An executor which runs tasks synchronously.
@@ -46,9 +46,9 @@ public class FreedomExecutor
     private final Executor asyncExecutor;
 
     /**
-     * Creates a new {@link FreedomExecutor} instance.
+     * Creates a new {@link ExecutorProvider} instance.
      */
-    public FreedomExecutor(final Patchwork patchwork)
+    public ExecutorProvider(final Patchwork patchwork)
     {
         syncExecutor = r -> Bukkit.getScheduler()
                                   .runTask(patchwork, r);
