@@ -1,0 +1,24 @@
+{
+  "name": "ban",
+  "description": "Bans a user from the server.",
+  "options": [
+    {
+      "name": "player",
+      "description": "The player to ban.",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "reason",
+      "description": "The reason for the ban.",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "duration",
+      "description": "The duration of the ban, in minutes. Default is 5 minutes.",
+      "type": 4,
+      "required": false
+    }
+  ]
+}

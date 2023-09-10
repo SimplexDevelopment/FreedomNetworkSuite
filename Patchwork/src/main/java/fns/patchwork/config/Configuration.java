@@ -25,6 +25,7 @@ package fns.patchwork.config;
 
 import fns.patchwork.provider.Context;
 import fns.patchwork.provider.ContextProvider;
+import java.util.Collection;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.File;
@@ -87,7 +88,7 @@ public interface Configuration
      * @param clazz The class of the type.
      * @return The List object.
      */
-    <T> @Unmodifiable List<T> getList(String path, Class<T> clazz);
+    <T> @Unmodifiable Collection<T> getCollection(String path, Class<T> clazz);
 
     /**
      * Gets a List object from the associated path. The List that is returned will be the String values which are stored

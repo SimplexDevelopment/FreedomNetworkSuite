@@ -1,0 +1,10 @@
+[bot_settings]
+bot_token = "xyz-123-REPLACE-ME"
+invite_link = "https://discord.gg/invite"
+guild_id = 0
+mc_channel_id = 0
+log_channel_id = 0
+
+[admin_settings]
+# This role will be able to use the /kick and /ban commands.
+admin_role_id = 0

@@ -24,7 +24,8 @@
 package fns.veritas.client;
 
 import discord4j.common.util.Snowflake;
-import fns.patchwork.config.WrappedBukkitConfiguration;
+import fns.patchwork.config.ConfigType;
+import fns.patchwork.config.GenericConfig;
 import fns.veritas.Aggregate;
 import fns.veritas.Veritas;
 import java.io.File;
@@ -38,15 +39,22 @@ import org.jetbrains.annotations.NonNls;
 public class BotConfig
 {
     @NonNls
-    public static final String GUILD_ID = "guild_id";
+    private static final String GUILD_ID = "bot_settings.guild_id";
     @NonNls
-    private static final String BOT_TOKEN = "bot_token";
-    private final WrappedBukkitConfiguration config;
+    private static final String BOT_TOKEN = "bot_settings.bot_token";
+    @NonNls
+    private static final String MC_CHANNEL_ID = "bot_settings.mc_channel_id";
+    @NonNls
+    private static final String LOG_CHANNEL_ID = "bot_settings.log_channel_id";
+    @NonNls
+    private static final String INVITE_LINK = "bot_settings.invite_link";
 
-    public BotConfig(final Veritas plugin)
+
+    private final GenericConfig config;
+
+    public BotConfig(final Veritas plugin) throws IOException
     {
-        this.config = new WrappedBukkitConfiguration(f0(plugin),
-                                                     new File(plugin.getDataFolder(), "config.yml"));
+        this.config = new GenericConfig(ConfigType.TOML, plugin, "config.toml");
     }
 
     public String getToken()
@@ -54,29 +62,29 @@ public class BotConfig
         return config.getString(BOT_TOKEN);
     }
 
-    public String getPrefix()
+    public Snowflake getGuildId()
     {
-        return config.getString("bot_prefix");
-    }
-
-    public Snowflake getId()
-    {
-        return Snowflake.of(config.getString(GUILD_ID));
+        return Snowflake.of(config.getLong(GUILD_ID));
     }
 
     public Snowflake getChatChannelId()
     {
-        return Snowflake.of(config.getString("channel_id"));
+        return Snowflake.of(config.getLong(MC_CHANNEL_ID));
     }
 
     public Snowflake getLogChannelId()
     {
-        return Snowflake.of(config.getString("log_channel_id"));
+        return Snowflake.of(config.getLong(LOG_CHANNEL_ID));
+    }
+
+    public Snowflake getAdminRoleId()
+    {
+        return Snowflake.of(config.getLong("admin_settings.admin_role_id"));
     }
 
     public String getInviteLink()
     {
-        return config.getString("invite_link");
+        return config.getString(INVITE_LINK);
     }
 
     private Function<File, FileConfiguration> f0(final Veritas plugin)
@@ -94,11 +102,10 @@ public class BotConfig
                 catch (IOException | InvalidConfigurationException ex)
                 {
                     fc.addDefault(BOT_TOKEN, "token");
-                    fc.addDefault("bot_prefix", "!");
-                    fc.addDefault(GUILD_ID, GUILD_ID);
-                    fc.addDefault("channel_id", "nil");
-                    fc.addDefault("log_channel_id", "nil");
-                    fc.addDefault("invite_link", "https://discord.gg/invite");
+                    fc.addDefault(GUILD_ID, 0);
+                    fc.addDefault(MC_CHANNEL_ID, 0);
+                    fc.addDefault(LOG_CHANNEL_ID, 0);
+                    fc.addDefault(INVITE_LINK, "https://discord.gg/invite");
 
                     fc.options().copyDefaults(true);
 
