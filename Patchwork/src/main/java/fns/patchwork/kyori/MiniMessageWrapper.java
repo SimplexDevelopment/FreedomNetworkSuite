@@ -37,14 +37,14 @@ public class MiniMessageWrapper
     private static final MiniMessage unsafe = MiniMessage.miniMessage();
     private static final MiniMessage safe = MiniMessage.builder()
                                                        .tags(TagResolver.resolver(
-                                                               StandardTags.color(),
-                                                               StandardTags.rainbow(),
-                                                               StandardTags.gradient(),
-                                                               StandardTags.newline(),
-                                                               StandardTags.decorations(TextDecoration.ITALIC),
-                                                               StandardTags.decorations(TextDecoration.BOLD),
-                                                               StandardTags.decorations(TextDecoration.STRIKETHROUGH),
-                                                               StandardTags.decorations(TextDecoration.UNDERLINED)
+                                                           StandardTags.color(),
+                                                           StandardTags.rainbow(),
+                                                           StandardTags.gradient(),
+                                                           StandardTags.newline(),
+                                                           StandardTags.decorations(TextDecoration.ITALIC),
+                                                           StandardTags.decorations(TextDecoration.BOLD),
+                                                           StandardTags.decorations(TextDecoration.STRIKETHROUGH),
+                                                           StandardTags.decorations(TextDecoration.UNDERLINED)
                                                        ))
                                                        .build();
 

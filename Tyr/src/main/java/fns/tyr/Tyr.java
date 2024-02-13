@@ -21,42 +21,28 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.tyr;
 
-import fns.patchwork.provider.ExecutorProvider;
+import fns.datura.Datura;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
-import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.patchwork.utils.logging.FNS4J;
 
-public final class Shortcuts
+public class Tyr
 {
-    private Shortcuts()
+    public void onEnable()
     {
-        throw new AssertionError();
-    }
+        final SQL sql = Shortcuts.provideModule(Datura.class).getSQL();
+        sql.createTable("sessionData",
+                        "user VARCHAR(16) NOT NULL PRIMARY KEY, secretKey VARCHAR(64) NOT NULL;")
+           .whenCompleteAsync((result, throwable) ->
+                              {
+                                  if (throwable != null)
+                                      FNS4J.getLogger("Tyr")
+                                           .error(throwable.getMessage());
+                              }, Shortcuts.getExecutors()
+                                          .getAsync());
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
-    {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
-    }
 
-    public static User getUser(final Player player)
-    {
-        return Registration.getUserRegistry()
-                           .getUser(player);
-    }
-
-    public static ExecutorProvider getExecutors()
-    {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
     }
 }

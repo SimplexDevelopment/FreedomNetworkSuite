@@ -26,6 +26,7 @@ package fns.patchwork.provider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -60,7 +61,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ContextProvider
 {
-    public <T> T fromString(final String string, final Class<T> clazz)
+    public <T> Optional<T> fromString(final String string, final Class<T> clazz)
     {
         return Stream.of(toBoolean(string, clazz),
                          toLong(string, clazz),
@@ -74,9 +75,9 @@ public class ContextProvider
                          toLocation(string, clazz),
                          toComponent(string, clazz))
                      .filter(Objects::nonNull)
-                     .findFirst()
+                     .filter(clazz::isInstance)
                      .map(clazz::cast)
-                     .orElse(null);
+                     .findFirst();
     }
 
     private @Nullable Boolean toBoolean(final String string, final Class<?> clazz)
@@ -227,10 +228,9 @@ public class ContextProvider
     public @NotNull <T> List<@Nullable T> getList(final List<String> resolvable, final Class<T> clazz)
     {
         final List<T> resolved = new ArrayList<>();
-        for (final String entry : resolvable)
-        {
-            resolved.add(this.fromString(entry, clazz));
-        }
+
+        resolvable.forEach(entry -> this.fromString(entry, clazz).ifPresent(resolved::add));
+
         return resolved;
     }
 }

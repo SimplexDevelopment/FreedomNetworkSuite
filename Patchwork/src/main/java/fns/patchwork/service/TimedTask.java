@@ -21,42 +21,35 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.patchwork.service;
 
-import fns.patchwork.provider.ExecutorProvider;
-import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
-import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import java.time.Duration;
 
-public final class Shortcuts
+public abstract class TimedTask extends Task
 {
-    private Shortcuts()
+    private final Duration timeout;
+    private long currentTimeSeconds = 0;
+
+    protected TimedTask(final String name, final Duration interval, final Duration timeout)
     {
-        throw new AssertionError();
+        super(name, 0, interval);
+        this.timeout = timeout;
     }
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
-    {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
-    }
+    protected abstract void runTimer();
 
-    public static User getUser(final Player player)
+    @Override
+    public void run()
     {
-        return Registration.getUserRegistry()
-                           .getUser(player);
-    }
+        if (this.currentTimeSeconds == 0)
+            this.currentTimeSeconds = System.currentTimeMillis() / 1000L;
 
-    public static ExecutorProvider getExecutors()
-    {
-        return provideModule(Patchwork.class).getExecutor();
-    }
+        if (System.currentTimeMillis() / 1000L - this.currentTimeSeconds >= this.timeout.getSeconds())
+        {
+            this.cancel();
+            return;
+        }
 
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
+        this.runTimer();
     }
 }

@@ -21,42 +21,39 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.fossil.reactions;
 
-import fns.patchwork.provider.ExecutorProvider;
-import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
-import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.fossil.Fossil;
+import fns.patchwork.base.Registration;
+import fns.patchwork.base.Shortcuts;
+import fns.patchwork.provider.SubscriptionProvider;
+import fns.patchwork.service.Task;
+import fns.patchwork.service.TaskSubscription;
+import java.time.Duration;
 
-public final class Shortcuts
+public class ReactionSystem
 {
-    private Shortcuts()
+    public static void startCopyCat()
     {
-        throw new AssertionError();
+        final Fossil fossil = Shortcuts.provideModule(Fossil.class);
+        final TaskSubscription<CopyCatReaction> subscription =
+            SubscriptionProvider.runSyncTask(fossil, new CopyCatReaction(25L));
+
+        Registration.getServiceTaskRegistry().registerTask(subscription);
+        Registration.getServiceTaskRegistry().startTask(CopyCatReaction.class);
     }
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
+    private static final class SystemTask extends Task
     {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
-    }
+        private SystemTask()
+        {
+            super("sys-task", 0L, Duration.ofMinutes(15L));
+        }
 
-    public static User getUser(final Player player)
-    {
-        return Registration.getUserRegistry()
-                           .getUser(player);
-    }
-
-    public static ExecutorProvider getExecutors()
-    {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
+        @Override
+        public void run()
+        {
+            ReactionSystem.startCopyCat();
+        }
     }
 }

@@ -21,42 +21,24 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.patchwork.registry;
 
-import fns.patchwork.provider.ExecutorProvider;
 import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
 import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Shortcuts
+public class SQLRegistry
 {
-    private Shortcuts()
-    {
-        throw new AssertionError();
+    private SQL sql;
+
+    public SQLRegistry() {
+        this.sql = null;
     }
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
-    {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
+    public Optional<SQL> getSQL() {
+        return (sql == null) ? Optional.empty() : Optional.of(sql);
     }
 
-    public static User getUser(final Player player)
-    {
-        return Registration.getUserRegistry()
-                           .getUser(player);
-    }
-
-    public static ExecutorProvider getExecutors()
-    {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
+    public void setSQL(final SQL sql) {
+        this.sql = sql;
     }
 }

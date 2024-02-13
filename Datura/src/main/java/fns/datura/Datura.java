@@ -32,7 +32,7 @@ import fns.datura.punishment.Locker;
 import fns.datura.sql.MySQL;
 import fns.patchwork.base.Registration;
 import fns.patchwork.command.CommandHandler;
-import fns.patchwork.service.SubscriptionProvider;
+import fns.patchwork.provider.SubscriptionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,11 +43,10 @@ public class Datura extends JavaPlugin
     // Punishment
     private final Halter halter = new Halter();
     private final Locker locker = new Locker();
-    private Cager cager;
-
     // Features
     private final CommandSpy commandSpy = new CommandSpy();
     private final Fuckoff fuckoff = new Fuckoff();
+    private Cager cager;
 
     @Override
     public void onEnable()
@@ -55,11 +54,19 @@ public class Datura extends JavaPlugin
         cager = new Cager(this);
 
         Registration.getServiceTaskRegistry()
-                 .registerService(SubscriptionProvider.syncService(this, locker));
+                    .registerService(SubscriptionProvider.syncService(this, locker));
         Registration.getServiceTaskRegistry()
                     .registerService(SubscriptionProvider.syncService(this, cager));
         Registration.getServiceTaskRegistry()
                     .registerService(SubscriptionProvider.syncService(this, fuckoff));
+
+        getSQL().createTable("bans",
+                             "uuid VARCHAR(36) PRIMARY KEY",
+                             "name VARCHAR(16)",
+                             "issuer VARCHAR(16)",
+                             "reason VARCHAR(255)",
+                             "issued LONG",
+                             "duration LONG");
 
         Bukkit.getPluginManager()
               .registerEvents(halter, this);
@@ -92,12 +99,12 @@ public class Datura extends JavaPlugin
         return cager;
     }
 
-    public CommandSpy getCommandSpy() 
+    public CommandSpy getCommandSpy()
     {
         return commandSpy;
     }
 
-    public Fuckoff getFuckoff() 
+    public Fuckoff getFuckoff()
     {
         return fuckoff;
     }

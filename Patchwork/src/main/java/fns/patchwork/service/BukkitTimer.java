@@ -21,42 +21,22 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.patchwork.service;
 
-import fns.patchwork.provider.ExecutorProvider;
-import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
-import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Comparator;
 
-public final class Shortcuts
+public class BukkitTimer extends TimedTask
 {
-    private Shortcuts()
+    protected BukkitTimer(String name, Duration interval, Duration timeout)
     {
-        throw new AssertionError();
+        super(name, interval, timeout);
     }
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
+    @Override
+    protected void runTimer()
     {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
-    }
 
-    public static User getUser(final Player player)
-    {
-        return Registration.getUserRegistry()
-                           .getUser(player);
-    }
-
-    public static ExecutorProvider getExecutors()
-    {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
     }
 }

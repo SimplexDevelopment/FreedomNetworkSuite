@@ -23,16 +23,20 @@
 
 package fns.veritas.client;
 
-import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.entity.Guild;
 import discord4j.core.object.entity.Message;
+import discord4j.core.object.entity.PartialMember;
+import discord4j.core.object.entity.Role;
+import discord4j.core.object.entity.User;
+import discord4j.core.object.entity.channel.Channel;
 import discord4j.core.object.entity.channel.TextChannel;
 import discord4j.core.spec.MessageCreateSpec;
 import fns.veritas.cmd.base.BotCommandHandler;
 import java.util.List;
+import java.util.Objects;
 import reactor.core.publisher.Mono;
 
 public class BotClient
@@ -58,35 +62,9 @@ public class BotClient
 
         client.on(ChatInputInteractionEvent.class, handler::handle);
     }
-
-    public String getBotId()
-    {
-        return client.getSelfId().asString();
-    }
-
-    public Mono<Guild> getServerGuildId()
-    {
-        return client.getGuildById(config.getId());
-    }
-
     public GatewayDiscordClient getClient()
     {
         return client;
-    }
-
-    public Snowflake getChatChannelId()
-    {
-        return config.getChatChannelId();
-    }
-
-    public Snowflake getLogChannelId()
-    {
-        return config.getLogChannelId();
-    }
-
-    public String getInviteLink()
-    {
-        return config.getInviteLink();
     }
 
     public void messageChatChannel(String message, boolean system)
@@ -119,7 +97,6 @@ public class BotClient
 
         if (message.contains("@"))
         {
-            // \u200B is Zero Width Space, invisible on Discord
             newMessage = message.replace("@", "@\u200B");
         }
 
@@ -142,6 +119,33 @@ public class BotClient
         }
 
         return deformat(newMessage);
+    }
+
+    public Mono<Boolean> isAdmin(final User user)
+    {
+        return getGuild().flatMap(guild -> guild.getMemberById(user.getId()))
+            .flatMapMany(PartialMember::getRoles)
+            .filter(role -> getConfig().getAdminRoleId().asLong() == role.getId().asLong())
+            .filter(Objects::nonNull)
+            .next()
+            .hasElement();
+    }
+
+    public Mono<Channel> getLogsChannel() {
+        return getGuild().flatMap(guild -> guild.getChannelById(getConfig().getLogChannelId()));
+    }
+
+    public Mono<Channel> getChatChannel() {
+        return getGuild().flatMap(guild -> guild.getChannelById(getConfig().getChatChannelId()));
+    }
+
+    public Mono<Guild> getGuild() {
+        return getClient().getGuildById(getConfig().getGuildId());
+    }
+
+    public BotConfig getConfig()
+    {
+        return config;
     }
 
     public String deformat(String input)

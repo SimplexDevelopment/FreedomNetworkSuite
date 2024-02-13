@@ -94,7 +94,7 @@ public final class WrappedBukkitConfiguration implements Configuration
     }
 
     @Override
-    public <T> List<T> getList(String path, Class<T> clazz)
+    public <T> List<T> getCollection(String path, Class<T> clazz)
     {
         return this.contextProvider.getList(this.getStringList(path), clazz);
     }
@@ -132,7 +132,7 @@ public final class WrappedBukkitConfiguration implements Configuration
     @Override
     public <T> Optional<T> get(String path, Class<T> clazz)
     {
-        return Optional.ofNullable(this.contextProvider.fromString(path, clazz));
+        return this.contextProvider.fromString(path, clazz);
     }
 
     @Override

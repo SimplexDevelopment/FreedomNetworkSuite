@@ -21,42 +21,43 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.tyr.oauth;
 
-import fns.patchwork.provider.ExecutorProvider;
-import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
-import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.j256.twofactorauth.TimeBasedOneTimePasswordUtil;
+import fns.patchwork.utils.logging.FNS4J;
+import java.security.GeneralSecurityException;
 
-public final class Shortcuts
+/**
+ * User-friendly version of TimeBasedOneTimePasswordUtil.
+ */
+public final class TOTP
 {
-    private Shortcuts()
+    private TOTP()
     {
-        throw new AssertionError();
+        throw new AssertionError("This class cannot be instantiated.");
     }
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
+    public static String createSecretKey()
     {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
+        return TimeBasedOneTimePasswordUtil.generateBase32Secret(32);
     }
 
-    public static User getUser(final Player player)
+    public static String createQRCode(final String username, final String secretKey)
     {
-        return Registration.getUserRegistry()
-                           .getUser(player);
+        return TimeBasedOneTimePasswordUtil.qrImageUrl(username, secretKey);
     }
 
-    public static ExecutorProvider getExecutors()
+    public static boolean verify(final String secretKey, final int userCode)
     {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
+        try
+        {
+            int vCode = TimeBasedOneTimePasswordUtil.generateCurrentNumber(secretKey);
+            return vCode == userCode;
+        }
+        catch (GeneralSecurityException ex)
+        {
+            FNS4J.getLogger("Tyr").error("Failed to verify TOTP code: " + ex.getMessage());
+            return false;
+        }
     }
 }

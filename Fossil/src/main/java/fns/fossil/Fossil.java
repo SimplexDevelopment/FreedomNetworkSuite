@@ -24,15 +24,17 @@
 package fns.fossil;
 
 import fns.fossil.cmd.CakeCommand;
+import fns.fossil.reactions.ReactionSystem;
 import fns.fossil.trail.Trailer;
 import fns.patchwork.base.Registration;
 import fns.patchwork.command.CommandHandler;
-import fns.patchwork.service.SubscriptionProvider;
+import fns.patchwork.provider.SubscriptionProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Fossil extends JavaPlugin
 {
     private final Trailer trailer = new Trailer();
+
     @Override
     public void onEnable()
     {

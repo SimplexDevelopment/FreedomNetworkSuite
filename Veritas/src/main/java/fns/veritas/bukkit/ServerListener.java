@@ -54,20 +54,20 @@ public class ServerListener
     public Mono<Void> minecraftChatBound()
     {
         return bot.getClient()
-           .getEventDispatcher()
-           .on(MessageCreateEvent.class)
-           .filter(m -> m.getMessage()
-                         .getChannelId()
-                         .equals(bot.getChatChannelId()))
-           .filter(m -> m.getMember().orElse(null) != null)
-           .filter(m -> !m.getMessage()
-                          .getAuthor()
-                          .orElseThrow(IllegalAccessError::new)
-                          .getId()
-                          .equals(plugin.getAggregate().getBot().getClient().getSelfId()))
-           .doOnError(Aggregate.getLogger()::error)
-           .doOnNext(this::doMessageBodyDetails)
-           .then();
+                  .getEventDispatcher()
+                  .on(MessageCreateEvent.class)
+                  .filter(m -> m.getMessage()
+                                .getChannelId()
+                                .equals(bot.getConfig().getChatChannelId()))
+                  .filter(m -> m.getMember().orElse(null) != null)
+                  .filter(m -> !m.getMessage()
+                                 .getAuthor()
+                                 .orElseThrow(IllegalAccessError::new)
+                                 .getId()
+                                 .equals(bot.getClient().getSelfId()))
+                  .doOnError(Aggregate.getLogger()::error)
+                  .doOnNext(this::doMessageBodyDetails)
+                  .then();
     }
 
     private void doMessageBodyDetails(MessageCreateEvent m)
@@ -81,7 +81,7 @@ public class ServerListener
                                                          .hoverEvent(HoverEvent.showText(
                                                              Component.text("Click to join our Discord server!")))
                                                          .clickEvent(ClickEvent.openUrl(
-                                                             plugin.getAggregate().getBot().getInviteLink())))
+                                                             plugin.getAggregate().getBotConfig().getInviteLink())))
                                         .append(Component.text("] ", NamedTextColor.DARK_GRAY));
         TextComponent user = Component.empty();
 

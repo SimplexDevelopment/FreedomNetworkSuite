@@ -31,7 +31,7 @@ public interface SQL
 {
     CompletableFuture<PreparedStatement> prepareStatement(final String query, final Object... args);
 
-    CompletableFuture<ResultSet> executeQuery(final String query, final Object... args);
+    CompletableFuture<SQLResult> executeQuery(final String query, final Object... args);
 
     CompletableFuture<Integer> executeUpdate(final String query, final Object... args);
 

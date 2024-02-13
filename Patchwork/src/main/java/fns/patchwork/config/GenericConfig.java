@@ -26,7 +26,9 @@ package fns.patchwork.config;
 import com.electronwill.nightconfig.core.Config;
 import com.electronwill.nightconfig.core.ConfigFormat;
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
+import fns.patchwork.provider.ContextProvider;
 import fns.patchwork.utils.FileUtils;
+import fns.patchwork.utils.logging.FNS4J;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,26 +36,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
-public final class GenericConfiguration implements Configuration
+public final class GenericConfig implements Configuration
 {
+    private static final ContextProvider PROVIDER = new ContextProvider();
     private final File configFile;
     private final String fileName;
     private final Config config;
     private final ConfigType configType;
 
-    public GenericConfiguration(@NotNull final ConfigType configType,
-                                   @Nullable final JavaPlugin plugin,
-                                   @NotNull final File dataFolder,
-                                   @NotNull final String fileName,
-                                   final boolean isConcurrent) throws IOException
+    public GenericConfig(@NotNull final ConfigType configType,
+                         @Nullable final JavaPlugin plugin,
+                         @NotNull final File dataFolder,
+                         @NotNull final String fileName,
+                         final boolean isConcurrent) throws IOException
     {
         if (!fileName.endsWith(configType.getExtension()))
             throw new IllegalArgumentException("File name must end with " + configType.getExtension() + "!");
@@ -78,20 +82,20 @@ public final class GenericConfiguration implements Configuration
         this.load();
     }
 
-    public GenericConfiguration(final ConfigType type, final File dataFolder, final String fileName)
+    public GenericConfig(final ConfigType type, final File dataFolder, final String fileName)
         throws IOException
     {
         this(type, null, dataFolder, fileName, false);
     }
 
-    public GenericConfiguration(final ConfigType type, final JavaPlugin plugin, final String fileName)
+    public GenericConfig(final ConfigType type, final JavaPlugin plugin, final String fileName)
         throws IOException
     {
         this(type, plugin, plugin.getDataFolder(), fileName, false);
     }
 
-    public GenericConfiguration(final ConfigType type, final File dataFolder, final String fileName,
-                                   final boolean isConcurrent)
+    public GenericConfig(final ConfigType type, final File dataFolder, final String fileName,
+                         final boolean isConcurrent)
         throws IOException
     {
         this(type, null, dataFolder, fileName, isConcurrent);
@@ -114,8 +118,10 @@ public final class GenericConfiguration implements Configuration
     }
 
     @Override
-    public void load() throws IOException {
-        try (final FileReader reader = new FileReader(this.configFile)) {
+    public void load() throws IOException
+    {
+        try (final FileReader reader = new FileReader(this.configFile))
+        {
             this.config.clear();
 
             final UnmodifiableConfig parsed = this.configType.getParser().parse(reader).unmodifiable();
@@ -145,7 +151,7 @@ public final class GenericConfiguration implements Configuration
     }
 
     @Override
-    public boolean getBoolean(String path)
+    public boolean getBoolean(final String path)
     {
         if (!(this.getConfig().get(path) instanceof Boolean))
             throw new IllegalArgumentException(String.format("Value at path %s is not a boolean!", path));
@@ -153,22 +159,70 @@ public final class GenericConfiguration implements Configuration
         return this.getConfig().get(path);
     }
 
-    @Override
-    @ApiStatus.Internal
-    public @Unmodifiable <T> List<T> getList(String path, Class<T> clazz)
-    {
-        // TODO: Figure out how to parse lists with Night Config.
 
-        return new ArrayList<>();
+    /*
+     * I am pretty sure that this works, but not really.
+     * This is sort of a shot in the dark because Night Config did specify that they support collections
+     * in TOML and JSON files, but there is no specific get method for objects that are not primitives.
+     * Additionally, not all primitives are natively supported.
+     */
+    @Override
+    public @Unmodifiable <T> Collection<T> getCollection(String path, Class<T> clazz)
+    {
+        if (!(this.getConfig().get(path) instanceof Collection<?>))
+            throw new IllegalArgumentException(String.format("Value at path %s is not a collection!", path));
+
+        final Collection<?> collection = this.getConfig().get(path);
+        final Collection<T> collected = new ArrayList<>();
+
+        collection.stream()
+                  .map(obj ->
+                       {
+                           final Optional<T> optional;
+
+                           if (obj instanceof String string)
+                               optional = PROVIDER.fromString(string, clazz);
+                           else if (clazz.isInstance(obj))
+                               optional = Optional.of(clazz.cast(obj));
+                           else
+                               optional = Optional.empty();
+
+                           return optional;
+                       })
+                  .filter(Optional::isPresent)
+                  .map(Optional::get)
+                  .collect(Collectors.toCollection(() -> collected));
+
+        return collected;
     }
 
+    /*
+     * I am pretty sure that this works, but not really.
+     * This is sort of a shot in the dark because Night Config did specify that they support collections
+     * in TOML and JSON files, but there is no specific get method for objects that are not primitives.
+     * Additionally, not all primitives are natively supported.
+     */
     @Override
-    @ApiStatus.Internal
     public @Unmodifiable List<String> getStringList(String path)
     {
-        // TODO: Figure out how to parse lists with Night Config.
+        if (!(this.getConfig().get(path) instanceof Collection<?> c))
+            throw new IllegalArgumentException(String.format("Value at path %s is not a collection!", path));
 
-        return new ArrayList<>();
+        final Collection<?> collection = this.getConfig().get(path);
+        final List<String> list = new ArrayList<>();
+
+        if (c.isEmpty() || !(c.toArray()[0] instanceof String))
+        {
+            FNS4J.PATCHWORK.warn(String.format("Collection at path %s is empty or does not contain strings!", path));
+            FNS4J.PATCHWORK.warn("Returning empty list!");
+            return list;
+        }
+
+        collection.stream()
+                  .map(String.class::cast)
+                  .collect(Collectors.toCollection(() -> list));
+
+        return list;
     }
 
     @Override
@@ -195,20 +249,22 @@ public final class GenericConfiguration implements Configuration
     @Override
     public <T> Optional<T> get(String path, Class<T> clazz)
     {
-        // I love ternary statements, sorry Allink :)
-        return clazz.isInstance(this.getConfig().get(path)) ?
-            Optional.of(clazz.cast(this.getConfig().get(path))) :
-            Optional.empty();
+        return this.getConfig()
+                   .getOptional(path)
+                   .filter(clazz::isInstance)
+                   .map(clazz::cast);
     }
 
     @Override
     public <T> T getOrDefault(String path, Class<T> clazz, T fallback)
     {
-        return this.get(path, clazz).orElse(fallback);
+        return this.get(path, clazz)
+                   .orElse(fallback);
     }
 
     @Override
-    public <T> void set(final String path, final T value) {
+    public <T> void set(final String path, final T value)
+    {
         this.config.set(path, value);
     }
 

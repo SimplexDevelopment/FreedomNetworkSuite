@@ -37,11 +37,17 @@ import net.kyori.adventure.bossbar.BossBar;
 public final class CopyCatReaction extends Reaction
 {
     private final long reward;
+    private final BossBar bossBar;
 
     public CopyCatReaction(final long reward)
     {
         super(ReactionType.COPYCAT);
         this.reward = reward;
+        this.bossBar = BossBarDisplay.builder()
+                                     .setName(getRandomCharacterString())
+                                     .setProgress(0.0F)
+                                     .setOverlay(BossBar.Overlay.NOTCHED_10)
+                                     .build();
     }
 
     @Override
@@ -53,16 +59,16 @@ public final class CopyCatReaction extends Reaction
     @Override
     public void display(final Audience audience)
     {
-        final BossBar bossBar = BossBarDisplay.builder()
-                                              .setName(getRandomCharacterString())
-                                              .setProgress(0.0F)
-                                              .build();
+        audience.showBossBar(bossBar);
     }
 
     @Override
     public void onReact(final EconomicEntity entity)
     {
-        //
+        entity.getEconomicData()
+              .addToBalance(getReward());
+
+        this.cancel();
     }
 
     public String getRandomCharacterString()
@@ -78,5 +84,17 @@ public final class CopyCatReaction extends Reaction
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public void runTimer()
+    {
+        if (bossBar.progress() >= 1.0F)
+        {
+            this.cancel();
+            return;
+        }
+
+        bossBar.progress(bossBar.progress() + 0.1F);
     }
 }

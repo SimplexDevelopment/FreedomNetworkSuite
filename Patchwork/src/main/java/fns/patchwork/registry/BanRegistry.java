@@ -21,42 +21,37 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.patchwork.registry;
 
-import fns.patchwork.provider.ExecutorProvider;
-import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
+import fns.patchwork.bans.BanEntry;
+import java.util.HashSet;
 import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Set;
+import java.util.UUID;
 
-public final class Shortcuts
+public class BanRegistry
 {
-    private Shortcuts()
+    private final Set<BanEntry> loadedBans = new HashSet<>();
+
+    public Optional<BanEntry> getBan(final UUID uuid)
     {
-        throw new AssertionError();
+        return loadedBans.stream()
+                         .filter(b -> b.getUuid().equals(uuid))
+                         .findFirst();
     }
 
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
+    public void addBan(final BanEntry entry)
     {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
+        this.loadedBans.add(entry);
     }
 
-    public static User getUser(final Player player)
+    public void removeBan(final BanEntry entry)
     {
-        return Registration.getUserRegistry()
-                           .getUser(player);
+        this.loadedBans.remove(entry);
     }
 
-    public static ExecutorProvider getExecutors()
+    public void clearLocalStorage()
     {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
+        this.loadedBans.clear();
     }
 }

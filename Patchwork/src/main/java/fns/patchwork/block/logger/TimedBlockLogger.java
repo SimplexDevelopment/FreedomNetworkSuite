@@ -21,42 +21,8 @@
  * SOFTWARE.
  */
 
-package fns.patchwork.base;
+package fns.patchwork.block.logger;
 
-import fns.patchwork.provider.ExecutorProvider;
-import fns.patchwork.sql.SQL;
-import fns.patchwork.user.User;
-import java.util.Optional;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
-public final class Shortcuts
+public interface TimedBlockLogger extends BlockLogger
 {
-    private Shortcuts()
-    {
-        throw new AssertionError();
-    }
-
-    public static <T extends JavaPlugin> T provideModule(final Class<T> pluginClass)
-    {
-        return Registration.getModuleRegistry()
-                           .getProvider(pluginClass)
-                           .getModule();
-    }
-
-    public static User getUser(final Player player)
-    {
-        return Registration.getUserRegistry()
-                           .getUser(player);
-    }
-
-    public static ExecutorProvider getExecutors()
-    {
-        return provideModule(Patchwork.class).getExecutor();
-    }
-
-    public static Optional<SQL> getSQL()
-    {
-        return Registration.getSQLRegistry().getSQL();
-    }
 }
