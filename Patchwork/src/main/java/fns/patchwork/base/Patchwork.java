@@ -27,8 +27,12 @@ import fns.patchwork.display.adminchat.AdminChatDisplay;
 import fns.patchwork.event.EventBus;
 import fns.patchwork.provider.ExecutorProvider;
 import fns.patchwork.provider.SubscriptionProvider;
+import fns.patchwork.registry.ServiceTaskRegistry;
+import fns.patchwork.service.Service;
+import fns.patchwork.utils.logging.FNS4J;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * The base class for Patchwork.
@@ -48,17 +52,8 @@ public class Patchwork extends JavaPlugin
      */
     private AdminChatDisplay acdisplay;
 
-    @Override
-    public void onDisable()
-    {
-        Bukkit.getScheduler()
-              .runTaskLater(this, () -> Registration
-                      .getServiceTaskRegistry()
-                      .stopAllServices(), 1L);
+    private static final ServiceRunner runner = new ServiceRunner();
 
-        Registration.getServiceTaskRegistry()
-                          .unregisterService(EventBus.class);
-    }
 
     @Override
     public void onEnable()
@@ -67,16 +62,39 @@ public class Patchwork extends JavaPlugin
         executor = new ExecutorProvider(this);
         acdisplay = new AdminChatDisplay(this);
 
+        Registration.getServiceTaskRegistry()
+                    .registerService(SubscriptionProvider.asyncService(this, eventBus));
 
         Registration.getServiceTaskRegistry()
-                          .registerService(SubscriptionProvider.asyncService(this, eventBus));
+                    .registerService(SubscriptionProvider.asyncService(this, runner));
 
+        // Will execute post-world
         getExecutor().getSync()
-                     .execute(() -> Registration
-                             .getServiceTaskRegistry()
-                             .startAllServices());
+                     .execute(this::postWorld);
 
         Registration.getModuleRegistry().addModule(this);
+
+        FNS4J.PATCHWORK.info("Successfully enabled Patchwork. API is ready to go.");
+    }
+
+    @Override
+    public void onDisable()
+    {
+        Bukkit.getScheduler()
+              .runTaskLater(this, () -> Registration
+                  .getServiceTaskRegistry()
+                  .stopAllServices(), 1L);
+
+        Registration.getServiceTaskRegistry()
+                    .unregisterService(EventBus.class);
+
+        FNS4J.PATCHWORK.info("Successfully disabled Patchwork. API is no longer available.");
+    }
+
+    private void postWorld()
+    {
+        Registration.getServiceTaskRegistry()
+                    .startAllServices();
     }
 
     /**
@@ -95,6 +113,7 @@ public class Patchwork extends JavaPlugin
      *
      * @return the {@link EventBus}
      */
+    @ApiStatus.Experimental
     public EventBus getEventBus()
     {
         return eventBus;
@@ -109,5 +128,35 @@ public class Patchwork extends JavaPlugin
     public AdminChatDisplay getAdminChatDisplay()
     {
         return acdisplay;
+    }
+
+    @ApiStatus.Internal
+    private static final class ServiceRunner extends Service
+    {
+        public ServiceRunner()
+        {
+            super("srv-runner");
+        }
+
+        @Override
+        public void tick()
+        {
+            final ServiceTaskRegistry r = Registration.getServiceTaskRegistry();
+            r.getServices().forEach(s ->
+                                    {
+                                        if (!s.isActive())
+                                        {
+                                            r.unregisterService(s.getService().getClass());
+                                        }
+                                    });
+
+            r.getTasks().forEach(t ->
+                                 {
+                                     if (!t.isActive())
+                                     {
+                                         r.unregisterTask(t.getTask().getClass());
+                                     }
+                                 });
+        }
     }
 }

@@ -23,13 +23,17 @@
 
 package fns.patchwork.shop;
 
+import fns.patchwork.service.Service;
+import fns.patchwork.service.Task;
+import fns.patchwork.service.TimedTask;
 import java.time.Duration;
 import net.kyori.adventure.text.Component;
+import org.bukkit.event.Listener;
 
 /**
  * Represents a chat reaction that can be performed by a player.
  */
-public abstract class Reaction implements Reactable
+public abstract class Reaction extends TimedTask implements Reactable
 {
     private final Duration reactionDuration;
     private final ReactionType reactionType;
@@ -53,6 +57,9 @@ public abstract class Reaction implements Reactable
 
     protected Reaction(final Duration duration, final long reward, final ReactionType reactionType)
     {
+        super("CopyCatReaction",
+              Duration.ofSeconds(1),
+              Duration.ofSeconds(10));
         this.reward = reward;
         this.reactionDuration = duration;
         this.reactionType = reactionType;

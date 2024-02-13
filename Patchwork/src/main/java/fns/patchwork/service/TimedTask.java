@@ -21,30 +21,35 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.patchwork.service;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.reactions.ReactionSystem;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import java.time.Duration;
 
-public class Fossil extends JavaPlugin
+public abstract class TimedTask extends Task
 {
-    private final Trailer trailer = new Trailer();
+    private final Duration timeout;
+    private long currentTimeSeconds = 0;
+
+    protected TimedTask(final String name, final Duration interval, final Duration timeout)
+    {
+        super(name, 0, interval);
+        this.timeout = timeout;
+    }
+
+    protected abstract void runTimer();
 
     @Override
-    public void onEnable()
+    public void run()
     {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+        if (this.currentTimeSeconds == 0)
+            this.currentTimeSeconds = System.currentTimeMillis() / 1000L;
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+        if (System.currentTimeMillis() / 1000L - this.currentTimeSeconds >= this.timeout.getSeconds())
+        {
+            this.cancel();
+            return;
+        }
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+        this.runTimer();
     }
 }

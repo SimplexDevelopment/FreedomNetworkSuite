@@ -29,6 +29,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Represents a subscription to a task. Task subscriptions offer a nice wrapper for managing tasks, which are inevitably
@@ -58,19 +59,14 @@ public final class TaskSubscription<T extends Task>
     private final Executor executor;
 
     /**
-     * True if the task is active, false otherwise. By default, this is set to false, and will be marked as true when
-     * the task is started.
-     */
-    private boolean isActive = false;
-
-    /**
      * Creates a new task subscription.
      *
      * @param plugin The plugin which owns the task.
      * @param task   The task that is being subscribed to.
      * @param async  True if the task is async, false otherwise.
      */
-    TaskSubscription(final JavaPlugin plugin, final T task, final boolean async)
+    @ApiStatus.Internal
+    public TaskSubscription(final JavaPlugin plugin, final T task, final boolean async)
     {
         this.task = task;
         this.async = async;
@@ -184,7 +180,6 @@ public final class TaskSubscription<T extends Task>
      */
     public void start()
     {
-        this.isActive = true;
         executor.execute(task);
     }
 
@@ -193,7 +188,6 @@ public final class TaskSubscription<T extends Task>
      */
     public void stop()
     {
-        this.isActive = false;
         Bukkit.getScheduler()
               .cancelTask(this.getTaskId());
     }
@@ -235,6 +229,8 @@ public final class TaskSubscription<T extends Task>
      */
     public boolean isActive()
     {
-        return isActive;
+        return !this.getTask().isCancelled() ||
+               !Bukkit.getScheduler().isQueued(this.getTaskId()) &&
+               !Bukkit.getScheduler().isCurrentlyRunning(this.getTaskId());
     }
 }

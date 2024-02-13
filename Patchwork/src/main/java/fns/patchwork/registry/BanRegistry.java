@@ -21,30 +21,37 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.patchwork.registry;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.reactions.ReactionSystem;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.patchwork.bans.BanEntry;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
-public class Fossil extends JavaPlugin
+public class BanRegistry
 {
-    private final Trailer trailer = new Trailer();
+    private final Set<BanEntry> loadedBans = new HashSet<>();
 
-    @Override
-    public void onEnable()
+    public Optional<BanEntry> getBan(final UUID uuid)
     {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+        return loadedBans.stream()
+                         .filter(b -> b.getUuid().equals(uuid))
+                         .findFirst();
+    }
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+    public void addBan(final BanEntry entry)
+    {
+        this.loadedBans.add(entry);
+    }
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+    public void removeBan(final BanEntry entry)
+    {
+        this.loadedBans.remove(entry);
+    }
+
+    public void clearLocalStorage()
+    {
+        this.loadedBans.clear();
     }
 }

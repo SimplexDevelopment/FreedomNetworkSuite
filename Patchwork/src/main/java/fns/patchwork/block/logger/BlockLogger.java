@@ -21,30 +21,31 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.patchwork.block.logger;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.reactions.ReactionSystem;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import java.util.UUID;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 
-public class Fossil extends JavaPlugin
+public interface BlockLogger
 {
-    private final Trailer trailer = new Trailer();
+    UUID getUUID();
 
-    @Override
-    public void onEnable()
-    {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+    int getEditedBlockCount();
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+    void incrementBlockCount();
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+    void decrementBlockCount();
+
+    boolean greaterThan(final int p0);
+
+    default boolean isPlayer() {
+        return Bukkit.getPlayer(this.getUUID()) != null;
+    }
+
+    default boolean isTNT() {
+        final Entity entity = Bukkit.getEntity(this.getUUID());
+        return entity != null && entity.getType() == EntityType.PRIMED_TNT;
     }
 }

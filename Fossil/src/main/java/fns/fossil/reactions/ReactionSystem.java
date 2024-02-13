@@ -21,30 +21,39 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.fossil.reactions;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.reactions.ReactionSystem;
-import fns.fossil.trail.Trailer;
+import fns.fossil.Fossil;
 import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
+import fns.patchwork.base.Shortcuts;
 import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.patchwork.service.Task;
+import fns.patchwork.service.TaskSubscription;
+import java.time.Duration;
 
-public class Fossil extends JavaPlugin
+public class ReactionSystem
 {
-    private final Trailer trailer = new Trailer();
-
-    @Override
-    public void onEnable()
+    public static void startCopyCat()
     {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+        final Fossil fossil = Shortcuts.provideModule(Fossil.class);
+        final TaskSubscription<CopyCatReaction> subscription =
+            SubscriptionProvider.runSyncTask(fossil, new CopyCatReaction(25L));
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+        Registration.getServiceTaskRegistry().registerTask(subscription);
+        Registration.getServiceTaskRegistry().startTask(CopyCatReaction.class);
+    }
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+    private static final class SystemTask extends Task
+    {
+        private SystemTask()
+        {
+            super("sys-task", 0L, Duration.ofMinutes(15L));
+        }
+
+        @Override
+        public void run()
+        {
+            ReactionSystem.startCopyCat();
+        }
     }
 }

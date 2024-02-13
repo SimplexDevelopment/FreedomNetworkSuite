@@ -54,8 +54,8 @@ public final class SubscriptionProvider
      * @return The new {@link ServiceSubscription} object.
      */
     @NotNull
-    @Contract(value = "_, _ -> new", pure = false)
-    public static final <S extends Service> ServiceSubscription<S> syncService(@NotNull final JavaPlugin plugin,
+    @Contract(value = "_, _ -> new")
+    public static <S extends Service> ServiceSubscription<S> syncService(@NotNull final JavaPlugin plugin,
                                                                                @NotNull final S service)
     {
         return new ServiceSubscription<>(plugin, service);
@@ -73,7 +73,7 @@ public final class SubscriptionProvider
      */
     @NotNull
     @Contract(value = "_,_,_ -> new", pure = false)
-    public static final <S extends Service> ServiceSubscription<S> syncService(@NotNull final JavaPlugin plugin,
+    public static <S extends Service> ServiceSubscription<S> syncService(@NotNull final JavaPlugin plugin,
                                                                                final long interval,
                                                                                @NotNull final S service)
     {
@@ -91,7 +91,7 @@ public final class SubscriptionProvider
      */
     @NotNull
     @Contract(value = "_, _ -> new", pure = false)
-    public static final <S extends Service> ServiceSubscription<S> asyncService(@NotNull final JavaPlugin plugin,
+    public static <S extends Service> ServiceSubscription<S> asyncService(@NotNull final JavaPlugin plugin,
                                                                                 @NotNull final S service)
     {
         return new ServiceSubscription<>(plugin, service, true);
@@ -109,7 +109,7 @@ public final class SubscriptionProvider
      */
     @NotNull
     @Contract(value = "_,_,_ -> new", pure = false)
-    public static final <S extends Service> ServiceSubscription<S> asyncService(@NotNull final JavaPlugin plugin,
+    public static <S extends Service> ServiceSubscription<S> asyncService(@NotNull final JavaPlugin plugin,
                                                                                 final long interval,
                                                                                 @NotNull final S service)
     {
@@ -127,7 +127,7 @@ public final class SubscriptionProvider
      */
     @NotNull
     @Contract(value = "_, _ -> new", pure = false)
-    public static final <T extends Task> TaskSubscription<T> runSyncTask(@NotNull final JavaPlugin plugin,
+    public static <T extends Task> TaskSubscription<T> runSyncTask(@NotNull final JavaPlugin plugin,
                                                                          @NotNull final T task)
     {
         return new TaskSubscription<>(plugin, task, false);
@@ -144,7 +144,7 @@ public final class SubscriptionProvider
      */
     @NotNull
     @Contract(value = "_, _ -> new", pure = false)
-    public static final <T extends Task> TaskSubscription<T> runAsyncTask(@NotNull final JavaPlugin plugin,
+    public static <T extends Task> TaskSubscription<T> runAsyncTask(@NotNull final JavaPlugin plugin,
                                                                           @NotNull final T task)
     {
         return new TaskSubscription<>(plugin, task, true);

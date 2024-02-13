@@ -26,7 +26,6 @@ package fns.tyr.data;
 import fns.patchwork.base.Shortcuts;
 import fns.patchwork.utils.logging.FNS4J;
 import fns.tyr.oauth.Identity;
-import java.sql.SQLException;
 
 public class SQLEntry
 {
@@ -45,29 +44,22 @@ public class SQLEntry
                                   .thenApplyAsync(result ->
                                                   {
                                                       SQLEntry entry = null;
-                                                      try
+                                                      if (result.hasNext())
                                                       {
-                                                          if (result.next())
-                                                          {
-                                                              final String user = result.getString("user");
-                                                              final String secretKey = result.getString("secretKey");
+                                                          final String user = result.getString("user");
+                                                          final String secretKey = result.getString("secretKey");
 
-                                                              final Identity i = new Identity(user, secretKey);
+                                                          final Identity i = new Identity(user, secretKey);
 
-                                                              entry = new SQLEntry(i);
-                                                              FNS4J.getLogger("Tyr")
-                                                                   .info("Loaded entry for " + username);
-                                                          }
-                                                          else
-                                                          {
-                                                              entry = new SQLEntry(Identity.of(username));
-                                                              FNS4J.getLogger("Tyr")
-                                                                   .info("Created a new entry for " + username);
-                                                          }
+                                                          entry = new SQLEntry(i);
+                                                          FNS4J.getLogger("Tyr")
+                                                               .info("Loaded entry for " + username);
                                                       }
-                                                      catch (SQLException ex)
+                                                      else
                                                       {
-                                                          FNS4J.getLogger("Tyr").error(ex.getMessage());
+                                                          entry = new SQLEntry(Identity.of(username));
+                                                          FNS4J.getLogger("Tyr")
+                                                               .info("Created a new entry for " + username);
                                                       }
                                                       return entry;
                                                   }, Shortcuts.getExecutors()

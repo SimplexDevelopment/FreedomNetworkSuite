@@ -23,13 +23,16 @@
 
 package fns.patchwork.registry;
 
+import fns.patchwork.base.Registration;
+import fns.patchwork.provider.SubscriptionProvider;
 import fns.patchwork.service.Service;
 import fns.patchwork.service.ServiceSubscription;
-import fns.patchwork.provider.SubscriptionProvider;
 import fns.patchwork.service.Task;
 import fns.patchwork.service.TaskSubscription;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -195,8 +198,18 @@ public class ServiceTaskRegistry
      */
     public void startService(final Class<? extends Service> clazz)
     {
-        this.getService(clazz)
-            .start();
+        Objects.requireNonNull(this.getService(clazz))
+               .start();
+    }
+
+    @ApiStatus.Internal
+    public List<ServiceSubscription<?>> getServices() {
+        return services;
+    }
+
+    @ApiStatus.Internal
+    public List<TaskSubscription<?>> getTasks() {
+        return tasks;
     }
 
     /**
@@ -214,13 +227,12 @@ public class ServiceTaskRegistry
      * @see ServiceSubscription
      */
     @Nullable
+    @SuppressWarnings("unchecked")
     public <T extends Service> ServiceSubscription<T> getService(final Class<T> clazz)
     {
         for (final ServiceSubscription<?> service : this.services)
         {
-            if (service.getService()
-                       .getClass()
-                       .equals(clazz))
+            if (clazz.isInstance(service.getService()))
             {
                 return (ServiceSubscription<T>) service;
             }
@@ -239,8 +251,8 @@ public class ServiceTaskRegistry
      */
     public void stopService(final Class<? extends Service> clazz)
     {
-        this.getService(clazz)
-            .stop();
+        Objects.requireNonNull(this.getService(clazz))
+               .stop();
     }
 
     /**
@@ -254,8 +266,8 @@ public class ServiceTaskRegistry
      */
     public void startTask(final Class<? extends Task> clazz)
     {
-        this.getTask(clazz)
-            .start();
+        Objects.requireNonNull(this.getTask(clazz))
+               .start();
     }
 
     /**
@@ -272,13 +284,11 @@ public class ServiceTaskRegistry
      * @see #registerTask(TaskSubscription)
      * @see TaskSubscription
      */
-    public <T extends Task> TaskSubscription<T> getTask(final Class<T> clazz)
+    public <T extends Task> @Nullable TaskSubscription<T> getTask(final Class<T> clazz)
     {
         for (final TaskSubscription<?> task : this.tasks)
         {
-            if (task.getTask()
-                    .getClass()
-                    .equals(clazz))
+            if (clazz.isInstance(task.getTask()))
             {
                 return (TaskSubscription<T>) task;
             }
@@ -297,8 +307,8 @@ public class ServiceTaskRegistry
      */
     public void stopTask(final Class<? extends Task> clazz)
     {
-        this.getTask(clazz)
-            .stop();
+        Objects.requireNonNull(this.getTask(clazz))
+               .stop();
     }
 
     /**

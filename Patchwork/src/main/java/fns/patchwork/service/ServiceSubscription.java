@@ -27,6 +27,7 @@ import java.util.concurrent.Executor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -62,11 +63,6 @@ public final class ServiceSubscription<T extends Service>
     private final int serviceId;
 
     /**
-     * Whether the service is currently running.
-     */
-    private boolean isActive = false;
-
-    /**
      * Creates a new subscription for the given service. By default, this method will mark this service as a synchronous
      * service. This will also initialize the default interval to a single tick.
      * <br>
@@ -79,7 +75,8 @@ public final class ServiceSubscription<T extends Service>
      * @param plugin  The plugin which owns the service.
      * @param service The service to subscribe to.
      */
-    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service)
+    @ApiStatus.Internal
+    public ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service)
     {
         this(plugin, service, 1L, false);
     }
@@ -94,7 +91,8 @@ public final class ServiceSubscription<T extends Service>
      * @param service The service to subscribe to.
      * @param async   Whether the service should be scheduled asynchronously.
      */
-    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final boolean async)
+    @ApiStatus.Internal
+    public ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final boolean async)
     {
         this(plugin, service, 1L, async);
     }
@@ -111,7 +109,8 @@ public final class ServiceSubscription<T extends Service>
      * @param service  The service to subscribe to.
      * @param interval The interval at which the service should be scheduled.
      */
-    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final long interval)
+    @ApiStatus.Internal
+    public ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service, final long interval)
     {
         this(plugin, service, interval, false);
     }
@@ -126,8 +125,9 @@ public final class ServiceSubscription<T extends Service>
      * @param interval The interval at which the service should be scheduled.
      * @param async    Whether the service should be scheduled asynchronously.
      */
-    ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service,
-                        final long interval, final boolean async)
+    @ApiStatus.Internal
+    public ServiceSubscription(@NotNull final JavaPlugin plugin, @NotNull final T service,
+                               final long interval, final boolean async)
     {
         this.service = service;
         this.async = async;
@@ -142,7 +142,8 @@ public final class ServiceSubscription<T extends Service>
                                               .runTaskTimerAsynchronously(plugin, r, 0, interval);
                 tempId[0] = task.getTaskId();
             };
-        } else
+        }
+        else
         {
             this.executor = r ->
             {
@@ -160,7 +161,6 @@ public final class ServiceSubscription<T extends Service>
      */
     public void start()
     {
-        this.isActive = true;
         this.executor.execute(service::tick);
     }
 
@@ -169,7 +169,6 @@ public final class ServiceSubscription<T extends Service>
      */
     public void stop()
     {
-        this.isActive = false;
         Bukkit.getScheduler()
               .cancelTask(this.getServiceId());
     }
@@ -206,6 +205,9 @@ public final class ServiceSubscription<T extends Service>
      */
     public boolean isActive()
     {
-        return isActive;
+        return Bukkit.getScheduler()
+                   .isQueued(this.getServiceId()) ||
+               Bukkit.getScheduler()
+                   .isCurrentlyRunning(this.getServiceId());
     }
 }

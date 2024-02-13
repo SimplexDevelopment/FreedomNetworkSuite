@@ -21,30 +21,27 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.patchwork.block.detector;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.reactions.ReactionSystem;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import fns.patchwork.block.logger.TimedBlockLogger;
+import java.util.Set;
+import org.bukkit.entity.Player;
 
-public class Fossil extends JavaPlugin
+public interface NukerDetection
 {
-    private final Trailer trailer = new Trailer();
+    Set<TimedBlockLogger> getTimedBlockLoggers();
 
-    @Override
-    public void onEnable()
-    {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
+    boolean isNuking();
 
-        new CommandHandler(this).registerCommands(CakeCommand.class);
+    void addTimedBlockLogger(TimedBlockLogger timedBlockLogger);
 
-        Registration.getModuleRegistry()
-                    .addModule(this);
+    void removeTimedBlockLogger(TimedBlockLogger timedBlockLogger);
+
+    default void ejectPlayer(final Player player) {
+        if (isNuking()) {
+            getTimedBlockLoggers().forEach(l -> {
+
+            });
+        }
     }
 }

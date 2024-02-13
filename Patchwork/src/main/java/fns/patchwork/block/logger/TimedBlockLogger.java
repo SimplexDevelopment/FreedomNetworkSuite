@@ -21,30 +21,8 @@
  * SOFTWARE.
  */
 
-package fns.fossil;
+package fns.patchwork.block.logger;
 
-import fns.fossil.cmd.CakeCommand;
-import fns.fossil.reactions.ReactionSystem;
-import fns.fossil.trail.Trailer;
-import fns.patchwork.base.Registration;
-import fns.patchwork.command.CommandHandler;
-import fns.patchwork.provider.SubscriptionProvider;
-import org.bukkit.plugin.java.JavaPlugin;
-
-public class Fossil extends JavaPlugin
+public interface TimedBlockLogger extends BlockLogger
 {
-    private final Trailer trailer = new Trailer();
-
-    @Override
-    public void onEnable()
-    {
-        Registration.getServiceTaskRegistry()
-                    .registerService(
-                        SubscriptionProvider.syncService(this, trailer));
-
-        new CommandHandler(this).registerCommands(CakeCommand.class);
-
-        Registration.getModuleRegistry()
-                    .addModule(this);
-    }
 }
